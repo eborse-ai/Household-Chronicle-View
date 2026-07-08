@@ -1,0 +1,103 @@
+<template>
+    <div class={rowClass}>
+
+        <!-- ── Left label cell ── -->
+        <div class="c-wj-label-cell">
+            <div class="c-wj-value-row">
+                <span class="c-wj-value-dot" style={tooltipDotStyle}></span>
+                <p class="c-wj-value">{displayValue}</p>
+            </div>
+            <p class="c-wj-subtitle">Wealth Journey</p>
+            <div class="c-wj-metric-toggle">
+                <button class={aumBtnClass}       onclick={handleSelectAum}       >AUM</button>
+                <button class={liquidityBtnClass} onclick={handleSelectLiquidity} >Cash</button>
+                <button class={marketBtnClass}    onclick={handleSelectMarket}    >Market</button>
+            </div>
+        </div>
+
+        <!-- ── Chart area ── -->
+        <div class="c-wj-chart-area"
+             onmousemove={handleChartMouseMove}
+             onmouseleave={handleChartMouseLeave}
+             onclick={handleChartClick}
+             onmousedown={handleChartMouseDown}>
+
+            <!-- Floating tooltip: dot · value · period on one line -->
+            <template lwc:if={showMarker}>
+                <div class="c-wj-tooltip" style={tooltipStyle}>
+                    <span class="c-wj-tooltip-dot" style={tooltipDotStyle}></span>
+                    <p class="c-wj-tooltip-value">{markerValue}</p>
+                    <p class="c-wj-tooltip-period">{markerPeriod}</p>
+                </div>
+            </template>
+
+            <!-- Car-goal label badge (market metric only) -->
+            <template lwc:if={showGoalLine}>
+                <div class="c-wj-goal-label" style={goalLabelStyle}>{goalLabelText}</div>
+            </template>
+
+            <!-- Marker dot: HTML div so it stays a true circle despite non-uniform SVG scale -->
+            <template lwc:if={showMarker}>
+                <div class="c-wj-marker-dot-html" style={markerDotStyle}></div>
+            </template>
+
+            <!-- Today vertical bar: absolutely positioned at left edge of today column -->
+            <template lwc:if={showTodayLine}>
+                <div class="c-wj-today-bar" style={todayBarStyle}></div>
+            </template>
+
+            <!-- SVG chart -->
+            <svg class="c-wj-svg"
+                 viewBox={svgViewBox}
+                 preserveAspectRatio="none"
+                 xmlns="http://www.w3.org/2000/svg">
+
+                <defs>
+                    <!-- AUM gradients (green) -->
+                    <linearGradient id="wjGreenGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%"   stop-color="#10b981" stop-opacity="0.28"></stop>
+                        <stop offset="100%" stop-color="#10b981" stop-opacity="0.02"></stop>
+                    </linearGradient>
+                    <linearGradient id="wjGreenProjGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%"   stop-color="#10b981" stop-opacity="0.10"></stop>
+                        <stop offset="100%" stop-color="#10b981" stop-opacity="0.01"></stop>
+                    </linearGradient>
+                    <!-- Liquidity gradients (blue) -->
+                    <linearGradient id="wjBlueGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%"   stop-color="#0176d3" stop-opacity="0.22"></stop>
+                        <stop offset="100%" stop-color="#0176d3" stop-opacity="0.02"></stop>
+                    </linearGradient>
+                    <linearGradient id="wjBlueProjGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%"   stop-color="#0176d3" stop-opacity="0.08"></stop>
+                        <stop offset="100%" stop-color="#0176d3" stop-opacity="0.01"></stop>
+                    </linearGradient>
+                </defs>
+
+                <!-- Solid line — vector-effect keeps stroke-width in screen px despite non-uniform SVG scale -->
+                <path class={lineClass}  d={solidLinePath}  fill="none" vector-effect="non-scaling-stroke"></path>
+                <!-- Dashed projected line -->
+                <path class={dashedClass} d={dashedLinePath} fill="none" vector-effect="non-scaling-stroke"></path>
+
+                <!-- Car-goal reference line (market metric only) -->
+                <template lwc:if={showGoalLine}>
+                    <line class="c-wj-goal-line"
+                          vector-effect="non-scaling-stroke"
+                          x1="0"    y1={goalLineY}
+                          x2="1000" y2={goalLineY}>
+                    </line>
+                </template>
+
+                <!-- Vertical crosshair: dotted SVG line only -->
+                <template lwc:if={showMarker}>
+                    <line class="c-wj-marker-line"
+                          vector-effect="non-scaling-stroke"
+                          x1={markerX} y1="0"
+                          x2={markerX} y2={todayY2}>
+                    </line>
+                </template>
+
+            </svg>
+        </div>
+
+    </div>
+</template>

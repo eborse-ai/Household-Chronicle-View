@@ -1,0 +1,540 @@
+<template>
+    <div class="c-rel-map-canvas">
+
+        <!-- ── Top-right: Show Recommendations button ── -->
+        <div class="c-rel-map-topbar">
+            <template lwc:if={_showRecsPanel}>
+                <!-- panel is open — no button needed; close is inside panel -->
+            </template>
+            <template lwc:else>
+                <button class="c-rel-map-show-recs-btn" onclick={handleShowRecs}>
+                    <span class="c-rel-map-sparkle-icon" aria-hidden="true">✦</span>
+                    <span>Show Recommendations</span>
+                    <template lwc:if={hasPending}>
+                        <span class="c-rel-map-recs-badge">{pendingCount}</span>
+                    </template>
+                </button>
+            </template>
+        </div>
+
+        <!-- ── Main body: map + optional recommendations panel ── -->
+        <div class="c-rel-map-body">
+
+            <!-- Map area -->
+            <div class="c-rel-map-layout-wrap">
+                <div class="c-rel-map-layout">
+                    <!-- Household root node -->
+                    <div class="c-rel-map-root-col">
+                        <div class="c-rel-map-root-node">
+                            <lightning-icon
+                                icon-name="standard:account"
+                                size="small"
+                                alternative-text="Household">
+                            </lightning-icon>
+                            <span class="slds-m-left_x-small slds-truncate">{accountName}</span>
+                        </div>
+                    </div>
+
+                    <!-- Vertical trunk line -->
+                    <div class="c-rel-map-trunk"></div>
+
+                    <!-- Sections column -->
+                    <div class="c-rel-map-sections-col">
+
+                        <!-- Members section -->
+                        <div class="c-rel-map-section">
+                            <div class="c-rel-map-branch-line"></div>
+                            <div class="c-rel-map-section-box">
+                                <div class="c-rel-map-section-header" onclick={handleToggleMembers}>
+                                    <lightning-icon
+                                        icon-name={membersChevron}
+                                        size="x-small"
+                                        alternative-text="Toggle members">
+                                    </lightning-icon>
+                                    <span class="slds-m-left_x-small slds-text-body_small c-rel-map-section-label">
+                                        <strong>Members ({memberCount})</strong>
+                                    </span>
+                                    <button class="c-rel-map-section-add-btn" title="Add member" onclick={handleStopProp}>
+                                        <lightning-icon icon-name="utility:add" size="xx-small" alternative-text="Add"></lightning-icon>
+                                    </button>
+                                </div>
+
+                                <template lwc:if={isMembersExpanded}>
+                                    <!-- Per-member expandable cards -->
+                                    <div class="c-rel-map-members-list">
+                                        <template for:each={decoratedMembers} for:item="member">
+                                            <div key={member.id} class={member.cardClass}>
+                                                <!-- Card header — clicking toggles this member -->
+                                                <div class="c-rel-map-member-header"
+                                                    onclick={handleToggleMember}
+                                                    data-id={member.id}>
+                                                    <lightning-icon
+                                                        icon-name={member.chevronIcon}
+                                                        size="xx-small"
+                                                        alternative-text="Toggle"
+                                                        class="c-rel-map-member-chevron">
+                                                    </lightning-icon>
+                                                    <div class="c-rel-map-avatar" style={member.avatarStyle}>{member.initials}</div>
+                                                    <div class="c-rel-map-member-identity">
+                                                        <div class="c-rel-map-member-name-row">
+                                                            <span class="slds-text-link slds-text-body_small c-rel-map-member-name">{member.name}</span>
+                                                            <template lwc:if={member.isPrimary}>
+                                                                <lightning-icon
+                                                                    icon-name="utility:favorite"
+                                                                    size="xx-small"
+                                                                    alternative-text="Primary member"
+                                                                    class="c-primary-star">
+                                                                </lightning-icon>
+                                                            </template>
+                                                        </div>
+                                                        <p class="slds-text-body_small slds-text-color_weak">{member.role}</p>
+                                                    </div>
+                                                    <button class="c-rel-map-member-options" title="Member options" onclick={handleStopProp}>
+                                                        <lightning-icon icon-name="utility:down" size="xx-small" alternative-text="Options"></lightning-icon>
+                                                    </button>
+                                                </div>
+
+                                                <!-- Expanded fields -->
+                                                <template lwc:if={member.isExpanded}>
+                                                    <div class="c-rel-map-member-fields">
+                                                        <div class="c-rel-map-field">
+                                                            <p class="c-rel-map-field__label">Relationship Strength</p>
+                                                            <p class="c-rel-map-field__value">{member.relationshipStrength}</p>
+                                                        </div>
+                                                        <div class="c-rel-map-field">
+                                                            <p class="c-rel-map-field__label">Last Interaction</p>
+                                                            <p class="c-rel-map-field__value">{member.lastInteraction}</p>
+                                                        </div>
+                                                        <template for:each={member.upcomingLifeEvents} for:item="evt">
+                                                            <div key={evt} class="c-rel-map-field">
+                                                                <p class="c-rel-map-field__label">Upcoming Life Event</p>
+                                                                <p class="c-rel-map-field__value">{evt}</p>
+                                                            </div>
+                                                        </template>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </template>
+
+                                        <!-- Added members from recommendations -->
+                                        <template for:each={addedMembers} for:item="rec">
+                                            <div key={rec.id} class="c-rel-map-member-card c-rel-map-member-card_added">
+                                                <div class="c-rel-map-member-header">
+                                                    <div class="c-rm-added-icon-wrap">
+                                                        <lightning-icon icon-name={rec.icon} size="x-small" alternative-text={rec.name}></lightning-icon>
+                                                    </div>
+                                                    <div class="c-rel-map-member-identity">
+                                                        <span class="slds-text-link slds-text-body_small c-rel-map-member-name">{rec.name}</span>
+                                                        <p class="slds-text-body_small slds-text-color_weak">{rec.relationship}</p>
+                                                    </div>
+                                                    <span class="c-rm-added-check" title="Added">✓</span>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
+
+                                <!-- Section-collapsed view: compact rows -->
+                                <template lwc:else>
+                                    <template for:each={members} for:item="member">
+                                        <div key={member.id} class="c-rel-map-member-collapsed">
+                                            <lightning-icon
+                                                icon-name="utility:chevronright"
+                                                size="xx-small"
+                                                alternative-text="Expand"
+                                                class="c-rel-map-collapsed-expand">
+                                            </lightning-icon>
+                                            <div class="c-rel-map-avatar c-rel-map-avatar_sm" style={member.avatarStyle}>{member.initials}</div>
+                                            <div class="c-rel-map-collapsed-body">
+                                                <div class="c-rel-map-collapsed-name-row">
+                                                    <span class="slds-text-link slds-text-body_small">{member.name}</span>
+                                                    <template lwc:if={member.isPrimary}>
+                                                        <lightning-icon
+                                                            icon-name="utility:favorite"
+                                                            size="xx-small"
+                                                            alternative-text="Primary"
+                                                            class="c-primary-star">
+                                                        </lightning-icon>
+                                                    </template>
+                                                </div>
+                                                <p class="slds-text-body_small slds-text-color_weak">{member.role}</p>
+                                            </div>
+                                            <button class="c-rel-map-member-options" title="Options" onclick={handleStopProp}>
+                                                <lightning-icon icon-name="utility:down" size="xx-small" alternative-text="Options"></lightning-icon>
+                                            </button>
+                                        </div>
+                                    </template>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Related Households -->
+                        <div class="c-rel-map-section">
+                            <div class="c-rel-map-branch-line"></div>
+                            <div class="c-rel-map-section-box">
+                                <div class="c-rel-map-section-header">
+                                    <lightning-icon icon-name="utility:chevronright" size="x-small" alternative-text="Expand"></lightning-icon>
+                                    <span class="slds-m-left_x-small slds-text-body_small c-rel-map-section-label"><strong>Related Households (0)</strong></span>
+                                    <button class="c-rel-map-section-add-btn" title="Add household">
+                                        <lightning-icon icon-name="utility:add" size="xx-small" alternative-text="Add"></lightning-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Related Accounts -->
+                        <div class="c-rel-map-section">
+                            <div class="c-rel-map-branch-line"></div>
+                            <div class="c-rel-map-section-box">
+                                <div class="c-rel-map-section-header">
+                                    <lightning-icon icon-name="utility:chevronright" size="x-small" alternative-text="Expand"></lightning-icon>
+                                    <span class="slds-m-left_x-small slds-text-body_small c-rel-map-section-label"><strong>Related Accounts ({accountsCount})</strong></span>
+                                    <button class="c-rel-map-section-add-btn" title="Add account">
+                                        <lightning-icon icon-name="utility:add" size="xx-small" alternative-text="Add"></lightning-icon>
+                                    </button>
+                                </div>
+                                <template lwc:if={hasAddedAccounts}>
+                                    <template for:each={addedAccounts} for:item="rec">
+                                        <div key={rec.id} class="c-rel-map-member-collapsed">
+                                            <div class="c-rm-added-icon-wrap">
+                                                <lightning-icon icon-name={rec.icon} size="x-small" alternative-text={rec.name}></lightning-icon>
+                                            </div>
+                                            <div class="c-rel-map-collapsed-body">
+                                                <span class="slds-text-link slds-text-body_small">{rec.name}</span>
+                                                <p class="slds-text-body_small slds-text-color_weak">{rec.relationship}</p>
+                                            </div>
+                                            <span class="c-rm-added-check" title="Added">✓</span>
+                                        </div>
+                                    </template>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Related Contacts -->
+                        <div class="c-rel-map-section c-rel-map-section_last">
+                            <div class="c-rel-map-branch-line"></div>
+                            <div class="c-rel-map-section-box">
+                                <div class="c-rel-map-section-header">
+                                    <lightning-icon icon-name="utility:chevronright" size="x-small" alternative-text="Expand"></lightning-icon>
+                                    <span class="slds-m-left_x-small slds-text-body_small c-rel-map-section-label"><strong>Related Contacts ({contactsCount})</strong></span>
+                                    <button class="c-rel-map-section-add-btn" title="Add contact">
+                                        <lightning-icon icon-name="utility:add" size="xx-small" alternative-text="Add"></lightning-icon>
+                                    </button>
+                                </div>
+                                <template lwc:if={hasAddedContacts}>
+                                    <template for:each={addedContacts} for:item="rec">
+                                        <div key={rec.id} class="c-rel-map-member-collapsed">
+                                            <div class="c-rm-added-icon-wrap">
+                                                <lightning-icon icon-name={rec.icon} size="x-small" alternative-text={rec.name}></lightning-icon>
+                                            </div>
+                                            <div class="c-rel-map-collapsed-body">
+                                                <span class="slds-text-link slds-text-body_small">{rec.name}</span>
+                                                <p class="slds-text-body_small slds-text-color_weak">{rec.relationship}</p>
+                                            </div>
+                                            <span class="c-rm-added-check" title="Added">✓</span>
+                                        </div>
+                                    </template>
+                                </template>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── AI Recommendations panel ── -->
+            <template lwc:if={_showRecsPanel}>
+                <div class="c-rm-rec-panel">
+
+                    <!-- Panel header -->
+                    <div class="c-rm-rec-panel__header">
+                        <div class="c-rm-rec-panel__title-row">
+                            <span class="c-rm-rec-sparkle" aria-hidden="true">✦</span>
+                            <span class="c-rm-rec-panel__title">AI Recommendations</span>
+                            <button class="c-rm-rec-panel__refresh" onclick={handleRefreshRecs} title="Refresh">
+                                Refresh
+                            </button>
+                            <button class="c-rm-rec-panel__close" onclick={handleHideRecs} title="Close">
+                                <lightning-icon icon-name="utility:close" size="x-small" alternative-text="Close"></lightning-icon>
+                            </button>
+                        </div>
+                        <p class="c-rm-rec-panel__subtitle">{pendingLabel}</p>
+                    </div>
+
+                    <!-- Refreshing / loading state -->
+                    <template lwc:if={isRefreshing}>
+                        <div class="c-rm-rec-panel__body c-rm-rec-loading">
+                            <div class="c-rm-rec-loading__content">
+                                <div class="c-rm-rec-sparkles" aria-hidden="true">
+                                    <span class="c-rm-rec-spark c-rm-rec-spark_1">◆</span>
+                                    <span class="c-rm-rec-spark c-rm-rec-spark_2">◆</span>
+                                    <span class="c-rm-rec-spark c-rm-rec-spark_3">◆</span>
+                                </div>
+                                <p class="c-rm-rec-loading__text">AI is researching this household.<br/>Results usually ready within 3–5 minutes</p>
+                                <p class="c-rm-rec-loading__link">You will be notified once results are ready</p>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Recommendation groups -->
+                    <template lwc:else>
+                    <div class="c-rm-rec-panel__body">
+                        <template for:each={decoratedGroups} for:item="group">
+                            <div key={group.category} class="c-rm-rec-group">
+                                <p class="c-rm-rec-group__label">{group.category} ({group.items.length})</p>
+
+                                <template for:each={group.items} for:item="rec">
+                                    <div key={rec.id} class="c-rm-rec-card">
+
+                                        <!-- Card header row -->
+                                        <div class="c-rm-rec-card__header">
+                                            <div class="c-rm-rec-icon-wrap">
+                                                <lightning-icon
+                                                    icon-name={rec.icon}
+                                                    size="x-small"
+                                                    alternative-text={rec.name}>
+                                                </lightning-icon>
+                                            </div>
+                                            <span class="c-rm-rec-name">{rec.name}</span>
+                                            <button
+                                                class={rec.addBtnClass}
+                                                data-id={rec.id}
+                                                onclick={handleAddRec}
+                                                title="Add to tree view">
+                                                {rec.addBtnLabel}
+                                            </button>
+                                        </div>
+
+                                        <!-- Relationship type -->
+                                        <p class="c-rm-rec-relationship">{rec.relationship}</p>
+
+                                        <!-- Source + confidence badges -->
+                                        <div class="c-rm-rec-badges">
+                                            <span class={rec.sourceBadgeClass}>{rec.sourceLabel}</span>
+                                            <span class={rec.confidenceBadgeClass}>{rec.confidence}</span>
+                                        </div>
+
+                                        <!-- Reason -->
+                                        <p class="c-rm-rec-reason">{rec.reason}</p>
+
+                                        <hr class="c-rm-rec-divider" />
+
+                                        <!-- Dismiss -->
+                                        <button
+                                            class="c-rm-rec-dismiss-btn"
+                                            data-id={rec.id}
+                                            onclick={handleDismissRec}>
+                                            Dismiss
+                                        </button>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                    </template>
+
+                </div>
+            </template>
+
+        </div><!-- end c-rel-map-body -->
+
+        <!-- Add-member review modal -->
+        <template lwc:if={showAddModal}>
+            <div class="c-rm-modal-backdrop" onclick={handleCancelAdd}></div>
+            <div class="c-rm-modal" role="dialog" aria-modal="true">
+
+                <!-- Modal header -->
+                <div class="c-rm-modal__header">
+                    <h2 class="c-rm-modal__title">{addModalHeading}</h2>
+                    <button class="c-rm-modal__close" onclick={handleCancelAdd} title="Close">
+                        <lightning-icon icon-name="utility:close" size="small" alternative-text="Close"></lightning-icon>
+                    </button>
+                </div>
+
+                <!-- ── STEP 1A: Select from existing duplicates ── -->
+                <template lwc:if={modalStep1Select}>
+                    <div class="c-rm-modal__body">
+                        <div class="c-rm-modal__id-card">
+                            <div class="c-rm-modal__id-avatar">{addModalInitials}</div>
+                            <span class="c-rm-modal__id-name">{addModalName}</span>
+                        </div>
+                        <p class="c-rm-modal__dup-desc">{addModalDuplicateDesc}</p>
+                        <p class="c-rm-modal__dup-section-label">Select from existing contacts</p>
+                        <div class="c-rm-modal__dup-table">
+                            <div class="c-rm-modal__dup-thead">
+                                <span class="c-rm-modal__dup-radio-spacer"></span>
+                                <span class="c-rm-modal__dup-th">Name</span>
+                                <span class="c-rm-modal__dup-th">Company</span>
+                                <span class="c-rm-modal__dup-th">Title</span>
+                                <span class="c-rm-modal__dup-th">Email</span>
+                            </div>
+                            <template for:each={addModalDuplicates} for:item="dup">
+                                <div key={dup.idx} class={dup.rowClass} onclick={handleSelectDuplicate} data-idx={dup.idx}>
+                                    <input type="radio" class="c-rm-modal__dup-radio" name="dupSelect" data-idx={dup.idx} checked={dup.isSelected}>
+                                    <span class="c-rm-modal__dup-cell c-rm-modal__dup-link">{dup.name}</span>
+                                    <span class="c-rm-modal__dup-cell">{dup.company}</span>
+                                    <span class="c-rm-modal__dup-cell">{dup.title}</span>
+                                    <span class="c-rm-modal__dup-cell">{dup.email}</span>
+                                </div>
+                            </template>
+                        </div>
+                        <button class="c-rm-modal__create-new" onclick={handleCreateNew}>+ Create New Member</button>
+                    </div>
+                    <div class="c-rm-modal__footer c-rm-modal__footer_step1">
+                        <button class="c-rm-modal__cancel" onclick={handleCancelAdd}>Cancel</button>
+                        <div class="c-rm-modal__step-dots">
+                            <span class="c-rm-modal__dot c-rm-modal__dot_active"></span>
+                            <span class="c-rm-modal__dot"></span>
+                        </div>
+                        <div class="c-rm-modal__footer-actions">
+                            <button class="c-rm-modal__skip" onclick={handleSaveAndNext}>Skip</button>
+                            <button class="c-rm-modal__next" disabled={saveAndNextDisabled} onclick={handleSaveAndNext}>Save and Next</button>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- ── STEP 1B: No existing records found ── -->
+                <template lwc:if={modalStep1NoRec}>
+                    <div class="c-rm-modal__body">
+                        <div class="c-rm-modal__norec-card">
+                            <div class="c-rm-modal__id-card">
+                                <div class="c-rm-modal__id-avatar">{addModalInitials}</div>
+                                <span class="c-rm-modal__id-name">{addModalName}</span>
+                            </div>
+                            <p class="c-rm-modal__norec-desc">{addModalNoRecDesc}</p>
+                            <button class="c-rm-modal__create-new" onclick={handleCreateNew}>+ Create New Member</button>
+                        </div>
+                    </div>
+                    <div class="c-rm-modal__footer c-rm-modal__footer_step1">
+                        <button class="c-rm-modal__cancel" onclick={handleCancelAdd}>Cancel</button>
+                        <div class="c-rm-modal__step-dots">
+                            <span class="c-rm-modal__dot c-rm-modal__dot_active"></span>
+                            <span class="c-rm-modal__dot"></span>
+                        </div>
+                        <div class="c-rm-modal__footer-actions">
+                            <button class="c-rm-modal__skip" onclick={handleCancelAdd}>Skip</button>
+                            <button class="c-rm-modal__next" disabled onclick={handleCreateNew}>Save and Next</button>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- ── STEP 2A: Add details (existing record selected) ── -->
+                <template lwc:if={modalStep2Details}>
+                    <div class="c-rm-modal__body">
+                        <h3 class="c-rm-modal__subtitle">Add Additional Details</h3>
+                        <lightning-input label="Account" value={addModalAccount} read-only class="c-rm-modal__field"></lightning-input>
+                        <lightning-input label="Name"    value={addModalName}    read-only class="c-rm-modal__field"></lightning-input>
+                        <div class="c-rm-modal__row">
+                            <lightning-combobox
+                                label="Role"
+                                value={addModalRole}
+                                options={roleOptions}
+                                onchange={handleModalRoleChange}
+                                class="c-rm-modal__field c-rm-modal__field_half">
+                            </lightning-combobox>
+                            <lightning-combobox
+                                label="Status"
+                                value={addModalStatus}
+                                options={statusOptions}
+                                onchange={handleModalStatusChange}
+                                class="c-rm-modal__field c-rm-modal__field_half">
+                            </lightning-combobox>
+                        </div>
+                        <p class="c-rm-modal__hint">{addModalSourceNote}</p>
+                    </div>
+                    <div class="c-rm-modal__footer c-rm-modal__footer_step2">
+                        <button class="c-rm-modal__back" onclick={handleModalBack}>Back</button>
+                        <div class="c-rm-modal__step-dots">
+                            <span class="c-rm-modal__dot c-rm-modal__dot_done"></span>
+                            <span class="c-rm-modal__dot c-rm-modal__dot_active"></span>
+                        </div>
+                        <div class="c-rm-modal__footer-actions">
+                            <button class="c-rm-modal__cancel" onclick={handleCancelAdd}>Cancel</button>
+                            <button class="c-rm-modal__add"    onclick={handleConfirmAdd}>Add</button>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- ── STEP 2B: Create new person account form ── -->
+                <template lwc:if={modalStep2Create}>
+                    <div class="c-rm-modal__body">
+                        <h3 class="c-rm-modal__subtitle">New Member details</h3>
+                        <lightning-combobox
+                            label="Salutation"
+                            value={addModalSalutation}
+                            options={salutationOptions}
+                            required
+                            onchange={handleModalSalutationChange}
+                            class="c-rm-modal__field">
+                        </lightning-combobox>
+                        <div class="c-rm-modal__row">
+                            <lightning-input
+                                label="First Name"
+                                value={addModalFirstName}
+                                required
+                                onchange={handleModalFirstNameChange}
+                                class="c-rm-modal__field c-rm-modal__field_half">
+                            </lightning-input>
+                            <lightning-input
+                                label="Last Name"
+                                value={addModalLastName}
+                                required
+                                onchange={handleModalLastNameChange}
+                                class="c-rm-modal__field c-rm-modal__field_half">
+                            </lightning-input>
+                        </div>
+                        <lightning-input
+                            label="Phone"
+                            type="tel"
+                            placeholder="+1 415-555-0199"
+                            required
+                            class="c-rm-modal__field">
+                        </lightning-input>
+                    </div>
+                    <div class="c-rm-modal__footer c-rm-modal__footer_step2">
+                        <button class="c-rm-modal__back" onclick={handleModalBack}>Back</button>
+                        <div class="c-rm-modal__step-dots">
+                            <span class="c-rm-modal__dot c-rm-modal__dot_done"></span>
+                            <span class="c-rm-modal__dot c-rm-modal__dot_active"></span>
+                        </div>
+                        <div class="c-rm-modal__footer-actions">
+                            <button class="c-rm-modal__cancel" onclick={handleCancelAdd}>Cancel</button>
+                            <button class="c-rm-modal__add"    onclick={handleConfirmAdd}>Add</button>
+                        </div>
+                    </div>
+                </template>
+
+            </div>
+        </template>
+
+        <!-- Dismiss toast -->
+        <template lwc:if={showDismissToast}>
+            <div class="c-rm-toast" role="status" aria-live="polite">
+                <div class="c-rm-toast__icon-wrap">
+                    <lightning-icon icon-name="utility:check" size="x-small" alternative-text="Dismissed"></lightning-icon>
+                </div>
+                <div class="c-rm-toast__body">
+                    <span class="c-rm-toast__msg">
+                        <strong>{dismissToastName}</strong> has been dismissed. Find it in
+                        <a class="c-rm-toast__link" href="#archives" onclick={handleArchivesNav}>archives</a>.
+                    </span>
+                </div>
+                <button class="c-rm-toast__close" onclick={handleToastClose} title="Close">
+                    <lightning-icon icon-name="utility:close" size="x-small" alternative-text="Close"></lightning-icon>
+                </button>
+            </div>
+        </template>
+
+        <!-- Zoom controls -->
+        <div class="c-rel-map-zoom-bar">
+            <button class="c-rel-map-zoom-btn" title="Zoom out" onclick={handleZoomOut}>
+                <lightning-icon icon-name="utility:zoomout" size="x-small" alternative-text="Zoom out"></lightning-icon>
+            </button>
+            <span class="c-rel-map-zoom-level">{zoomLabel}</span>
+            <button class="c-rel-map-zoom-btn" title="Zoom in" onclick={handleZoomIn}>
+                <lightning-icon icon-name="utility:zoomin" size="x-small" alternative-text="Zoom in"></lightning-icon>
+            </button>
+        </div>
+
+    </div>
+</template>

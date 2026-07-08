@@ -24,7 +24,7 @@ export const apps = [
     variant: 'standard',
     pathPrefix: '/app',
     defaultPath: '/app',
-    pages: ['home', 'icons', 'contacts'],
+    pages: ['home', 'accounts', 'icons', 'contacts'],
   },
   {
     id: 'console',
@@ -32,7 +32,7 @@ export const apps = [
     variant: 'console',
     pathPrefix: '/console',
     defaultPath: '/console',
-    pages: ['home', 'icons', 'contacts'],
+    pages: ['home', 'accounts', 'icons', 'contacts'],
   },
   {
     id: 'builder',

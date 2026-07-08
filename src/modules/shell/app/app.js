@@ -11,6 +11,8 @@ import {
 import { toggleSLDS, activeSLDSVersion, STORAGE_KEY_SLDS_VERSION } from '../../../build/slds-loader';
 import Home from 'page/home';
 import IconTest from 'page/iconTest';
+import Accounts from 'page/accounts';
+import AccountDetail from 'page/accountDetail';
 import Contacts from 'page/contacts';
 import ContactDetail from 'page/contactDetail';
 import Builder from 'page/builder';
@@ -20,6 +22,8 @@ import NotFound from 'page/notFound';
 const ROUTE_COMPONENTS = {
     'page-home': Home,
     'page-icon-test': IconTest,
+    'page-accounts': Accounts,
+    'page-account-detail': AccountDetail,
     'page-contacts': Contacts,
     'page-contact-detail': ContactDetail,
     'page-builder': Builder,
@@ -49,6 +53,8 @@ export default class App extends LightningElement {
     _currentApp = getPersistedAppId() || DEFAULT_APP_ID;
     selectedPanel = 'agentforce_panel';
     isPanelOpen = false;
+    openTabs = [];
+    activeTabId = null;
 
     get componentCtor() {
         if (!this.route) return NotFound;
@@ -201,6 +207,38 @@ export default class App extends LightningElement {
 
     get panelClasses() {
         return `slds-panel slds-size_medium slds-panel_docked slds-panel_docked-right ${this.isPanelOpen ? 'slds-is-open' : ''}`;
+    }
+
+    handleOpenTab(event) {
+        const { id, label, iconName, path } = event.detail;
+        const exists = this.openTabs.find((t) => t.id === id);
+        if (!exists) {
+            this.openTabs = [...this.openTabs, { id, label, iconName, path }];
+        }
+        this.activeTabId = id;
+        navigate(path);
+    }
+
+    handleTabActivate(event) {
+        const { id } = event.detail;
+        const tab = this.openTabs.find((t) => t.id === id);
+        if (tab) {
+            this.activeTabId = id;
+            navigate(tab.path);
+        }
+    }
+
+    handleTabClose(event) {
+        const { id } = event.detail;
+        const remaining = this.openTabs.filter((t) => t.id !== id);
+        this.openTabs = remaining;
+        if (this.activeTabId === id) {
+            this.activeTabId = remaining.length > 0 ? remaining[remaining.length - 1].id : null;
+            const nextPath = this.activeTabId
+                ? remaining.find((t) => t.id === this.activeTabId).path
+                : '/accounts';
+            navigate(nextPath);
+        }
     }
 
     handleNavigateBack() {

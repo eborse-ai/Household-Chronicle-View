@@ -1,0 +1,36 @@
+<template>
+    <div lwc:if={hasTabs} class="c-workspace-tab-bar">
+        <ul class="c-workspace-tab-list" role="tablist">
+            <template for:each={tabsWithState} for:item="tab">
+                <li key={tab.id} class={tab.itemClass} role="presentation">
+                    <a
+                        href={tab.href}
+                        class="c-workspace-tab__label"
+                        role="tab"
+                        aria-selected={tab.ariaSelected}
+                        title={tab.label}
+                        data-id={tab.id}
+                        onclick={handleTabClick}>
+                        <lightning-icon
+                            icon-name={tab.iconName}
+                            size="x-small"
+                            alternative-text={tab.label}>
+                        </lightning-icon>
+                        <span class="slds-truncate slds-m-left_xx-small">{tab.label}</span>
+                    </a>
+                    <button
+                        class="slds-button slds-button_icon c-workspace-tab__close"
+                        data-id={tab.id}
+                        title="Close tab"
+                        onclick={handleTabClose}>
+                        <lightning-icon
+                            icon-name="utility:close"
+                            size="x-small"
+                            alternative-text="Close tab">
+                        </lightning-icon>
+                    </button>
+                </li>
+            </template>
+        </ul>
+    </div>
+</template>

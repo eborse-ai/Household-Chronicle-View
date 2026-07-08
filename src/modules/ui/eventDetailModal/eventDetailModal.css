@@ -1,0 +1,210 @@
+/* ── Visual header ──────────────────────────────────────────── */
+.c-emodal-top {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--slds-g-spacing-4, 1rem);
+    padding: var(--slds-g-spacing-4, 1rem) var(--slds-g-spacing-4, 1rem) var(--slds-g-spacing-3, 0.75rem);
+    border-bottom: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #dddbda);
+}
+
+/* Event-type icon circle */
+.c-emodal-avatar {
+    flex-shrink: 0;
+    /* No SLDS hook for 3rem circle */
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.c-emodal-avatar_life        { background: #0094B7; }
+.c-emodal-avatar_meeting     { background: var(--slds-g-color-accent-1, #0176d3); }
+.c-emodal-avatar_transaction { background: var(--slds-g-color-warning-base-70, #f59e0b); }
+.c-emodal-avatar_goal        { background: var(--slds-g-color-palette-violet-40, #7c3aed); }
+.c-emodal-avatar_financial   { background: var(--slds-g-color-palette-green-65, #10b981); }
+
+/* Force icon color to white inside colored circle */
+.c-emodal-avatar lightning-icon {
+    --slds-c-icon-color-foreground: var(--slds-g-color-on-accent-1, #fff);
+    --slds-c-icon-color-foreground-default: var(--slds-g-color-on-accent-1, #fff);
+}
+
+.c-emodal-header-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.c-emodal-type-label {
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    letter-spacing: 0.05em;
+    color: var(--slds-g-color-on-surface-2, #706e6b);
+    text-transform: uppercase;
+    margin: 0 0 var(--slds-g-spacing-1, 0.25rem);
+}
+
+.c-emodal-title {
+    font-size: var(--slds-g-font-scale-3, 1.25rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    color: var(--slds-g-color-on-surface-1, #080707);
+    margin: 0 0 var(--slds-g-spacing-2, 0.5rem);
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+}
+
+.c-emodal-critical-dot {
+    /* No SLDS hook for red */
+    color: #ea0000;
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+}
+
+.c-emodal-description {
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+    color: var(--slds-g-color-on-surface-2, #444);
+    line-height: var(--slds-g-font-line-height-base, 1.5);
+    margin: 0 0 var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-emodal-shared-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    /* No SLDS hook for this lavender tint */
+    background: #ede9fe;
+    color: var(--slds-g-color-palette-violet-40, #7c3aed);
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    /* No SLDS hook for 0.625rem — intentional badge padding */
+    padding: var(--slds-g-spacing-1, 0.25rem) 0.625rem;
+    border-radius: var(--slds-g-radius-border-4, 1rem);
+}
+
+/* ── Key metrics bar ────────────────────────────────────────── */
+.c-emodal-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #dddbda);
+}
+
+.c-emodal-metric {
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-3, 0.75rem);
+    border-right: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #dddbda);
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+}
+
+.c-emodal-metric:last-child {
+    border-right: none;
+}
+
+.c-emodal-metric-label {
+    font-size: var(--slds-g-font-scale-neg-3, 0.6875rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--slds-g-color-on-surface-2, #706e6b);
+}
+
+.c-emodal-metric-value {
+    font-size: var(--slds-g-font-scale-2, 1.125rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    color: var(--slds-g-color-on-surface-1, #080707);
+}
+
+/* Status variants */
+.c-emodal-status {
+    font-size: var(--slds-g-font-scale-2, 1.125rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    color: var(--slds-g-color-on-surface-1, #080707);
+}
+.c-emodal-status_risk    { color: var(--slds-g-color-error-base-40, #ba0517); }
+.c-emodal-status_warn    { color: var(--slds-g-color-warning-base-40, #a94000); }
+.c-emodal-status_info    { color: var(--slds-g-color-accent-1, #0176d3); }
+.c-emodal-status_neutral { color: var(--slds-g-color-on-surface-2, #706e6b); }
+
+/* ── AI insight card ────────────────────────────────────────── */
+.c-emodal-ai-card {
+    background: var(--slds-g-color-accent-light-1, #ede9fe);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem);
+    margin: var(--slds-g-spacing-4, 1rem) var(--slds-g-spacing-4, 1rem) 0;
+    border: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-palette-violet-90, #ddd6fe);
+}
+
+.c-emodal-ai-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-emodal-ai-sparkle {
+    color: var(--slds-g-color-palette-violet-40, #7c3aed);
+    font-size: var(--slds-g-font-scale-2, 1.125rem);
+}
+
+.c-emodal-ai-dismiss {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--slds-g-color-on-surface-2, #706e6b);
+    font-size: var(--slds-g-font-scale-3, 1.25rem);
+    line-height: 1;
+    padding: 0;
+    line-height: var(--slds-g-font-line-height-1, 1);
+}
+
+.c-emodal-ai-text {
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+    color: var(--slds-g-color-on-surface-1, #080707);
+    line-height: var(--slds-g-font-line-height-base, 1.5);
+    margin: 0 0 var(--slds-g-spacing-3, 0.75rem);
+}
+
+.c-emodal-ai-cta {
+    display: block;
+}
+
+/* ── Detail grid ────────────────────────────────────────────── */
+.c-emodal-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem) 0;
+    gap: 0;
+    border-top: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #dddbda);
+    margin-top: var(--slds-g-spacing-4, 1rem);
+}
+
+.c-emodal-detail-cell {
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-2, 0.5rem);
+    border-bottom: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #dddbda);
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+}
+
+.c-emodal-detail-label {
+    font-size: var(--slds-g-font-scale-neg-3, 0.6875rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--slds-g-color-on-surface-2, #706e6b);
+}
+
+.c-emodal-detail-value {
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+    color: var(--slds-g-color-on-surface-1, #080707);
+    line-height: var(--slds-g-font-line-height-base, 1.5);
+}
+
+/* ── Action taken ───────────────────────────────────────────── */
+.c-emodal-action-taken {
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem) var(--slds-g-spacing-4, 1rem);
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+}

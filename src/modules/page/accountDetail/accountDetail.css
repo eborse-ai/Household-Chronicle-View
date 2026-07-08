@@ -1,0 +1,2084 @@
+:host {
+    display: block;
+    /* Prevent any wide child (e.g. timeline table) from causing page-level horizontal scroll */
+    overflow-x: hidden;
+}
+
+/* ── Record home page header ─────────────────────────────────────── */
+.c-record-header {
+    padding: var(--slds-g-spacing-4, 1rem) var(--slds-g-spacing-6, 1.5rem);
+    margin-bottom: var(--slds-g-spacing-4, 1rem);
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+/* Object type label — small text above the title */
+.slds-page-header__name-meta {
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    color: var(--slds-g-color-neutral-base-50, #706e6b);
+    line-height: var(--slds-g-font-line-height-base, 1.5);
+    margin-bottom: 0;
+}
+
+/* Subtitle: "X Members · Segment · Client Since" */
+.c-record-subtitle {
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+    color: var(--slds-g-color-neutral-base-50, #706e6b);
+    line-height: var(--slds-g-font-line-height-base, 1.5);
+    margin-top: var(--slds-g-spacing-1, 0.25rem);
+    margin-bottom: 0;
+}
+
+lightning-card {
+    --slds-c-card-body-spacing-inline: var(--slds-g-spacing-var-inline-4);
+}
+
+/* ── Sidebar ─────────────────────────────────────────── */
+
+.c-summary-list {
+    list-style: none;
+    margin: 0;
+    padding: var(--slds-g-spacing-3, 0.75rem) 0 0;
+}
+
+.c-summary-list__item {
+    display: flex;
+    align-items: flex-start;
+    padding: var(--slds-g-spacing-1, 0.25rem) 0;
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+}
+
+.c-summary-list__text {
+    /* No SLDS hook for line-height 1.4 */
+    line-height: 1.4;
+}
+
+.c-text-warning {
+    color: var(--slds-g-color-warning-base-60, #dd7a01);
+}
+
+/* Agentic description box */
+.c-agentic-desc {
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    background: var(--slds-g-color-accent-light-1, #f3f0ff);
+    border: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-palette-purple-80, #c9b8ff);
+}
+
+.c-agentic-desc__stars {
+    font-size: var(--slds-g-font-scale-2, 0.875rem);
+    color: var(--slds-g-color-palette-purple-50, #7b4ed1);
+    letter-spacing: var(--slds-g-spacing-1, 0.25rem);
+}
+
+/* ── Highlights ──────────────────────────────────────── */
+
+/* Outer panel card wrapping the entire Highlights section */
+.c-highlights-panel {
+    background: var(--slds-g-color-surface-1, #ffffff);
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #e5e5e5);
+    border-radius: var(--slds-g-radius-border-3, 0.5rem);
+    padding: var(--slds-g-spacing-4, 1rem);
+    box-shadow: none;
+}
+
+.c-highlights-panel__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--slds-g-spacing-3, 0.75rem);
+}
+
+/* ── Highlights header star icon ────────────────────── */
+.c-highlights-star-icon {
+    /* intentional static: violet-40 — matches the filled star in the reference screenshot */
+    color: var(--slds-g-color-palette-violet-40, #7c3aed);
+    display: flex;
+    align-items: center;
+}
+
+.c-highlights-scroller {
+    display: flex;
+    gap: var(--slds-g-spacing-3, 0.75rem);
+    overflow-x: auto;
+    padding-bottom: var(--slds-g-spacing-2, 0.5rem);
+    /* Smooth scroll on touch */
+    -webkit-overflow-scrolling: touch;
+}
+
+.c-highlight-card {
+    flex: 0 0 auto;
+    /* intentional static: 19rem card width; no SLDS sizing hook */
+    width: 19rem;
+    background: var(--slds-g-color-surface-1, #ffffff);
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #e5e5e5);
+    border-radius: var(--slds-g-radius-border-3, 0.5rem);
+    padding: var(--slds-g-spacing-4, 1rem);
+}
+
+.c-highlight-card__header {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    flex-wrap: nowrap;
+}
+
+/* ── Badges ─────────────────────────────────────────── */
+.c-badge {
+    display: inline-block;
+    flex-shrink: 0;
+    /* No SLDS hook for 0.125rem badge vertical padding */
+    padding: 0.125rem var(--slds-g-spacing-2, 0.5rem);
+    border-radius: var(--slds-g-radius-border-4, 1rem);
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    letter-spacing: 0.01em;
+}
+
+.c-badge_alert {
+    /* Vivid pink/rose tint matching screenshot — no SLDS v2 hook for this surface */
+    background: #fce7f0;
+    color: #c2185b;
+}
+
+.c-badge_gap {
+    background: var(--slds-g-color-warning-container-1, #fff3cd);
+    color: var(--slds-g-color-palette-orange-50, #b45309);
+}
+
+.c-badge_predicted {
+    /* Blue-violet tint for predicted insights — no SLDS v2 hook for this exact surface */
+    background: #ede9fe;
+    /* No SLDS v2 hook for violet-700 */
+    color: #5b21b6;
+}
+
+.c-badge_opportunity {
+    /* Teal tint for opportunity insights — no SLDS v2 hook for this surface */
+    background: #ccfbf1;
+    /* No SLDS v2 hook for teal-700 */
+    color: #0f766e;
+}
+
+/* ── Highlight card split action button ─────────────── */
+.c-highlight-action {
+    display: inline-flex;
+    align-items: stretch;
+    border: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #c9c9c9);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.c-highlight-action__btn {
+    background: var(--slds-g-color-surface-1, #ffffff);
+    border: none;
+    /* No SLDS hook for 0.625rem horizontal padding on compact action button */
+    padding: var(--slds-g-spacing-1, 0.25rem) 0.625rem;
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-5, 400);
+    color: var(--slds-g-color-on-surface-1, #181818);
+    cursor: pointer;
+    white-space: nowrap;
+    /* No SLDS hook for line-height 1.4 */
+    line-height: 1.4;
+}
+
+.c-highlight-action__btn:hover {
+    background: var(--slds-g-color-surface-2, #f3f3f3);
+}
+
+.c-highlight-action__chevron {
+    background: var(--slds-g-color-surface-1, #ffffff);
+    border: none;
+    border-left: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #c9c9c9);
+    padding: var(--slds-g-spacing-1, 0.25rem);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.c-highlight-action__chevron:hover {
+    background: var(--slds-g-color-surface-2, #f3f3f3);
+}
+
+/* ── Tab panel white card wrapping the lightning-tabset ─────────── */
+.c-tab-panel {
+    background: var(--slds-g-color-surface-1, #ffffff);
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #e5e5e5);
+    border-radius: var(--slds-g-radius-border-3, 0.5rem);
+    overflow: hidden;   /* clips tabset border-radius at corners */
+}
+
+/* 16px padding on all sides of each tab's content area */
+.c-tab-content {
+    padding: var(--slds-g-spacing-4, 1rem);
+}
+
+/* ── Agentic Summary ─────────────────────────────────── */
+
+.c-agentic-summary {
+    /* intentional static: #ECE1F9 — requested brand lavender; closest SLDS hook is too light */
+    background: #ECE1F9;
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-palette-purple-80, #c9b8ff);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    padding: var(--slds-g-spacing-4, 1rem);
+}
+
+/* When placed above the timeline header bar — keeps rounded corners, adds inner breathing room */
+.c-agentic-summary_above-header {
+    /* No SLDS hook for 0.3125rem — half of prior inset */
+    margin: 0.3125rem 0.3125rem var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-agentic-summary__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-agentic-summary__title {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+}
+
+.c-agentic-summary__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-3, 0.75rem);
+    flex-wrap: wrap;
+}
+
+/* ── Agentic Summary filter toggle ──────────────────────────── */
+.c-as-filter {
+    display: inline-flex;
+    /* intentional static: border matches card border */
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-palette-purple-80, #c9b8ff);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    overflow: hidden;
+}
+
+.c-as-filter__btn {
+    background: transparent;
+    border: none;
+    /* intentional static: 0.25rem 0.625rem — compact pill padding */
+    padding: 0.25rem 0.625rem;
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    cursor: pointer;
+    color: var(--slds-g-color-palette-violet-40, #7c3aed);
+    line-height: var(--slds-g-font-line-height-base, 1.5);
+    white-space: nowrap;
+    transition: background 0.12s, color 0.12s;
+}
+
+.c-as-filter__btn:not(:last-child) {
+    border-right: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-palette-purple-80, #c9b8ff);
+}
+
+.c-as-filter__btn_active {
+    background: var(--slds-g-color-palette-violet-40, #7c3aed);
+    color: var(--slds-g-color-neutral-base-100, #ffffff);
+}
+
+/* Summary / Potential Impact section label */
+.c-tl-insight-bold {
+    font-weight: var(--slds-g-font-weight-7, 700);
+}
+
+/* Two-column body layout for Timeline Insights */
+.c-tl-insight-body {
+    display: flex;
+    gap: var(--slds-g-spacing-4, 1rem);
+    margin-top: var(--slds-g-spacing-3, 0.75rem);
+}
+
+.c-tl-insight-col {
+    flex: 1 1 0;
+    min-width: 0;
+    margin: 0;
+    line-height: var(--slds-g-font-line-height-base, 1.5);
+    /* intentional static: subtle left border as column divider */
+    border-left: 2px solid var(--slds-g-color-palette-purple-80, #c9b8ff);
+    padding-left: var(--slds-g-spacing-3, 0.75rem);
+}
+
+.c-tl-insight-col:first-child {
+    border-left: none;
+    padding-left: 0;
+}
+
+.c-as-section-label {
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    color: var(--slds-g-color-on-surface-2, #444);
+    margin: 0;
+    text-transform: uppercase;
+    /* intentional static: 0.06em — subtle tracking; no SLDS hook */
+    letter-spacing: 0.06em;
+}
+
+.c-agentic-metrics {
+    display: flex;
+    gap: var(--slds-g-spacing-6, 1.5rem);
+    padding: var(--slds-g-spacing-3, 0.75rem) 0;
+    /* intentional static: purple border to match card */
+    border-top: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-palette-purple-80, #c9b8ff);
+    border-bottom: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-palette-purple-80, #c9b8ff);
+    flex-wrap: wrap;
+}
+
+.c-agentic-metric {
+    /* intentional static: 6rem min-width — no SLDS hook */
+    min-width: 6rem;
+}
+
+/* ── Group Timeline ──────────────────────────────────── */
+
+/* ── Monthly / Yearly toggle pill ───────────────────── */
+.c-tl-toggle {
+    display: inline-flex;
+    border: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #c9c9c9);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    overflow: hidden;
+}
+
+.c-tl-toggle__btn {
+    background: var(--slds-g-color-surface-1, #ffffff);
+    border: none;
+    /* No SLDS hook for 0.25rem 0.75rem compact toggle padding */
+    padding: 0.25rem 0.75rem;
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-5, 400);
+    color: var(--slds-g-color-on-surface-1, #181818);
+    cursor: pointer;
+    line-height: var(--slds-g-font-line-height-base, 1.5);
+    border-right: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #c9c9c9);
+}
+
+.c-tl-toggle__btn:last-child {
+    border-right: none;
+}
+
+.c-tl-toggle__btn:hover {
+    background: var(--slds-g-color-surface-2, #f3f3f3);
+}
+
+.c-tl-toggle__btn_active {
+    background: var(--slds-g-color-accent-1, #0176d3);
+    color: var(--slds-g-color-on-accent-1, #ffffff);
+    font-weight: var(--slds-g-font-weight-7, 700);
+}
+
+.c-tl-toggle__btn_active:hover {
+    background: var(--slds-g-color-accent-1, #0176d3);
+}
+
+/* ── New event dropdown ──────────────────────────────────────────── */
+.c-tl-new-wrap {
+    position: relative;
+    display: inline-flex;
+}
+
+/* Base control button (neutral) */
+.c-tl-ctrl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--slds-g-color-border-base-1, #c9c9c9);
+    border-radius: var(--slds-g-radius-border-4, 1.5rem);
+    background: var(--slds-g-color-surface-1, #ffffff);
+    color: var(--slds-g-color-neutral-base-10, #181818);
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    cursor: pointer;
+    white-space: nowrap;
+}
+.c-tl-ctrl-btn:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
+
+/* Brand (blue outlined) variant */
+.c-tl-ctrl-btn_brand {
+    border-color: var(--slds-g-color-brand-base-50, #0176d3);
+    color: var(--slds-g-color-brand-base-50, #0176d3);
+}
+.c-tl-ctrl-btn_brand:hover { background: #e8f4fd; }
+
+/* Expand icon button — circle, no label */
+.c-tl-expand-btn {
+    padding: 0.25rem;
+    aspect-ratio: 1;
+}
+
+/* Keep c-tl-new-btn as alias for the filter button */
+.c-tl-new-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--slds-g-color-border-base-1, #c9c9c9);
+    border-radius: var(--slds-g-radius-border-4, 1.5rem);
+    background: var(--slds-g-color-surface-1, #ffffff);
+    color: var(--slds-g-color-neutral-base-10, #181818);
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    cursor: pointer;
+    white-space: nowrap;
+}
+.c-tl-new-btn:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
+
+.c-tl-new-plus {
+    font-size: var(--slds-g-font-scale-1, 1rem);
+    line-height: 1;
+    font-weight: var(--slds-g-font-weight-4, 300);
+}
+
+.c-tl-new-chevron {
+    color: var(--slds-g-color-neutral-base-50, #6b7280);
+}
+
+.c-tl-new-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    min-width: 10rem;
+    background: var(--slds-g-color-surface-1, #ffffff);
+    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    border-radius: var(--slds-g-radius-border-3, 0.5rem);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    z-index: 30;
+    overflow: hidden;
+}
+
+.c-tl-new-item {
+    display: block;
+    width: 100%;
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem);
+    background: transparent;
+    border: none;
+    text-align: left;
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    color: var(--slds-g-color-neutral-base-10, #181818);
+    cursor: pointer;
+}
+
+.c-tl-new-item:hover {
+    background: var(--slds-g-color-surface-2, #f3f3f3);
+}
+
+.c-tl-filter-dropdown .c-tl-new-item {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-tl-filter-check {
+    flex-shrink: 0;
+    color: var(--slds-g-color-brand-base-50, #0176d3);
+    --slds-c-icon-color-foreground: var(--slds-g-color-brand-base-50, #0176d3);
+    --slds-c-icon-color-foreground-default: var(--slds-g-color-brand-base-50, #0176d3);
+}
+
+.c-tl-filter-check-spacer {
+    /* intentional static: icon placeholder width */
+    width: 1rem;
+    flex-shrink: 0;
+}
+
+/* ── New event modal ─────────────────────────────────────────────── */
+.c-ne-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 100;
+}
+
+.c-ne-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 36rem;
+    max-width: calc(100vw - 2rem);
+    background: var(--slds-g-color-surface-1, #ffffff);
+    border-radius: var(--slds-g-radius-border-3, 0.5rem);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    z-index: 101;
+    overflow: hidden;
+}
+
+.c-ne-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--slds-g-spacing-4, 1rem) var(--slds-g-spacing-5, 1.25rem);
+    border-bottom: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+}
+
+.c-ne-modal__title {
+    font-size: var(--slds-g-font-scale-2, 1.125rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    color: var(--slds-g-color-neutral-base-10, #181818);
+    margin: 0;
+}
+
+.c-ne-modal__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    padding: var(--slds-g-spacing-1, 0.25rem);
+    color: var(--slds-g-color-neutral-base-50, #6b7280);
+}
+.c-ne-modal__close:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
+
+.c-ne-modal__body {
+    padding: var(--slds-g-spacing-5, 1.25rem);
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-4, 1rem);
+    overflow-y: auto;
+    max-height: 70vh;
+}
+
+.c-ne-modal__row {
+    display: flex;
+    gap: var(--slds-g-spacing-4, 1rem);
+}
+
+.c-ne-modal__field { display: block; flex: 1; }
+
+.c-ne-modal__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--slds-g-spacing-3, 0.75rem);
+    padding: var(--slds-g-spacing-4, 1rem) var(--slds-g-spacing-5, 1.25rem);
+    border-top: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+}
+
+.c-ne-modal__cancel {
+    padding: var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-5, 1.25rem);
+    border-radius: var(--slds-g-radius-border-4, 1.5rem);
+    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    background: transparent;
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    cursor: pointer;
+    color: var(--slds-g-color-neutral-base-10, #181818);
+}
+.c-ne-modal__cancel:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
+
+.c-ne-modal__save {
+    padding: var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-6, 1.5rem);
+    border-radius: var(--slds-g-radius-border-4, 1.5rem);
+    border: none;
+    background: var(--slds-g-color-brand-base-50, #0176d3);
+    color: var(--slds-g-color-neutral-base-100, #ffffff);
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    cursor: pointer;
+}
+.c-ne-modal__save:hover { background: var(--slds-g-color-brand-base-20, #014486); }
+
+/* ── Drill-year back button & breadcrumb ─────────────────────────── */
+.c-drill-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    background: transparent;
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #c9c9c9);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    /* intentional static: 0.25rem 0.5rem — compact back button padding */
+    padding: 0.25rem 0.5rem;
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    color: var(--slds-g-color-on-surface-2, #444);
+    cursor: pointer;
+    line-height: var(--slds-g-font-line-height-base, 1.5);
+    transition: background 0.12s;
+}
+.c-drill-back-btn:hover {
+    background: var(--slds-g-color-surface-2, #f3f3f3);
+}
+
+.c-drill-year-label {
+    font-size: var(--slds-g-font-scale-2, 1rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    color: var(--slds-g-color-on-surface-1, #181818);
+    /* intentional static: 0.375rem — tight gap between back btn and year */
+    margin-left: 0.375rem;
+}
+
+/* ── Group Timeline ──────────────────────────────────── */
+.c-group-timeline {
+    background: var(--slds-g-color-surface-1, #ffffff);
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #dddbda);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    padding: var(--slds-g-spacing-4, 1rem);
+    /*
+     * Establishes a stacking context and relative positioning origin for the
+     * AI Suggestions panel (position: absolute) so it overlays only this section.
+     */
+    position: relative;
+}
+
+.c-group-timeline__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    margin-bottom: var(--slds-g-spacing-3, 0.75rem);
+    /* Sticky: stays visible as the page scrolls */
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    background: var(--slds-g-color-surface-1, #ffffff);
+    padding-top: var(--slds-g-spacing-2, 0.5rem);
+    padding-bottom: var(--slds-g-spacing-2, 0.5rem);
+    margin-top: calc(var(--slds-g-spacing-2, 0.5rem) * -1);
+}
+
+/* Inner scroll wrapper: handles horizontal overflow only */
+.c-group-timeline__body {
+    overflow-x: auto;
+}
+
+/* ── Sticky contextual breadcrumb ────────────────────────────────── */
+/* Sits between the controls header and the scrollable body;
+ * does NOT scroll horizontally — it's a sibling of .c-group-timeline__body */
+.c-tl-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    padding: 0.3rem var(--slds-g-spacing-3, 0.75rem);
+    /* intentional static: rgba white — frosted glass backdrop */
+    background: rgba(255, 255, 255, 0.96);
+    /* intentional static: blur — no SLDS token */
+    backdrop-filter: blur(6px);
+    border-bottom: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #e0e5ee);
+    border-top: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #e0e5ee);
+    /* Stick below the controls header (top: 0 is the controls header's sticky position) */
+    position: sticky;
+    top: 3rem; /* intentional static: approx height of controls header */
+    z-index: 14;
+}
+
+.c-tl-breadcrumb__icon {
+    /* intentional static: 0.75rem — small indicator icon */
+    font-size: 0.75rem;
+    color: var(--slds-g-color-accent-1, #0176d3);
+    line-height: 1;
+}
+
+.c-tl-breadcrumb__label {
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    color: var(--slds-g-color-neutral-base-50, #706e6b);
+    line-height: var(--slds-g-font-line-height-base, 1.5);
+}
+
+.c-tl-breadcrumb__period {
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    color: var(--slds-g-color-accent-1, #0176d3);
+    letter-spacing: 0.04em;
+    line-height: var(--slds-g-font-line-height-base, 1.5);
+    /* Animated update: smooth colour crossfade when year changes */
+    transition: color 0.2s ease;
+}
+
+/* ── View transition animations ─────────────────────────────────── */
+
+/*
+ * LEAVING: existing cells fade out + slight shrink.
+ * The expanding year cell additionally "stretches" to give the accordion feel.
+ */
+.c-tl-anim-leaving .c-timeline-header__cell,
+.c-tl-anim-leaving .c-timeline-row__cell {
+    opacity: 0;
+    transform: scaleX(0.94) translateY(-3px);
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    pointer-events: none;
+}
+
+/* The specific year being drilled into stretches wide before disappearing */
+.c-tl-anim-leaving .c-tl-expanding-year {
+    transform: scaleX(1.16) translateY(-2px);
+    opacity: 0.12;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+/*
+ * ENTERING: new cells cascade in (slide-up fade).
+ * Header columns are staggered by 20ms each for the accordion "unfurl" effect.
+ * Row cells enter together with a short unified delay.
+ */
+@keyframes c-tl-col-enter {
+    from { opacity: 0; transform: translateY(8px) scaleX(0.97); }
+    to   { opacity: 1; transform: translateY(0)   scaleX(1); }
+}
+
+.c-tl-anim-entering .c-timeline-header .c-timeline-year-col,
+.c-tl-anim-entering .c-timeline-row    .c-timeline-year-col {
+    animation: c-tl-col-enter 0.3s ease forwards;
+    opacity: 0;
+}
+
+/* Staggered cascade: header columns enter one by one (covers 10 yearly + 12 monthly) */
+.c-tl-anim-entering .c-timeline-header .c-timeline-year-col:nth-child(2)  { animation-delay:   0ms; }
+.c-tl-anim-entering .c-timeline-header .c-timeline-year-col:nth-child(3)  { animation-delay:  22ms; }
+.c-tl-anim-entering .c-timeline-header .c-timeline-year-col:nth-child(4)  { animation-delay:  44ms; }
+.c-tl-anim-entering .c-timeline-header .c-timeline-year-col:nth-child(5)  { animation-delay:  66ms; }
+.c-tl-anim-entering .c-timeline-header .c-timeline-year-col:nth-child(6)  { animation-delay:  88ms; }
+.c-tl-anim-entering .c-timeline-header .c-timeline-year-col:nth-child(7)  { animation-delay: 110ms; }
+.c-tl-anim-entering .c-timeline-header .c-timeline-year-col:nth-child(8)  { animation-delay: 132ms; }
+.c-tl-anim-entering .c-timeline-header .c-timeline-year-col:nth-child(9)  { animation-delay: 154ms; }
+.c-tl-anim-entering .c-timeline-header .c-timeline-year-col:nth-child(10) { animation-delay: 176ms; }
+.c-tl-anim-entering .c-timeline-header .c-timeline-year-col:nth-child(11) { animation-delay: 198ms; }
+.c-tl-anim-entering .c-timeline-header .c-timeline-year-col:nth-child(12) { animation-delay: 220ms; }
+.c-tl-anim-entering .c-timeline-header .c-timeline-year-col:nth-child(13) { animation-delay: 242ms; }
+
+/* Row cells enter together with a short delay after the header has started */
+.c-tl-anim-entering .c-timeline-row .c-timeline-year-col {
+    animation-delay: 60ms;
+}
+
+.c-group-timeline__controls {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    flex-wrap: wrap;
+}
+
+/* "AI Suggestions" pill button in the timeline toolbar */
+.c-ai-suggestions-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    /* No SLDS hook for 0.375rem / 0.875rem padding */
+    padding: 0.375rem 0.875rem;
+    border-radius: var(--slds-g-radius-border-4, 1rem);
+    border: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-accent-1, #0176d3);
+    background: var(--slds-g-color-surface-1, #ffffff);
+    color: var(--slds-g-color-accent-1, #0176d3);
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.c-ai-suggestions-btn:hover,
+.c-ai-suggestions-btn_active {
+    background: var(--slds-g-color-accent-light-1, #eef4ff);
+}
+
+.c-ai-btn-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--slds-g-color-palette-violet-40, #7c3aed);
+    color: #ffffff;
+    font-size: var(--slds-g-font-scale-neg-3, 0.6875rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    /* No SLDS hook for badge size */
+    min-width: 1.25rem;
+    height: 1.25rem;
+    border-radius: var(--slds-g-radius-border-4, 1rem);
+    padding: 0 var(--slds-g-spacing-1, 0.25rem);
+}
+
+/* Agentic Insights toggle */
+.c-ai-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-ai-toggle__label {
+    white-space: nowrap;
+    font-weight: var(--slds-g-font-weight-6, 600);
+    color: var(--slds-g-color-on-surface-1, #080707);
+}
+
+/* Toggle track */
+.c-ai-switch {
+    /* intentional static: 2.75rem × 1.5rem — no SLDS hook for toggle size */
+    width: 2.75rem;
+    height: 1.5rem;
+    border-radius: 0.75rem;
+    background: var(--slds-g-color-border-base-1, #c9c9c9);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    padding: 0;
+    flex-shrink: 0;
+    transition: background 0.2s ease;
+}
+
+/* Track ON state */
+.c-ai-switch_on {
+    background: var(--slds-g-color-accent-1, #0176d3);
+}
+
+/* Sliding thumb */
+.c-ai-switch__thumb {
+    display: block;
+    position: absolute;
+    /* intentional static: 2px inset — no SLDS hook */
+    top: 2px;
+    left: 2px;
+    /* intentional static: 1.25rem circle = track height (1.5rem) - 4px */
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background: var(--slds-g-color-neutral-base-100, #ffffff);
+    /* intentional static: subtle elevation for thumb */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease;
+    pointer-events: none;
+}
+
+/* Thumb slides right when ON */
+.c-ai-switch_on .c-ai-switch__thumb {
+    /* intentional static: 1.25rem = track width (2.75rem) - thumb (1.25rem) - left (2px) - right (2px) */
+    transform: translateX(1.25rem);
+}
+
+.c-timeline-table {
+    width: 100%;
+}
+
+.c-timeline-header,
+.c-timeline-row {
+    display: grid;
+    border-bottom: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #dddbda);
+}
+
+/* Column header row — z-index keeps it above scrolling event cells */
+.c-timeline-header {
+    position: relative;
+    z-index: 5;
+}
+
+/* Yearly: 10 year cols (2019-2028); scrolls horizontally */
+.c-timeline-table_yearly .c-timeline-header,
+.c-timeline-table_yearly .c-timeline-row {
+    /* No SLDS hook for these grid column widths */
+    grid-template-columns: 11rem repeat(10, 8.5rem);
+}
+
+.c-timeline-table_yearly {
+    width: max-content;
+    min-width: 100%;
+}
+
+/* Monthly: fixed-width columns, scrolls horizontally (Jan 2019–Dec 2026 = 96 months) */
+.c-timeline-table_monthly .c-timeline-header,
+.c-timeline-table_monthly .c-timeline-row {
+    /* 12rem member col + 96 × 8.5rem month cols = 828rem total */
+    /* intentional static: matches yearly column widths; no SLDS grid hook */
+    grid-template-columns: 12rem repeat(96, 8.5rem);
+}
+
+.c-timeline-table_monthly {
+    width: max-content;
+    min-width: 100%;
+}
+
+/* Drill: exactly 12 months for the drilled year */
+.c-timeline-table_drill .c-timeline-header,
+.c-timeline-table_drill .c-timeline-row {
+    /* 12rem member col + 12 × 8.5rem month cols (Jan–Dec of drilled year) */
+    /* intentional static: same column width as monthly/yearly; no SLDS grid hook */
+    grid-template-columns: 12rem repeat(12, 8.5rem);
+}
+
+.c-timeline-table_drill {
+    width: max-content;
+    min-width: 100%;
+}
+
+/* Sticky Members column — fixed while year/month cols scroll */
+.c-timeline-member-col {
+    position: sticky;
+    left: 0;
+    z-index: 4; /* above connectors (z-index: 2) and pills (z-index: 2) */
+}
+
+/* Opaque backgrounds for sticky member cells — occludes content scrolling behind them */
+.c-timeline-member-col.c-timeline-header__cell {
+    background: var(--slds-g-color-surface-2, #f3f3f3);
+}
+.c-timeline-member-col.c-timeline-row__member {
+    background: var(--slds-g-color-surface-1, #ffffff);
+}
+
+/* Column header cells */
+.c-timeline-header__cell {
+    padding: var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-2, 0.5rem);
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    color: var(--slds-g-color-on-surface-1, #444);
+    background: var(--slds-g-color-surface-2, #f3f3f3);
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+}
+
+/* Year header cells — opaque bg (needed for sticky) + dashed left separator */
+.c-timeline-year-col.c-timeline-header__cell {
+    background: var(--slds-g-color-surface-1, #ffffff);
+    border-left: var(--slds-g-sizing-border-1, thin) dashed var(--slds-g-color-border-base-1, #c0c0c0);
+}
+
+/* ── Monthly today column: blue left border + floating "Today" pill ── */
+.c-timeline-header__cell_today {
+    border-left: var(--slds-g-sizing-border-2, 2px) solid var(--slds-g-color-accent-1, #0176d3);
+    position: relative;
+    overflow: visible;
+}
+
+/* Year label in monthly today column — offset right of the pill */
+.c-timeline-header__cell_today .c-timeline-year-label {
+    /* No SLDS hook for this offset */
+    padding-left: 1.75rem;
+    display: inline-block;
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    color: var(--slds-g-color-on-surface-2, #706e6b);
+}
+
+/* Today pill (monthly view) — centered on the blue border-left */
+.c-today-pill {
+    position: absolute;
+    left: -1px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-flex;
+    align-items: center;
+    background: var(--slds-g-color-accent-1, #0176d3);
+    color: var(--slds-g-color-on-accent-1, #ffffff);
+    /* No SLDS hook for pill padding */
+    padding: 0.125rem 0.5rem;
+    border-radius: var(--slds-g-radius-border-4, 1rem);
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    white-space: nowrap;
+    z-index: 6;
+    pointer-events: none;
+}
+
+/* ── Yearly today column: full-height blue-tint background + solid blue border ── */
+.c-timeline-header__cell_today_yr {
+    /* intentional static: #eaf4ff light-blue tint — no SLDS token */
+    background: #eaf4ff;
+    /* Match the monthly today border so the "Today" pill anchors correctly */
+    border-left: var(--slds-g-sizing-border-2, 2px) solid var(--slds-g-color-accent-1, #0176d3);
+    position: relative;
+    overflow: visible;
+}
+
+/* Offset the year label slightly to the right so the Today pill doesn't overlap */
+.c-timeline-header__cell_today_yr .c-timeline-year-label {
+    padding-left: 1.25rem;
+    display: inline-block;
+}
+
+/* "• 2026" label styling — blue, bold */
+.c-timeline-year-label_today {
+    color: var(--slds-g-color-accent-1, #0176d3);
+    font-weight: var(--slds-g-font-weight-7, 700);
+}
+
+/* Predicted column header — dashed violet left line */
+.c-timeline-header__cell_predicted {
+    /* No SLDS v2 hook for violet color */
+    border-left: var(--slds-g-sizing-border-1, thin) dashed var(--slds-g-color-palette-violet-40, #7c3aed);
+    color: var(--slds-g-color-palette-violet-40, #7c3aed);
+}
+
+.c-timeline-year-label {
+    display: inline-block;
+}
+
+/* ── Member column ─────────────────────────────────── */
+.c-timeline-row__member {
+    display: flex;
+    align-items: flex-start;
+    padding: var(--slds-g-spacing-3, 0.75rem);
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    border-right: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #dddbda);
+    background: var(--slds-g-color-surface-1, #ffffff);
+    /* taller rows to accommodate multi-line member info */
+    min-height: 5.5rem;
+}
+
+/* Colored initial avatar */
+.c-member-avatar {
+    /* No SLDS hook for avatar circle */
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.c-member-avatar_blue   { background: var(--slds-g-color-accent-1, #0176d3); }
+.c-member-avatar_teal   {
+    /* No SLDS v2 hook for teal surface */
+    background: var(--slds-g-color-palette-teal-50, #00796b);
+}
+.c-member-avatar_orange {
+    /* No SLDS v2 hook for orange surface */
+    background: var(--slds-g-color-palette-orange-50, #b45309);
+}
+
+.c-member-avatar__initials {
+    color: var(--slds-g-color-on-accent-1, #ffffff);
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    letter-spacing: 0.03em;
+}
+
+.c-member-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-width: 0;
+}
+
+.c-member-name {
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+}
+
+/* Member name + star row */
+.c-member-name-row {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+}
+
+.c-member-primary-star {
+    /* No SLDS v2 hook for golden star color */
+    color: #f59e0b;
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+}
+
+.c-member-meta {
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    color: var(--slds-g-color-on-surface-2, #706e6b);
+    margin: 0;
+    line-height: var(--slds-g-font-line-height-base, 1.4);
+}
+
+/* Relationship strength row */
+.c-member-strength {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    margin-top: var(--slds-g-spacing-1, 0.25rem);
+}
+
+.c-strength-dot {
+    /* No SLDS hook for 0.5rem dot */
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.c-strength-dot_strong { background: var(--slds-g-color-success-1, #2e844a); }
+.c-strength-dot_na     { background: var(--slds-g-color-border-base-1, #c0c0c0); }
+
+.c-strength-label {
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    color: var(--slds-g-color-success-1, #2e844a);
+}
+
+.c-strength-dot_na + .c-strength-label {
+    color: var(--slds-g-color-on-surface-2, #706e6b);
+}
+
+/* ── "+" add button in empty predicted cells ───────── */
+.c-timeline-add-btn {
+    /* No SLDS hook for this small circle add button */
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: var(--slds-g-sizing-border-2, 2px) solid var(--slds-g-color-palette-violet-40, #7c3aed);
+    background: var(--slds-g-color-surface-1, #ffffff);
+    color: var(--slds-g-color-palette-violet-40, #7c3aed);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: var(--slds-g-spacing-1, 0.25rem);
+    flex-shrink: 0;
+}
+
+.c-timeline-add-btn:hover {
+    background: var(--slds-g-color-surface-2, #f3f3f3);
+}
+
+/* ── AI Sparkle indicator button ─────────────────────────────── */
+.c-sparkle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* intentional static: 1.5rem — compact sparkle button */
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-palette-violet-40, #7c3aed);
+    background: var(--slds-g-color-accent-light-1, #ede9fe);
+    color: var(--slds-g-color-palette-violet-40, #7c3aed);
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    cursor: pointer;
+    flex-shrink: 0;
+    /* intentional static: 2px margin — no SLDS spacing token this small */
+    margin: 2px;
+    transition: background 0.12s, transform 0.12s;
+    line-height: 1;
+}
+
+.c-sparkle-btn:hover {
+    background: var(--slds-g-color-palette-violet-40, #7c3aed);
+    color: var(--slds-g-color-neutral-base-100, #ffffff);
+    transform: scale(1.12);
+}
+
+/* Added-suggestion pill — dashed border to distinguish from regular events */
+.c-event-pill_suggestion {
+    border-style: dashed;
+    opacity: 0.9;
+}
+
+/* Year/month event cells — dashed left separator (not right) */
+.c-timeline-row__cell {
+    /* No SLDS hook for 0.375rem horizontal padding */
+    padding: var(--slds-g-spacing-2, 0.5rem) 0.375rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    border-left: var(--slds-g-sizing-border-1, thin) dashed var(--slds-g-color-border-base-1, #c0c0c0);
+    position: relative;
+    min-height: 5.5rem; /* match member row height */
+}
+
+/*
+ * Monthly column dividers — continuous vertical lines fix.
+ *
+ * Root cause: the row container has border-bottom which creates a 1px gap
+ * between rows where the cell border-left cannot draw, breaking column lines.
+ * Fix: strip border-bottom from the row container; move it onto every cell so
+ * the border-left on adjacent cells is always flush with no gap.
+ */
+.c-timeline-table_monthly .c-timeline-header,
+.c-timeline-table_monthly .c-timeline-row,
+.c-timeline-table_drill .c-timeline-header,
+.c-timeline-table_drill .c-timeline-row {
+    border-bottom: none;
+}
+
+/* Horizontal row separator now lives on cells — no gap at row boundaries */
+.c-timeline-table_monthly .c-timeline-header__cell,
+.c-timeline-table_monthly .c-timeline-row__cell,
+.c-timeline-table_monthly .c-timeline-row__member,
+.c-timeline-table_drill .c-timeline-header__cell,
+.c-timeline-table_drill .c-timeline-row__cell,
+.c-timeline-table_drill .c-timeline-row__member {
+    border-bottom: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #dddbda);
+}
+
+/* Column dividers: solid so lines are visually crisp (dashes restart per-cell) */
+.c-timeline-table_monthly .c-timeline-row__cell,
+.c-timeline-table_drill .c-timeline-row__cell {
+    border-left: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #c9c9c9);
+    /* No SLDS hook for 3.5rem — compact height for monthly rows */
+    min-height: 3.5rem;
+}
+
+.c-timeline-table_monthly .c-timeline-year-col.c-timeline-header__cell,
+.c-timeline-table_drill .c-timeline-year-col.c-timeline-header__cell {
+    border-left: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #c9c9c9);
+}
+
+/* Year-boundary (Jan) columns — darker, slightly thicker divider + light bg tint */
+.c-timeline-table_monthly .c-timeline-header__cell_year-start,
+.c-timeline-table_monthly .c-timeline-row__cell_year-start {
+    /* intentional static: 2px #94a3b8 slate — no SLDS hook for year-boundary emphasis */
+    border-left: 2px solid #94a3b8;
+}
+
+/* Today column overrides — heavier blue line, same cell-level approach */
+.c-timeline-table_monthly .c-timeline-row__cell_today {
+    border-left: var(--slds-g-sizing-border-2, 2px) solid var(--slds-g-color-accent-1, #0176d3);
+}
+
+/* Year badge shown in January header cells */
+.c-timeline-year-badge {
+    display: block;
+    /* intentional static: 0.6rem — compact label below month abbreviation */
+    font-size: 0.6rem;
+    font-weight: var(--slds-g-font-weight-7, 700);
+    /* intentional static: #475569 — slate-600 for year label; no SLDS palette token */
+    color: #475569;
+    letter-spacing: 0.04em;
+    margin-top: 0.1rem;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+/* Type dots are only meaningful in yearly expanded view; hide in monthly/drill */
+.c-timeline-table_monthly .c-type-dot,
+.c-timeline-table_drill .c-type-dot {
+    display: none;
+}
+
+/* ── Pill wrapper (monthly view) — positions critical badge + type dot ── */
+/* ── Shared-event vertical connectors ───────────────────────────────────────
+ * A dashed purple line drawn from the bottom-half of the upper cell into the
+ * top-half of the lower cell, creating a continuous visual bridge between
+ * shared events across adjacent member rows.
+ * The cell already has position: relative so absolutes land inside it.
+ */
+.c-shared-connector {
+    position: absolute;
+    /* centre on the first event pill (pill left-margin ≈ 0.375rem, pill half-width ≈ 2rem) */
+    left: 1.25rem;
+    width: 0;
+    /* intentional static: violet dashed connector — no SLDS hook for this pattern */
+    border-left: 2px dashed #7c3aed;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Down-connector: starts after pill clears (~0.5rem padding + ~1.5rem pill = ~2.25rem from top) */
+.c-shared-connector_down {
+    top: 2.25rem;
+    bottom: -1px;   /* bleed 1px past the border-bottom to meet the up-connector */
+}
+
+/* Up-connector: from 1px above the cell top to just before the pill starts (cell padding-top = 0.5rem) */
+.c-shared-connector_up {
+    top: -1px;                      /* bleed past border-top to meet the down-connector */
+    bottom: calc(100% - 0.5rem);    /* stop at the cell's padding-top, just before the pill */
+}
+
+.c-pill-wrap {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* No SLDS hook for 3px gap */
+    gap: 3px;
+    position: relative;
+}
+
+.c-pill-inner {
+    position: relative;
+    display: inline-block;
+}
+
+/* Critical badge — small red dot anchored to top-right corner of pill */
+.c-pill-critical-badge {
+    position: absolute;
+    /* No SLDS hook for -4px offsets — intentional badge bleed */
+    top: -4px;
+    right: -4px;
+    width: var(--slds-g-sizing-3, 0.5rem);
+    height: var(--slds-g-sizing-3, 0.5rem);
+    border-radius: 50%;
+    background: var(--slds-g-color-palette-red-50, #ea0000);
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-surface-1, #ffffff);
+}
+
+/* Monthly today column row cell — handled in monthly block above; keep overflow */
+.c-timeline-row__cell_today {
+    overflow: visible;
+}
+
+/* Yearly today column row cell — blue-tint background + solid blue left border */
+.c-timeline-row__cell_today_yr {
+    /* intentional static: #eaf4ff light-blue tint — no SLDS token */
+    background: #eaf4ff;
+    border-left: var(--slds-g-sizing-border-2, 2px) solid var(--slds-g-color-accent-1, #0176d3);
+}
+
+/* Predicted column — dashed violet left line + subtle tint */
+.c-timeline-row__cell_predicted {
+    /* No SLDS v2 hook for violet */
+    border-left: var(--slds-g-sizing-border-1, thin) dashed var(--slds-g-color-palette-violet-40, #7c3aed);
+}
+
+/* ── Event pills ─────────────────────────────────────── */
+.c-event-pill {
+    display: inline-block;
+    /* No SLDS hook for 0.25rem vertical pill padding */
+    padding: 0.25rem 0.625rem;
+    border-radius: 0.375rem; /* No SLDS hook — matches screenshot rounded-rect shape */
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    white-space: nowrap;
+    /* intentional static: solid white so pill is always opaque regardless of cell bg */
+    background: #ffffff;
+    border: var(--slds-g-sizing-border-2, 2px) solid var(--slds-g-color-border-base-1, #dddbda);
+    cursor: pointer;
+}
+
+.c-event-pill:hover {
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+    position: relative;
+    z-index: 2;
+}
+
+/* Life Event */
+.c-event-pill_life {
+    /* No SLDS hook for #0094B7 — intentional brand color */
+    border-color: #0094B7;
+    color: #0094B7;
+}
+
+/* Meeting — slate gray */
+.c-event-pill_meeting {
+    /* No SLDS v2 hook for this neutral-gray surface */
+    border-color: #706e6b;
+    color: #706e6b;
+}
+
+/* Transaction — amber/gold */
+.c-event-pill_transaction {
+    /* No SLDS v2 hook for amber-gold; closest palette suggestion */
+    border-color: var(--slds-g-color-palette-yellow-30, #c89200);
+    color: var(--slds-g-color-palette-yellow-30, #c89200);
+}
+
+/* Financial Goal — orange */
+.c-event-pill_goal {
+    border-color: var(--slds-g-color-palette-orange-50, #b45309);
+    color: var(--slds-g-color-palette-orange-50, #b45309);
+}
+
+/* Financial Account — teal */
+.c-event-pill_financial {
+    /* No SLDS v2 hook for teal; using palette-teal */
+    border-color: var(--slds-g-color-palette-teal-50, #00796b);
+    color: var(--slds-g-color-palette-teal-50, #00796b);
+}
+
+/* ── Timeline legend ─────────────────────────────────── */
+.c-timeline-legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--slds-g-spacing-4, 1rem);
+    padding-top: var(--slds-g-spacing-3, 0.75rem);
+    border-top: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #dddbda);
+    margin-top: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    color: var(--slds-g-color-on-surface-2, #444);
+}
+
+.c-legend-item::before {
+    content: '';
+    /* No SLDS hook for 0.625rem legend dot */
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    border: var(--slds-g-sizing-border-2, 2px) solid;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.c-legend-item_life::before        { border-color: #0094B7; }
+.c-legend-item_meeting::before     { border-color: #706e6b; /* No SLDS v2 hook for slate-gray */ }
+.c-legend-item_transaction::before { border-color: var(--slds-g-color-palette-yellow-30, #c89200); }
+.c-legend-item_goal::before        { border-color: var(--slds-g-color-palette-orange-50, #b45309); }
+.c-legend-item_financial::before   { border-color: var(--slds-g-color-palette-teal-50, #00796b); }
+
+/* Legend separator */
+.c-legend-sep {
+    color: var(--slds-g-color-border-base-1, #c0c0c0);
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+}
+
+/* Critical indicator */
+.c-legend-critical {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    color: var(--slds-g-color-on-surface-2, #444);
+}
+
+.c-legend-critical__dot {
+    /* No SLDS hook for 0.5rem dot */
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--slds-g-color-error-1, #ba0517);
+    flex-shrink: 0;
+}
+
+/* Shared indicator */
+.c-legend-shared {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    color: var(--slds-g-color-on-surface-2, #444);
+}
+
+.c-legend-shared__bar {
+    /* No SLDS hook for this bar indicator */
+    width: 0.125rem;
+    height: 0.75rem;
+    background: var(--slds-g-color-on-surface-2, #444);
+    flex-shrink: 0;
+}
+
+/* ── Client Summary card ─────────────────────────────── */
+.c-client-summary {
+    background: var(--slds-g-color-surface-1, #ffffff);
+    border: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #dddbda);
+    border-radius: var(--slds-g-radius-border-4, 0.5rem);
+    padding: var(--slds-g-spacing-4, 1rem);
+}
+
+.c-client-summary__header {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    margin-bottom: var(--slds-g-spacing-2, 0.5rem);
+}
+
+/* ── Agentic sparkle icon (replaces einstein icon everywhere) ──── */
+.c-agentic-sparkle-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* intentional static: violet sparkle — no SLDS hook */
+    color: #7c3aed;
+    font-size: 1rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.c-summary-icon {
+    font-size: 1.25rem;
+    color: #7c3aed;
+}
+
+.c-ask-agentforce-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    padding: var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-4, 1rem);
+    border-radius: var(--slds-g-radius-border-4, 1.5rem);
+    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    background: var(--slds-g-color-neutral-base-100, #fff);
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    color: var(--slds-g-color-neutral-base-10, #181818);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.c-ask-agentforce-btn:hover {
+    background: var(--slds-g-color-surface-2, #f3f3f3);
+}
+
+/* Primary filled variant */
+.c-ask-agentforce-btn_primary {
+    /* intentional static: violet brand primary */
+    background: #7c3aed;
+    border-color: #7c3aed;
+    color: #ffffff;
+}
+
+.c-ask-agentforce-btn_primary:hover {
+    background: #6d28d9;
+    border-color: #6d28d9;
+}
+
+.c-af-btn-sparkle {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+/* ── Agentforce chat panel ────────────────────────────────────── */
+
+/* Make the tab content a positioning context for the panel */
+.c-tab-content {
+    position: relative;
+    overflow: hidden;
+}
+
+.c-af-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    /* intentional static: 22rem — no SLDS hook for panel width */
+    width: 22rem;
+    background: var(--slds-g-color-neutral-base-100, #ffffff);
+    border-left: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    display: flex;
+    flex-direction: column;
+    z-index: 20;
+    animation: c-af-slide-in 0.25s ease-out;
+}
+
+@keyframes c-af-slide-in {
+    from { transform: translateX(100%); opacity: 0; }
+    to   { transform: translateX(0);    opacity: 1; }
+}
+
+/* Collapse chevron tab on left edge */
+.c-af-collapse-tab {
+    position: absolute;
+    left: -1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.25rem;
+    height: 2.5rem;
+    /* intentional static: brand blue collapse tab */
+    background: #0176d3;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.375rem 0 0 0.375rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.625rem;
+    z-index: 1;
+}
+
+/* Header */
+.c-af-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem);
+    border-bottom: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    flex-shrink: 0;
+}
+
+.c-af-header-title {
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    color: var(--slds-g-color-neutral-base-10, #181818);
+}
+
+.c-af-header-actions {
+    display: flex;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+}
+
+.c-af-header-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: none;
+    background: transparent;
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    cursor: pointer;
+    color: var(--slds-g-color-neutral-base-50, #6b7280);
+}
+
+.c-af-header-btn:hover {
+    background: var(--slds-g-color-surface-2, #f3f3f3);
+}
+
+/* Body — scrollable welcome / chat area */
+.c-af-body {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--slds-g-spacing-6, 1.5rem) var(--slds-g-spacing-4, 1rem);
+    gap: var(--slds-g-spacing-3, 0.75rem);
+}
+
+.c-af-avatar-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    /* intentional static: soft lavender avatar bg */
+    background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+    margin-bottom: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-af-avatar-sparkle {
+    font-size: 3rem;
+    /* intentional static: violet sparkle */
+    color: #7c3aed;
+    line-height: 1;
+}
+
+.c-af-greeting {
+    font-size: var(--slds-g-font-scale-2, 1.125rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    color: var(--slds-g-color-neutral-base-10, #181818);
+    text-align: center;
+    margin: 0;
+}
+
+.c-af-desc {
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    color: var(--slds-g-color-neutral-base-30, #374151);
+    text-align: center;
+    line-height: var(--slds-g-font-line-height-base, 1.5);
+    margin: 0;
+}
+
+.c-af-suggestions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    width: 100%;
+    margin-top: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-af-suggestion-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem);
+    border-radius: var(--slds-g-radius-border-4, 1.5rem);
+    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    background: var(--slds-g-color-neutral-base-100, #ffffff);
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    color: var(--slds-g-color-neutral-base-10, #181818);
+    cursor: pointer;
+    text-align: left;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-af-suggestion-btn:hover {
+    /* intentional static: subtle lavender hover */
+    background: #f5f3ff;
+    border-color: #7c3aed;
+}
+
+/* Footer — input + disclaimer */
+.c-af-footer {
+    flex-shrink: 0;
+    border-top: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem);
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-af-input-row {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    border-radius: var(--slds-g-radius-border-2, 0.375rem);
+    padding: var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-3, 0.75rem);
+    background: var(--slds-g-color-neutral-base-100, #ffffff);
+}
+
+.c-af-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    color: var(--slds-g-color-neutral-base-10, #181818);
+    background: transparent;
+}
+
+.c-af-input::placeholder {
+    color: var(--slds-g-color-neutral-base-50, #9ca3af);
+}
+
+.c-af-input-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--slds-g-color-neutral-base-50, #6b7280);
+    border-radius: var(--slds-g-radius-border-1, 0.25rem);
+}
+
+.c-af-input-btn:hover {
+    background: var(--slds-g-color-surface-2, #f3f3f3);
+}
+
+.c-af-disclaimer {
+    font-size: var(--slds-g-font-scale-neg-3, 0.6875rem);
+    color: var(--slds-g-color-neutral-base-50, #9ca3af);
+    text-align: center;
+    margin: 0;
+}
+
+.c-summary-title {
+    /* No SLDS hook for Salesforce dark-navy #032d60 */
+    color: #032d60;
+    font-weight: var(--slds-g-font-weight-7, 700);
+}
+
+.c-summary-update {
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    color: var(--slds-g-color-on-surface-2, #706e6b);
+}
+
+.c-summary-body {
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+    color: var(--slds-g-color-on-surface-1, #3e3e3c);
+    line-height: var(--slds-g-font-line-height-base, 1.5);
+}
+
+.c-summary-section-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--slds-g-spacing-2, 0.5rem) 0;
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+    color: var(--slds-g-color-on-surface-1, #3e3e3c);
+    width: 100%;
+    text-align: left;
+}
+
+.c-summary-bullet-list {
+    list-style: none;
+    margin: var(--slds-g-spacing-1, 0.25rem) 0 0 var(--slds-g-spacing-4, 1rem);
+    padding: 0;
+}
+
+.c-summary-bullet-list li {
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+    color: var(--slds-g-color-on-surface-1, #3e3e3c);
+    /* No SLDS hook for 0.125rem bullet padding */
+    padding: 0.125rem 0;
+    position: relative;
+}
+
+.c-summary-bullet-list li::before {
+    content: '•';
+    position: absolute;
+    /* No SLDS hook for bullet offset */
+    left: -0.75rem;
+}
+
+/* ── Meetings card ───────────────────────────────────── */
+.c-meetings-card {
+    background: var(--slds-g-color-neutral-base-100, #ffffff);
+    border-radius: var(--slds-g-radius-border-3, 0.5rem);
+    border: 1px solid var(--slds-g-color-border-base-1, #e5e7eb);
+    overflow: hidden;
+}
+
+.c-meetings-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--slds-g-spacing-4, 1rem) var(--slds-g-spacing-4, 1rem) var(--slds-g-spacing-3, 0.75rem);
+    border-bottom: 1px solid var(--slds-g-color-border-base-1, #e5e7eb);
+}
+
+.c-meetings-card__title-row {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-meetings-card__icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--slds-g-radius-border-circle, 50%);
+    /* intentional static: brand purple for meetings icon */
+    background: #ede9fe;
+    color: #7c3aed;
+}
+
+.c-meetings-card__title {
+    font-size: var(--slds-g-font-scale-2, 1rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    color: var(--slds-g-color-neutral-base-10, #181818);
+}
+
+.c-meetings-add-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--slds-g-radius-border-circle, 50%);
+    border: 1px solid var(--slds-g-color-border-base-1, #e5e7eb);
+    background: transparent;
+    cursor: pointer;
+    color: var(--slds-g-color-neutral-base-30, #5c5c5c);
+}
+
+.c-meetings-add-btn:hover {
+    background: var(--slds-g-color-neutral-base-95, #f3f4f6);
+}
+
+.c-meetings-list {
+    list-style: none;
+    margin: 0;
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem);
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-3, 0.75rem);
+}
+
+.c-mtg-item {
+    padding: var(--slds-g-spacing-3, 0.75rem);
+    border-radius: var(--slds-g-radius-border-2, 0.375rem);
+    border: 1px solid var(--slds-g-color-border-base-1, #e5e7eb);
+    background: var(--slds-g-color-neutral-base-100, #ffffff);
+}
+
+.c-mtg-item_overdue {
+    /* intentional static: red-tint border for overdue state */
+    border-color: #e11d48;
+    border-left-width: 3px;
+}
+
+.c-mtg-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    margin-bottom: var(--slds-g-spacing-1, 0.25rem);
+}
+
+.c-mtg-title {
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    /* intentional static: brand blue for meeting title links */
+    color: #2563eb;
+    line-height: var(--slds-g-font-line-height-base, 1.5);
+}
+
+.c-mtg-datetime {
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    color: var(--slds-g-color-neutral-base-50, #6b7280);
+    margin-bottom: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-mtg-desc {
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    color: var(--slds-g-color-neutral-base-30, #374151);
+    line-height: var(--slds-g-font-line-height-base, 1.5);
+}
+
+/* Status badges */
+.c-mtg-badge {
+    flex-shrink: 0;
+    display: inline-block;
+    font-size: var(--slds-g-font-scale-neg-3, 0.6875rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    padding: 0.1875rem 0.5rem;
+    border-radius: 1rem;
+    white-space: nowrap;
+}
+
+.c-mtg-badge_overdue {
+    /* intentional static: pastel red for overdue/follow-up */
+    background: #fce7f3;
+    color: #9d174d;
+}
+
+.c-mtg-badge_complete {
+    /* intentional static: pastel green for completed */
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.c-mtg-badge_prep {
+    /* intentional static: pastel indigo for in-prep */
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
+.c-mtg-badge_notbooked {
+    /* intentional static: pastel slate for not-yet-booked */
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.c-meetings-card__footer {
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem);
+    border-top: 1px solid var(--slds-g-color-border-base-1, #e5e7eb);
+    text-align: right;
+}
+
+.c-meetings-view-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    color: #2563eb;
+    padding: 0;
+}
+
+.c-meetings-view-btn:hover {
+    text-decoration: underline;
+}
+
+/* ── Client Snapshot card ────────────────────────────── */
+.c-client-snapshot {
+    /* No SLDS v2 hook for this periwinkle surface — intentional brand tint */
+    background: #dde8f8;
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    padding: var(--slds-g-spacing-4, 1rem);
+}
+
+.c-client-snapshot__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--slds-g-spacing-4, 1rem);
+}
+
+.c-snapshot-section-title {
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    color: var(--slds-g-color-on-surface-1, #181818);
+    margin-bottom: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-snapshot-divider {
+    border: none;
+    border-top: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #b0bcd4);
+    margin: 0 0 var(--slds-g-spacing-3, 0.75rem);
+}
+
+.c-snapshot-dl {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-3, 0.75rem);
+    margin: 0;
+    padding: 0;
+}
+
+.c-snapshot-row {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+}
+
+.c-snapshot-row dt {
+    color: var(--slds-g-color-on-surface-2, #444);
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+    white-space: nowrap;
+}
+
+.c-snapshot-row dd {
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+    margin: 0;
+}
+
+.c-snapshot-link {
+    color: var(--slds-g-color-accent-1, #0176d3);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+}
+
+/* ── Yearly view: count badge + type dots ─────────────────────────── */
+
+/* Dark navy rounded pill showing event count per year */
+.c-year-count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* No SLDS hook for this dark-navy color */
+    background: #1e293b;
+    color: #ffffff;
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    min-width: var(--slds-g-sizing-8, 1.75rem);
+    height: var(--slds-g-sizing-7, 1.5rem);
+    padding: 0 var(--slds-g-spacing-2, 0.5rem);
+    border-radius: var(--slds-g-radius-border-4, 1rem);
+    border: none;
+    cursor: pointer;
+    margin-bottom: var(--slds-g-spacing-1, 0.25rem);
+}
+
+.c-year-count-badge:hover {
+    /* No SLDS hook for this hover shade */
+    background: #334155;
+}
+
+/* Row of small colored dots representing event-type mix within a year */
+.c-type-dots {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    flex-wrap: wrap;
+}
+
+.c-type-dot {
+    /* No SLDS hook for 7px dot size — intentional small indicator */
+    width: 7px;
+    height: 7px;
+    /* No SLDS hook for 50% border-radius — intentional circle */
+    border-radius: 50%;
+    background: var(--slds-g-color-border-base-1, #dddbda);
+}
+
+.c-type-dot_life {
+    /* No SLDS hook for #0094B7 — intentional brand color */
+    background: #0094B7;
+}
+
+.c-type-dot_meeting {
+    background: var(--slds-g-color-palette-teal-65, #14b8a6);
+}
+
+.c-type-dot_transaction {
+    background: var(--slds-g-color-warning-base-70, #f59e0b);
+}
+
+.c-type-dot_goal {
+    background: var(--slds-g-color-palette-violet-40, #7c3aed);
+}
+
+.c-type-dot_financial {
+    background: var(--slds-g-color-palette-green-65, #10b981);
+}

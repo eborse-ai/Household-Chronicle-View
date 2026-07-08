@@ -48,12 +48,15 @@
     overflow: hidden;
 }
 
-/* Main content area: fills wrapper and scrolls */
+/* Main content area: vertical scroll only — horizontal overflow clipped here.
+ * Components that need horizontal scroll (timeline, etc.) use their own
+ * inner overflow-x: auto wrapper so they scroll independently. */
 .app-main {
     flex: 1 1 0;
     min-height: 0;
     min-width: 0;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     position: relative;
 }
 

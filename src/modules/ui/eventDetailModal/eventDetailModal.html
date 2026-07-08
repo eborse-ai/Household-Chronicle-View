@@ -1,0 +1,107 @@
+<template>
+    <!-- Accessible title bar; provides the framework-rendered close (×) button -->
+    <lightning-modal-header label={eventData.label}></lightning-modal-header>
+
+    <lightning-modal-body>
+
+        <!-- ── Visual header ─────────────────────────── -->
+        <div class="c-emodal-top">
+            <div class={typeInfo.avatarClass}>
+                <lightning-icon
+                    icon-name={typeInfo.icon}
+                    size="small"
+                    alternative-text={typeInfo.label}>
+                </lightning-icon>
+            </div>
+            <div class="c-emodal-header-body">
+                <p class="c-emodal-type-label">{typeInfo.label}</p>
+                <h2 class="c-emodal-title">
+                    {eventData.label}
+                    <template lwc:if={detail.isCritical}>
+                        <span class="c-emodal-critical-dot" title="Critical">●</span>
+                    </template>
+                </h2>
+                <p class="c-emodal-description">{detail.description}</p>
+                <template lwc:if={detail.isShared}>
+                    <div class="c-emodal-shared-badge">
+                        <lightning-icon icon-name="utility:groups" size="xx-small" alternative-text="Shared event"></lightning-icon>
+                        <span>Shared event — {detail.sharedWith}</span>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- ── Key metrics bar ───────────────────────── -->
+        <div class="c-emodal-metrics">
+            <div class="c-emodal-metric">
+                <span class="c-emodal-metric-label">DATE</span>
+                <span class="c-emodal-metric-value">{detail.date}</span>
+            </div>
+            <div class="c-emodal-metric">
+                <span class="c-emodal-metric-label">MEMBERS AFFECTED</span>
+                <span class="c-emodal-metric-value">{detail.membersAffected}</span>
+            </div>
+            <div class="c-emodal-metric">
+                <span class="c-emodal-metric-label">STATUS</span>
+                <span class={statusClass}>{detail.status}</span>
+            </div>
+        </div>
+
+        <!-- ── AI insight card ───────────────────────── -->
+        <template lwc:if={showAiCard}>
+            <div class="c-emodal-ai-card">
+                <div class="c-emodal-ai-toolbar">
+                    <span class="c-emodal-ai-sparkle">✦</span>
+                    <button class="c-emodal-ai-dismiss" onclick={handleDismissAi} title="Dismiss">×</button>
+                </div>
+                <p class="c-emodal-ai-text">{detail.aiInsight}</p>
+                <lightning-button
+                    label={detail.aiActionLabel}
+                    variant="brand"
+                    class="c-emodal-ai-cta">
+                </lightning-button>
+            </div>
+        </template>
+
+        <!-- ── Detail grid ───────────────────────────── -->
+        <div class="c-emodal-detail-grid">
+            <div class="c-emodal-detail-cell">
+                <span class="c-emodal-detail-label">DATE</span>
+                <span class="c-emodal-detail-value">{detail.date}</span>
+            </div>
+            <div class="c-emodal-detail-cell">
+                <span class="c-emodal-detail-label">MEMBERS</span>
+                <span class="c-emodal-detail-value">{detail.members}</span>
+            </div>
+            <template lwc:if={showCashFlow}>
+                <div class="c-emodal-detail-cell">
+                    <span class="c-emodal-detail-label">CASH-FLOW IMPACT</span>
+                    <span class="c-emodal-detail-value">{detail.cashFlowImpact}</span>
+                </div>
+                <div class="c-emodal-detail-cell">
+                    <span class="c-emodal-detail-label">BENEFICIARIES</span>
+                    <span class="c-emodal-detail-value">{detail.beneficiaries}</span>
+                </div>
+            </template>
+        </div>
+
+        <!-- ── Action taken ──────────────────────────── -->
+        <div class="c-emodal-action-taken">
+            <span class="c-emodal-detail-label">ACTION TAKEN</span>
+            <p class="c-emodal-detail-value">{detail.actionTaken}</p>
+        </div>
+
+    </lightning-modal-body>
+
+    <lightning-modal-footer>
+        <lightning-button-menu
+            label="Actions"
+            icon-name="utility:down"
+            menu-alignment="right"
+            variant="neutral">
+            <lightning-menu-item value="edit"     label="Edit Event"></lightning-menu-item>
+            <lightning-menu-item value="add-note" label="Add Note"></lightning-menu-item>
+            <lightning-menu-item value="create-task" label="Create Task"></lightning-menu-item>
+        </lightning-button-menu>
+    </lightning-modal-footer>
+</template>

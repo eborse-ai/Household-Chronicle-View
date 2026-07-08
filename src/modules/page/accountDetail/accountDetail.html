@@ -1,0 +1,654 @@
+<template>
+    <div class="slds-p-horizontal_medium">
+        <template lwc:if={hasAccount}>
+
+            <!-- Page Header — SLDS record-home blueprint -->
+            <div class="slds-page-header slds-page-header_record-home c-record-header">
+                <div class="slds-page-header__row">
+
+                    <!-- Left: icon + object label + title + subtitle -->
+                    <div class="slds-page-header__col-title">
+                        <div class="slds-media">
+                            <div class="slds-media__figure">
+                                <lightning-icon
+                                    icon-name="standard:household"
+                                    size="large"
+                                    alternative-text="Account">
+                                </lightning-icon>
+                            </div>
+                            <div class="slds-media__body">
+                                <p class="slds-page-header__name-meta">Account</p>
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span class="slds-page-header__title slds-truncate">{accountName}</span>
+                                    </h1>
+                                </div>
+                                <p class="c-record-subtitle">{headerSubtitle}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: actions -->
+                    <div class="slds-page-header__col-actions">
+                        <div class="slds-page-header__controls">
+
+                            <!-- Follow (standalone pill) -->
+                            <div class="slds-page-header__control">
+                                <lightning-button
+                                    label={followLabel}
+                                    variant={followVariant}
+                                    icon-name={followIconName}
+                                    onclick={handleFollow}>
+                                </lightning-button>
+                            </div>
+
+                            <!-- New ▼ | Edit | Delete | Clone ▼ | ▼ -->
+                            <div class="slds-page-header__control">
+                                <lightning-button-group>
+                                    <lightning-button label="New" variant="neutral"></lightning-button>
+                                    <lightning-button-menu
+                                        alternative-text="More New options"
+                                        variant="border-filled">
+                                        <lightning-menu-item label="New Interaction" value="new_interaction"></lightning-menu-item>
+                                        <lightning-menu-item label="New Task" value="new_task"></lightning-menu-item>
+                                    </lightning-button-menu>
+                                    <lightning-button label="Edit"   variant="neutral"></lightning-button>
+                                    <lightning-button label="Delete" variant="neutral"></lightning-button>
+                                    <lightning-button label="Clone"  variant="neutral"></lightning-button>
+                                    <lightning-button-menu
+                                        alternative-text="More Actions"
+                                        variant="border-filled"
+                                        menu-alignment="right">
+                                        <lightning-menu-item label="Log a Call"  value="log_call"></lightning-menu-item>
+                                        <lightning-menu-item label="Send Email"  value="send_email"></lightning-menu-item>
+                                        <lightning-menu-item label="Merge"       value="merge"></lightning-menu-item>
+                                    </lightning-button-menu>
+                                </lightning-button-group>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Body: left sidebar + main content -->
+            <div class="slds-grid slds-gutters slds-m-top_medium">
+
+                <!-- ── LEFT SIDEBAR ── -->
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 c-sidebar">
+
+                    <!-- Client Snapshot -->
+                    <template lwc:if={hasClientSnapshot}>
+                        <div class="c-client-snapshot">
+                            <div class="c-client-snapshot__header">
+                                <lightning-icon icon-name="standard:household" size="medium" alternative-text="Client Snapshot"></lightning-icon>
+                                <h2 class="slds-text-heading_medium slds-m-left_small">Client Snapshot</h2>
+                            </div>
+
+                            <h3 class="c-snapshot-section-title">Primary Member Details</h3>
+                            <hr class="c-snapshot-divider" />
+                            <dl class="c-snapshot-dl">
+                                <div class="c-snapshot-row">
+                                    <dt>Account Name:</dt>
+                                    <dd class="c-snapshot-link">
+                                        {clientSnapshot.primaryMember}
+                                        <lightning-icon icon-name="utility:new_window" size="xx-small" alternative-text="Open"></lightning-icon>
+                                    </dd>
+                                </div>
+                                <div class="c-snapshot-row">
+                                    <dt>Email:</dt>
+                                    <dd class="c-snapshot-link">
+                                        {clientSnapshot.email}
+                                        <lightning-icon icon-name="utility:new_window" size="xx-small" alternative-text="Open"></lightning-icon>
+                                    </dd>
+                                </div>
+                                <div class="c-snapshot-row">
+                                    <dt>Phone Number:</dt>
+                                    <dd><strong>{clientSnapshot.phone}</strong></dd>
+                                </div>
+                            </dl>
+
+                            <h3 class="c-snapshot-section-title slds-m-top_medium">Account Details</h3>
+                            <hr class="c-snapshot-divider" />
+                            <dl class="c-snapshot-dl">
+                                <div class="c-snapshot-row">
+                                    <dt>AUM:</dt>
+                                    <dd><strong>{clientSnapshot.aum}</strong></dd>
+                                </div>
+                                <div class="c-snapshot-row">
+                                    <dt>Last Interaction Date:</dt>
+                                    <dd><strong>{clientSnapshot.lastInteractionDate}</strong></dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </template>
+
+                    <!-- Client Summary -->
+                    <template lwc:if={hasClientSummary}>
+                        <div class="c-client-summary slds-m-top_medium">
+                            <div class="c-client-summary__header">
+                                <span class="c-summary-icon c-agentic-sparkle-icon" aria-hidden="true">✦</span>
+                                <h2 class="slds-text-heading_medium c-summary-title">Client Summary</h2>
+                            </div>
+                            <p class="c-summary-update">{clientSummary.lastUpdate}</p>
+                            <p class="c-summary-body slds-m-top_small">{clientSummary.summary}</p>
+
+                            <p class="slds-m-top_small slds-text-body_small"><strong>What changed:</strong></p>
+                            <p class="c-summary-body">{clientSummary.whatChanged}</p>
+
+                            <p class="slds-m-top_small slds-text-body_small"><strong>Why it matters:</strong></p>
+                            <p class="c-summary-body">{clientSummary.whyItMatters}</p>
+
+                            <!-- Key Data Points (collapsible) -->
+                            <button class="c-summary-section-toggle slds-m-top_small" onclick={handleKeyDataToggle}>
+                                <lightning-icon icon-name={keyDataChevron} size="x-small" alternative-text="Toggle Key Data Points"></lightning-icon>
+                                <strong>Key Data Points</strong>
+                            </button>
+                            <template lwc:if={isKeyDataExpanded}>
+                                <ul class="c-summary-bullet-list">
+                                    <template for:each={clientSummary.keyDataPoints} for:item="point">
+                                        <li key={point}>{point}</li>
+                                    </template>
+                                </ul>
+                            </template>
+
+                            <!-- Sources (collapsible) -->
+                            <button class="c-summary-section-toggle slds-m-top_small" onclick={handleSourcesToggle}>
+                                <lightning-icon icon-name={sourcesChevron} size="x-small" alternative-text="Toggle Sources"></lightning-icon>
+                                <strong>Sources</strong>
+                            </button>
+                            <template lwc:if={isSourcesExpanded}>
+                                <p class="c-summary-body slds-m-top_xx-small">{clientSummary.sources}</p>
+                            </template>
+                        </div>
+
+                        <!-- Meetings card -->
+                        <div class="c-meetings-card slds-m-top_medium">
+                            <div class="c-meetings-card__header">
+                                <div class="c-meetings-card__title-row">
+                                    <div class="c-meetings-card__icon-wrap">
+                                        <lightning-icon icon-name="utility:date_input" size="small" alternative-text="Meetings"></lightning-icon>
+                                    </div>
+                                    <h2 class="c-meetings-card__title">Meetings</h2>
+                                </div>
+                                <button class="c-meetings-add-btn" title="New meeting">
+                                    <lightning-icon icon-name="utility:add" size="x-small" alternative-text="Add meeting"></lightning-icon>
+                                </button>
+                            </div>
+
+                            <ul class="c-meetings-list">
+                                <template for:each={meetings} for:item="mtg">
+                                    <li key={mtg.id} class={mtg.cardClass}>
+                                        <div class="c-mtg-header">
+                                            <span class="c-mtg-title">{mtg.title}</span>
+                                            <span class={mtg.statusClass}>{mtg.status}</span>
+                                        </div>
+                                        <p class="c-mtg-datetime">{mtg.datetime}</p>
+                                        <p class="c-mtg-desc">{mtg.description}</p>
+                                    </li>
+                                </template>
+                            </ul>
+
+                            <div class="c-meetings-card__footer">
+                                <button class="c-meetings-view-btn">View Next Meeting</button>
+                            </div>
+                        </div>
+
+                    </template>
+
+                </div>
+
+                <!-- ── MAIN CONTENT ── -->
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12">
+
+                    <!-- Highlights -->
+                    <div class="c-highlights-panel slds-m-bottom_medium">
+                        <div class="c-highlights-panel__header">
+                            <span class="c-highlights-star-icon">
+                                <lightning-icon icon-name="utility:favorite" size="x-small" alternative-text="Highlights"></lightning-icon>
+                            </span>
+                            <h2 class="slds-text-heading_small slds-m-left_x-small">Highlights</h2>
+                        </div>
+                        <div class="c-highlights-scroller">
+                            <template for:each={highlights} for:item="hl">
+                                <div key={hl.id} class="c-highlight-card">
+                                    <div class="c-highlight-card__header">
+                                        <span class={hl.badgeClass}>{hl.badgeLabel}</span>
+                                        <template lwc:if={hl.actionLabel}>
+                                            <div class="c-highlight-action slds-m-left_auto">
+                                                <button class="c-highlight-action__btn">{hl.actionLabel}</button>
+                                                <button class="c-highlight-action__chevron" title="More actions">
+                                                    <lightning-icon icon-name="utility:down" size="xx-small" alternative-text="More"></lightning-icon>
+                                                </button>
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <h3 class="slds-text-heading_x-small slds-m-top_x-small">{hl.title}</h3>
+                                    <p class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">{hl.description}</p>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Tabs: Relationship Map | Chronicle View -->
+                    <div class="c-tab-panel">
+                    <lightning-tabset>
+                        <lightning-tab label="Relationship Map">
+                            <div class="c-tab-content">
+                                <ui-relationship-map
+                                    account-name={accountName}
+                                    members={relMapMembers}
+                                    recommendations={relMapRecommendations}>
+                                </ui-relationship-map>
+                            </div>
+                        </lightning-tab>
+
+                        <lightning-tab label="Chronicle View">
+                            <div class="c-tab-content">
+
+                            <!-- Group Timeline -->
+                            <div class="c-group-timeline">
+
+                                <!-- Timeline Insights — sits above the header bar, inside the timeline box -->
+                                <template lwc:if={agenticInsightsEnabled}>
+                                <div class="c-agentic-summary c-agentic-summary_above-header">
+                                    <div class="c-agentic-summary__header">
+                                        <div class="c-agentic-summary__title">
+                                            <span class="c-agentic-sparkle-icon" aria-hidden="true">✦</span>
+                                            <h3 class="slds-text-heading_small slds-m-left_x-small">Timeline Insights</h3>
+                                        </div>
+                                        <div class="c-agentic-summary__actions">
+                                            <button class="c-ask-agentforce-btn c-ask-agentforce-btn_primary" onclick={handleAskAgentforce}>
+                                                <span class="c-af-btn-sparkle" aria-hidden="true">✦</span>
+                                                Ask Agentforce
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="c-tl-insight-body">
+                                        <p class="slds-text-body_small c-tl-insight-col">
+                                            <template for:each={agenticSummarySegments} for:item="seg">
+                                                <span key={seg.id} class={seg.spanClass}>{seg.text}</span>
+                                            </template>
+                                        </p>
+                                        <p class="slds-text-body_small c-tl-insight-col">{agenticImpactText}</p>
+                                    </div>
+                                </div>
+                                </template>
+
+                                <!-- Header -->
+                                <div class="c-group-timeline__header">
+                                    <div class="c-group-timeline__title-area">
+                                        <template lwc:if={isDrillMode}>
+                                            <button class="c-drill-back-btn" onclick={handleDrillBack}>
+                                                <lightning-icon icon-name="utility:back" size="xx-small" alternative-text="Back"></lightning-icon>
+                                                <span>All Years</span>
+                                            </button>
+                                            <span class="c-drill-year-label">{drillYearLabel}</span>
+                                        </template>
+                                        <template lwc:else>
+                                            <h3 class="slds-text-heading_small">Reed Household Timeline</h3>
+                                        </template>
+                                        <p class="slds-text-body_small slds-text-color_weak">{timelineMetaText}</p>
+                                    </div>
+                                    <div class="c-group-timeline__controls">
+                                        <!-- 1. Agentic Insights toggle -->
+                                        <div class="c-ai-toggle">
+                                            <span class="slds-text-body_small c-ai-toggle__label">Agentic Insights</span>
+                                            <button
+                                                class={agenticInsightsSwitchClass}
+                                                onclick={handleAgenticInsights}
+                                                role="switch"
+                                                title="Toggle Agentic Insights">
+                                                <span class="c-ai-switch__thumb"></span>
+                                            </button>
+                                        </div>
+
+                                        <!-- 2. Monthly / Yearly toggle -->
+                                        <div class="c-tl-toggle">
+                                            <button class={monthlyBtnClass} data-mode="monthly" onclick={handleTimelineMode}>Monthly</button>
+                                            <button class={yearlyBtnClass}  data-mode="yearly"  onclick={handleTimelineMode}>Yearly</button>
+                                        </div>
+
+                                        <!-- 3. Show All filter dropdown -->
+                                        <div class="c-tl-new-wrap">
+                                            <button class="c-tl-ctrl-btn" onclick={handleToggleFilterMenu}>
+                                                {activeFilterLabel}
+                                                <lightning-icon icon-name="utility:chevrondown" size="xx-small" alternative-text="Filter" class="c-tl-new-chevron"></lightning-icon>
+                                            </button>
+                                            <template lwc:if={filterMenuOpen}>
+                                                <div class="c-tl-new-dropdown c-tl-filter-dropdown" role="menu">
+                                                    <template for:each={filterOptions} for:item="opt">
+                                                        <button key={opt.value} class="c-tl-new-item" role="menuitem" data-value={opt.value} onclick={handleSetFilter}>
+                                                            <template lwc:if={opt.isActive}>
+                                                                <lightning-icon icon-name="utility:check" size="xx-small" alternative-text="Active" class="c-tl-filter-check"></lightning-icon>
+                                                            </template>
+                                                            <template lwc:else>
+                                                                <span class="c-tl-filter-check-spacer"></span>
+                                                            </template>
+                                                            {opt.label}
+                                                        </button>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                        </div>
+
+                                        <!-- 4. New event dropdown (blue outlined) -->
+                                        <div class="c-tl-new-wrap">
+                                            <button class="c-tl-ctrl-btn c-tl-ctrl-btn_brand" onclick={handleToggleNewMenu}>
+                                                New
+                                                <lightning-icon icon-name="utility:chevrondown" size="xx-small" alternative-text="More" class="c-tl-new-chevron"></lightning-icon>
+                                            </button>
+                                            <template lwc:if={newMenuOpen}>
+                                                <div class="c-tl-new-dropdown" role="menu">
+                                                    <button class="c-tl-new-item" role="menuitem" data-type="life-event" onclick={handleNewEventType}>Life Event</button>
+                                                    <button class="c-tl-new-item" role="menuitem" data-type="goal" onclick={handleNewEventType}>Goal</button>
+                                                    <button class="c-tl-new-item" role="menuitem" data-type="financial-product" onclick={handleNewEventType}>Financial Product</button>
+                                                </div>
+                                            </template>
+                                        </div>
+
+                                        <!-- 5. AI Suggestions (blue outlined) -->
+                                        <button class="c-tl-ctrl-btn c-tl-ctrl-btn_brand" onclick={handleToggleAiSuggestions}>
+                                            <span class="c-agentic-sparkle-icon" aria-hidden="true">✦</span>
+                                            <span>AI Suggestions</span>
+                                            <template lwc:if={aiSuggestionsCount}>
+                                                <span class="c-ai-btn-badge">{aiSuggestionsCount}</span>
+                                            </template>
+                                        </button>
+
+                                        <!-- 6. Expand / full-screen icon -->
+                                        <button class="c-tl-ctrl-btn c-tl-expand-btn" title="Expand timeline">
+                                            <lightning-icon icon-name="utility:expand_alt" size="xx-small" alternative-text="Expand"></lightning-icon>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Sticky contextual breadcrumb: shows which year/month is visible while scrolling -->
+                                <template lwc:if={showBreadcrumb}>
+                                    <div class="c-tl-breadcrumb">
+                                        <span class="c-tl-breadcrumb__icon">◎</span>
+                                        <span class="c-tl-breadcrumb__label">Viewing</span>
+                                        <span class="c-tl-breadcrumb__period">{scrollVisibleYear}</span>
+                                    </div>
+                                </template>
+
+                                <!-- Timeline table (scroll-body handles horizontal overflow) -->
+                                <div class="c-group-timeline__body" onscroll={handleTimelineScroll}>
+                                <div class={timelineTableClass}>
+                                    <!-- Header row: Members + year/month columns -->
+                                    <div class="c-timeline-header">
+                                        <div class="c-timeline-member-col c-timeline-header__cell">{timelineMemberHeaderLabel}</div>
+                                        <template for:each={timelineYears} for:item="col">
+                                            <div key={col.key} class={col.headerCellClass}>
+                                                <span class={col.yearLabelClass}>{col.label}</span>
+                                                <template lwc:if={col.isYearStart}>
+                                                    <span class="c-timeline-year-badge">{col.year}</span>
+                                                </template>
+                                                <template lwc:if={col.showTodayPill}>
+                                                    <span class="c-today-pill">Today</span>
+                                                </template>
+                                            </div>
+                                        </template>
+                                    </div>
+
+                                    <!-- Member rows -->
+                                    <template for:each={timelineRows} for:item="row">
+                                        <div key={row.memberId} class="c-timeline-row">
+                                            <!-- Fixed member cell -->
+                                            <div class="c-timeline-member-col c-timeline-row__member">
+                                                <div class={row.avatarClass}>
+                                                    <span class="c-member-avatar__initials">{row.initials}</span>
+                                                </div>
+                                                <div class="c-member-info">
+                                                    <div class="c-member-name-row">
+                                                        <span class="c-member-name"><strong>{row.memberName}</strong></span>
+                                                        <template lwc:if={row.isPrimary}>
+                                                            <span class="c-member-primary-star">★</span>
+                                                        </template>
+                                                    </div>
+                                                    <p class="c-member-meta">{row.memberRole}</p>
+                                                    <p class="c-member-meta">{row.ageLabel}</p>
+                                                    <div class="c-member-strength">
+                                                        <span class={row.strengthClass}></span>
+                                                        <span class="c-strength-label">{row.relationshipStrength}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Scrolling event cells -->
+                                            <template for:each={row.yearCells} for:item="cell">
+                                                <div key={cell.key} class={cell.cellClass}>
+                                                    <!-- Yearly collapsed: count badge + type dots -->
+                                                    <template lwc:if={cell.showCount}>
+                                                        <button class="c-year-count-badge" data-year={cell.year} onclick={handleYearExpand}>
+                                                            {cell.eventCount}
+                                                        </button>
+                                                        <div class="c-type-dots">
+                                                            <template for:each={cell.typeDots} for:item="dot">
+                                                                <span key={dot.type} class={dot.dotClass}></span>
+                                                            </template>
+                                                        </div>
+                                                    </template>
+                                                    <!-- Expanded or monthly: individual event pills -->
+                                                    <template lwc:if={cell.showEvents}>
+                                                        <template for:each={cell.events} for:item="evt">
+                                                            <div key={evt.id} class="c-pill-wrap">
+                                                                <div class="c-pill-inner">
+                                                                    <span class={evt.pillClass} data-event-id={evt.id} onclick={handlePillClick} role="button" tabindex="0">{evt.label}</span>
+                                                                    <template lwc:if={evt.isCritical}>
+                                                                        <span class="c-pill-critical-badge"></span>
+                                                                    </template>
+                                                                </div>
+                                                                <span class={evt.typeDotClass}></span>
+                                                            </div>
+                                                        </template>
+                                                    </template>
+                                                    <!-- Shared-event vertical connectors -->
+                                                    <template lwc:if={cell.hasConnectorAbove}>
+                                                        <div class="c-shared-connector c-shared-connector_up"></div>
+                                                    </template>
+                                                    <template lwc:if={cell.hasConnectorBelow}>
+                                                        <div class="c-shared-connector c-shared-connector_down"></div>
+                                                    </template>
+                                                    <!-- AI sparkle indicators -->
+                                                    <template lwc:if={cell.hasSparkles}>
+                                                        <template for:each={cell.sparkles} for:item="spark">
+                                                            <button key={spark.id}
+                                                                    class="c-sparkle-btn"
+                                                                    data-sug-id={spark.id}
+                                                                    onclick={handleSparkleClick}
+                                                                    title={spark.title}>
+                                                                <span aria-hidden="true">✦</span>
+                                                            </button>
+                                                        </template>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </template>
+
+
+                                </div>
+                                </div><!-- end c-group-timeline__body -->
+
+                                <!-- Legend -->
+                                <div class="c-timeline-legend">
+                                    <span class="c-legend-item c-legend-item_life">Life Event</span>
+                                    <span class="c-legend-item c-legend-item_meeting">Meeting</span>
+                                    <span class="c-legend-item c-legend-item_goal">Financial Goal</span>
+                                    <span class="c-legend-item c-legend-item_financial">Financial Account</span>
+                                    <span class="c-legend-sep" aria-hidden="true">|</span>
+                                    <span class="c-legend-critical"><span class="c-legend-critical__dot"></span> = Critical</span>
+                                    <span class="c-legend-sep" aria-hidden="true">|</span>
+                                    <span class="c-legend-shared"><span class="c-legend-shared__bar"></span> = Shared (bridging both members)</span>
+                                </div>
+
+                                <!-- AI Suggestions slide-in panel (scoped to Group Timeline) -->
+                                <template lwc:if={aiSuggestionsOpen}>
+                                    <ui-ai-suggestions-panel
+                                        suggestions={aiSuggestions}
+                                        focused-suggestion-id={focusedSuggestionId}
+                                        onclose={handleCloseAiSuggestions}
+                                        onadd={handleSuggestionAdd}
+                                        ondismiss={handleSuggestionDismiss}>
+                                    </ui-ai-suggestions-panel>
+                                </template>
+
+                            </div>
+
+                            <!-- Agentforce chat panel — slides in from right, bounded within Chronicle View -->
+                            <template lwc:if={agentforceOpen}>
+                            <div class="c-af-panel">
+                                <!-- Collapse tab on left edge -->
+                                <button class="c-af-collapse-tab" onclick={handleCloseAgentforce} title="Close">&#9664;</button>
+
+                                <!-- Header -->
+                                <div class="c-af-header">
+                                    <span class="c-af-header-title">Financial Advisor Assistant</span>
+                                    <div class="c-af-header-actions">
+                                        <button class="c-af-header-btn" title="Settings">
+                                            <lightning-icon icon-name="utility:settings" size="xx-small" alternative-text="Settings"></lightning-icon>
+                                        </button>
+                                        <button class="c-af-header-btn" title="Pin">
+                                            <lightning-icon icon-name="utility:pin" size="xx-small" alternative-text="Pin"></lightning-icon>
+                                        </button>
+                                        <button class="c-af-header-btn" onclick={handleCloseAgentforce} title="Close">
+                                            <lightning-icon icon-name="utility:close" size="xx-small" alternative-text="Close"></lightning-icon>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Welcome body -->
+                                <div class="c-af-body">
+                                    <div class="c-af-avatar-wrap">
+                                        <div class="c-af-avatar">
+                                            <span class="c-af-avatar-sparkle" aria-hidden="true">✦</span>
+                                        </div>
+                                    </div>
+                                    <h3 class="c-af-greeting">Let's Chat!</h3>
+                                    <p class="c-af-desc">Hi, I'm Agentforce! I can search for information, summarize records, and help with financial planning tasks. What can I help you with?</p>
+
+                                    <div class="c-af-suggestions">
+                                        <button class="c-af-suggestion-btn">
+                                            <span>"Summarize Reed Household"</span>
+                                            <lightning-icon icon-name="utility:forward" size="xx-small" alternative-text="Go"></lightning-icon>
+                                        </button>
+                                        <button class="c-af-suggestion-btn">
+                                            <span>"What planning gaps exist?"</span>
+                                            <lightning-icon icon-name="utility:forward" size="xx-small" alternative-text="Go"></lightning-icon>
+                                        </button>
+                                        <button class="c-af-suggestion-btn">
+                                            <span>"Draft a follow-up for Sara"</span>
+                                            <lightning-icon icon-name="utility:forward" size="xx-small" alternative-text="Go"></lightning-icon>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Chat input footer -->
+                                <div class="c-af-footer">
+                                    <div class="c-af-input-row">
+                                        <input class="c-af-input" type="text" placeholder="Describe your task or ask a question…" />
+                                        <button class="c-af-input-btn" title="Attach">
+                                            <lightning-icon icon-name="utility:add" size="xx-small" alternative-text="Attach"></lightning-icon>
+                                        </button>
+                                        <button class="c-af-input-btn" title="Voice">
+                                            <lightning-icon icon-name="utility:record" size="xx-small" alternative-text="Voice"></lightning-icon>
+                                        </button>
+                                    </div>
+                                    <p class="c-af-disclaimer">Agentforce is AI and can make mistakes.</p>
+                                </div>
+                            </div>
+                            </template>
+
+                            </div><!-- /.c-tab-content -->
+                        </lightning-tab>
+                    </lightning-tabset>
+                    </div><!-- /.c-tab-panel -->
+                </div>
+            </div>
+
+        </template>
+
+        <template lwc:else>
+            <div class="slds-illustration slds-illustration_small slds-p-around_large slds-text-align_center">
+                <p class="slds-text-heading_medium">Account not found</p>
+                <p class="slds-m-top_small">
+                    <lightning-button label="Back to Accounts" variant="brand" onclick={handleBackToList}></lightning-button>
+                </p>
+            </div>
+        </template>
+    </div>
+
+    <!-- Event detail popover (rendered outside page flow, position: fixed) -->
+    <template lwc:if={popoverVisible}>
+        <ui-event-popover
+            event-data={popoverEventData}
+            panel-style={popoverPanelStyle}
+            arrow-right={popoverArrowRight}
+            onclose={handleClosePopover}>
+        </ui-event-popover>
+    </template>
+
+    <!-- New Event modal -->
+    <template lwc:if={newEventModalOpen}>
+        <div class="c-ne-backdrop" onclick={handleCloseNewEventModal}></div>
+        <div class="c-ne-modal" role="dialog" aria-modal="true">
+            <div class="c-ne-modal__header">
+                <h2 class="c-ne-modal__title">New {newEventTypeLabel}</h2>
+                <button class="c-ne-modal__close" onclick={handleCloseNewEventModal} title="Close">
+                    <lightning-icon icon-name="utility:close" size="small" alternative-text="Close"></lightning-icon>
+                </button>
+            </div>
+            <div class="c-ne-modal__body">
+
+                <div class="c-ne-modal__row">
+                    <lightning-input label="Title" placeholder="e.g. Car Purchase" required class="c-ne-modal__field"></lightning-input>
+                    <lightning-input label="Date" type="date" required class="c-ne-modal__field"></lightning-input>
+                </div>
+
+                <lightning-combobox
+                    label="Member"
+                    value=""
+                    options={memberOptions}
+                    placeholder="Select member…"
+                    class="c-ne-modal__field">
+                </lightning-combobox>
+
+                <!-- Life Event extras -->
+                <template lwc:if={newEventIsLifeEvent}>
+                    <lightning-combobox
+                        label="Life Event Type"
+                        value=""
+                        options={lifeEventTypeOptions}
+                        placeholder="Select type…"
+                        class="c-ne-modal__field">
+                    </lightning-combobox>
+                </template>
+
+                <!-- Goal extras -->
+                <template lwc:if={newEventIsGoal}>
+                    <div class="c-ne-modal__row">
+                        <lightning-input label="Target Amount ($)" type="number" placeholder="e.g. 45000" class="c-ne-modal__field"></lightning-input>
+                        <lightning-input label="Target Year" type="number" placeholder="e.g. 2027" class="c-ne-modal__field"></lightning-input>
+                    </div>
+                </template>
+
+                <!-- Financial Product extras -->
+                <template lwc:if={newEventIsFinancialProduct}>
+                    <lightning-combobox
+                        label="Product Type"
+                        value=""
+                        options={financialProductTypeOptions}
+                        placeholder="Select product…"
+                        class="c-ne-modal__field">
+                    </lightning-combobox>
+                </template>
+
+                <lightning-textarea label="Notes" placeholder="Add any relevant context…" class="c-ne-modal__field"></lightning-textarea>
+            </div>
+            <div class="c-ne-modal__footer">
+                <button class="c-ne-modal__cancel" onclick={handleCloseNewEventModal}>Cancel</button>
+                <button class="c-ne-modal__save">Save</button>
+            </div>
+        </div>
+    </template>
+</template>

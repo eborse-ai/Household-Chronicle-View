@@ -28,6 +28,19 @@ export const routes = [
     navLabel: 'Icons',
   },
   {
+    path: '/accounts',
+    component: 'page-accounts',
+    title: 'Accounts',
+    navPage: 'accounts',
+    navLabel: 'Accounts',
+  },
+  {
+    path: '/accounts/:id',
+    component: 'page-account-detail',
+    title: (params) => `Account ${params.id}`,
+    navHighlight: 'accounts',
+  },
+  {
     path: '/contacts',
     component: 'page-contacts',
     title: 'Contacts',

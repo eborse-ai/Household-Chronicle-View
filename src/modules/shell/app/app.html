@@ -16,6 +16,14 @@
         onpanelselect={handlePanelSelect}>
     </shell-global-shell>
 
+    <!-- Workspace tabs (record-level open tabs) -->
+    <ui-workspace-tab-bar
+        tabs={openTabs}
+        active-tab-id={activeTabId}
+        ontabactivate={handleTabActivate}
+        ontabclose={handleTabClose}>
+    </ui-workspace-tab-bar>
+
     <!-- Main content and docked panel -->
     <main class="app-body">
         <lightning-layout vertical-align="stretch" class="utility-full-height">
@@ -24,7 +32,7 @@
                     <div class="app-main">
                         <div class="app-main__inner">
                             <!-- Router outlet -->
-                            <lwc:component lwc:is={componentCtor} onnavigateback={handleNavigateBack}></lwc:component>
+                            <lwc:component lwc:is={componentCtor} onnavigateback={handleNavigateBack} onopentab={handleOpenTab}></lwc:component>
                         </div>
                         <shell-theme-switcher
                             slds-version={_sldsVersion}

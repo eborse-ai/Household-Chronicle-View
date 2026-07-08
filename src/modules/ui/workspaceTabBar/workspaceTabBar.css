@@ -1,0 +1,72 @@
+:host {
+    display: block;
+}
+
+.c-workspace-tab-bar {
+    background: var(--slds-g-color-surface-1, #ffffff);
+    border-bottom: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #dddbda);
+    padding: 0 var(--slds-g-spacing-3, 0.75rem);
+}
+
+.c-workspace-tab-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.c-workspace-tab {
+    display: flex;
+    align-items: stretch;
+    border-right: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #dddbda);
+    /* No SLDS hooks for these tab min/max-width constraints */
+    min-width: 8rem;
+    max-width: 14rem;
+    position: relative;
+}
+
+.c-workspace-tab-active {
+    box-shadow: inset 0 -2px 0 0 var(--slds-g-color-accent-1, #0176d3);
+}
+
+.c-workspace-tab-active .c-workspace-tab__label {
+    color: var(--slds-g-color-accent-1, #0176d3);
+    font-weight: var(--slds-g-font-weight-7, 700);
+}
+
+.c-workspace-tab__label {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-3, 0.75rem);
+    color: var(--slds-g-color-on-surface-2, #181818);
+    text-decoration: none;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.c-workspace-tab__label:hover {
+    color: var(--slds-g-color-accent-1, #0176d3);
+    text-decoration: none;
+}
+
+.c-workspace-tab__close {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--slds-g-spacing-2, 0.5rem);
+    color: var(--slds-g-color-on-surface-1, #444);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+.c-workspace-tab__close:hover {
+    color: var(--slds-g-color-accent-1, #0176d3);
+}

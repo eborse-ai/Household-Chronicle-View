@@ -1,0 +1,149 @@
+<template>
+    <!-- Full-viewport backdrop: closes popover on outside click -->
+    <div class="c-ep-backdrop" onclick={handleBackdropClick}></div>
+
+    <!-- Floating panel -->
+    <div class="c-ep-panel" style={panelStyle}>
+
+        <!-- Directional arrow -->
+        <div class={arrowClass}></div>
+
+        <!-- ── Header ───────────────────────────── -->
+        <div class="c-ep-header">
+            <div class={typeInfo.avatarClass}>
+                <lightning-icon
+                    icon-name={typeInfo.icon}
+                    size="small"
+                    alternative-text={typeInfo.label}>
+                </lightning-icon>
+            </div>
+            <div class="c-ep-header-body">
+                <p class="c-ep-type-label">{typeInfo.label}</p>
+                <h2 class="c-ep-title">
+                    {title}
+                    <template lwc:if={detail.isCritical}>
+                        <span class="c-ep-critical-dot" title="Critical">●</span>
+                    </template>
+                </h2>
+                <p class="c-ep-description">{detail.description}</p>
+                <template lwc:if={detail.isShared}>
+                    <div class="c-ep-shared-badge">
+                        <lightning-icon icon-name="utility:groups" size="xx-small" alternative-text="Shared event"></lightning-icon>
+                        <span>Shared event — {detail.sharedWith}</span>
+                    </div>
+                </template>
+            </div>
+            <button class="c-ep-close" onclick={handleClose} title="Close">
+                <lightning-icon icon-name="utility:close" size="xx-small" alternative-text="Close"></lightning-icon>
+            </button>
+        </div>
+
+        <!-- ── Key metrics bar ───────────────────── -->
+        <div class="c-ep-metrics">
+            <div class="c-ep-metric">
+                <span class="c-ep-metric-label">DATE</span>
+                <span class="c-ep-metric-value">{detail.date}</span>
+            </div>
+            <div class="c-ep-metric">
+                <span class="c-ep-metric-label">MEMBERS AFFECTED</span>
+                <span class="c-ep-metric-value">{detail.membersAffected}</span>
+            </div>
+            <div class="c-ep-metric">
+                <span class="c-ep-metric-label">STATUS</span>
+                <span class={statusClass}>{detail.status}</span>
+            </div>
+        </div>
+
+        <!-- ── Agentic Insight card ──────────────── -->
+        <template lwc:if={showAiCard}>
+            <div class="c-ep-ai-card">
+                <!-- Card header -->
+                <div class="c-ep-ai-header">
+                    <div class="c-ep-ai-header-title">
+                        <span class="c-ep-ai-sparkle" aria-hidden="true">✦✧</span>
+                        <span class="c-ep-ai-title">Agentic Insights</span>
+                        <span class="c-ep-ai-info-badge" title="AI-generated insights based on household data">
+                            <lightning-icon icon-name="utility:info" size="xx-small" alternative-text="About insights"></lightning-icon>
+                        </span>
+                    </div>
+                    <button class="c-ep-ai-dismiss" onclick={handleDismissAi} title="Dismiss">
+                        <lightning-icon icon-name="utility:close" size="xx-small" alternative-text="Dismiss"></lightning-icon>
+                    </button>
+                </div>
+
+                <!-- Sentiment Insights: per-member grid -->
+                <template lwc:if={hasSentimentInsights}>
+                    <div class="c-ep-sentiment-grid">
+                        <template for:each={detail.sentimentInsights} for:item="si">
+                            <div key={si.name} class="c-ep-sentiment-row">
+                                <div class="c-ep-sentiment-person">
+                                    <p class="c-ep-sentiment-name">{si.name}</p>
+                                    <p class="c-ep-sentiment-role">{si.role}</p>
+                                </div>
+                                <p class="c-ep-sentiment-insight">
+                                    <strong>{si.keyword}.</strong> {si.insight}
+                                </p>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- Plain AI insight text (fallback) -->
+                <template lwc:else>
+                    <p class="c-ep-ai-text">{detail.aiInsight}</p>
+                </template>
+
+                <!-- CTA button -->
+                <template lwc:if={detail.aiActionLabel}>
+                    <lightning-button
+                        label={detail.aiActionLabel}
+                        variant="brand"
+                        class="c-ep-ai-cta">
+                    </lightning-button>
+                </template>
+            </div>
+        </template>
+
+        <!-- ── Detail grid ───────────────────────── -->
+        <div class="c-ep-detail-grid">
+            <div class="c-ep-detail-cell">
+                <span class="c-ep-detail-label">DATE</span>
+                <span class="c-ep-detail-value">{detail.date}</span>
+            </div>
+            <div class="c-ep-detail-cell">
+                <span class="c-ep-detail-label">MEMBERS</span>
+                <span class="c-ep-detail-value">{detail.members}</span>
+            </div>
+            <template lwc:if={showCashFlow}>
+                <div class="c-ep-detail-cell">
+                    <span class="c-ep-detail-label">CASH-FLOW IMPACT</span>
+                    <span class="c-ep-detail-value">{detail.cashFlowImpact}</span>
+                </div>
+                <div class="c-ep-detail-cell">
+                    <span class="c-ep-detail-label">BENEFICIARIES</span>
+                    <span class="c-ep-detail-value">{detail.beneficiaries}</span>
+                </div>
+            </template>
+        </div>
+
+        <!-- ── Action taken ──────────────────────── -->
+        <div class="c-ep-action-taken">
+            <span class="c-ep-detail-label">ACTION TAKEN</span>
+            <p class="c-ep-detail-value">{detail.actionTaken}</p>
+        </div>
+
+        <!-- ── Footer ───────────────────────────── -->
+        <div class="c-ep-footer">
+            <lightning-button-menu
+                label="Actions"
+                icon-name="utility:down"
+                menu-alignment="right"
+                variant="neutral">
+                <lightning-menu-item value="edit"        label="Edit Event"></lightning-menu-item>
+                <lightning-menu-item value="add-note"    label="Add Note"></lightning-menu-item>
+                <lightning-menu-item value="create-task" label="Create Task"></lightning-menu-item>
+            </lightning-button-menu>
+        </div>
+
+    </div>
+</template>

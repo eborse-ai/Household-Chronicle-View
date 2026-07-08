@@ -1,0 +1,57 @@
+<template>
+    <!-- Backdrop: click-outside closes panel (covers the group timeline only) -->
+    <div class="c-aip-backdrop" onclick={handleBackdropClick}></div>
+
+    <!-- Slide-in panel -->
+    <div class="c-aip-panel">
+
+        <!-- ── Panel header ────────────────────────── -->
+        <div class="c-aip-header">
+            <div class="c-aip-header-title">
+                <span class="c-aip-sparkle">✦</span>
+                <span class="c-aip-title-text">AI Suggestions</span>
+                <template lwc:if={pendingCount}>
+                    <span class="c-aip-count-badge">{pendingCount}</span>
+                </template>
+            </div>
+            <button class="c-aip-close" onclick={handleClose} title="Close">
+                <lightning-icon icon-name="utility:close" size="x-small" alternative-text="Close"></lightning-icon>
+            </button>
+        </div>
+
+        <!-- ── Suggestion cards ────────────────────── -->
+        <div class="c-aip-body">
+            <template for:each={suggestions} for:item="sug">
+                <div key={sug.id} data-sug-id={sug.id} class={sug.cardClass}>
+
+                    <!-- Card toolbar -->
+                    <div class="c-aip-card-toolbar">
+                        <span class="c-aip-card-badge">
+                            <span class="c-aip-badge-sparkle">✦</span>
+                            AI Suggestion
+                        </span>
+                        <div class="c-aip-card-actions">
+                            <template lwc:if={sug.isAdded}>
+                                <span class="c-aip-added-label">
+                                    <lightning-icon icon-name="utility:check" size="xx-small" alternative-text="Added"></lightning-icon>
+                                    Added ✓
+                                </span>
+                            </template>
+                            <template lwc:else>
+                                <button class="c-aip-add-btn" data-id={sug.id} onclick={handleAdd}>Add to Timeline</button>
+                            </template>
+                            <button class="c-aip-dismiss-btn" data-id={sug.id} onclick={handleDismiss} title="Dismiss">×</button>
+                        </div>
+                    </div>
+
+                    <!-- Card content -->
+                    <h3 class="c-aip-card-title">{sug.title}</h3>
+                    <p class="c-aip-card-meta">{sug.member} · {sug.targetDate}</p>
+                    <p class="c-aip-card-desc">{sug.description}</p>
+
+                </div>
+            </template>
+        </div>
+
+    </div>
+</template>

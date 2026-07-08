@@ -1,0 +1,218 @@
+/* ── Backdrop ───────────────────────────────────────────────── */
+.c-aip-backdrop {
+    /* Covers only the Group Timeline container (position: relative parent) */
+    position: absolute;
+    inset: 0;
+    z-index: 8998;
+    /* intentional static: subtle translucent dim — no SLDS hook */
+    background: rgba(0, 0, 0, 0.06);
+}
+
+/* ── Slide-in panel ─────────────────────────────────────────── */
+.c-aip-panel {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    /* intentional static: 420px panel width — no SLDS sizing hook */
+    width: 420px;
+    /* intentional static: min-height ensures panel is usable even on short timelines */
+    min-height: 400px;
+    z-index: 8999;
+    background: var(--slds-g-color-surface-1, #ffffff);
+    box-shadow: var(--slds-g-shadow-5, -4px 0 24px rgba(0, 0, 0, 0.14));
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: c-aip-slide-in 0.22s ease;
+}
+
+@keyframes c-aip-slide-in {
+    from { transform: translateX(100%); }
+    to   { transform: translateX(0);    }
+}
+
+/* ── Panel header ───────────────────────────────────────────── */
+.c-aip-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--slds-g-spacing-4, 1rem) var(--slds-g-spacing-5, 1.5rem);
+    border-bottom: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #dddbda);
+    flex-shrink: 0;
+}
+
+.c-aip-header-title {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-aip-sparkle {
+    color: var(--slds-g-color-palette-violet-40, #7c3aed);
+    font-size: var(--slds-g-font-scale-3, 1.25rem);
+}
+
+.c-aip-title-text {
+    font-size: var(--slds-g-font-scale-3, 1.25rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    color: var(--slds-g-color-on-surface-1, #080707);
+}
+
+.c-aip-count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--slds-g-color-palette-violet-40, #7c3aed);
+    color: var(--slds-g-color-neutral-base-100, #ffffff);
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    min-width: 1.5rem;
+    height: 1.5rem;
+    padding: 0 var(--slds-g-spacing-1, 0.25rem);
+    border-radius: var(--slds-g-radius-border-4, 1rem);
+}
+
+.c-aip-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--slds-g-spacing-1, 0.25rem);
+    color: var(--slds-g-color-on-surface-2, #706e6b);
+    display: flex;
+    align-items: center;
+}
+
+/* ── Body (scrollable) ──────────────────────────────────────── */
+.c-aip-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--slds-g-spacing-4, 1rem) var(--slds-g-spacing-5, 1.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-4, 1rem);
+}
+
+/* ── Suggestion card ────────────────────────────────────────── */
+.c-aip-card {
+    background: var(--slds-g-color-surface-1, #ffffff);
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #e5e5e5);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    padding: var(--slds-g-spacing-4, 1rem);
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+/* Focused card — highlighted with violet border + subtle glow */
+.c-aip-card_focused {
+    border-color: var(--slds-g-color-palette-violet-40, #7c3aed);
+    /* intentional static: violet glow — no SLDS shadow hook for color */
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+
+/* Card toolbar: badge + actions */
+.c-aip-card-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+}
+
+/* "✦ AI Suggestion" badge (lavender pill) */
+.c-aip-card-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    background: var(--slds-g-color-accent-light-1, #ede9fe);
+    color: var(--slds-g-color-palette-violet-40, #7c3aed);
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    /* intentional static: 0.625rem — no SLDS token match */
+    padding: var(--slds-g-spacing-1, 0.25rem) 0.625rem;
+    border-radius: var(--slds-g-radius-border-4, 1rem);
+}
+
+.c-aip-badge-sparkle {
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+}
+
+.c-aip-card-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+}
+
+/* "Add to Timeline" button */
+.c-aip-add-btn {
+    background: var(--slds-g-color-brand-base-50, #0176d3);
+    color: var(--slds-g-color-neutral-base-100, #ffffff);
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    border: none;
+    border-radius: var(--slds-g-radius-border-4, 1rem);
+    padding: var(--slds-g-spacing-1, 0.25rem) var(--slds-g-spacing-3, 0.75rem);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.c-aip-add-btn:hover {
+    background: var(--slds-g-color-brand-base-20, #014486);
+}
+
+/* "Added ✓" label */
+.c-aip-added-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    color: var(--slds-g-color-palette-green-65, #10b981);
+}
+
+/* Dismiss button */
+.c-aip-dismiss-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--slds-g-sizing-8, 1.75rem);
+    height: var(--slds-g-sizing-8, 1.75rem);
+    border-radius: 50%;
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #dddbda);
+    background: none;
+    cursor: pointer;
+    font-size: var(--slds-g-font-scale-2, 1.125rem);
+    color: var(--slds-g-color-on-surface-2, #706e6b);
+    line-height: var(--slds-g-font-line-height-1, 1);
+    padding: 0;
+}
+
+.c-aip-dismiss-btn:hover {
+    background: var(--slds-g-color-surface-2, #f3f3f3);
+}
+
+/* Card title */
+.c-aip-card-title {
+    font-size: var(--slds-g-font-scale-2, 1.125rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    color: var(--slds-g-color-on-surface-1, #080707);
+    margin: 0;
+}
+
+/* Member · Date line */
+.c-aip-card-meta {
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    color: var(--slds-g-color-palette-violet-40, #7c3aed);
+    margin: 0;
+}
+
+/* Description */
+.c-aip-card-desc {
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+    color: var(--slds-g-color-on-surface-1, #444);
+    line-height: var(--slds-g-font-line-height-base, 1.5);
+    margin: 0;
+}
