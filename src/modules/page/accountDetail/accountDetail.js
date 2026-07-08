@@ -1429,14 +1429,19 @@ export default class AccountDetail extends LightningElement {
         if (this._pendingScrollColIdx !== null) {
             const colIdx = this._pendingScrollColIdx;
             this._pendingScrollColIdx = null;
-            const body = this.template.querySelector('.c-group-timeline__body');
-            if (body) {
-                const COL_W_PX    = 8.5 * 16;  // 136px — must match CSS grid column width
-                const MEMBER_W_PX = 12  * 16;  // 192px — must match CSS member column width
-                // Place target column with a small left margin so context before it is visible
-                const target = MEMBER_W_PX + colIdx * COL_W_PX - body.offsetWidth * 0.08;
+            // Defer so the grid has fully painted and scrollWidth is correct
+            // eslint-disable-next-line @lwc/lwc/no-async-operation
+            setTimeout(() => {
+                const body = this.template.querySelector('.c-group-timeline__body');
+                if (!body) return;
+                const COL_W_PX    = 8.5 * 16; // 136px — must match CSS grid column width
+                const MEMBER_W_PX = 12  * 16; // 192px — must match CSS member column width
+                // Center the target column in the visible scroll area
+                const visibleW = body.offsetWidth - MEMBER_W_PX;
+                const colCenter = MEMBER_W_PX + colIdx * COL_W_PX + COL_W_PX / 2;
+                const target    = colCenter - MEMBER_W_PX - visibleW / 2;
                 body.scrollLeft = Math.max(0, Math.round(target));
-            }
+            }, 80);
         }
     }
 
