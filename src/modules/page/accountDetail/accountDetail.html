@@ -334,9 +334,9 @@
                                             </template>
                                         </div>
 
-                                        <!-- 4. New Milestone button -->
+                                        <!-- 4. New Event button -->
                                         <button class="c-tl-ctrl-btn c-tl-milestone-btn" onclick={handleOpenMilestoneModal}>
-                                            New Milestone
+                                            New Event
                                         </button>
 
                                         <!-- 5. AI Suggestions (blue outlined) -->
@@ -592,14 +592,14 @@
         </ui-event-popover>
     </template>
 
-    <!-- New Milestone modal -->
+    <!-- New Event modal -->
     <template lwc:if={milestoneModalOpen}>
         <div class="c-ne-backdrop" onclick={handleCloseMilestoneModal}></div>
         <div class="c-ne-modal c-ne-modal_milestone" role="dialog" aria-modal="true" aria-labelledby="c-nm-title">
 
             <!-- Header -->
             <div class="c-ne-modal__header c-ne-modal__header_centered">
-                <h2 class="c-ne-modal__title" id="c-nm-title">New Milestone</h2>
+                <h2 class="c-ne-modal__title" id="c-nm-title">New Person Life Event</h2>
                 <button class="c-ne-modal__close" onclick={handleCloseMilestoneModal} title="Close">
                     <lightning-icon icon-name="utility:close" size="small" alternative-text="Close"></lightning-icon>
                 </button>
@@ -612,16 +612,15 @@
                 <!-- Information section bar -->
                 <div class="c-ne-section-bar">Information</div>
 
-                <!-- Row 1: Milestone Name | Milestone Type -->
+                <!-- Row 1: Event Name | Event Type -->
                 <div class="c-ne-modal__row">
                     <lightning-input
-                        label="Milestone Name"
-                        placeholder="e.g. Home Purchase"
+                        label="Event Name"
                         required
                         class="c-ne-modal__field">
                     </lightning-input>
                     <lightning-combobox
-                        label="Milestone Type"
+                        label="Event Type"
                         value=""
                         options={milestoneTypeOptions}
                         placeholder="--None--"
@@ -630,49 +629,64 @@
                     </lightning-combobox>
                 </div>
 
-                <!-- Row 2: Milestone Date (left) | Milestone Description (right, spans 2 sub-rows) -->
+                <!-- Row 2: Event Date (left) | Event Description (right) -->
                 <div class="c-ne-modal__row c-ne-modal__row_align-start">
-                    <!-- Left: date subsection -->
+                    <!-- Left: date + time -->
                     <div class="c-ne-modal__field">
-                        <p class="c-ne-date-section-label">Milestone Date</p>
+                        <p class="c-ne-date-section-label">Event Date</p>
                         <div class="c-ne-modal__row c-ne-modal__row_compact">
                             <lightning-input label="Date" type="date" required class="c-ne-modal__field"></lightning-input>
-                            <lightning-input label="Time" type="time" class="c-ne-modal__field"></lightning-input>
+                            <lightning-input label="Time" type="time" required class="c-ne-modal__field"></lightning-input>
                         </div>
                     </div>
-                    <!-- Right: description -->
+                    <!-- Right: description textarea -->
                     <lightning-textarea
-                        label="Milestone Description"
-                        placeholder="Describe the milestone and its significance…"
-                        max-length="500"
+                        label="Event Description"
                         class="c-ne-modal__field">
                     </lightning-textarea>
                 </div>
 
-                <!-- Row 3: Primary Member | Related Account / Location -->
+                <!-- Row 3: Primary Person | Related Person -->
                 <div class="c-ne-modal__row">
                     <lightning-combobox
-                        label="Primary Member"
+                        label="Primary Person"
                         value={defaultMemberValue}
                         options={memberOptions}
                         required
                         class="c-ne-modal__field">
                     </lightning-combobox>
                     <lightning-input
-                        label="Related Account"
-                        placeholder="e.g. Joint Brokerage, 529 Plan"
+                        label="Related Person"
+                        placeholder="Search Contacts..."
                         class="c-ne-modal__field">
                     </lightning-input>
                 </div>
 
-                <!-- Row 4: Tentative checkbox | Critical checkbox -->
+                <!-- Row 4: Tentative | Expired -->
                 <div class="c-ne-modal__row">
                     <div class="c-ne-modal__field">
                         <lightning-input type="checkbox" label="Tentative" class="c-ne-checkbox"></lightning-input>
                     </div>
                     <div class="c-ne-modal__field">
-                        <lightning-input type="checkbox" label="Critical" class="c-ne-checkbox"></lightning-input>
+                        <lightning-input type="checkbox" label="Expired" class="c-ne-checkbox"></lightning-input>
                     </div>
+                </div>
+
+                <!-- Row 5: Expiration Date (left) | Expiration Description (right) -->
+                <div class="c-ne-modal__row c-ne-modal__row_align-start">
+                    <!-- Left: expiration date + time -->
+                    <div class="c-ne-modal__field">
+                        <p class="c-ne-date-section-label">Expiration Date</p>
+                        <div class="c-ne-modal__row c-ne-modal__row_compact">
+                            <lightning-input label="Date" type="date" class="c-ne-modal__field"></lightning-input>
+                            <lightning-input label="Time" type="time" class="c-ne-modal__field"></lightning-input>
+                        </div>
+                    </div>
+                    <!-- Right: expiration description textarea -->
+                    <lightning-textarea
+                        label="Expiration Description"
+                        class="c-ne-modal__field">
+                    </lightning-textarea>
                 </div>
             </div>
 
