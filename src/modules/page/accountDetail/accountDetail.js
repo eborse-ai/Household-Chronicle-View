@@ -160,28 +160,12 @@ const ENRICHMENT = {
                 actionLabel: 'Model RSU Reinvestment',
             },
             {
-                id: 'h4',
-                badgeLabel: 'Predicted',
-                badgeClass: 'c-badge c-badge_predicted',
-                title: "College Funding Gap — Start Contributions Now",
-                description: "Emma enters college in 2043. With $0 in a 529 today, monthly contributions should start immediately to close the ~$300K gap.",
-                actionLabel: 'Model 529 Scenarios',
-            },
-            {
                 id: 'h5',
                 badgeLabel: 'Alert',
                 badgeClass: 'c-badge c-badge_alert',
                 title: "New-Car Goal at Risk from Market Dip",
                 description: "The $45K car goal (target 2027) relies on brokerage growth. A recent market dip has put the timeline at risk — rebalance or adjust.",
                 actionLabel: 'Review Goal Funding',
-            },
-            {
-                id: 'h6',
-                badgeLabel: 'Alert',
-                badgeClass: 'c-badge c-badge_alert',
-                title: "Protection Plan Incomplete Post-Birth",
-                description: "Mark added term life after Emma's birth, but Sara's coverage and beneficiary designations across all accounts haven't been reviewed.",
-                actionLabel: 'Create Opportunity',
             },
         ],
         aiSuggestions: [
