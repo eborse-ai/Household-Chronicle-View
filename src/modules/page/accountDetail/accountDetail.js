@@ -790,23 +790,15 @@ export default class AccountDetail extends LightningElement {
 
     get agenticSummarySegments() {
         return [
-            { id: 's1',  text: "The household's focus shifted dramatically with ",                  bold: false },
-            { id: 's2',  text: "Emma's birth in April 2025",                                        bold: true  },
-            { id: 's3',  text: ". Mark purchased ",                                                 bold: false },
-            { id: 's4',  text: "term-life insurance",                                               bold: true  },
-            { id: 's5',  text: " shortly after, but gaps remain: ",                                 bold: false },
-            { id: 's6',  text: "no 529 plan",                                                       bold: true  },
-            { id: 's7',  text: " has been opened for Emma, and protection planning hasn't been fully updated. Engagement has been ", bold: false },
-            { id: 's8',  text: "Mark-only",                                                         bold: true  },
-            { id: 's9',  text: " (Sara absent from the ",                                           bold: false },
-            { id: 's10', text: "last two annual reviews",                                           bold: true  },
-            { id: 's11', text: "), and the ",                                                       bold: false },
-            { id: 's12', text: "new-car goal",                                                      bold: true  },
-            { id: 's13', text: " is now ",                                                          bold: false },
-            { id: 's14', text: "at risk",                                                           bold: true  },
-            { id: 's15', text: " from a recent market dip. The upcoming ",                         bold: false },
-            { id: 's16', text: "mid-year review",                                                   bold: true  },
-            { id: 's17', text: " presents an opportunity to address college funding, bring Sara into the planning conversation, and reassess the new-car goal timeline.", bold: false },
+            { id: 's1',  text: "Across the past 12 months the Reed household\u2019s journey has been defined by ", bold: false },
+            { id: 's2',  text: "one pivotal life event \u2013 Emma\u2019s birth (Apr 2025)",                      bold: true  },
+            { id: 's3',  text: " \u2013 and the arc it set in motion. The sequence tells the story: a new dependent arrived, engagement stayed ", bold: false },
+            { id: 's4',  text: "Mark-only",                                                                        bold: true  },
+            { id: 's5',  text: " through every touchpoint, and the plan hasn\u2019t caught up \u2013 ",            bold: false },
+            { id: 's6',  text: "no 529 started, protection not revisited.",                                        bold: true  },
+            { id: 's7',  text: " The trajectory is a family growing faster than its plan, with ",                  bold: false },
+            { id: 's8',  text: "college funding and bringing Sara into the relationship",                           bold: true  },
+            { id: 's9',  text: " both on the horizon.",                                                            bold: false },
         ].map(s => ({ ...s, spanClass: s.bold ? 'c-tl-insight-bold' : '' }));
     }
     get agenticImpactText() {
