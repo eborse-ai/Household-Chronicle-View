@@ -582,7 +582,7 @@
     font-size: var(--slds-g-font-scale-1, 1rem);
     font-weight: var(--slds-g-font-weight-7, 700);
     color: var(--slds-g-color-neutral-base-10, #181818);
-    margin: 0;
+    margin: 0 0 var(--slds-g-spacing-4, 1rem) 0;
 }
 
 .c-rm-modal__field { display: block; }
