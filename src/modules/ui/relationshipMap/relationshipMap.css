@@ -517,22 +517,26 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 50%;
-    /* intentional static: #5c5c5c outline per design */
-    border: 1.5px solid #5c5c5c;
     background: transparent;
-    color: var(--slds-g-color-on-surface-2, #706e6b);
+    border: none;
     cursor: pointer;
-    padding: 0;
+    padding: 0.125rem;
+    color: var(--slds-g-color-on-surface-2, #706e6b);
     line-height: 0;
     flex-shrink: 0;
+    border-radius: var(--slds-g-radius-border-1, 0.125rem);
     transition: background 0.12s;
 }
 
 .c-rm-rec-panel__refresh:hover {
     background: var(--slds-g-color-surface-2, #f3f3f3);
+}
+
+.c-rm-rec-panel__refresh-icon {
+    /* proportionate to the 0.8125rem title text beside it */
+    width: 1rem;
+    height: 1rem;
+    display: block;
 }
 
 .c-rm-rec-panel__spacer {
