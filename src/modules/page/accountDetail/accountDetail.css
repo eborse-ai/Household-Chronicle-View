@@ -406,6 +406,11 @@ lightning-card {
 }
 .c-tl-ctrl-btn_brand:hover { background: #e8f4fd; }
 
+/* Add button — icon + label, no dropdown chevron */
+.c-tl-add-btn {
+    gap: var(--slds-g-spacing-1, 0.25rem);
+}
+
 /* Expand icon button — circle, no label */
 .c-tl-expand-btn {
     padding: 0.25rem;

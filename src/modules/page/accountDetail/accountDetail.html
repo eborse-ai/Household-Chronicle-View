@@ -320,20 +320,11 @@
                                             </template>
                                         </div>
 
-                                        <!-- 4. New event dropdown (blue outlined) -->
-                                        <div class="c-tl-new-wrap">
-                                            <button class="c-tl-ctrl-btn c-tl-ctrl-btn_brand" onclick={handleToggleNewMenu}>
-                                                New
-                                                <lightning-icon icon-name="utility:chevrondown" size="xx-small" alternative-text="More" class="c-tl-new-chevron"></lightning-icon>
-                                            </button>
-                                            <template lwc:if={newMenuOpen}>
-                                                <div class="c-tl-new-dropdown" role="menu">
-                                                    <button class="c-tl-new-item" role="menuitem" data-type="life-event" onclick={handleNewEventType}>Life Event</button>
-                                                    <button class="c-tl-new-item" role="menuitem" data-type="goal" onclick={handleNewEventType}>Goal</button>
-                                                    <button class="c-tl-new-item" role="menuitem" data-type="financial-product" onclick={handleNewEventType}>Financial Product</button>
-                                                </div>
-                                            </template>
-                                        </div>
+                                        <!-- 4. Add event button -->
+                                        <button class="c-tl-ctrl-btn c-tl-ctrl-btn_brand c-tl-add-btn" title="Add event" data-type="life-event" onclick={handleNewEventType}>
+                                            <lightning-icon icon-name="utility:add" size="xx-small" alternative-text="Add"></lightning-icon>
+                                            Add
+                                        </button>
 
                                         <!-- 5. AI Suggestions (blue outlined) -->
                                         <button class="c-tl-ctrl-btn c-tl-ctrl-btn_brand" onclick={handleToggleAiSuggestions}>
