@@ -503,40 +503,48 @@
 
                                 <!-- Welcome body -->
                                 <div class="c-af-body">
-                                    <div class="c-af-avatar-wrap">
-                                        <div class="c-af-avatar">
-                                            <span class="c-af-avatar-sparkle" aria-hidden="true">✦</span>
+                                    <!-- Hero circle with sparkles -->
+                                    <div class="c-af-hero-wrap">
+                                        <div class="c-af-hero-circle">
+                                            <span class="c-af-hero-spark c-af-hero-spark_center" aria-hidden="true">✦</span>
+                                            <span class="c-af-hero-spark c-af-hero-spark_tl"   aria-hidden="true">✦</span>
+                                            <span class="c-af-hero-spark c-af-hero-spark_tr"   aria-hidden="true">✦</span>
+                                            <span class="c-af-hero-spark c-af-hero-spark_bl"   aria-hidden="true">✦</span>
+                                            <span class="c-af-hero-spark c-af-hero-spark_br"   aria-hidden="true">✦</span>
                                         </div>
                                     </div>
+
                                     <h3 class="c-af-greeting">Let's Chat!</h3>
-                                    <p class="c-af-desc">Hi, I'm Agentforce! I can search for information, summarize records, and help with financial planning tasks. What can I help you with?</p>
+                                    <p class="c-af-desc">Hi, I'm Agentforce! I can do things like search for information, summarize records, and draft and revise emails. What can I help you with?</p>
 
                                     <div class="c-af-suggestions">
                                         <button class="c-af-suggestion-btn">
                                             <span>"Summarize Reed Household"</span>
-                                            <lightning-icon icon-name="utility:forward" size="xx-small" alternative-text="Go"></lightning-icon>
+                                            <lightning-icon icon-name="utility:right" size="x-small" alternative-text="Go" class="c-af-sug-arrow"></lightning-icon>
                                         </button>
                                         <button class="c-af-suggestion-btn">
                                             <span>"What planning gaps exist?"</span>
-                                            <lightning-icon icon-name="utility:forward" size="xx-small" alternative-text="Go"></lightning-icon>
+                                            <lightning-icon icon-name="utility:right" size="x-small" alternative-text="Go" class="c-af-sug-arrow"></lightning-icon>
                                         </button>
                                         <button class="c-af-suggestion-btn">
                                             <span>"Draft a follow-up for Sara"</span>
-                                            <lightning-icon icon-name="utility:forward" size="xx-small" alternative-text="Go"></lightning-icon>
+                                            <lightning-icon icon-name="utility:right" size="x-small" alternative-text="Go" class="c-af-sug-arrow"></lightning-icon>
                                         </button>
                                     </div>
                                 </div>
 
                                 <!-- Chat input footer -->
                                 <div class="c-af-footer">
-                                    <div class="c-af-input-row">
+                                    <div class="c-af-input-box">
                                         <input class="c-af-input" type="text" placeholder="Describe your task or ask a question…" />
-                                        <button class="c-af-input-btn" title="Attach">
-                                            <lightning-icon icon-name="utility:add" size="xx-small" alternative-text="Attach"></lightning-icon>
-                                        </button>
-                                        <button class="c-af-input-btn" title="Voice">
-                                            <lightning-icon icon-name="utility:record" size="xx-small" alternative-text="Voice"></lightning-icon>
-                                        </button>
+                                        <div class="c-af-input-actions">
+                                            <button class="c-af-input-btn" title="Attach">
+                                                <lightning-icon icon-name="utility:add" size="xx-small" alternative-text="Attach"></lightning-icon>
+                                            </button>
+                                            <button class="c-af-input-btn" title="Voice">
+                                                <lightning-icon icon-name="utility:record" size="xx-small" alternative-text="Voice"></lightning-icon>
+                                            </button>
+                                        </div>
                                     </div>
                                     <p class="c-af-disclaimer">Agentforce is AI and can make mistakes.</p>
                                 </div>
