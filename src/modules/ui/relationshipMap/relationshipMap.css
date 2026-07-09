@@ -292,6 +292,11 @@
     font-weight: var(--slds-g-font-weight-6, 600);
 }
 
+.c-rel-map-member-actions {
+    position: relative;
+    flex-shrink: 0;
+}
+
 /* Circular dropdown button */
 .c-rel-map-member-options {
     flex-shrink: 0;
@@ -310,6 +315,38 @@
 }
 .c-rel-map-member-options:hover {
     background: var(--slds-g-color-surface-2, #f3f3f3);
+}
+
+.c-rel-map-entity-menu {
+    position: absolute;
+    top: calc(100% + 0.25rem);
+    right: 0;
+    min-width: 11rem;
+    background: var(--slds-g-color-surface-1, #ffffff);
+    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    box-shadow: var(--slds-g-shadow-2, 0 2px 6px rgba(0, 0, 0, 0.1));
+    z-index: 20;
+    overflow: hidden;
+}
+
+.c-rel-map-entity-menu__item {
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: transparent;
+    color: var(--slds-g-color-on-surface-1, #080707);
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    padding: var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-3, 0.75rem);
+    cursor: pointer;
+}
+
+.c-rel-map-entity-menu__item:hover {
+    background: var(--slds-g-color-surface-2, #f3f3f3);
+}
+
+.c-rel-map-entity-menu__item_danger {
+    color: var(--slds-g-color-error-base-40, #ba0517);
 }
 
 .c-primary-star {
@@ -533,6 +570,10 @@
     overflow: hidden;
 }
 
+.c-rm-modal_sm {
+    width: 32rem;
+}
+
 /* ── Header: centered title with absolute close ─────────── */
 .c-rm-modal__header {
     position: relative;
@@ -545,8 +586,11 @@
 
 .c-rm-modal__title {
     font-size: var(--slds-g-font-scale-2, 1.125rem);
-    font-weight: var(--slds-g-font-weight-7, 700);
-    color: var(--slds-g-color-neutral-base-10, #181818);
+    font-weight: var(--slds-g-font-weight-4, 400);
+    /* No SLDS hook for dark-navy #0c1a5e matching Client Pulse title */
+    color: #0c1a5e;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
     margin: 0;
     text-align: center;
 }
@@ -592,6 +636,13 @@
 .c-rm-modal__hint {
     font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
     color: var(--slds-g-color-neutral-base-50, #6b7280);
+    margin: 0;
+}
+
+.c-rm-modal__confirm-text {
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    color: var(--slds-g-color-on-surface-1, #080707);
+    line-height: var(--slds-g-font-line-height-base, 1.5);
     margin: 0;
 }
 
@@ -793,6 +844,21 @@
     background: var(--slds-g-color-neutral-base-80, #c9c9c9);
     color: var(--slds-g-color-neutral-base-60, #939393);
     cursor: not-allowed;
+}
+
+.c-rm-modal__delete {
+    padding: var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-6, 1.5rem);
+    border-radius: var(--slds-g-radius-border-4, 1.5rem);
+    border: none;
+    background: var(--slds-g-color-error-base-40, #ba0517);
+    color: var(--slds-g-color-neutral-base-100, #ffffff);
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    cursor: pointer;
+}
+
+.c-rm-modal__delete:hover {
+    background: var(--slds-g-color-error-base-30, #8e030f);
 }
 
 /* ── Stepper progress indicator — SLDS 2 ────────────────── */

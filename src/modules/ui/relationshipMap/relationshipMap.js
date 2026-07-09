@@ -27,6 +27,12 @@ export default class RelationshipMap extends LightningElement {
     @track _modalSalutation   = 'Mr';
     @track _modalFirstName    = '';
     @track _modalLastName     = '';
+    @track _modalPhone        = '';
+    @track _modalEmail        = '';
+    @track _openEntityMenuKey = null;
+    @track _activeEntity      = null;
+    @track _showDeleteModal   = false;
+    @track _showEditModal     = false;
 
     // ── Members ─────────────────────────────────────────────────
 
@@ -44,6 +50,8 @@ export default class RelationshipMap extends LightningElement {
             isExpanded:  !!this._expandedMemberIds[m.id],
             chevronIcon: this._expandedMemberIds[m.id] ? 'utility:chevrondown' : 'utility:chevronright',
             cardClass:   'c-rel-map-member-card' + (this._expandedMemberIds[m.id] ? ' c-rel-map-member-card_open' : ''),
+            menuKey:     this._memberMenuKey(m.id),
+            isMenuOpen:  this._openEntityMenuKey === this._memberMenuKey(m.id),
         }));
     }
 
@@ -134,21 +142,36 @@ export default class RelationshipMap extends LightningElement {
     }
 
     get addedMembers() {
-        return this._allRecsFlat.filter(r => this._addedIds[r.id] && r.groupCategory === 'Members');
+        return this._decorateAddedEntities('Members');
     }
 
     get addedContacts() {
-        return this._allRecsFlat.filter(r => this._addedIds[r.id] && r.groupCategory === 'Related Contacts');
+        return this._decorateAddedEntities('Related Contacts');
     }
 
     get addedAccounts() {
-        return this._allRecsFlat.filter(r => this._addedIds[r.id] && r.groupCategory === 'Related Accounts');
+        return this._decorateAddedEntities('Related Accounts');
     }
 
     get contactsCount() { return this.addedContacts.length; }
     get accountsCount()  { return this.addedAccounts.length; }
     get hasAddedContacts() { return this.contactsCount > 0; }
     get hasAddedAccounts() { return this.accountsCount > 0; }
+    get showDeleteModal()  { return this._showDeleteModal; }
+    get showEditModal()    { return this._showEditModal; }
+
+    get editEntityName() {
+        return this._activeEntity?.name || '';
+    }
+
+    get deleteEntityName() {
+        return this._activeEntity?.name || '';
+    }
+
+    get deleteModalMessage() {
+        const name = this.deleteEntityName;
+        return `Are you sure you want to delete the relationship for ${name}? This action cannot be undone.`;
+    }
 
     _sourceBadgeClass(type) {
         if (type === 'new')      return 'c-rm-rec-badge c-rm-rec-badge_source c-rm-rec-badge_new';
@@ -160,6 +183,37 @@ export default class RelationshipMap extends LightningElement {
         if (type === 'high')   return 'c-rm-rec-badge c-rm-rec-badge_conf c-rm-rec-badge_high';
         if (type === 'medium') return 'c-rm-rec-badge c-rm-rec-badge_conf c-rm-rec-badge_medium';
         return 'c-rm-rec-badge c-rm-rec-badge_conf c-rm-rec-badge_low';
+    }
+
+    _memberMenuKey(id) {
+        return `member:${id}`;
+    }
+
+    _recMenuKey(id) {
+        return `rec:${id}`;
+    }
+
+    _decorateAddedEntities(category) {
+        return this._allRecsFlat
+            .filter(r => this._addedIds[r.id] && r.groupCategory === category)
+            .map(r => {
+                const menuKey = this._recMenuKey(r.id);
+                return {
+                    ...r,
+                    menuKey,
+                    isMenuOpen: this._openEntityMenuKey === menuKey,
+                };
+            });
+    }
+
+    _setActiveEntityFromDataset(dataset) {
+        const kind = dataset.kind;
+        const id = dataset.id;
+        const name = dataset.name || '';
+        const role = dataset.role || '';
+        const category = dataset.category || '';
+        const menuKey = kind === 'member' ? this._memberMenuKey(id) : this._recMenuKey(id);
+        this._activeEntity = { kind, id, name, role, category, menuKey };
     }
 
     handleShowRecs() {
@@ -245,6 +299,8 @@ export default class RelationshipMap extends LightningElement {
     get addModalSalutation() { return this._modalSalutation; }
     get addModalFirstName()  { return this._modalFirstName; }
     get addModalLastName()   { return this._modalLastName; }
+    get addModalPhone()      { return this._modalPhone; }
+    get addModalEmail()      { return this._modalEmail; }
 
     get salutationOptions() {
         return [
@@ -292,6 +348,8 @@ export default class RelationshipMap extends LightningElement {
             this._modalSalutation   = 'Mr';
             this._modalFirstName    = parts[0] || '';
             this._modalLastName     = parts.slice(1).join(' ') || '';
+            this._modalPhone        = '';
+            this._modalEmail        = '';
             // Always open at step 1
             this._modalStep = 1;
         }
@@ -299,6 +357,77 @@ export default class RelationshipMap extends LightningElement {
 
     handleSelectDuplicate(event) {
         this._selectedRecordIdx = parseInt(event.currentTarget.dataset.idx, 10);
+    }
+
+    handleEntityMenuToggle(event) {
+        event.stopPropagation();
+        this._setActiveEntityFromDataset(event.currentTarget.dataset);
+        const nextKey = this._activeEntity?.menuKey;
+        this._openEntityMenuKey = this._openEntityMenuKey === nextKey ? null : nextKey;
+    }
+
+    handleEntityMenuAction(event) {
+        event.stopPropagation();
+        const action = event.currentTarget.dataset.action;
+        if (action === 'edit') {
+            this._modalRole = this._activeEntity?.role || '';
+            this._modalStatus = 'Active';
+            this._showEditModal = true;
+        }
+        if (action === 'delete') {
+            this._showDeleteModal = true;
+        }
+        this._openEntityMenuKey = null;
+    }
+
+    handleEditCancel() {
+        this._showEditModal = false;
+    }
+
+    handleEditSave() {
+        if (!this._activeEntity?.id) {
+            this._showEditModal = false;
+            return;
+        }
+        if (this._activeEntity.kind === 'member') {
+            this.members = (this.members || []).map(member => (
+                member.id === this._activeEntity.id
+                    ? { ...member, role: this._modalRole }
+                    : member
+            ));
+        } else {
+            this.recommendations = (this.recommendations || []).map(group => ({
+                ...group,
+                items: (group.items || []).map(item => (
+                    item.id === this._activeEntity.id
+                        ? { ...item, relationship: this._modalRole }
+                        : item
+                )),
+            }));
+        }
+        this._showEditModal = false;
+    }
+
+    handleDeleteCancel() {
+        this._showDeleteModal = false;
+    }
+
+    handleDeleteConfirm() {
+        if (!this._activeEntity?.id) {
+            this._showDeleteModal = false;
+            return;
+        }
+        if (this._activeEntity.kind === 'member') {
+            this.members = (this.members || []).filter(member => member.id !== this._activeEntity.id);
+            const expanded = { ...this._expandedMemberIds };
+            delete expanded[this._activeEntity.id];
+            this._expandedMemberIds = expanded;
+        } else {
+            const addedIds = { ...this._addedIds };
+            delete addedIds[this._activeEntity.id];
+            this._addedIds = addedIds;
+        }
+        this._showDeleteModal = false;
     }
 
     handleCreateNew() {
@@ -320,6 +449,8 @@ export default class RelationshipMap extends LightningElement {
     handleModalSalutationChange(event)  { this._modalSalutation = event.detail.value; }
     handleModalFirstNameChange(event)   { this._modalFirstName  = event.detail.value; }
     handleModalLastNameChange(event)    { this._modalLastName   = event.detail.value; }
+    handleModalPhoneChange(event)       { this._modalPhone      = event.detail.value; }
+    handleModalEmailChange(event)       { this._modalEmail      = event.detail.value; }
 
     handleConfirmAdd() {
         const id = this._addModalRec?.id;

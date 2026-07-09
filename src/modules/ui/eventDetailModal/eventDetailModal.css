@@ -47,8 +47,11 @@
 
 .c-emodal-title {
     font-size: var(--slds-g-font-scale-3, 1.25rem);
-    font-weight: var(--slds-g-font-weight-7, 700);
-    color: var(--slds-g-color-on-surface-1, #080707);
+    font-weight: var(--slds-g-font-weight-4, 400);
+    /* No SLDS hook for dark-navy #0c1a5e matching Client Pulse title */
+    color: #0c1a5e;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
     margin: 0 0 var(--slds-g-spacing-2, 0.5rem);
     display: flex;
     align-items: center;

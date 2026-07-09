@@ -88,12 +88,31 @@ lightning-card {
     margin-bottom: var(--slds-g-spacing-3, 0.75rem);
 }
 
-/* ── Highlights header star icon ────────────────────── */
-.c-highlights-star-icon {
-    /* intentional static: violet-40 — matches the filled star in the reference screenshot */
-    color: var(--slds-g-color-palette-violet-40, #7c3aed);
-    display: flex;
+/* ── Highlights header — circular purple icon badge + matching title ── */
+.c-highlights-icon-circle {
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
+    /* intentional static: 2rem circle — light violet fill matching screenshot */
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--slds-g-color-palette-violet-95, #ede9fe);
+    flex-shrink: 0;
+    /* intentional static: violet-40 star icon */
+    --slds-c-icon-color-foreground: var(--slds-g-color-palette-violet-40, #7c3aed);
+}
+.c-highlights-icon-circle .slds-icon,
+.c-highlights-icon-circle lightning-icon svg { fill: var(--slds-g-color-palette-violet-40, #7c3aed); }
+
+/* Title — same dark-navy style as Client Pulse */
+.c-highlights-title {
+    /* No SLDS hook for dark-navy #0c1a5e */
+    color: #0c1a5e;
+    font-weight: var(--slds-g-font-weight-4, 400);
+    font-size: 1.125rem;
+    margin: 0 0 0 var(--slds-g-spacing-2, 0.5rem);
+    line-height: 1.3;
 }
 
 .c-highlights-scroller {
@@ -568,8 +587,12 @@ lightning-card {
 
 .c-ne-modal__title {
     font-size: var(--slds-g-font-scale-2, 1.125rem);
-    font-weight: var(--slds-g-font-weight-7, 700);
-    color: var(--slds-g-color-neutral-base-10, #181818);
+    /* Match Client Pulse card-title hierarchy */
+    font-weight: var(--slds-g-font-weight-4, 400);
+    /* No SLDS hook for dark-navy #0c1a5e matching screenshot */
+    color: #0c1a5e;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
     margin: 0;
 }
 

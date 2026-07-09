@@ -89,9 +89,25 @@
                                                         </div>
                                                         <p class="slds-text-body_small slds-text-color_weak">{member.role}</p>
                                                     </div>
-                                                    <button class="c-rel-map-member-options" title="Member options" onclick={handleStopProp}>
-                                                        <lightning-icon icon-name="utility:down" size="xx-small" alternative-text="Options"></lightning-icon>
-                                                    </button>
+                                                    <div class="c-rel-map-member-actions" onclick={handleStopProp}>
+                                                        <button
+                                                            class="c-rel-map-member-options"
+                                                            title="Member options"
+                                                            onclick={handleEntityMenuToggle}
+                                                            data-kind="member"
+                                                            data-id={member.id}
+                                                            data-name={member.name}
+                                                            data-role={member.role}
+                                                            data-category="Members">
+                                                            <lightning-icon icon-name="utility:down" size="xx-small" alternative-text="Options"></lightning-icon>
+                                                        </button>
+                                                        <template lwc:if={member.isMenuOpen}>
+                                                            <div class="c-rel-map-entity-menu">
+                                                                <button class="c-rel-map-entity-menu__item" data-action="edit" onclick={handleEntityMenuAction}>Edit Relationship</button>
+                                                                <button class="c-rel-map-entity-menu__item c-rel-map-entity-menu__item_danger" data-action="delete" onclick={handleEntityMenuAction}>Delete Relationship</button>
+                                                            </div>
+                                                        </template>
+                                                    </div>
                                                 </div>
 
                                                 <!-- Expanded fields -->
@@ -127,7 +143,25 @@
                                                         <span class="slds-text-link slds-text-body_small c-rel-map-member-name">{rec.name}</span>
                                                         <p class="slds-text-body_small slds-text-color_weak">{rec.relationship}</p>
                                                     </div>
-                                                    <span class="c-rm-added-check" title="Added">✓</span>
+                                                    <div class="c-rel-map-member-actions" onclick={handleStopProp}>
+                                                        <button
+                                                            class="c-rel-map-member-options"
+                                                            title="Member options"
+                                                            onclick={handleEntityMenuToggle}
+                                                            data-kind="recommendation"
+                                                            data-id={rec.id}
+                                                            data-name={rec.name}
+                                                            data-role={rec.relationship}
+                                                            data-category="Members">
+                                                            <lightning-icon icon-name="utility:down" size="xx-small" alternative-text="Options"></lightning-icon>
+                                                        </button>
+                                                        <template lwc:if={rec.isMenuOpen}>
+                                                            <div class="c-rel-map-entity-menu">
+                                                                <button class="c-rel-map-entity-menu__item" data-action="edit" onclick={handleEntityMenuAction}>Edit Relationship</button>
+                                                                <button class="c-rel-map-entity-menu__item c-rel-map-entity-menu__item_danger" data-action="delete" onclick={handleEntityMenuAction}>Delete Relationship</button>
+                                                            </div>
+                                                        </template>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </template>
@@ -136,7 +170,7 @@
 
                                 <!-- Section-collapsed view: compact rows -->
                                 <template lwc:else>
-                                    <template for:each={members} for:item="member">
+                                    <template for:each={decoratedMembers} for:item="member">
                                         <div key={member.id} class="c-rel-map-member-collapsed">
                                             <lightning-icon
                                                 icon-name="utility:chevronright"
@@ -159,9 +193,25 @@
                                                 </div>
                                                 <p class="slds-text-body_small slds-text-color_weak">{member.role}</p>
                                             </div>
-                                            <button class="c-rel-map-member-options" title="Options" onclick={handleStopProp}>
-                                                <lightning-icon icon-name="utility:down" size="xx-small" alternative-text="Options"></lightning-icon>
-                                            </button>
+                                            <div class="c-rel-map-member-actions" onclick={handleStopProp}>
+                                                <button
+                                                    class="c-rel-map-member-options"
+                                                    title="Member options"
+                                                    onclick={handleEntityMenuToggle}
+                                                    data-kind="member"
+                                                    data-id={member.id}
+                                                    data-name={member.name}
+                                                    data-role={member.role}
+                                                    data-category="Members">
+                                                    <lightning-icon icon-name="utility:down" size="xx-small" alternative-text="Options"></lightning-icon>
+                                                </button>
+                                                <template lwc:if={member.isMenuOpen}>
+                                                    <div class="c-rel-map-entity-menu">
+                                                        <button class="c-rel-map-entity-menu__item" data-action="edit" onclick={handleEntityMenuAction}>Edit Relationship</button>
+                                                        <button class="c-rel-map-entity-menu__item c-rel-map-entity-menu__item_danger" data-action="delete" onclick={handleEntityMenuAction}>Delete Relationship</button>
+                                                    </div>
+                                                </template>
+                                            </div>
                                         </div>
                                     </template>
                                 </template>
@@ -203,7 +253,25 @@
                                                 <span class="slds-text-link slds-text-body_small">{rec.name}</span>
                                                 <p class="slds-text-body_small slds-text-color_weak">{rec.relationship}</p>
                                             </div>
-                                            <span class="c-rm-added-check" title="Added">✓</span>
+                                            <div class="c-rel-map-member-actions" onclick={handleStopProp}>
+                                                <button
+                                                    class="c-rel-map-member-options"
+                                                    title="Account options"
+                                                    onclick={handleEntityMenuToggle}
+                                                    data-kind="recommendation"
+                                                    data-id={rec.id}
+                                                    data-name={rec.name}
+                                                    data-role={rec.relationship}
+                                                    data-category="Related Accounts">
+                                                    <lightning-icon icon-name="utility:down" size="xx-small" alternative-text="Options"></lightning-icon>
+                                                </button>
+                                                <template lwc:if={rec.isMenuOpen}>
+                                                    <div class="c-rel-map-entity-menu">
+                                                        <button class="c-rel-map-entity-menu__item" data-action="edit" onclick={handleEntityMenuAction}>Edit Relationship</button>
+                                                        <button class="c-rel-map-entity-menu__item c-rel-map-entity-menu__item_danger" data-action="delete" onclick={handleEntityMenuAction}>Delete Relationship</button>
+                                                    </div>
+                                                </template>
+                                            </div>
                                         </div>
                                     </template>
                                 </template>
@@ -231,7 +299,25 @@
                                                 <span class="slds-text-link slds-text-body_small">{rec.name}</span>
                                                 <p class="slds-text-body_small slds-text-color_weak">{rec.relationship}</p>
                                             </div>
-                                            <span class="c-rm-added-check" title="Added">✓</span>
+                                            <div class="c-rel-map-member-actions" onclick={handleStopProp}>
+                                                <button
+                                                    class="c-rel-map-member-options"
+                                                    title="Contact options"
+                                                    onclick={handleEntityMenuToggle}
+                                                    data-kind="recommendation"
+                                                    data-id={rec.id}
+                                                    data-name={rec.name}
+                                                    data-role={rec.relationship}
+                                                    data-category="Related Contacts">
+                                                    <lightning-icon icon-name="utility:down" size="xx-small" alternative-text="Options"></lightning-icon>
+                                                </button>
+                                                <template lwc:if={rec.isMenuOpen}>
+                                                    <div class="c-rel-map-entity-menu">
+                                                        <button class="c-rel-map-entity-menu__item" data-action="edit" onclick={handleEntityMenuAction}>Edit Relationship</button>
+                                                        <button class="c-rel-map-entity-menu__item c-rel-map-entity-menu__item_danger" data-action="delete" onclick={handleEntityMenuAction}>Delete Relationship</button>
+                                                    </div>
+                                                </template>
+                                            </div>
                                         </div>
                                     </template>
                                 </template>
@@ -494,13 +580,24 @@
                                 class="c-rm-modal__field c-rm-modal__field_half">
                             </lightning-input>
                         </div>
-                        <lightning-input
-                            label="Phone"
-                            type="tel"
-                            placeholder="+1 415-555-0199"
-                            required
-                            class="c-rm-modal__field">
-                        </lightning-input>
+                        <div class="c-rm-modal__row">
+                            <lightning-input
+                                label="Phone"
+                                type="tel"
+                                value={addModalPhone}
+                                placeholder="+1 415-555-0199"
+                                required
+                                onchange={handleModalPhoneChange}
+                                class="c-rm-modal__field c-rm-modal__field_half">
+                            </lightning-input>
+                            <lightning-input
+                                label="Email"
+                                type="email"
+                                value={addModalEmail}
+                                onchange={handleModalEmailChange}
+                                class="c-rm-modal__field c-rm-modal__field_half">
+                            </lightning-input>
+                        </div>
                     </div>
                     <div class="c-rm-modal__footer c-rm-modal__footer_step2">
                         <button class="c-rm-modal__back" onclick={handleModalBack}>Back</button>
@@ -516,6 +613,70 @@
                     </div>
                 </template>
 
+            </div>
+        </template>
+
+        <!-- Edit relationship modal -->
+        <template lwc:if={showEditModal}>
+            <div class="c-rm-modal-backdrop" onclick={handleEditCancel}></div>
+            <div class="c-rm-modal c-rm-modal_sm" role="dialog" aria-modal="true">
+                <div class="c-rm-modal__header">
+                    <h2 class="c-rm-modal__title">Edit Relationship</h2>
+                    <button class="c-rm-modal__close" onclick={handleEditCancel} title="Close">
+                        <lightning-icon icon-name="utility:close" size="small" alternative-text="Close"></lightning-icon>
+                    </button>
+                </div>
+                <div class="c-rm-modal__body">
+                    <h3 class="c-rm-modal__subtitle">Add Member Details</h3>
+                    <div class="c-rm-modal__row">
+                        <lightning-input
+                            label="Name"
+                            value={editEntityName}
+                            required
+                            read-only
+                            class="c-rm-modal__field c-rm-modal__field_half">
+                        </lightning-input>
+                        <lightning-combobox
+                            label="Role"
+                            value={addModalRole}
+                            options={roleOptions}
+                            required
+                            onchange={handleModalRoleChange}
+                            class="c-rm-modal__field c-rm-modal__field_half">
+                        </lightning-combobox>
+                    </div>
+                    <lightning-combobox
+                        label="Status"
+                        value={addModalStatus}
+                        options={statusOptions}
+                        onchange={handleModalStatusChange}
+                        class="c-rm-modal__field c-rm-modal__field_half">
+                    </lightning-combobox>
+                </div>
+                <div class="c-rm-modal__footer">
+                    <button class="c-rm-modal__cancel" onclick={handleEditCancel}>Cancel</button>
+                    <button class="c-rm-modal__add" onclick={handleEditSave}>Save</button>
+                </div>
+            </div>
+        </template>
+
+        <!-- Delete relationship confirmation modal -->
+        <template lwc:if={showDeleteModal}>
+            <div class="c-rm-modal-backdrop" onclick={handleDeleteCancel}></div>
+            <div class="c-rm-modal c-rm-modal_sm" role="dialog" aria-modal="true">
+                <div class="c-rm-modal__header">
+                    <h2 class="c-rm-modal__title">Delete Relationship</h2>
+                    <button class="c-rm-modal__close" onclick={handleDeleteCancel} title="Close">
+                        <lightning-icon icon-name="utility:close" size="small" alternative-text="Close"></lightning-icon>
+                    </button>
+                </div>
+                <div class="c-rm-modal__body">
+                    <p class="c-rm-modal__confirm-text">{deleteModalMessage}</p>
+                </div>
+                <div class="c-rm-modal__footer">
+                    <button class="c-rm-modal__cancel" onclick={handleDeleteCancel}>Cancel</button>
+                    <button class="c-rm-modal__delete" onclick={handleDeleteConfirm}>Delete</button>
+                </div>
             </div>
         </template>
 
