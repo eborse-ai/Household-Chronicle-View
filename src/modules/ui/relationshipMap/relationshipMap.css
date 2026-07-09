@@ -1115,33 +1115,35 @@
     border-top-color: #bbf7d0;
 }
 
-/* ── Dismiss toast ─────────────────────────────────────── */
+/* ── Dismiss toast — SLDS 2 success style, fixed at top of viewport ─── */
 .c-rm-toast {
-    position: absolute;
-    bottom: 3.5rem;          /* sits above the zoom bar */
+    /* intentional static: fixed so it always appears at top of page */
+    position: fixed;
+    top: 1.25rem;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
     gap: var(--slds-g-spacing-3, 0.75rem);
-    /* intentional static: toast width */
-    min-width: 22rem;
-    max-width: calc(100% - 2rem);
-    background: var(--slds-g-color-neutral-base-100, #ffffff);
-    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
-    border-left: 4px solid var(--slds-g-color-palette-green-50, #059669);
+    min-width: 24rem;
+    max-width: calc(100vw - 2rem);
+    /* intentional static: SLDS 2 success teal background */
+    background: #c9ede8;
+    border: none;
     border-radius: var(--slds-g-radius-border-3, 0.5rem);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.16);
     padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem);
-    z-index: 60;
+    /* above everything on the page */
+    z-index: 9000;
     animation: c-rm-toast-in 0.22s ease-out;
 }
 
 @keyframes c-rm-toast-in {
-    from { opacity: 0; transform: translateX(-50%) translateY(0.5rem); }
+    from { opacity: 0; transform: translateX(-50%) translateY(-0.75rem); }
     to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
+/* Filled dark-teal circle with white checkmark */
 .c-rm-toast__icon-wrap {
     display: flex;
     align-items: center;
@@ -1149,10 +1151,13 @@
     width: 1.75rem;
     height: 1.75rem;
     border-radius: 50%;
-    background: var(--slds-g-color-palette-green-95, #d1fae5);
+    /* intentional static: dark teal circle matching SLDS 2 success toast */
+    background: #1d6a5e;
     flex-shrink: 0;
-    color: var(--slds-g-color-palette-green-50, #059669);
+    --slds-c-icon-color-foreground: #ffffff;
 }
+.c-rm-toast__icon-wrap .slds-icon,
+.c-rm-toast__icon-wrap lightning-icon svg { fill: #ffffff; }
 
 .c-rm-toast__body {
     flex: 1;
@@ -1161,18 +1166,19 @@
 
 .c-rm-toast__msg {
     font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
-    color: var(--slds-g-color-neutral-base-20, #2e2e2e);
+    /* intentional static: dark charcoal on teal bg */
+    color: #1a2e2c;
     line-height: var(--slds-g-font-lineheight-1, 1.25);
 }
 
 .c-rm-toast__link {
-    color: var(--slds-g-color-brand-base-50, #0176d3);
-    font-weight: var(--slds-g-font-weight-6, 600);
+    /* intentional static: darker teal link to contrast on teal bg */
+    color: #0f4a42;
+    font-weight: var(--slds-g-font-weight-7, 700);
     text-decoration: underline;
     cursor: pointer;
 }
-
-.c-rm-toast__link:hover { color: var(--slds-g-color-brand-base-20, #014486); }
+.c-rm-toast__link:hover { color: #072e28; }
 
 .c-rm-toast__close {
     display: flex;
@@ -1183,7 +1189,8 @@
     cursor: pointer;
     padding: var(--slds-g-spacing-1, 0.25rem);
     border-radius: var(--slds-g-radius-border-2, 0.25rem);
-    color: var(--slds-g-color-neutral-base-50, #6b7280);
+    /* intentional static: dark teal X button */
+    color: #1a2e2c;
     flex-shrink: 0;
 }
-.c-rm-toast__close:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
+.c-rm-toast__close:hover { background: rgba(0, 0, 0, 0.08); }
