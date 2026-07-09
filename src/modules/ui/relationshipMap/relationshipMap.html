@@ -511,24 +511,6 @@
             </div>
         </template>
 
-        <!-- Dismiss toast -->
-        <template lwc:if={showDismissToast}>
-            <div class="c-rm-toast" role="status" aria-live="polite">
-                <div class="c-rm-toast__icon-wrap">
-                    <lightning-icon icon-name="utility:check" size="x-small" alternative-text="Dismissed"></lightning-icon>
-                </div>
-                <div class="c-rm-toast__body">
-                    <span class="c-rm-toast__msg">
-                        <strong>{dismissToastName}</strong> has been dismissed. Find it in
-                        <a class="c-rm-toast__link" href="#archives" onclick={handleArchivesNav}>archives</a>.
-                    </span>
-                </div>
-                <button class="c-rm-toast__close" onclick={handleToastClose} title="Close">
-                    <lightning-icon icon-name="utility:close" size="x-small" alternative-text="Close"></lightning-icon>
-                </button>
-            </div>
-        </template>
-
         <!-- Zoom controls -->
         <div class="c-rel-map-zoom-bar">
             <button class="c-rel-map-zoom-btn" title="Zoom out" onclick={handleZoomOut}>
@@ -541,4 +523,22 @@
         </div>
 
     </div>
+
+    <!-- Dismiss toast — outside canvas so position:fixed escapes overflow:hidden -->
+    <template lwc:if={showDismissToast}>
+        <div class="c-rm-toast" role="status" aria-live="polite">
+            <div class="c-rm-toast__icon-wrap">
+                <lightning-icon icon-name="utility:info" size="x-small" alternative-text="Dismissed"></lightning-icon>
+            </div>
+            <div class="c-rm-toast__body">
+                <span class="c-rm-toast__msg">
+                    <strong>{dismissToastName}</strong> has been dismissed. Find it in
+                    <a class="c-rm-toast__link" href="#archives" onclick={handleArchivesNav}>archives</a>.
+                </span>
+            </div>
+            <button class="c-rm-toast__close" onclick={handleToastClose} title="Close">
+                <lightning-icon icon-name="utility:close" size="x-small" alternative-text="Close"></lightning-icon>
+            </button>
+        </div>
+    </template>
 </template>
