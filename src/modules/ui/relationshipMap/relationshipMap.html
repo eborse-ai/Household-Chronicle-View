@@ -510,7 +510,7 @@
                             <div class="c-rm-modal__dup-table">
                                 <div class="c-rm-modal__dup-thead c-rm-modal__dup-thead_direct">
                                     <span class="c-rm-modal__dup-radio-spacer"></span>
-                                    <template lwc:if={isDirectHouseholdFlow}>
+                                    <template lwc:if={isDirectAccountLikeFlow}>
                                         <span class="c-rm-modal__dup-th">Account Name</span>
                                         <span class="c-rm-modal__dup-th">Phone</span>
                                         <span class="c-rm-modal__dup-th">Account Site</span>
@@ -527,7 +527,7 @@
                                     <div key={dup.idx} class={dup.rowClass} onclick={handleSelectDuplicate} data-idx={dup.idx}>
                                         <input type="radio" class="c-rm-modal__dup-radio" name="directDupSelect" data-idx={dup.idx} checked={dup.isSelected}>
                                         <span class="c-rm-modal__dup-cell c-rm-modal__dup-link">{dup.name}</span>
-                                        <template lwc:if={isDirectHouseholdFlow}>
+                                        <template lwc:if={isDirectAccountLikeFlow}>
                                             <span class="c-rm-modal__dup-cell">{dup.phone}</span>
                                             <span class="c-rm-modal__dup-cell">{dup.accountSite}</span>
                                             <span class="c-rm-modal__dup-cell">{dup.accountOwnerAlias}</span>

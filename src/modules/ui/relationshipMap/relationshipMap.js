@@ -324,24 +324,28 @@ export default class RelationshipMap extends LightningElement {
     get directAddHeading() {
         if (this._directAddCategory === 'Related Contacts') return 'Add Related Contact';
         if (this._directAddCategory === 'Related Households') return 'Add Related Household';
+        if (this._directAddCategory === 'Related Accounts') return 'Add Related Account';
         return 'Add Member';
     }
 
     get directCreateHeading() {
         if (this._directAddCategory === 'Related Contacts') return 'Add Related Contact';
         if (this._directAddCategory === 'Related Households') return 'Add Related Household';
+        if (this._directAddCategory === 'Related Accounts') return 'Add Related Account';
         return 'Add Primary Member';
     }
 
     get directCreateDetailsTitle() {
         if (this._directAddCategory === 'Related Contacts') return 'New Related Contact details';
         if (this._directAddCategory === 'Related Households') return 'New Related Household details';
+        if (this._directAddCategory === 'Related Accounts') return 'New Related Account details';
         return 'New Member details';
     }
 
     get directDetailsSubtitle() {
         if (this._directAddCategory === 'Related Contacts') return 'Add Related Contact Details';
         if (this._directAddCategory === 'Related Households') return 'Add Related Household Details';
+        if (this._directAddCategory === 'Related Accounts') return 'Add Related Account Details';
         return 'Add Member Details';
     }
 
@@ -358,6 +362,7 @@ export default class RelationshipMap extends LightningElement {
 
     get directItemCountLabel() {
         if (this._directAddCategory === 'Related Households') return '5 Items';
+        if (this._directAddCategory === 'Related Accounts') return '5 Items';
         return this._directAddCategory === 'Related Contacts' ? '5 Items' : '64 Items';
     }
 
@@ -373,8 +378,17 @@ export default class RelationshipMap extends LightningElement {
         return this._directAddCategory === 'Related Households';
     }
 
+    get isDirectAccountFlow() {
+        return this._directAddCategory === 'Related Accounts';
+    }
+
+    get isDirectAccountLikeFlow() {
+        return this.isDirectHouseholdFlow || this.isDirectAccountFlow;
+    }
+
     get detailNameFieldLabel() {
         if (this.isDirectHouseholdFlow) return 'Related Household Name';
+        if (this.isDirectAccountFlow) return 'Related Account Name';
         return 'Name';
     }
 
@@ -384,7 +398,7 @@ export default class RelationshipMap extends LightningElement {
     }
 
     get detailRoleOptions() {
-        if (this.isDirectHouseholdFlow) {
+        if (this.isDirectHouseholdFlow || this.isDirectAccountFlow) {
             return [
                 { label: 'Owner-Holding Company-AAR', value: 'Owner-Holding Company-AAR' },
                 { label: 'Primary Residence', value: 'Primary Residence' },
@@ -472,6 +486,10 @@ export default class RelationshipMap extends LightningElement {
             this._openDirectEntityAddModal('Related Households');
             return;
         }
+        if (category === 'Related Accounts') {
+            this._openDirectEntityAddModal('Related Accounts');
+            return;
+        }
 
         const existingRec = this._allRecsFlat.find(
             item => item.groupCategory === category && !this._dismissedIds[item.id]
@@ -507,11 +525,28 @@ export default class RelationshipMap extends LightningElement {
         this._isDirectMemberAdd = true;
         this._directAddCategory = category;
         this._directAddMode = 'existing';
-        this._memberLookupQuery = category === 'Related Households' ? 'Smith' : category === 'Related Contacts' ? 'Adam' : 'Julia Green';
+        this._memberLookupQuery = category === 'Related Households'
+            ? 'Smith'
+            : category === 'Related Accounts'
+                ? 'Green'
+                : category === 'Related Contacts'
+                    ? 'Adam'
+                    : 'Julia Green';
         this._selectedRecordIdx = 0;
-        this._modalRole = category === 'Related Households' ? 'Owner-Holding Company-AAR' : category === 'Related Contacts' ? 'Lawyer' : 'Wife';
+        this._modalRole = category === 'Related Households' || category === 'Related Accounts'
+            ? 'Owner-Holding Company-AAR'
+            : category === 'Related Contacts'
+                ? 'Lawyer'
+                : 'Wife';
         this._modalStatus = 'Active';
-        const duplicates = category === 'Related Households'
+        const duplicates = category === 'Related Accounts'
+            ? [
+                { name: 'Green Enterprises', phone: '(212) 555-0199', accountSite: 'Primary Residence - NY', accountOwnerAlias: 'Nick', role: 'Owner-Holding Company-AAR' },
+                { name: 'David Green and Co,', phone: '+44 20 7946 0192', accountSite: 'Winter Residence - FL', accountOwnerAlias: 'Brian Scott', role: 'Primary Residence' },
+                { name: 'Robert Green, Esq.', phone: '+81 3 5555 0171', accountSite: 'Family Office - CA', accountOwnerAlias: 'Jack Scott', role: 'Family Office' },
+                { name: 'Green & Associates LLC', phone: '(512) 555-0143', accountSite: 'Probate Status - MA', accountOwnerAlias: 'Brett J', role: 'Legal Domicile' },
+            ]
+            : category === 'Related Households'
             ? [
                 { name: 'Smith Household', phone: '(212) 555-0199', accountSite: 'Primary Residence - NY', accountOwnerAlias: 'Nick', role: 'Owner-Holding Company-AAR' },
                 { name: 'John Smith Household', phone: '+44 20 7946 0192', accountSite: 'Winter Residence - FL', accountOwnerAlias: 'Brian Scott', role: 'Primary Residence' },
@@ -534,8 +569,18 @@ export default class RelationshipMap extends LightningElement {
             ];
         this._addModalRec = {
             id: `manual-direct-${Date.now()}`,
-            name: category === 'Related Households' ? 'Smith Household' : category === 'Related Contacts' ? 'Adam Smith' : 'Julia Green',
-            relationship: category === 'Related Households' ? 'Owner-Holding Company-AAR' : category === 'Related Contacts' ? 'Lawyer' : 'Wife',
+            name: category === 'Related Households'
+                ? 'Smith Household'
+                : category === 'Related Accounts'
+                    ? 'Green Enterprises'
+                    : category === 'Related Contacts'
+                        ? 'Adam Smith'
+                        : 'Julia Green',
+            relationship: category === 'Related Households' || category === 'Related Accounts'
+                ? 'Owner-Holding Company-AAR'
+                : category === 'Related Contacts'
+                    ? 'Lawyer'
+                    : 'Wife',
             groupCategory: category,
             sourceType: 'multiple',
             duplicates,
@@ -734,7 +779,7 @@ export default class RelationshipMap extends LightningElement {
         this._modalSalutation = 'Mr';
         this._modalFirstName = '';
         this._modalLastName = '';
-        this._modalPhone = '';
+        this._modalPhone = '+1 415-555-0199';
         this._modalEmail = '';
         this._modalCompany = '';
         this._modalTitle = '';
@@ -782,6 +827,8 @@ export default class RelationshipMap extends LightningElement {
                     ? 'Contact'
                     : this._directAddCategory === 'Related Households'
                         ? 'Related Household'
+                        : this._directAddCategory === 'Related Accounts'
+                            ? 'Related Account'
                         : 'Member';
                 this._addEntityToGraph(this._directAddCategory, {
                     name: selected?.name || this._addModalRec?.name,
