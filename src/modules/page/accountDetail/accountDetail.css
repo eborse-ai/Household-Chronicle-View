@@ -1703,16 +1703,50 @@ lightning-card {
     background: var(--slds-g-color-surface-2, #f3f3f3);
 }
 
-/* Strip the standard-icon container background, keep only the blue SVG */
-.c-af-btn-icon .slds-icon_container,
-.c-af-btn-icon span[class*="slds-icon-standard"] {
-    background: none;
-    border-radius: 0;
-    padding: 0;
+/* Multi-sparkle cluster icon for Ask Agentforce button */
+.c-af-btn-sparkles {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* intentional static: 1.5rem to contain all sparkle stars */
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
 }
-.c-af-btn-icon { --slds-c-icon-color-foreground: var(--slds-g-color-brand-base-50, #0176d3); }
-.c-af-btn-icon .slds-icon,
-.c-af-btn-icon lightning-icon svg { fill: var(--slds-g-color-brand-base-50, #0176d3); }
+
+.c-af-spark {
+    /* intentional static: #2251cc cobalt blue matching screenshot */
+    color: #2251cc;
+    line-height: 1;
+    font-style: normal;
+}
+
+/* Large dominant star — centred */
+.c-af-spark_lg {
+    display: block;
+    /* intentional static: 1.25rem large star */
+    font-size: 1.25rem;
+}
+
+/* Smaller satellite stars — absolute positioned */
+.c-af-spark_sm {
+    position: absolute;
+}
+
+.c-af-spark_tr {
+    /* intentional static: top-right small star */
+    font-size: 0.55rem;
+    top: 0;
+    right: 0;
+}
+
+.c-af-spark_br {
+    /* intentional static: bottom-right smallest star */
+    font-size: 0.4rem;
+    bottom: 0.05rem;
+    right: 0.05rem;
+}
 
 /* ── Agentforce chat panel (Salesforce-style) ────────────────── */
 
