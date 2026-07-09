@@ -282,6 +282,11 @@
     min-width: 0;
 }
 
+.c-rel-map-member-identity p,
+.c-rel-map-collapsed-body p {
+    margin: 0.125rem 0 0;
+}
+
 .c-rel-map-member-name-row {
     display: flex;
     align-items: center;
@@ -865,8 +870,8 @@
 .c-rm-modal__step-dots {
     display: flex;
     align-items: center;
-    /* intentional static: 10rem wide track */
-    width: 10rem;
+    /* intentional static: compact stepper width matching reference */
+    width: 8rem;
     flex-shrink: 0;
 }
 
@@ -876,44 +881,41 @@
     flex-shrink: 0;
     position: relative;
     z-index: 1;
-    /* intentional static: 0.75rem small grey dot for future steps */
-    width: 0.75rem;
-    height: 0.75rem;
+    /* intentional static: compact 0.625rem future step dot */
+    width: 0.625rem;
+    height: 0.625rem;
     background: var(--slds-g-color-neutral-base-70, #b0b0b0);
     border: none;
 }
 
 /* Future step — small grey filled dot */
 .c-rm-modal__dot_future {
-    width: 0.75rem;
-    height: 0.75rem;
+    width: 0.625rem;
+    height: 0.625rem;
     background: var(--slds-g-color-neutral-base-70, #b0b0b0);
     border: none;
 }
 
 /* Current active step — large solid blue filled circle (step not yet complete) */
 .c-rm-modal__dot_active {
-    /* intentional static: 1.75rem = 28px large active step */
-    width: 1.75rem;
-    height: 1.75rem;
-    background: var(--slds-g-color-brand-base-50, #0176d3);
-    border: none;
+    /* intentional static: compact 0.875rem outlined active step */
+    width: 0.875rem;
+    height: 0.875rem;
+    background: var(--slds-g-color-neutral-base-100, #ffffff);
+    border: 3px solid var(--slds-g-color-brand-base-50, #0176d3);
 }
 
 /* Current active step when it's the SECOND step (after one done) — hollow blue circle */
 .c-rm-modal__dot_active.c-rm-modal__dot_active-2 {
-    background: var(--slds-g-color-neutral-base-100, #ffffff);
-    /* intentional static: 3px blue border for hollow outlined circle */
-    border: 3px solid var(--slds-g-color-brand-base-50, #0176d3);
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 0.875rem;
+    height: 0.875rem;
 }
 
 /* Completed step — medium filled blue circle with white checkmark */
 .c-rm-modal__dot_done {
-    /* intentional static: 1.5rem done step */
-    width: 1.5rem;
-    height: 1.5rem;
+    /* intentional static: compact 0.875rem completed step */
+    width: 0.875rem;
+    height: 0.875rem;
     background: var(--slds-g-color-brand-base-50, #0176d3);
     border: none;
     display: flex;
@@ -924,18 +926,19 @@
     content: '';
     display: block;
     /* intentional static: checkmark via border trick */
-    width: 0.4rem;
-    height: 0.65rem;
-    border-right: 2.5px solid #ffffff;
-    border-bottom: 2.5px solid #ffffff;
-    transform: rotate(45deg) translateY(-1.5px);
+    width: 0.2rem;
+    height: 0.35rem;
+    border-right: 1.5px solid #ffffff;
+    border-bottom: 1.5px solid #ffffff;
+    transform: rotate(45deg) translateY(-0.5px);
 }
 
 /* Track between dots — flex: 1 fills remaining space */
 .c-rm-modal__step-track {
     flex: 1;
-    height: 2px;
+    height: 3px;
     background: var(--slds-g-color-neutral-base-70, #c9c9c9);
+    border-radius: var(--slds-g-radius-border-4, 1rem);
 }
 
 /* Blue track when the previous step is done */
@@ -1012,11 +1015,12 @@
 
 /* Recommendation card */
 .c-rm-rec-card {
-    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #dddbda);
     border-radius: var(--slds-g-radius-border-3, 0.5rem);
-    padding: var(--slds-g-spacing-3, 0.75rem);
+    padding: var(--slds-g-spacing-4, 1rem);
     background: var(--slds-g-color-surface-1, #ffffff);
-    margin-bottom: var(--slds-g-spacing-2, 0.5rem);
+    margin-bottom: var(--slds-g-spacing-3, 0.75rem);
+    box-shadow: var(--slds-g-shadow-1, 0 1px 3px rgba(0, 0, 0, 0.06));
 }
 
 .c-rm-rec-card:last-child {
@@ -1028,7 +1032,7 @@
     display: flex;
     align-items: center;
     gap: var(--slds-g-spacing-2, 0.5rem);
-    margin-bottom: var(--slds-g-spacing-1, 0.25rem);
+    margin-bottom: var(--slds-g-spacing-2, 0.5rem);
 }
 
 /* Icon circle */
@@ -1040,57 +1044,58 @@
 }
 
 .c-rm-rec-name {
-    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+    font-size: var(--slds-g-font-scale-1, 1rem);
     font-weight: var(--slds-g-font-weight-6, 600);
-    /* intentional static: #0094B7 — teal link color */
-    color: #0094B7;
+    color: var(--slds-g-color-accent-1, #0176d3);
     flex: 1;
 }
 
 
 /* Relationship label */
 .c-rm-rec-relationship {
-    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    font-weight: var(--slds-g-font-weight-5, 500);
     color: var(--slds-g-color-on-surface-2, #706e6b);
-    margin: 0 0 var(--slds-g-spacing-2, 0.5rem);
+    margin: 0 0 var(--slds-g-spacing-3, 0.75rem);
 }
 
 /* Badges row */
 .c-rm-rec-badges {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--slds-g-spacing-1, 0.25rem);
-    margin-bottom: var(--slds-g-spacing-2, 0.5rem);
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    margin-bottom: var(--slds-g-spacing-3, 0.75rem);
 }
 
 .c-rm-rec-badge {
     display: inline-flex;
     align-items: center;
     gap: var(--slds-g-spacing-1, 0.25rem);
-    font-size: var(--slds-g-font-scale-neg-3, 0.6875rem);
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
     font-weight: var(--slds-g-font-weight-6, 600);
-    padding: 0.125rem var(--slds-g-spacing-2, 0.5rem);
+    padding: var(--slds-g-spacing-1, 0.25rem) var(--slds-g-spacing-3, 0.75rem);
     border-radius: var(--slds-g-radius-border-4, 1rem);
     white-space: nowrap;
+    line-height: var(--slds-g-font-line-height-base, 1.4);
 }
 
 /* Source badges */
 .c-rm-rec-badge_existing {
-    background: var(--slds-g-color-surface-2, #f3f3f3);
+    background: var(--slds-g-color-surface-2, #f8f8f8);
     color: var(--slds-g-color-on-surface-2, #444);
-    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #dddbda);
 }
 
 .c-rm-rec-badge_new {
-    background: var(--slds-g-color-surface-2, #f3f3f3);
+    background: var(--slds-g-color-surface-2, #f8f8f8);
     color: var(--slds-g-color-on-surface-2, #444);
-    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #dddbda);
 }
 
 .c-rm-rec-badge_multiple {
-    background: var(--slds-g-color-surface-2, #f3f3f3);
+    background: var(--slds-g-color-surface-2, #f8f8f8);
     color: var(--slds-g-color-on-surface-2, #444);
-    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #dddbda);
 }
 
 /* Confidence badges */
@@ -1114,8 +1119,8 @@
 
 /* Reason text */
 .c-rm-rec-reason {
-    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
-    color: var(--slds-g-color-on-surface-2, #706e6b);
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    color: var(--slds-g-color-on-surface-1, #3e3e3c);
     line-height: var(--slds-g-font-line-height-base, 1.5);
     margin: 0;
 }
@@ -1123,24 +1128,24 @@
 /* Divider */
 .c-rm-rec-divider {
     border: none;
-    border-top: 1px solid var(--slds-g-color-border-base-1, #f0f0f0);
-    margin: var(--slds-g-spacing-2, 0.5rem) 0;
+    border-top: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #e5e5e5);
+    margin: var(--slds-g-spacing-4, 1rem) 0 var(--slds-g-spacing-3, 0.75rem) 0;
 }
 
 /* Dismiss button */
 .c-rm-rec-dismiss-btn {
-    background: none;
-    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    background: var(--slds-g-color-surface-1, #ffffff);
+    border: var(--slds-g-sizing-border-1, 1px) solid #5c5c5c;
     border-radius: var(--slds-g-radius-border-4, 1rem);
-    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
     font-weight: var(--slds-g-font-weight-6, 600);
-    color: var(--slds-g-color-on-surface-2, #444);
-    padding: var(--slds-g-spacing-1, 0.25rem) var(--slds-g-spacing-3, 0.75rem);
+    color: var(--slds-g-color-accent-1, #0176d3);
+    padding: var(--slds-g-spacing-1, 0.25rem) var(--slds-g-spacing-5, 1.25rem);
     cursor: pointer;
 }
 
 .c-rm-rec-dismiss-btn:hover {
-    background: var(--slds-g-color-surface-2, #f3f3f3);
+    background: var(--slds-g-color-surface-2, #eef4ff);
 }
 
 /* ── Add-to-tree button on rec card ─────────────────────── */
@@ -1153,26 +1158,25 @@
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
-    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #dddbda);
     background: transparent;
     font-size: 1rem;
     font-weight: 700;
-    /* intentional static: violet add icon */
-    color: #7c3aed;
+    color: var(--slds-g-color-accent-1, #0176d3);
     cursor: pointer;
     line-height: 1;
     transition: background 0.15s, border-color 0.15s;
 }
 
 .c-rm-rec-add-btn:hover {
-    background: #ede9fe;
-    border-color: #7c3aed;
+    background: var(--slds-g-color-surface-2, #eef4ff);
+    border-color: var(--slds-g-color-accent-1, #0176d3);
 }
 
 /* Added / confirmed state */
 .c-rm-rec-add-btn_added {
-    background: #7c3aed;
-    border-color: #7c3aed;
+    background: var(--slds-g-color-accent-1, #0176d3);
+    border-color: var(--slds-g-color-accent-1, #0176d3);
     color: #ffffff;
     cursor: default;
     font-size: 0.75rem;
