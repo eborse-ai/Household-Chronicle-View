@@ -1317,13 +1317,20 @@ export default class AccountDetail extends LightningElement {
             return;
         }
         const rect = event.currentTarget.getBoundingClientRect();
-        // Position popover below the sparkle, horizontally centered
         const popoverWidth = 320;
-        let left = rect.left + rect.width / 2 - popoverWidth / 2;
-        // Clamp to viewport
-        left = Math.max(8, Math.min(left, window.innerWidth - popoverWidth - 8));
-        const top = rect.bottom + 10; // 10px gap below sparkle
-        this._sparklePopoverStyle = `position:fixed;top:${top}px;left:${left}px;width:${popoverWidth}px;z-index:9000;`;
+        const gap = 12; // gap between sparkle and popover edge
+        // Prefer opening to the right; flip left if not enough space
+        let left = rect.right + gap;
+        let arrowSide = 'left'; // arrow points left (popover is to the right)
+        if (left + popoverWidth > window.innerWidth - 8) {
+            left = rect.left - popoverWidth - gap;
+            arrowSide = 'right'; // arrow points right (popover is to the left)
+        }
+        // Vertically center on the sparkle button
+        const popoverEstHeight = 220;
+        let top = rect.top + rect.height / 2 - popoverEstHeight / 2;
+        top = Math.max(8, Math.min(top, window.innerHeight - popoverEstHeight - 8));
+        this._sparklePopoverStyle = `position:fixed;top:${top}px;left:${left}px;width:${popoverWidth}px;z-index:9000;--sparkle-arrow-side:${arrowSide};`;
         this._sparklePopoverSugId = sugId;
     }
 

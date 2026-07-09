@@ -1274,6 +1274,7 @@ lightning-card {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     /* intentional static: 1.5rem — compact sparkle button */
     width: 1.5rem;
     height: 1.5rem;
@@ -1294,6 +1295,32 @@ lightning-card {
     background: var(--slds-g-color-palette-violet-40, #7c3aed);
     color: var(--slds-g-color-neutral-base-100, #ffffff);
     transform: scale(1.12);
+}
+
+/* Styled tooltip shown on sparkle hover — displays the suggestion title */
+.c-sparkle-btn::after {
+    content: attr(title);
+    position: absolute;
+    left: calc(100% + 8px);
+    top: 50%;
+    transform: translateY(-50%);
+    /* No SLDS hook for #1e293b dark tooltip */
+    background: #1e293b;
+    color: #ffffff;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.3rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease 0.3s;
+    z-index: 9100;
+    /* No SLDS hook for this shadow */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.c-sparkle-btn:hover::after {
+    opacity: 1;
 }
 
 /* Added-suggestion pill — dashed border to distinguish from regular events */
@@ -2445,19 +2472,19 @@ lightning-card {
     /* width and position applied inline via sparklePopoverStyle */
 }
 
-/* Small upward arrow pointing toward the sparkle */
+/* Left-pointing arrow — popover is to the right of the sparkle */
 .c-sparkle-popover__arrow {
     position: absolute;
-    top: -7px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 50%;
+    left: -7px;
+    transform: translateY(-50%);
     width: 0;
     height: 0;
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
-    border-bottom: 7px solid var(--slds-g-color-surface-1, #ffffff);
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-right: 7px solid var(--slds-g-color-surface-1, #ffffff);
     /* No SLDS hook — drop shadow for arrow edge */
-    filter: drop-shadow(0 -1px 1px rgba(0, 0, 0, 0.1));
+    filter: drop-shadow(-1px 0 1px rgba(0, 0, 0, 0.1));
 }
 
 .c-sparkle-popover__toolbar {
