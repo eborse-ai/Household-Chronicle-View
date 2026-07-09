@@ -61,6 +61,14 @@ export default class EventPopover extends LightningElement {
         this._aiDismissed = true;
     }
 
+    handleCtaClick() {
+        this.dispatchEvent(new CustomEvent('ctaclick', {
+            detail: { action: this.detail.aiActionLabel },
+            bubbles: true,
+            composed: true,
+        }));
+    }
+
     handleClose() {
         this.dispatchEvent(new CustomEvent('close'));
     }

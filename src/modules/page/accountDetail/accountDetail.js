@@ -1389,6 +1389,45 @@ export default class AccountDetail extends LightningElement {
         this.handleCloseSparklePopover();
     }
 
+    // ── Navigate to a specific AI sparkle on the timeline ───────────────
+    @track _pendingOpenSparkleId = null;
+
+    /* Called from the Agentic Insights CTA inside the event popover */
+    handlePopoverCta(event) {
+        const action = event.detail?.action;
+        this._navigateToActionLabel(action);
+    }
+
+    /* Called from the Highlights panel action buttons */
+    handleHighlightAction(event) {
+        const action = event.currentTarget.dataset.action;
+        this._navigateToActionLabel(action);
+    }
+
+    _navigateToActionLabel(action) {
+        if (!action) return;
+        // Find a matching AI suggestion by title (case-insensitive)
+        const sug = (this._enrichment?.aiSuggestions || []).find(
+            (s) => s.title.toLowerCase() === action.toLowerCase()
+        );
+        if (!sug) return;
+
+        // Close any open popovers
+        this.popoverVisible       = false;
+        this.popoverEventData     = null;
+        this._sparklePopoverSugId = null;
+        this._sparklePopoverStyle = '';
+
+        // Switch to monthly and scroll to the suggestion's target month
+        this.drillYear     = null;
+        this.timelineMode  = 'monthly';
+        const idx = TIMELINE_MONTHS.indexOf(sug.targetDate);
+        if (idx >= 0) this._pendingScrollColIdx = idx;
+
+        // After DOM settles, programmatically click the sparkle button
+        this._pendingOpenSparkleId = sug.id;
+    }
+
     handleYearExpand(event) {
         if (this._drillAnimPhase !== 'idle') return;
         const year = Number(event.currentTarget.dataset.year);
@@ -1492,6 +1531,17 @@ export default class AccountDetail extends LightningElement {
             this._scrollVisibleYear   = landedMonth.split(' ')[1] || '';
             this._pendingScrollColIdx = null;
             this._scrollChainActive   = false;
+
+            // If navigating to a sparkle, click it now that the timeline is in position
+            if (this._pendingOpenSparkleId) {
+                const pendingId = this._pendingOpenSparkleId;
+                this._pendingOpenSparkleId = null;
+                // eslint-disable-next-line @lwc/lwc/no-async-operation
+                setTimeout(() => {
+                    const btn = this.template.querySelector(`[data-sug-id="${pendingId}"]`);
+                    if (btn) btn.click();
+                }, 120);
+            }
         }, 80 + attempt * 80);
     }
 

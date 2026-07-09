@@ -226,7 +226,7 @@
                                         <span class={hl.badgeClass}>{hl.badgeLabel}</span>
                                         <template lwc:if={hl.actionLabel}>
                                             <div class="c-highlight-action slds-m-left_auto">
-                                                <button class="c-highlight-action__btn">{hl.actionLabel}</button>
+                                                <button class="c-highlight-action__btn" data-id={hl.id} data-action={hl.actionLabel} onclick={handleHighlightAction}>{hl.actionLabel}</button>
                                                 <button class="c-highlight-action__chevron" title="More actions">
                                                     <lightning-icon icon-name="utility:down" size="xx-small" alternative-text="More"></lightning-icon>
                                                 </button>
@@ -611,7 +611,8 @@
             event-data={popoverEventData}
             panel-style={popoverPanelStyle}
             arrow-right={popoverArrowRight}
-            onclose={handleClosePopover}>
+            onclose={handleClosePopover}
+            onctaclick={handlePopoverCta}>
         </ui-event-popover>
     </template>
 
