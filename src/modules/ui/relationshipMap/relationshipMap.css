@@ -800,76 +800,69 @@
     cursor: not-allowed;
 }
 
-/* ── SLDS 2 stepper progress indicator ──────────────────── */
+/* ── Stepper progress indicator ──────────────────────────── */
 .c-rm-modal__step-dots {
     display: flex;
     align-items: center;
-    gap: 0;
+    /* intentional static: 8rem gives enough track width */
+    width: 8rem;
+    flex-shrink: 0;
 }
 
-/* Base — inactive future step: small grey filled dot */
+/* All step dots — uniform size */
 .c-rm-modal__dot {
-    /* intentional static: 0.5rem small inactive dot */
-    width: 0.5rem;
-    height: 0.5rem;
+    /* intentional static: 1.25rem = 20px matches screenshot */
+    width: 1.25rem;
+    height: 1.25rem;
     border-radius: 50%;
-    background: var(--slds-g-color-neutral-base-80, #c9c9c9);
-    border: none;
     flex-shrink: 0;
     position: relative;
     z-index: 1;
-}
-
-/* Connecting track drawn as ::before on the SECOND (right) dot */
-.c-rm-modal__dot + .c-rm-modal__dot::before {
-    content: '';
-    position: absolute;
-    /* intentional static: 3rem track spans gap between dots */
-    right: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 3rem;
-    height: 2px;
-    background: var(--slds-g-color-neutral-base-80, #c9c9c9);
-}
-
-/* Current active step: outlined blue circle, white fill */
-.c-rm-modal__dot_active {
-    /* intentional static: 1.25rem active step size */
-    width: 1.25rem;
-    height: 1.25rem;
+    /* Default: outlined grey for future steps */
     background: var(--slds-g-color-neutral-base-100, #ffffff);
-    border: 3px solid var(--slds-g-color-brand-base-50, #0176d3);
+    border: 2px solid var(--slds-g-color-neutral-base-70, #aeaeae);
 }
 
-/* Track leading INTO the active step is blue */
-.c-rm-modal__dot_active::before {
-    background: var(--slds-g-color-brand-base-50, #0176d3);
+/* Future (not yet reached) step — grey outline only */
+.c-rm-modal__dot_future {
+    background: var(--slds-g-color-neutral-base-100, #ffffff);
+    border: 2px solid var(--slds-g-color-neutral-base-70, #aeaeae);
 }
 
-/* Completed step: filled blue with white ✓ */
+/* Current active step — blue outline, white fill */
+.c-rm-modal__dot_active {
+    background: var(--slds-g-color-neutral-base-100, #ffffff);
+    border: 2.5px solid var(--slds-g-color-brand-base-50, #0176d3);
+}
+
+/* Completed step — filled blue circle with white checkmark */
 .c-rm-modal__dot_done {
-    /* intentional static: 1.125rem done step size */
-    width: 1.125rem;
-    height: 1.125rem;
     background: var(--slds-g-color-brand-base-50, #0176d3);
     border: 2px solid var(--slds-g-color-brand-base-50, #0176d3);
-}
-.c-rm-modal__dot_done::after {
-    content: '✓';
-    position: absolute;
-    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* intentional static: 0.45rem checkmark fits inside 18px circle */
-    font-size: 0.45rem;
-    color: var(--slds-g-color-neutral-base-100, #ffffff);
-    font-weight: 900;
-    line-height: 1;
 }
-/* Track leading INTO a done step is blue (when it's not the first dot) */
-.c-rm-modal__dot_done::before {
+.c-rm-modal__dot_done::after {
+    content: '';
+    /* intentional static: SVG checkmark drawn via border trick */
+    display: block;
+    width: 0.35rem;
+    height: 0.6rem;
+    border-right: 2px solid var(--slds-g-color-neutral-base-100, #ffffff);
+    border-bottom: 2px solid var(--slds-g-color-neutral-base-100, #ffffff);
+    transform: rotate(45deg) translateY(-1px);
+}
+
+/* Track between dots — flex: 1 fills remaining space */
+.c-rm-modal__step-track {
+    flex: 1;
+    height: 2px;
+    background: var(--slds-g-color-neutral-base-70, #aeaeae);
+}
+
+/* Blue track when previous step is done */
+.c-rm-modal__step-track_done {
     background: var(--slds-g-color-brand-base-50, #0176d3);
 }
 

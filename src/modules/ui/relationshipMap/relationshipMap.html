@@ -384,7 +384,8 @@
                         <button class="c-rm-modal__cancel" onclick={handleCancelAdd}>Cancel</button>
                         <div class="c-rm-modal__step-dots">
                             <span class="c-rm-modal__dot c-rm-modal__dot_active"></span>
-                            <span class="c-rm-modal__dot"></span>
+                            <span class="c-rm-modal__step-track"></span>
+                            <span class="c-rm-modal__dot c-rm-modal__dot_future"></span>
                         </div>
                         <div class="c-rm-modal__footer-actions">
                             <button class="c-rm-modal__skip" onclick={handleSaveAndNext}>Skip</button>
@@ -409,7 +410,8 @@
                         <button class="c-rm-modal__cancel" onclick={handleCancelAdd}>Cancel</button>
                         <div class="c-rm-modal__step-dots">
                             <span class="c-rm-modal__dot c-rm-modal__dot_active"></span>
-                            <span class="c-rm-modal__dot"></span>
+                            <span class="c-rm-modal__step-track"></span>
+                            <span class="c-rm-modal__dot c-rm-modal__dot_future"></span>
                         </div>
                         <div class="c-rm-modal__footer-actions">
                             <button class="c-rm-modal__skip" onclick={handleCancelAdd}>Skip</button>
@@ -446,6 +448,7 @@
                         <button class="c-rm-modal__back" onclick={handleModalBack}>Back</button>
                         <div class="c-rm-modal__step-dots">
                             <span class="c-rm-modal__dot c-rm-modal__dot_done"></span>
+                            <span class="c-rm-modal__step-track c-rm-modal__step-track_done"></span>
                             <span class="c-rm-modal__dot c-rm-modal__dot_active"></span>
                         </div>
                         <div class="c-rm-modal__footer-actions">
@@ -456,6 +459,7 @@
                 </template>
 
                 <!-- ── STEP 2B: Create new person account form ── -->
+
                 <template lwc:if={modalStep2Create}>
                     <div class="c-rm-modal__body">
                         <h3 class="c-rm-modal__subtitle">New Member details</h3>
@@ -495,6 +499,7 @@
                         <button class="c-rm-modal__back" onclick={handleModalBack}>Back</button>
                         <div class="c-rm-modal__step-dots">
                             <span class="c-rm-modal__dot c-rm-modal__dot_done"></span>
+                            <span class="c-rm-modal__step-track c-rm-modal__step-track_done"></span>
                             <span class="c-rm-modal__dot c-rm-modal__dot_active"></span>
                         </div>
                         <div class="c-rm-modal__footer-actions">
