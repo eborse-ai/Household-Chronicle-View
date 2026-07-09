@@ -542,7 +542,8 @@
     border: none;
     cursor: pointer;
     padding: 0.125rem;
-    color: var(--slds-g-color-on-surface-2, #706e6b);
+    /* intentional static: #7c3aed — matches the AI ✦ sparkle for visual coherence */
+    color: #7c3aed;
     line-height: 0;
     flex-shrink: 0;
     border-radius: var(--slds-g-radius-border-1, 0.125rem);
@@ -554,9 +555,9 @@
 }
 
 .c-rm-rec-panel__refresh-icon {
-    /* 1.25rem = 20px → 1px per SVG unit; proportionate to 0.8125rem title text */
-    width: 1.25rem;
-    height: 1.25rem;
+    /* 1.5rem = 24px → 1.2px per SVG unit; keeps stroke and sparkle clearly legible */
+    width: 1.5rem;
+    height: 1.5rem;
     display: block;
 }
 

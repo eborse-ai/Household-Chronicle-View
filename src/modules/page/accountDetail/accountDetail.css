@@ -1547,10 +1547,10 @@ lightning-card {
 /* Engagement — dark indigo icon (darkened for accessibility) */
 .c-pill-icon-badge_engagement {
     /* intentional static: dark-indigo engagement icon */
-    --slds-c-icon-color-foreground: #1e3a8a;
+    --slds-c-icon-color-foreground: #4d4d4d;
 }
 .c-pill-icon-badge_engagement .slds-icon,
-.c-pill-icon-badge_engagement lightning-icon svg { fill: #1e3a8a; }
+.c-pill-icon-badge_engagement lightning-icon svg { fill: #4d4d4d; }
 
 /* Financial Goal — orange icon */
 .c-pill-icon-badge_goal { --slds-c-icon-color-foreground: var(--slds-g-color-palette-orange-50, #b45309); }
@@ -1610,8 +1610,8 @@ lightning-card {
 
 /* Engagement — dark indigo border (darkened for accessibility) */
 .c-event-pill_engagement {
-    /* intentional static: dark indigo #1e3a8a for accessibility */
-    border-color: #1e3a8a;
+    /* intentional static: dark indigo #4d4d4d for accessibility */
+    border-color: #4d4d4d;
 }
 
 /* Meeting — slate gray border, neutral label */
@@ -1667,7 +1667,7 @@ lightning-card {
 
 /* Filled solid dots for clear visual distinction */
 .c-legend-item_life::before        { background: #0094B7; }
-.c-legend-item_engagement::before  { background: #1e3a8a; /* intentional static: dark indigo */ }
+.c-legend-item_engagement::before  { background: #4d4d4d; /* intentional static: dark indigo */ }
 .c-legend-item_meeting::before     { background: #706e6b; /* No SLDS v2 hook for slate-gray */ }
 .c-legend-item_transaction::before { background: var(--slds-g-color-palette-yellow-30, #c89200); }
 .c-legend-item_goal::before        { background: var(--slds-g-color-palette-orange-50, #b45309); }
@@ -2464,7 +2464,7 @@ lightning-card {
 
 .c-type-dot_engagement {
     /* intentional static: dark indigo for accessibility */
-    background: #1e3a8a;
+    background: #4d4d4d;
 }
 
 .c-type-dot_meeting {
