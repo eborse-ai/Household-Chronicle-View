@@ -341,7 +341,8 @@ lightning-card {
 .c-tl-toggle {
     display: inline-flex;
     height: 2rem;
-    border: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #c9c9c9);
+    /* intentional static: #5C5C5C unified neutral border */
+    border: 1.5px solid #5C5C5C;
     border-radius: var(--slds-g-radius-border-4, 1.5rem);
     overflow: hidden;
 }
@@ -352,11 +353,13 @@ lightning-card {
     padding: 0 0.75rem;
     height: 100%;
     font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
-    font-weight: var(--slds-g-font-weight-5, 400);
-    color: var(--slds-g-color-on-surface-1, #181818);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    /* intentional static: #0250D9 cobalt blue text */
+    color: #0250D9;
     cursor: pointer;
     line-height: var(--slds-g-font-line-height-base, 1.5);
-    border-right: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #c9c9c9);
+    /* intentional static: #5C5C5C divider between segments */
+    border-right: 1.5px solid #5C5C5C;
 }
 
 .c-tl-toggle__btn:last-child {
@@ -368,13 +371,14 @@ lightning-card {
 }
 
 .c-tl-toggle__btn_active {
-    background: var(--slds-g-color-accent-1, #0176d3);
+    /* intentional static: #0250D9 filled active state */
+    background: #0250D9;
     color: var(--slds-g-color-on-accent-1, #ffffff);
     font-weight: var(--slds-g-font-weight-7, 700);
 }
 
 .c-tl-toggle__btn_active:hover {
-    background: var(--slds-g-color-accent-1, #0176d3);
+    background: #0250D9;
 }
 
 /* ── New event dropdown ──────────────────────────────────────────── */
@@ -390,25 +394,21 @@ lightning-card {
     height: 2rem;
     gap: var(--slds-g-spacing-1, 0.25rem);
     padding: 0 0.75rem;
-    border: 1px solid var(--slds-g-color-border-base-1, #c9c9c9);
+    /* intentional static: #5C5C5C neutral border, 1.5px weight */
+    border: 1.5px solid #5C5C5C;
     border-radius: var(--slds-g-radius-border-4, 1.5rem);
     background: var(--slds-g-color-surface-1, #ffffff);
-    color: var(--slds-g-color-neutral-base-10, #181818);
+    /* intentional static: #0250D9 cobalt blue text */
+    color: #0250D9;
     font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
-    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
     font-weight: var(--slds-g-font-weight-6, 600);
     cursor: pointer;
     white-space: nowrap;
 }
 .c-tl-ctrl-btn:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
 
-/* Brand variant — used for AI Suggestions */
+/* Brand variant — used for AI Suggestions (inherits #5C5C5C border + #0250D9 from base) */
 .c-tl-ctrl-btn_brand {
-    /* intentional static: neutral charcoal border per design spec */
-    border-color: #444444;
-    border-width: 1.5px;
-    /* intentional static: #0250D9 cobalt blue for all content */
-    color: #0250D9;
     font-weight: var(--slds-g-font-weight-6, 600);
 }
 .c-tl-ctrl-btn_brand:hover { background: #eaf0fd; }
@@ -420,12 +420,10 @@ lightning-card {
     font-size: 0.9rem;
 }
 
-/* New Milestone button — neutral pill, bold label */
+/* New Milestone button — inherits #5C5C5C border + #0250D9 text from base */
 .c-tl-milestone-btn {
     font-weight: var(--slds-g-font-weight-7, 700);
     background: var(--slds-g-color-neutral-base-100, #ffffff);
-    border-color: var(--slds-g-color-neutral-base-30, #706e6b);
-    color: var(--slds-g-color-neutral-base-10, #181818);
 }
 .c-tl-milestone-btn:hover {
     background: var(--slds-g-color-surface-2, #f3f3f3);
@@ -1693,8 +1691,8 @@ lightning-card {
     height: 2rem;
     padding: 0 0.75rem;
     border-radius: var(--slds-g-radius-border-4, 1.5rem);
-    /* intentional static: #444 dark charcoal border matching screenshot */
-    border: 1.5px solid #444444;
+    /* intentional static: #5C5C5C unified neutral border */
+    border: 1.5px solid #5C5C5C;
     background: var(--slds-g-color-neutral-base-100, #ffffff);
     font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
     font-weight: var(--slds-g-font-weight-6, 600);
