@@ -960,15 +960,32 @@ export default class AccountDetail extends LightningElement {
                 const mergedSugEvts = addedSugEvents
                     .filter((ae) => ae.memberId === m.memberId &&
                         (this.isYearlyMode ? ae.yearKey === col.key : ae.monthKey === col.key))
-                    .map((ae) => ({
-                        ...ae,
-                        pillClass:      (PILL[ae.type] || PILL.goal) + ' c-event-pill_suggestion',
-                        detail:         null,
-                        isCritical:     false,
-                        typeDotClass:   TYPE_DOT[ae.type]       || 'c-type-dot',
-                        iconName:       TYPE_ICON[ae.type]      || 'utility:record',
-                        iconBadgeClass: TYPE_ICON_BADGE[ae.type]|| 'c-pill-icon-badge',
-                    }));
+                    .map((ae) => {
+                        const s = ae._sugData || {};
+                        const sugDetail = {
+                            description:     s.description  || '',
+                            date:            s.targetDate   || '',
+                            members:         s.member       || '',
+                            membersAffected: 1,
+                            status:          'Predicted',
+                            isShared:        false,
+                            isCritical:      false,
+                            cashFlowImpact:  null,
+                            beneficiaries:   null,
+                            actionTaken:     'Added from AI suggestion.',
+                            aiInsight:       null,
+                            aiActionLabel:   null,
+                        };
+                        return {
+                            ...ae,
+                            pillClass:      (PILL[ae.type] || PILL.goal) + ' c-event-pill_suggestion',
+                            detail:         sugDetail,
+                            isCritical:     false,
+                            typeDotClass:   TYPE_DOT[ae.type]       || 'c-type-dot',
+                            iconName:       TYPE_ICON[ae.type]      || 'utility:record',
+                            iconBadgeClass: TYPE_ICON_BADGE[ae.type]|| 'c-pill-icon-badge',
+                        };
+                    });
 
                 /* Apply timeline type filter (meetings always excluded) */
                 const TYPE_FILTER_MAP = { life: 'life', engagement: 'engagement', goal: 'goal', financial: 'financial' };
@@ -1357,6 +1374,7 @@ export default class AccountDetail extends LightningElement {
                     label:      sug.title,
                     type:       this._getSugType(sug.title),
                     isSuggestionAdded: true,
+                    _sugData:   sug,   // keep raw suggestion for popover detail
                 },
             };
         }

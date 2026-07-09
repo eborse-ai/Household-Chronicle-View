@@ -489,13 +489,15 @@
                 <template lwc:if={modalStep1Direct}>
                     <template lwc:if={showDirectFromExisting}>
                         <div class="c-rm-modal__body">
-                            <lightning-radio-group
-                                label="Add"
-                                options={directAddModeOptions}
-                                type="radio"
-                                value={directAddMode}
-                                onchange={handleDirectModeChange}>
-                            </lightning-radio-group>
+                            <template lwc:if={showDirectModeSelector}>
+                                <lightning-radio-group
+                                    label="Add"
+                                    options={directAddModeOptions}
+                                    type="radio"
+                                    value={directAddMode}
+                                    onchange={handleDirectModeChange}>
+                                </lightning-radio-group>
+                            </template>
                             <div class="c-rm-modal__lookup-row">
                                 <lightning-input
                                     type="search"
@@ -508,18 +510,33 @@
                             <div class="c-rm-modal__dup-table">
                                 <div class="c-rm-modal__dup-thead c-rm-modal__dup-thead_direct">
                                     <span class="c-rm-modal__dup-radio-spacer"></span>
-                                    <span class="c-rm-modal__dup-th">Name</span>
-                                    <span class="c-rm-modal__dup-th">SSN</span>
-                                    <span class="c-rm-modal__dup-th">Address</span>
-                                    <span class="c-rm-modal__dup-th">Created By</span>
+                                    <template lwc:if={isDirectHouseholdFlow}>
+                                        <span class="c-rm-modal__dup-th">Account Name</span>
+                                        <span class="c-rm-modal__dup-th">Phone</span>
+                                        <span class="c-rm-modal__dup-th">Account Site</span>
+                                        <span class="c-rm-modal__dup-th">Account Owner Alias</span>
+                                    </template>
+                                    <template lwc:else>
+                                        <span class="c-rm-modal__dup-th">Name</span>
+                                        <span class="c-rm-modal__dup-th">SSN</span>
+                                        <span class="c-rm-modal__dup-th">Address</span>
+                                        <span class="c-rm-modal__dup-th">Created By</span>
+                                    </template>
                                 </div>
                                 <template for:each={directAddDuplicates} for:item="dup">
                                     <div key={dup.idx} class={dup.rowClass} onclick={handleSelectDuplicate} data-idx={dup.idx}>
                                         <input type="radio" class="c-rm-modal__dup-radio" name="directDupSelect" data-idx={dup.idx} checked={dup.isSelected}>
                                         <span class="c-rm-modal__dup-cell c-rm-modal__dup-link">{dup.name}</span>
-                                        <span class="c-rm-modal__dup-cell">{dup.ssn}</span>
-                                        <span class="c-rm-modal__dup-cell">{dup.address}</span>
-                                        <span class="c-rm-modal__dup-cell">{dup.createdBy}</span>
+                                        <template lwc:if={isDirectHouseholdFlow}>
+                                            <span class="c-rm-modal__dup-cell">{dup.phone}</span>
+                                            <span class="c-rm-modal__dup-cell">{dup.accountSite}</span>
+                                            <span class="c-rm-modal__dup-cell">{dup.accountOwnerAlias}</span>
+                                        </template>
+                                        <template lwc:else>
+                                            <span class="c-rm-modal__dup-cell">{dup.ssn}</span>
+                                            <span class="c-rm-modal__dup-cell">{dup.address}</span>
+                                            <span class="c-rm-modal__dup-cell">{dup.createdBy}</span>
+                                        </template>
                                     </div>
                                 </template>
                             </div>
@@ -532,19 +549,21 @@
                                 <span class="c-rm-modal__dot c-rm-modal__dot_future"></span>
                             </div>
                             <div class="c-rm-modal__footer-actions">
-                                <button class="c-rm-modal__next" disabled={saveAndNextDisabled} onclick={handleSaveAndNext}>Next</button>
+                                <button class="c-rm-modal__next" disabled={saveAndNextDisabled} onclick={handleSaveAndNext}>Add</button>
                             </div>
                         </div>
                     </template>
                     <template lwc:if={showDirectCreateNew}>
                         <div class="c-rm-modal__body">
-                            <lightning-radio-group
-                                label="Add"
-                                options={directAddModeOptions}
-                                type="radio"
-                                value={directAddMode}
-                                onchange={handleDirectModeChange}>
-                            </lightning-radio-group>
+                            <template lwc:if={showDirectModeSelector}>
+                                <lightning-radio-group
+                                    label="Add"
+                                    options={directAddModeOptions}
+                                    type="radio"
+                                    value={directAddMode}
+                                    onchange={handleDirectModeChange}>
+                                </lightning-radio-group>
+                            </template>
                             <div class="c-rm-modal__new-member-card">
                                 <p class="c-rm-modal__new-member-title">{directCreateDetailsTitle}</p>
                                 <lightning-combobox
@@ -657,16 +676,16 @@
                         <!-- Row: Name (lookup, read-only) | Role (required combobox) -->
                         <div class="c-rm-modal__row">
                             <lightning-input
-                                label="Name"
+                                label={detailNameFieldLabel}
                                 value={addModalName}
                                 required
                                 read-only
                                 class="c-rm-modal__field c-rm-modal__field_half">
                             </lightning-input>
                             <lightning-combobox
-                                label="Role"
+                                label={detailRoleFieldLabel}
                                 value={addModalRole}
-                                options={roleOptions}
+                                options={detailRoleOptions}
                                 required
                                 onchange={handleModalRoleChange}
                                 class="c-rm-modal__field c-rm-modal__field_half">
