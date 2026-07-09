@@ -134,18 +134,19 @@
     position: relative;
 }
 
-/* Vertical spine — runs from just below the trunk to above the last section header */
+/* Vertical spine — runs between first and last section header midpoints */
 .c-rel-map-sections-col::before {
     content: '';
     position: absolute;
     left: 0;
-    /* intentional static: starts at top, ends before last section midpoint */
-    top: 0;
-    /* Stop before the bottom section's header midpoint (1.25rem header half) */
+    /* intentional static: start at first header midpoint */
+    top: 1.25rem;
+    /* intentional static: end at last header midpoint */
     bottom: calc(1.25rem + 0.75rem);
-    width: var(--slds-g-sizing-border-2, 2px);
+    width: 2px;
     background: var(--slds-g-color-border-base-1, #c0c0c0);
-    border-radius: var(--slds-g-radius-border-1, 0.125rem);
+    /* rounded end-caps so the spine fades cleanly */
+    border-radius: 2px;
 }
 
 .c-rel-map-section {
@@ -154,17 +155,31 @@
     position: relative;
 }
 
-/* L-shaped rounded branch connector — vertical drop then curve right into section box */
+/* L-shaped branch: vertical drop + smooth outward curve into section */
 .c-rel-map-branch-line {
-    /* intentional static: 1.5rem wide, 1.25rem tall — no SLDS spacing hook */
+    /* intentional static: 1.5rem wide, 1.25rem tall */
     width: 1.5rem;
     height: 1.25rem;
     flex-shrink: 0;
     background: transparent;
-    border-left: var(--slds-g-sizing-border-2, 2px) solid var(--slds-g-color-border-base-1, #c0c0c0);
-    border-bottom: var(--slds-g-sizing-border-2, 2px) solid var(--slds-g-color-border-base-1, #c0c0c0);
-    /* intentional static: 8px radius for the L-curve — no SLDS hook */
-    border-bottom-left-radius: 8px;
+    border-left: 2px solid var(--slds-g-color-border-base-1, #c0c0c0);
+    border-bottom: 2px solid var(--slds-g-color-border-base-1, #c0c0c0);
+    /* intentional static: 12px — larger radius for smooth outer L-curve */
+    border-bottom-left-radius: 12px;
+    position: relative;
+}
+
+/* Circular dot at the junction masks the inner right-angle where branch meets spine */
+.c-rel-map-branch-line::before {
+    content: '';
+    position: absolute;
+    /* intentional static: 6px dot centred over the 2px spine */
+    top: -3px;
+    left: -3px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--slds-g-color-border-base-1, #c0c0c0);
 }
 
 .c-rel-map-section-box {
