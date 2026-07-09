@@ -340,17 +340,18 @@ lightning-card {
 /* ── Monthly / Yearly toggle pill ───────────────────── */
 .c-tl-toggle {
     display: inline-flex;
+    height: 2rem;
     border: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #c9c9c9);
-    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    border-radius: var(--slds-g-radius-border-4, 1.5rem);
     overflow: hidden;
 }
 
 .c-tl-toggle__btn {
     background: var(--slds-g-color-surface-1, #ffffff);
     border: none;
-    /* No SLDS hook for 0.25rem 0.75rem compact toggle padding */
-    padding: 0.25rem 0.75rem;
-    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    padding: 0 0.75rem;
+    height: 100%;
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
     font-weight: var(--slds-g-font-weight-5, 400);
     color: var(--slds-g-color-on-surface-1, #181818);
     cursor: pointer;
@@ -386,12 +387,14 @@ lightning-card {
 .c-tl-ctrl-btn {
     display: inline-flex;
     align-items: center;
+    height: 2rem;
     gap: var(--slds-g-spacing-1, 0.25rem);
-    padding: 0.25rem 0.75rem;
+    padding: 0 0.75rem;
     border: 1px solid var(--slds-g-color-border-base-1, #c9c9c9);
     border-radius: var(--slds-g-radius-border-4, 1.5rem);
     background: var(--slds-g-color-surface-1, #ffffff);
     color: var(--slds-g-color-neutral-base-10, #181818);
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
     font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
     font-weight: var(--slds-g-font-weight-6, 600);
     cursor: pointer;
@@ -419,7 +422,9 @@ lightning-card {
 
 /* Expand icon button — circle, no label */
 .c-tl-expand-btn {
-    padding: 0.25rem;
+    width: 2rem;
+    padding: 0;
+    justify-content: center;
     aspect-ratio: 1;
 }
 
