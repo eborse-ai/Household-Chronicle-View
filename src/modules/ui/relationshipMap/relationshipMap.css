@@ -533,9 +533,9 @@
 }
 
 .c-rm-rec-panel__refresh-icon {
-    /* proportionate to the 0.8125rem title text beside it */
-    width: 1rem;
-    height: 1rem;
+    /* 1.25rem = 20px → 1px per SVG unit; proportionate to 0.8125rem title text */
+    width: 1.25rem;
+    height: 1.25rem;
     display: block;
 }
 
