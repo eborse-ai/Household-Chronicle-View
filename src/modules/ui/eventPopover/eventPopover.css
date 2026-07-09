@@ -20,9 +20,8 @@
     border-radius: 0.5rem;
     box-shadow: var(--slds-g-shadow-5, 0 4px 24px rgba(0, 0, 0, 0.15));
     border: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #dddbda);
-    overflow-y: auto;
-    /* No SLDS hook for max-height */
-    max-height: 82vh;
+    /* overflow must stay visible so the Actions dropdown menu can escape the box */
+    overflow: visible;
     display: flex;
     flex-direction: column;
 }
@@ -386,4 +385,8 @@
     display: flex;
     justify-content: flex-end;
     margin-top: var(--slds-g-spacing-3, 0.75rem);
+    /* Allow the Actions dropdown to render above the footer boundary */
+    overflow: visible;
+    position: relative;
+    z-index: 1;
 }

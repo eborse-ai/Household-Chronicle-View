@@ -153,10 +153,16 @@ export default class RelationshipMap extends LightningElement {
         return this._decorateAddedEntities('Related Accounts');
     }
 
+    get addedHouseholds() {
+        return this._decorateAddedEntities('Related Households');
+    }
+
     get contactsCount() { return this.addedContacts.length; }
     get accountsCount()  { return this.addedAccounts.length; }
+    get householdsCount() { return this.addedHouseholds.length; }
     get hasAddedContacts() { return this.contactsCount > 0; }
     get hasAddedAccounts() { return this.accountsCount > 0; }
+    get hasAddedHouseholds() { return this.householdsCount > 0; }
     get showDeleteModal()  { return this._showDeleteModal; }
     get showEditModal()    { return this._showEditModal; }
 
@@ -339,20 +345,114 @@ export default class RelationshipMap extends LightningElement {
         event.stopPropagation();
         const id  = event.currentTarget.dataset.id;
         const rec = this._allRecsFlat.find(r => r.id === id);
-        if (rec) {
-            const parts = rec.name.split(' ');
-            this._addModalRec       = rec;
-            this._modalRole         = rec.relationship || '';
-            this._modalStatus       = 'Active';
-            this._selectedRecordIdx = null;
-            this._modalSalutation   = 'Mr';
-            this._modalFirstName    = parts[0] || '';
-            this._modalLastName     = parts.slice(1).join(' ') || '';
-            this._modalPhone        = '';
-            this._modalEmail        = '';
-            // Always open at step 1
-            this._modalStep = 1;
+        if (rec) this._openAddFlow(rec);
+    }
+
+    handleSectionAdd(event) {
+        event.stopPropagation();
+        const category = event.currentTarget.dataset.category;
+        if (!category) return;
+
+        const existingRec = this._allRecsFlat.find(
+            item => item.groupCategory === category && !this._dismissedIds[item.id]
+        );
+        if (existingRec) {
+            this._openAddFlow(existingRec);
+            return;
         }
+
+        const fallback = this._buildSectionFallbackRec(category);
+        this.recommendations = this._upsertFallbackRecIntoRecommendations(fallback, category);
+        this._openAddFlow({ ...fallback, groupCategory: category });
+    }
+
+    _openAddFlow(rec) {
+        const parts = (rec.name || '').split(' ');
+        this._addModalRec       = rec;
+        this._modalRole         = rec.relationship || '';
+        this._modalStatus       = 'Active';
+        this._selectedRecordIdx = null;
+        this._modalSalutation   = 'Mr';
+        this._modalFirstName    = parts[0] || '';
+        this._modalLastName     = parts.slice(1).join(' ') || '';
+        this._modalPhone        = '';
+        this._modalEmail        = '';
+        // Always open at step 1
+        this._modalStep = 1;
+    }
+
+    _buildSectionFallbackRec(category) {
+        const ts = Date.now();
+        if (category === 'Members') {
+            return {
+                id: `manual-members-${ts}`,
+                name: 'John Green',
+                relationship: 'Daughter',
+                icon: 'standard:person_account',
+                sourceType: 'multiple',
+                confidenceType: 'high',
+                confidence: 'High Confidence',
+                reason: 'Potential household member identified from profile data.',
+                duplicates: [
+                    { name: 'John Green', company: 'TaxPro Advisors', title: 'Tax Consultant', email: 'john.green@taxpro.com' },
+                    { name: 'John L. Green', company: 'Green & Associates', title: 'Managing Partner', email: 'jgreen@greenandassoc.com' },
+                ],
+            };
+        }
+        if (category === 'Related Contacts') {
+            return {
+                id: `manual-contacts-${ts}`,
+                name: 'Emma Reed',
+                relationship: 'Daughter',
+                icon: 'standard:contact',
+                sourceType: 'multiple',
+                confidenceType: 'high',
+                confidence: 'High Confidence',
+                reason: 'Contact found with potential relationship to household.',
+                duplicates: [
+                    { name: 'Emma Reed', company: 'Reed & Associates LLC', title: 'Daughter', email: 'emma.reed@reedassoc.com' },
+                    { name: 'Emma Reed', company: 'Westbrook Primary School', title: 'Student', email: 'emma.r@westbrook.edu' },
+                ],
+            };
+        }
+        if (category === 'Related Households') {
+            return {
+                id: `manual-households-${ts}`,
+                name: 'Green Family Household',
+                relationship: 'Related Household',
+                icon: 'standard:household',
+                sourceType: 'new',
+                confidenceType: 'medium',
+                confidence: 'Medium Confidence',
+                reason: 'Nearby household with overlapping members detected.',
+                duplicates: [],
+            };
+        }
+        return {
+            id: `manual-accounts-${ts}`,
+            name: 'Westbrook Primary School',
+            relationship: 'Related Account',
+            icon: 'standard:account',
+            sourceType: 'new',
+            confidenceType: 'medium',
+            confidence: 'Medium Confidence',
+            reason: 'Account appears to be connected through member activities.',
+            duplicates: [],
+        };
+    }
+
+    _upsertFallbackRecIntoRecommendations(rec, category) {
+        const groups = [...(this.recommendations || [])];
+        const idx = groups.findIndex(group => group.category === category);
+        if (idx === -1) {
+            groups.push({ category, items: [rec] });
+            return groups;
+        }
+        groups[idx] = {
+            ...groups[idx],
+            items: [...(groups[idx].items || []), rec],
+        };
+        return groups;
     }
 
     handleSelectDuplicate(event) {

@@ -54,7 +54,11 @@
                                     <span class="slds-m-left_x-small slds-text-body_small c-rel-map-section-label">
                                         <strong>Members ({memberCount})</strong>
                                     </span>
-                                    <button class="c-rel-map-section-add-btn" title="Add member" onclick={handleStopProp}>
+                                    <button
+                                        class="c-rel-map-section-add-btn"
+                                        title="Add member"
+                                        onclick={handleSectionAdd}
+                                        data-category="Members">
                                         <lightning-icon icon-name="utility:add" size="xx-small" alternative-text="Add"></lightning-icon>
                                     </button>
                                 </div>
@@ -224,11 +228,47 @@
                             <div class="c-rel-map-section-box">
                                 <div class="c-rel-map-section-header">
                                     <lightning-icon icon-name="utility:chevronright" size="x-small" alternative-text="Expand"></lightning-icon>
-                                    <span class="slds-m-left_x-small slds-text-body_small c-rel-map-section-label"><strong>Related Households (0)</strong></span>
-                                    <button class="c-rel-map-section-add-btn" title="Add household">
+                                    <span class="slds-m-left_x-small slds-text-body_small c-rel-map-section-label"><strong>Related Households ({householdsCount})</strong></span>
+                                    <button
+                                        class="c-rel-map-section-add-btn"
+                                        title="Add household"
+                                        onclick={handleSectionAdd}
+                                        data-category="Related Households">
                                         <lightning-icon icon-name="utility:add" size="xx-small" alternative-text="Add"></lightning-icon>
                                     </button>
                                 </div>
+                                <template lwc:if={hasAddedHouseholds}>
+                                    <template for:each={addedHouseholds} for:item="rec">
+                                        <div key={rec.id} class="c-rel-map-member-collapsed">
+                                            <div class="c-rm-added-icon-wrap">
+                                                <lightning-icon icon-name={rec.icon} size="x-small" alternative-text={rec.name}></lightning-icon>
+                                            </div>
+                                            <div class="c-rel-map-collapsed-body">
+                                                <span class="slds-text-link slds-text-body_small">{rec.name}</span>
+                                                <p class="slds-text-body_small slds-text-color_weak">{rec.relationship}</p>
+                                            </div>
+                                            <div class="c-rel-map-member-actions" onclick={handleStopProp}>
+                                                <button
+                                                    class="c-rel-map-member-options"
+                                                    title="Household options"
+                                                    onclick={handleEntityMenuToggle}
+                                                    data-kind="recommendation"
+                                                    data-id={rec.id}
+                                                    data-name={rec.name}
+                                                    data-role={rec.relationship}
+                                                    data-category="Related Households">
+                                                    <lightning-icon icon-name="utility:down" size="xx-small" alternative-text="Options"></lightning-icon>
+                                                </button>
+                                                <template lwc:if={rec.isMenuOpen}>
+                                                    <div class="c-rel-map-entity-menu">
+                                                        <button class="c-rel-map-entity-menu__item" data-action="edit" onclick={handleEntityMenuAction}>Edit Relationship</button>
+                                                        <button class="c-rel-map-entity-menu__item c-rel-map-entity-menu__item_danger" data-action="delete" onclick={handleEntityMenuAction}>Delete Relationship</button>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </template>
                             </div>
                         </div>
 
@@ -239,7 +279,11 @@
                                 <div class="c-rel-map-section-header">
                                     <lightning-icon icon-name="utility:chevronright" size="x-small" alternative-text="Expand"></lightning-icon>
                                     <span class="slds-m-left_x-small slds-text-body_small c-rel-map-section-label"><strong>Related Accounts ({accountsCount})</strong></span>
-                                    <button class="c-rel-map-section-add-btn" title="Add account">
+                                    <button
+                                        class="c-rel-map-section-add-btn"
+                                        title="Add account"
+                                        onclick={handleSectionAdd}
+                                        data-category="Related Accounts">
                                         <lightning-icon icon-name="utility:add" size="xx-small" alternative-text="Add"></lightning-icon>
                                     </button>
                                 </div>
@@ -285,7 +329,11 @@
                                 <div class="c-rel-map-section-header">
                                     <lightning-icon icon-name="utility:chevronright" size="x-small" alternative-text="Expand"></lightning-icon>
                                     <span class="slds-m-left_x-small slds-text-body_small c-rel-map-section-label"><strong>Related Contacts ({contactsCount})</strong></span>
-                                    <button class="c-rel-map-section-add-btn" title="Add contact">
+                                    <button
+                                        class="c-rel-map-section-add-btn"
+                                        title="Add contact"
+                                        onclick={handleSectionAdd}
+                                        data-category="Related Contacts">
                                         <lightning-icon icon-name="utility:add" size="xx-small" alternative-text="Add"></lightning-icon>
                                     </button>
                                 </div>
