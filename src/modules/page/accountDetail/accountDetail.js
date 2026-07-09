@@ -906,7 +906,7 @@ export default class AccountDetail extends LightningElement {
             life:        'utility:event',
             meeting:     'utility:event',
             goal:        'utility:priority',
-            financial:   'utility:company',
+            financial:   'standard:financial_account',
             transaction: 'utility:money',
         };
 

@@ -90,6 +90,15 @@
     --slds-c-icon-color-foreground: var(--slds-g-color-on-accent-1, #fff);
     --slds-c-icon-color-foreground-default: var(--slds-g-color-on-accent-1, #fff);
 }
+.c-ep-avatar .slds-icon,
+.c-ep-avatar lightning-icon svg { fill: #ffffff; }
+/* Strip standard icon container background so only the white SVG shows on the avatar circle */
+.c-ep-avatar .slds-icon_container,
+.c-ep-avatar span[class*="slds-icon-standard"] {
+    background: none;
+    border-radius: 0;
+    padding: 0;
+}
 
 .c-ep-header-body {
     flex: 1;

@@ -1473,10 +1473,16 @@ lightning-card {
 .c-pill-icon-badge_goal .slds-icon,
 .c-pill-icon-badge_goal lightning-icon svg { fill: var(--slds-g-color-palette-orange-50, #b45309); }
 
-/* Financial Account — medium green icon */
+/* Financial Account — medium green icon; strip standard-icon container bg */
 .c-pill-icon-badge_financial {
     /* intentional static: #5aab5e medium green per screenshot */
     --slds-c-icon-color-foreground: #5aab5e;
+}
+.c-pill-icon-badge_financial .slds-icon_container,
+.c-pill-icon-badge_financial span[class*="slds-icon-standard"] {
+    background: none;
+    border-radius: 0;
+    padding: 0;
 }
 .c-pill-icon-badge_financial .slds-icon,
 .c-pill-icon-badge_financial lightning-icon svg { fill: #5aab5e; }
