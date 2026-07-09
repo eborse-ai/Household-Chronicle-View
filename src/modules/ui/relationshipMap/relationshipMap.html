@@ -490,13 +490,15 @@
                     <template lwc:if={showDirectFromExisting}>
                         <div class="c-rm-modal__body">
                             <template lwc:if={showDirectModeSelector}>
-                                <lightning-radio-group
-                                    label="Add"
-                                    options={directAddModeOptions}
-                                    type="radio"
-                                    value={directAddMode}
-                                    onchange={handleDirectModeChange}>
-                                </lightning-radio-group>
+                                <div class="c-rm-modal__mode-selector">
+                                    <lightning-radio-group
+                                        label="Add"
+                                        options={directAddModeOptions}
+                                        type="radio"
+                                        value={directAddMode}
+                                        onchange={handleDirectModeChange}>
+                                    </lightning-radio-group>
+                                </div>
                             </template>
                             <div class="c-rm-modal__lookup-row">
                                 <lightning-input
@@ -549,48 +551,71 @@
                                 <span class="c-rm-modal__dot c-rm-modal__dot_future"></span>
                             </div>
                             <div class="c-rm-modal__footer-actions">
-                                <button class="c-rm-modal__next" disabled={saveAndNextDisabled} onclick={handleSaveAndNext}>Add</button>
+                                <button class="c-rm-modal__next" disabled={saveAndNextDisabled} onclick={handleSaveAndNext}>Next</button>
                             </div>
                         </div>
                     </template>
                     <template lwc:if={showDirectCreateNew}>
                         <div class="c-rm-modal__body">
                             <template lwc:if={showDirectModeSelector}>
-                                <lightning-radio-group
-                                    label="Add"
-                                    options={directAddModeOptions}
-                                    type="radio"
-                                    value={directAddMode}
-                                    onchange={handleDirectModeChange}>
-                                </lightning-radio-group>
+                                <div class="c-rm-modal__mode-selector">
+                                    <lightning-radio-group
+                                        label="Add"
+                                        options={directAddModeOptions}
+                                        type="radio"
+                                        value={directAddMode}
+                                        onchange={handleDirectModeChange}>
+                                    </lightning-radio-group>
+                                </div>
                             </template>
                             <div class="c-rm-modal__new-member-card">
                                 <p class="c-rm-modal__new-member-title">{directCreateDetailsTitle}</p>
-                                <lightning-combobox
-                                    label="Salutation"
-                                    value={addModalSalutation}
-                                    options={salutationOptions}
-                                    placeholder="Select..."
-                                    required
-                                    onchange={handleModalSalutationChange}
-                                    class="c-rm-modal__field c-rm-modal__field_half">
-                                </lightning-combobox>
-                                <div class="c-rm-modal__row">
+                                <!-- Account-specific "Create New" fields -->
+                                <template lwc:if={isDirectAccountFlow}>
                                     <lightning-input
-                                        label="First Name"
-                                        value={addModalFirstName}
+                                        label="Account Name"
+                                        value={addModalAccountName}
                                         required
-                                        onchange={handleModalFirstNameChange}
-                                        class="c-rm-modal__field c-rm-modal__field_half">
+                                        onchange={handleModalAccountNameChange}
+                                        class="c-rm-modal__field">
                                     </lightning-input>
                                     <lightning-input
-                                        label="Last Name"
-                                        value={addModalLastName}
-                                        required
-                                        onchange={handleModalLastNameChange}
-                                        class="c-rm-modal__field c-rm-modal__field_half">
+                                        label="Phone"
+                                        type="tel"
+                                        value={addModalAccountPhone}
+                                        placeholder="+1 415-555-0199"
+                                        onchange={handleModalAccountPhoneChange}
+                                        class="c-rm-modal__field">
                                     </lightning-input>
-                                </div>
+                                </template>
+                                <!-- Person/Contact "Create New" fields -->
+                                <template lwc:else>
+                                    <lightning-combobox
+                                        label="Salutation"
+                                        value={addModalSalutation}
+                                        options={salutationOptions}
+                                        placeholder="Select..."
+                                        required
+                                        onchange={handleModalSalutationChange}
+                                        class="c-rm-modal__field c-rm-modal__field_half">
+                                    </lightning-combobox>
+                                    <div class="c-rm-modal__row">
+                                        <lightning-input
+                                            label="First Name"
+                                            value={addModalFirstName}
+                                            required
+                                            onchange={handleModalFirstNameChange}
+                                            class="c-rm-modal__field c-rm-modal__field_half">
+                                        </lightning-input>
+                                        <lightning-input
+                                            label="Last Name"
+                                            value={addModalLastName}
+                                            required
+                                            onchange={handleModalLastNameChange}
+                                            class="c-rm-modal__field c-rm-modal__field_half">
+                                        </lightning-input>
+                                    </div>
+                                </template>
                             </div>
                         </div>
                         <div class="c-rm-modal__footer">

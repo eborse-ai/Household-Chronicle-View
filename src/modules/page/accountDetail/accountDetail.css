@@ -193,6 +193,14 @@ lightning-card {
     margin: var(--slds-g-spacing-1, 0.25rem) 0 0;
 }
 
+/* Clamp highlight card description to 3 lines */
+.c-highlight-card .slds-text-body_small.slds-text-color_weak {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
 /* ── Highlight card split action button ─────────────── */
 .c-highlight-action {
     display: inline-flex;

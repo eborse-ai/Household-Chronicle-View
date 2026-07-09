@@ -21,6 +21,7 @@ export default class RelationshipMap extends LightningElement {
     _toastTimer            = null;
     @track _addModalRec       = null;   // rec under review in the add-modal
     @track _modalStep         = 1;      // 1 = select/no-record, 2 = add details / create form
+    @track _createNewFromDuplicates = false;
     @track _selectedRecordIdx = null;   // index of chosen duplicate
     @track _modalRole         = '';
     @track _modalStatus       = 'Active';
@@ -31,6 +32,8 @@ export default class RelationshipMap extends LightningElement {
     @track _modalEmail        = '';
     @track _modalCompany      = '';
     @track _modalTitle        = '';
+    @track _modalAccountName  = '';
+    @track _modalAccountPhone = '';
     @track _isDirectMemberAdd = false;
     @track _directAddMode     = 'existing';
     @track _memberLookupQuery = 'Julia Green';
@@ -255,8 +258,8 @@ export default class RelationshipMap extends LightningElement {
     get modalStep1Select()  { return this._modalStep === 1 && this._hasDuplicates && !this._isDirectMemberAdd; }
     get modalStep1NoRec()   { return this._modalStep === 1 && this._isNewFlow && !this._isDirectMemberAdd; }
     get modalStep1Direct()  { return this._modalStep === 1 && this._isDirectMemberAdd; }
-    get modalStep2Details() { return this._modalStep === 2 && !this._isNewFlow; }
-    get modalStep2Create()  { return this._modalStep === 2 && this._isNewFlow; }
+    get modalStep2Details() { return this._modalStep === 2 && !this._isNewFlow && !this._createNewFromDuplicates; }
+    get modalStep2Create()  { return this._modalStep === 2 && (this._isNewFlow || this._createNewFromDuplicates); }
     get showDirectFromExisting() { return this._directAddMode === 'existing'; }
     get showDirectCreateNew() {
         if (!this.allowDirectCreateNew) return false;
@@ -425,8 +428,10 @@ export default class RelationshipMap extends LightningElement {
     get addModalLastName()   { return this._modalLastName; }
     get addModalPhone()      { return this._modalPhone; }
     get addModalEmail()      { return this._modalEmail; }
-    get addModalCompany()    { return this._modalCompany; }
-    get addModalTitle()      { return this._modalTitle; }
+    get addModalCompany()      { return this._modalCompany; }
+    get addModalTitle()        { return this._modalTitle; }
+    get addModalAccountName()  { return this._modalAccountName; }
+    get addModalAccountPhone() { return this._modalAccountPhone; }
 
     get salutationOptions() {
         return [
@@ -776,6 +781,7 @@ export default class RelationshipMap extends LightningElement {
 
     handleCreateNew() {
         // Manual-entry flow: start with clean inputs for user entry.
+        this._createNewFromDuplicates = true;
         this._modalSalutation = 'Mr';
         this._modalFirstName = '';
         this._modalLastName = '';
@@ -802,6 +808,9 @@ export default class RelationshipMap extends LightningElement {
     }
 
     handleModalBack() {
+        if (this._createNewFromDuplicates) {
+            this._createNewFromDuplicates = false;
+        }
         if (this._isDirectMemberAdd) {
             this._modalStep = 1;
             return;
@@ -816,8 +825,10 @@ export default class RelationshipMap extends LightningElement {
     handleModalLastNameChange(event)    { this._modalLastName   = event.detail.value; }
     handleModalPhoneChange(event)       { this._modalPhone      = event.detail.value; }
     handleModalEmailChange(event)       { this._modalEmail      = event.detail.value; }
-    handleModalCompanyChange(event)     { this._modalCompany    = event.detail.value; }
-    handleModalTitleChange(event)       { this._modalTitle      = event.detail.value; }
+    handleModalCompanyChange(event)       { this._modalCompany      = event.detail.value; }
+    handleModalTitleChange(event)         { this._modalTitle        = event.detail.value; }
+    handleModalAccountNameChange(event)   { this._modalAccountName  = event.detail.value; }
+    handleModalAccountPhoneChange(event)  { this._modalAccountPhone = event.detail.value; }
 
     handleConfirmAdd() {
         if (this._isDirectMemberAdd) {
@@ -872,15 +883,25 @@ export default class RelationshipMap extends LightningElement {
         this._directAddMode = 'existing';
         this._memberLookupQuery = 'Julia Green';
         this._directAddCategory = 'Members';
+        this._createNewFromDuplicates = false;
         this._selectedRecordIdx = null;
         this._addModalRec = null;
+        this._modalAccountName  = '';
+        this._modalAccountPhone = '';
     }
 
     handleDirectCreateAdd() {
-        const fullName = `${this._modalFirstName} ${this._modalLastName}`.trim();
-        if (!fullName) return;
-        const fallbackRole = this._directAddCategory === 'Related Contacts' ? 'Contact' : 'Member';
-        this._addEntityToGraph(this._directAddCategory, { name: fullName, role: fallbackRole });
+        let name;
+        if (this.isDirectAccountFlow) {
+            name = (this._modalAccountName || '').trim();
+        } else {
+            name = `${this._modalFirstName} ${this._modalLastName}`.trim();
+        }
+        if (!name) return;
+        const fallbackRole = this._directAddCategory === 'Related Contacts' ? 'Contact'
+            : this._directAddCategory === 'Related Accounts' ? 'Account'
+            : 'Member';
+        this._addEntityToGraph(this._directAddCategory, { name, role: fallbackRole });
         this.handleCancelAdd();
     }
 
