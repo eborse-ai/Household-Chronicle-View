@@ -1697,7 +1697,13 @@ lightning-card {
     background: var(--slds-g-color-surface-2, #f3f3f3);
 }
 
-/* Blue icon tint to match text */
+/* Strip the standard-icon container background, keep only the blue SVG */
+.c-af-btn-icon .slds-icon_container,
+.c-af-btn-icon span[class*="slds-icon-standard"] {
+    background: none;
+    border-radius: 0;
+    padding: 0;
+}
 .c-af-btn-icon { --slds-c-icon-color-foreground: var(--slds-g-color-brand-base-50, #0176d3); }
 .c-af-btn-icon .slds-icon,
 .c-af-btn-icon lightning-icon svg { fill: var(--slds-g-color-brand-base-50, #0176d3); }
