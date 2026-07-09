@@ -1,5 +1,8 @@
 :host {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
 }
 
 /* ── Canvas ───────────────────────────────────────────────────── */
@@ -7,15 +10,13 @@
 .c-rel-map-canvas {
     background: var(--slds-g-color-surface-2, #f3f3f3);
     border-radius: var(--slds-g-radius-border-2, 0.25rem);
-    /* Fill tab content area down to page bottom with 16px margin.
-     * calc subtracts: global-nav (~2.75rem) + page-header (~5rem) + highlights (~9rem)
-     * + tab-bar (~2.75rem) + tab-padding (~1rem) + bottom-margin (1rem).
+    /* Fill the viewport from canvas top to page bottom with 16px margin.
+     * Subtracts: nav (~2.75rem) + page-header (~4rem) + highlights (~6rem)
+     * + tab-bar (~2.75rem) + tab-padding (1rem) + bottom-gap (1rem).
      * intentional static: no SLDS hook for vh-based height. */
     width: 100%;
-    height: calc(100vh - 22.5rem);
-    min-height: 22rem;
-    /* contain: layout prevents internal expand/collapse from resizing the canvas */
-    contain: layout;
+    height: calc(100vh - 17.5rem);
+    min-height: 24rem;
     /* No padding on canvas — topbar and map wrap carry their own padding
      * so the panel can be flush with the canvas right/top/bottom edges */
     padding: 0;
@@ -83,15 +84,14 @@
     gap: 0;
     flex: 1;
     overflow: hidden;
-    /* stretch so the panel fills the full body height */
     align-items: stretch;
 }
 
 /* Map area — carries its own padding so the panel can be flush with canvas edges */
 .c-rel-map-layout-wrap {
     flex: 1;
+    min-height: 0;
     overflow: auto;
-    align-self: flex-start;
     padding: var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-4, 1rem) var(--slds-g-spacing-8, 2rem) var(--slds-g-spacing-4, 1rem);
 }
 
