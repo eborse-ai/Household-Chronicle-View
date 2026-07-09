@@ -1504,7 +1504,7 @@ lightning-card {
 /* ── Event pills ─────────────────────────────────────── */
 .c-event-pill {
     display: inline-flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.3rem;
     /* Standardized fixed width — all pill types identical */
     width: 116px;
@@ -1528,7 +1528,6 @@ lightning-card {
     flex-shrink: 0;
     display: inline-flex;
     align-items: center;
-    margin-top: 0.05rem;
     line-height: 1;
 }
 
@@ -1537,7 +1536,6 @@ lightning-card {
     flex-shrink: 0;
     display: inline-flex;
     align-items: center;
-    margin-top: 0.05rem;
     justify-content: center;
 }
 
