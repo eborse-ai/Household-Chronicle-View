@@ -950,10 +950,11 @@ export default class AccountDetail extends LightningElement {
                         typeDotClass: TYPE_DOT[ae.type] || 'c-type-dot',
                     }));
 
-                /* Apply timeline type filter */
-                const TYPE_FILTER_MAP = { life: 'life', meeting: 'meeting', goal: 'goal', financial: 'financial' };
+                /* Apply timeline type filter (meetings always excluded) */
+                const TYPE_FILTER_MAP = { life: 'life', goal: 'goal', financial: 'financial' };
                 const filterType = TYPE_FILTER_MAP[this._activeFilter] || null;
                 const allEvts = [...evts, ...mergedSugEvts]
+                    .filter(e => e.type !== 'meeting')
                     .filter(e => !filterType || e.type === filterType);
 
                 /* Sparkle indicators for pending AI suggestions in this cell */
@@ -1142,14 +1143,13 @@ export default class AccountDetail extends LightningElement {
     // ── Timeline filter dropdown ───────────────────────────────────
     get filterMenuOpen()  { return this._filterMenuOpen; }
     get activeFilterLabel() {
-        const map = { all: 'Show All', life: 'Life Event', meeting: 'Meeting', goal: 'Financial Goal', financial: 'Financial Account' };
+        const map = { all: 'Show All', life: 'Life Event', goal: 'Financial Goal', financial: 'Financial Account' };
         return map[this._activeFilter] || 'Show All';
     }
     get filterOptions() {
         return [
             { value: 'all',       label: 'Show All'          },
             { value: 'life',      label: 'Life Event'        },
-            { value: 'meeting',   label: 'Meeting'           },
             { value: 'goal',      label: 'Financial Goal'    },
             { value: 'financial', label: 'Financial Account' },
         ].map(o => ({ ...o, isActive: o.value === this._activeFilter }));
