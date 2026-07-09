@@ -521,6 +521,7 @@ const ENRICHMENT = {
                 relationshipStrength: 'Strong',
                 strengthClass: 'c-strength-dot c-strength-dot_strong',
                 events: [
+                    { id: 'me1b', month: 'Apr 2020', label: 'Joint Brokerage', type: 'financial' },
                     { id: 'me7a', month: 'Nov 2020', label: 'Annual Review',  type: 'meeting'   },
                     { id: 'me7b', month: 'Apr 2022', label: 'Roth IRA',       type: 'financial' },
                     { id: 'me7c', month: 'Oct 2022', label: 'Annual Review',  type: 'meeting'   },
