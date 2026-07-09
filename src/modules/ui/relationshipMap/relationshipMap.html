@@ -491,13 +491,29 @@
                         <div class="c-rm-modal__body">
                             <template lwc:if={showDirectModeSelector}>
                                 <div class="c-rm-modal__mode-selector">
-                                    <lightning-radio-group
-                                        label="Add"
-                                        options={directAddModeOptions}
-                                        type="radio"
-                                        value={directAddMode}
-                                        onchange={handleDirectModeChange}>
-                                    </lightning-radio-group>
+                                    <fieldset class="slds-form-element">
+                                        <legend class="slds-form-element__label slds-form-element__legend">Add</legend>
+                                        <div class="slds-form-element__control c-rm-modal__mode-options">
+                                            <span class="slds-radio">
+                                                <input type="radio" name="directAddMode" id="modeExisting"
+                                                    value="existing" checked={isModeExisting}
+                                                    onchange={handleDirectModeChange}>
+                                                <label class="slds-radio__label" for="modeExisting">
+                                                    <span class="slds-radio_faux"></span>
+                                                    <span class="slds-form-element__label">From existing</span>
+                                                </label>
+                                            </span>
+                                            <span class="slds-radio">
+                                                <input type="radio" name="directAddMode" id="modeCreate"
+                                                    value="create" checked={isModeCreate}
+                                                    onchange={handleDirectModeChange}>
+                                                <label class="slds-radio__label" for="modeCreate">
+                                                    <span class="slds-radio_faux"></span>
+                                                    <span class="slds-form-element__label">Create New</span>
+                                                </label>
+                                            </span>
+                                        </div>
+                                    </fieldset>
                                 </div>
                             </template>
                             <div class="c-rm-modal__lookup-row">
@@ -559,13 +575,29 @@
                         <div class="c-rm-modal__body">
                             <template lwc:if={showDirectModeSelector}>
                                 <div class="c-rm-modal__mode-selector">
-                                    <lightning-radio-group
-                                        label="Add"
-                                        options={directAddModeOptions}
-                                        type="radio"
-                                        value={directAddMode}
-                                        onchange={handleDirectModeChange}>
-                                    </lightning-radio-group>
+                                    <fieldset class="slds-form-element">
+                                        <legend class="slds-form-element__label slds-form-element__legend">Add</legend>
+                                        <div class="slds-form-element__control c-rm-modal__mode-options">
+                                            <span class="slds-radio">
+                                                <input type="radio" name="directAddMode2" id="modeExisting2"
+                                                    value="existing" checked={isModeExisting}
+                                                    onchange={handleDirectModeChange}>
+                                                <label class="slds-radio__label" for="modeExisting2">
+                                                    <span class="slds-radio_faux"></span>
+                                                    <span class="slds-form-element__label">From existing</span>
+                                                </label>
+                                            </span>
+                                            <span class="slds-radio">
+                                                <input type="radio" name="directAddMode2" id="modeCreate2"
+                                                    value="create" checked={isModeCreate}
+                                                    onchange={handleDirectModeChange}>
+                                                <label class="slds-radio__label" for="modeCreate2">
+                                                    <span class="slds-radio_faux"></span>
+                                                    <span class="slds-form-element__label">Create New</span>
+                                                </label>
+                                            </span>
+                                        </div>
+                                    </fieldset>
                                 </div>
                             </template>
                             <div class="c-rm-modal__new-member-card">

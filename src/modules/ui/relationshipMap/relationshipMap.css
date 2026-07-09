@@ -206,12 +206,14 @@
     width: 1.75rem;
     height: 1.75rem;
     border-radius: 50%;
-    border: 1.5px solid var(--slds-g-color-accent-1, #0176d3);
+    /* intentional static: #5c5c5c outline per design */
+    border: 1.5px solid #5c5c5c;
     background: transparent;
-    /* intentional static: blue to match screenshots */
     color: #0176d3;
     cursor: pointer;
     flex-shrink: 0;
+    padding: 0;
+    line-height: 0;
 }
 
 .c-rel-map-section-add-btn:hover {
@@ -312,11 +314,14 @@
     width: 1.625rem;
     height: 1.625rem;
     border-radius: 50%;
-    border: 1.5px solid var(--slds-g-color-border-base-1, #dddbda);
+    /* intentional static: #5c5c5c outline per design */
+    border: 1.5px solid #5c5c5c;
     background: transparent;
     cursor: pointer;
     color: var(--slds-g-color-neutral-base-30, #444);
     transition: background 0.12s;
+    padding: 0;
+    line-height: 0;
 }
 .c-rel-map-member-options:hover {
     background: var(--slds-g-color-surface-2, #f3f3f3);
@@ -805,11 +810,13 @@
 }
 
 /* ── Horizontal radio group (From existing / Create New) ── */
-.c-rm-modal__mode-selector .slds-form-element__control {
+/* lightning-radio-group internals are scoped; use hand-rolled markup instead */
+.c-rm-modal__mode-options {
     display: flex;
     flex-direction: row;
     gap: var(--slds-g-spacing-6, 1.5rem);
     flex-wrap: nowrap;
+    align-items: center;
 }
 
 /* ── No-records card (step 1B) ──────────────────────────── */
@@ -1206,19 +1213,21 @@
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
-    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #dddbda);
+    /* intentional static: #5c5c5c outline per design */
+    border: 1px solid #5c5c5c;
     background: transparent;
     font-size: 1rem;
     font-weight: 700;
     color: var(--slds-g-color-accent-1, #0176d3);
     cursor: pointer;
+    padding: 0;
     line-height: 1;
     transition: background 0.15s, border-color 0.15s;
 }
 
 .c-rm-rec-add-btn:hover {
     background: var(--slds-g-color-surface-2, #eef4ff);
-    border-color: var(--slds-g-color-accent-1, #0176d3);
+    border-color: #5c5c5c;
 }
 
 /* Added / confirmed state */

@@ -261,6 +261,8 @@ export default class RelationshipMap extends LightningElement {
     get modalStep2Details() { return this._modalStep === 2 && !this._isNewFlow && !this._createNewFromDuplicates; }
     get modalStep2Create()  { return this._modalStep === 2 && (this._isNewFlow || this._createNewFromDuplicates); }
     get showDirectFromExisting() { return this._directAddMode === 'existing'; }
+    get isModeExisting()         { return this._directAddMode === 'existing'; }
+    get isModeCreate()           { return this._directAddMode === 'create'; }
     get showDirectCreateNew() {
         if (!this.allowDirectCreateNew) return false;
         return this._directAddMode === 'create';
@@ -700,7 +702,7 @@ export default class RelationshipMap extends LightningElement {
     }
 
     handleDirectModeChange(event) {
-        this._directAddMode = event.detail.value;
+        this._directAddMode = event.target?.value ?? event.detail?.value;
         this._selectedRecordIdx = this._directAddMode === 'existing' ? 0 : null;
     }
 

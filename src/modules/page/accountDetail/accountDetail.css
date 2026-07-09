@@ -194,7 +194,7 @@ lightning-card {
 }
 
 /* Clamp highlight card description to 3 lines */
-.c-highlight-card .slds-text-body_small.slds-text-color_weak {
+.c-highlight-card__desc {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
