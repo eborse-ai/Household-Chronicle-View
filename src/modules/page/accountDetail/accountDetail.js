@@ -1494,13 +1494,15 @@ export default class AccountDetail extends LightningElement {
         if (this._pendingScrollColIdx !== null && !this._scrollChainActive) {
             const colIdx = this._pendingScrollColIdx;
             this._scrollChainActive = true;
-            this._scrollToColumn(colIdx, 0);
+            // Use rAF for the first attempt so layout is fully painted before we measure
+            // eslint-disable-next-line @lwc/lwc/no-async-operation
+            requestAnimationFrame(() => this._scrollToColumn(colIdx, 0));
         }
     }
 
-    /* Retry scroll until the container is ready (up to 8 attempts, ~720ms total) */
+    /* Retry scroll until the container is ready (up to 15 attempts, ~1500ms total) */
     _scrollToColumn(colIdx, attempt) {
-        if (attempt > 8) {
+        if (attempt > 15) {
             this._pendingScrollColIdx = null;
             this._scrollChainActive   = false;
             return;
@@ -1541,7 +1543,7 @@ export default class AccountDetail extends LightningElement {
                     if (btn) btn.click();
                 }, 120);
             }
-        }, 80 + attempt * 80);
+        }, 100 + attempt * 100);
     }
 
     /* ── Sticky Contextual Breadcrumb ────────────────────────────── */
