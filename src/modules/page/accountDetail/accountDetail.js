@@ -540,7 +540,6 @@ const ENRICHMENT = {
                     { id: 'me7e', month: 'Oct 2024', label: 'Annual Review',  type: 'engagement' },
                     { id: 'me7f', month: 'Jan 2025', label: 'Car Goal Set',   type: 'goal', targetYear: 2027 },
                     { id: 'me7g', month: 'Apr 2026', label: 'Emma Born',      type: 'life'      },
-                    { id: 'me8',  month: 'Jun 2026', label: 'Return to Work', type: 'life'      },
                 ],
             },
             {
