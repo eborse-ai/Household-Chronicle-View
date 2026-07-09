@@ -1350,6 +1350,8 @@ lightning-card {
     width: 0;
     /* intentional static: violet dashed connector — no SLDS hook for this pattern */
     border-left: 2px dashed #7c3aed;
+    /* always render behind pills */
+    z-index: 0;
     pointer-events: none;
     z-index: 2;
 }
@@ -1373,6 +1375,8 @@ lightning-card {
     /* No SLDS hook for 3px gap */
     gap: 3px;
     position: relative;
+    /* sit above the absolute-positioned shared connector line */
+    z-index: 1;
 }
 
 .c-pill-inner {
