@@ -246,12 +246,29 @@ lightning-card {
 .c-highlight-action__chevron lightning-icon svg { fill: var(--slds-g-color-brand-base-50, #0176d3); }
 .c-highlight-action__chevron { --slds-c-icon-color-foreground: var(--slds-g-color-brand-base-50, #0176d3); }
 
+/* ── Right column: flex column so tab panel fills remaining sidebar height ── */
+.slds-medium-size_9-of-12 {
+    display: flex;
+    flex-direction: column;
+}
+
 /* ── Tab panel white card wrapping the lightning-tabset ─────────── */
 .c-tab-panel {
     background: var(--slds-g-color-surface-1, #ffffff);
     border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #e5e5e5);
     border-radius: var(--slds-g-radius-border-3, 0.5rem);
     overflow: hidden;   /* clips tabset border-radius at corners */
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Allow lightning-tabset to fill the tab panel height */
+.c-tab-panel lightning-tabset {
+    flex: 1;
+    min-height: 0;
+    display: block;
 }
 
 /* 16px padding on all sides of each tab's content area */

@@ -24,6 +24,8 @@
 .c-emodal-avatar_transaction { background: var(--slds-g-color-warning-base-70, #f59e0b); }
 .c-emodal-avatar_goal        { background: var(--slds-g-color-palette-violet-40, #7c3aed); }
 .c-emodal-avatar_financial   { background: var(--slds-g-color-palette-green-65, #10b981); }
+/* intentional static: #4d4d4d — matches eventPopover engagement avatar */
+.c-emodal-avatar_engagement  { background: #4d4d4d; }
 
 /* Force icon color to white inside colored circle */
 .c-emodal-avatar lightning-icon {

@@ -1,5 +1,8 @@
 :host {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
 }
 
 /* ── Canvas ───────────────────────────────────────────────────── */
@@ -7,12 +10,11 @@
 .c-rel-map-canvas {
     background: var(--slds-g-color-surface-2, #f3f3f3);
     border-radius: var(--slds-g-radius-border-2, 0.25rem);
-    /* Fixed viewport: height = 1.25 × width via aspect-ratio.
-     * intentional static: 30rem min-height guards against very narrow containers;
-     * no SLDS hook for aspect-ratio or min-height here. */
+    /* Fill remaining height after the tab bar, matching the sidebar bottom edge.
+     * intentional static: 22rem min-height guards against very narrow containers. */
     width: 100%;
-    aspect-ratio: 4 / 5;
-    min-height: 30rem;
+    flex: 1;
+    min-height: 22rem;
     /* contain: layout prevents internal expand/collapse from resizing the canvas */
     contain: layout;
     /* No padding on canvas — topbar and map wrap carry their own padding
@@ -255,7 +257,10 @@
 .c-rel-map-member-header {
     display: flex;
     align-items: center;
-    /* toggle button carries the padding; actions div sits flush right */
+    /* gap and right-padding serve added-entity cards (no toggle button);
+     * toggle-button cards get their left padding from .c-rel-map-member-toggle */
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    padding-right: var(--slds-g-spacing-3, 0.75rem);
 }
 
 .c-rel-map-member-header:hover {
@@ -300,6 +305,9 @@
 .c-rel-map-member-identity {
     flex: 1;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .c-rel-map-member-identity p,
@@ -320,7 +328,6 @@
 .c-rel-map-member-actions {
     position: relative;
     flex-shrink: 0;
-    padding-right: var(--slds-g-spacing-3, 0.75rem);
     display: flex;
     align-items: center;
 }
@@ -445,6 +452,9 @@
 .c-rel-map-collapsed-body {
     flex: 1;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .c-rel-map-collapsed-name-row {
@@ -555,9 +565,9 @@
 }
 
 .c-rm-rec-panel__refresh-icon {
-    /* 1.5rem = 24px → 1.2px per SVG unit; keeps stroke and sparkle clearly legible */
-    width: 1.5rem;
-    height: 1.5rem;
+    /* 1.75rem = 28px → 1.4px per SVG unit; sparkle outer R=2.5 renders as ~7px — clearly visible */
+    width: 1.75rem;
+    height: 1.75rem;
     display: block;
 }
 

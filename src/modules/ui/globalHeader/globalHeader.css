@@ -11,3 +11,8 @@
 .lightning-button-menu_custom {
     border-inline-end-width: 1px;
 }
+
+/* intentional static: #4A9FD5 — Salesforce brand blue from design reference */
+.c-gh-sf-logo {
+    --slds-c-icon-color-foreground: #4A9FD5;
+}

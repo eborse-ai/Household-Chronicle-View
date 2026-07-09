@@ -7,6 +7,7 @@ const TYPE_INFO = {
     transaction: { label: 'TRANSACTION',       icon: 'utility:moneybag',   avatarClass: 'c-emodal-avatar c-emodal-avatar_transaction' },
     goal:        { label: 'FINANCIAL GOAL',    icon: 'utility:target',     avatarClass: 'c-emodal-avatar c-emodal-avatar_goal'        },
     financial:   { label: 'FINANCIAL ACCOUNT', icon: 'utility:account',    avatarClass: 'c-emodal-avatar c-emodal-avatar_financial'   },
+    engagement:  { label: 'ENGAGEMENT',        icon: 'utility:people',     avatarClass: 'c-emodal-avatar c-emodal-avatar_engagement'  },
 };
 
 export default class EventDetailModal extends LightningModal {
