@@ -402,12 +402,22 @@ lightning-card {
 }
 .c-tl-ctrl-btn:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
 
-/* Brand (blue outlined) variant */
+/* Brand (blue outlined) variant — used for AI Suggestions */
 .c-tl-ctrl-btn_brand {
     border-color: var(--slds-g-color-brand-base-50, #0176d3);
+    /* intentional static: 1.5px border for visual weight matching screenshot */
+    border-width: 1.5px;
     color: var(--slds-g-color-brand-base-50, #0176d3);
+    font-weight: var(--slds-g-font-weight-6, 600);
 }
 .c-tl-ctrl-btn_brand:hover { background: #e8f4fd; }
+
+/* Purple sparkle inside brand buttons */
+.c-tl-ctrl-btn_brand .c-agentic-sparkle-icon {
+    /* intentional static: violet sparkle to match screenshot */
+    color: #7c3aed;
+    font-size: 0.9rem;
+}
 
 /* New Milestone button — neutral pill, bold label */
 .c-tl-milestone-btn {

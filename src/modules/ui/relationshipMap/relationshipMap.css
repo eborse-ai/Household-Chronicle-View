@@ -31,9 +31,9 @@
     align-items: center;
     gap: var(--slds-g-spacing-2, 0.5rem);
     background: var(--slds-g-color-surface-1, #ffffff);
-    /* intentional static: 1px solid — outline pill button */
-    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
-    border-radius: var(--slds-g-radius-border-4, 1rem);
+    /* intentional static: charcoal border matching screenshot */
+    border: 1.5px solid #444444;
+    border-radius: var(--slds-g-radius-border-4, 1.5rem);
     padding: var(--slds-g-spacing-1, 0.25rem) var(--slds-g-spacing-4, 1rem) var(--slds-g-spacing-1, 0.25rem) var(--slds-g-spacing-3, 0.75rem);
     font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
     font-weight: var(--slds-g-font-weight-6, 600);
@@ -47,8 +47,8 @@
 }
 
 .c-rel-map-sparkle-icon {
-    /* intentional static: violet sparkle */
-    color: #7c3aed;
+    /* intentional static: blue sparkle matching screenshot 1 */
+    color: var(--slds-g-color-brand-base-50, #0176d3);
     font-size: 0.875rem;
     line-height: 1;
 }
