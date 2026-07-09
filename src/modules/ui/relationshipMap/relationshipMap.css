@@ -557,11 +557,9 @@
     background: var(--slds-g-color-surface-2, #f3f3f3);
 }
 
-.c-rm-rec-panel__refresh-icon {
-    /* 1.75rem = 28px → 1.4px per SVG unit; sparkle outer R=2.5 renders as ~7px — clearly visible */
-    width: 1.75rem;
-    height: 1.75rem;
-    display: block;
+/* intentional static: #7c3aed — matches the AI ✦ sparkle for visual coherence */
+.c-rm-rec-panel__refresh-lc {
+    --slds-c-icon-color-foreground: #7c3aed;
 }
 
 .c-rm-rec-panel__spacer {
