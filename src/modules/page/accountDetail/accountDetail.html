@@ -42,7 +42,7 @@
                                 </lightning-button>
                             </div>
 
-                            <!-- New ▼ | Edit | Delete | Clone ▼ | ▼ -->
+                            <!-- New (standalone split pill) -->
                             <div class="slds-page-header__control">
                                 <lightning-button-group>
                                     <lightning-button label="New" variant="neutral"></lightning-button>
@@ -52,6 +52,12 @@
                                         <lightning-menu-item label="New Interaction" value="new_interaction"></lightning-menu-item>
                                         <lightning-menu-item label="New Task" value="new_task"></lightning-menu-item>
                                     </lightning-button-menu>
+                                </lightning-button-group>
+                            </div>
+
+                            <!-- Edit | Delete | Clone ▼ -->
+                            <div class="slds-page-header__control">
+                                <lightning-button-group>
                                     <lightning-button label="Edit"   variant="neutral"></lightning-button>
                                     <lightning-button label="Delete" variant="neutral"></lightning-button>
                                     <lightning-button label="Clone"  variant="neutral"></lightning-button>
