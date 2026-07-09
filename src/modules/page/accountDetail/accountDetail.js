@@ -1201,12 +1201,12 @@ export default class AccountDetail extends LightningElement {
         this.popoverEventData = null;
     }
 
-    // ── AI Suggestions panel ─────────────────────────────────────────
-    @track aiSuggestionsOpen      = false;
+    // ── AI Suggestions sparkle popover ───────────────────────────────
     @track _addedSuggestionIds    = {};
     @track _dismissedSuggestions  = {};
-    @track focusedSuggestionId    = null;
     @track _addedToTimelineEvents = {};  // { [sugId]: event object }
+    @track _sparklePopoverSugId   = null;
+    @track _sparklePopoverStyle   = '';
 
     /* Map suggestion title to a timeline event type */
     _getSugType(title) {
@@ -1242,15 +1242,18 @@ export default class AccountDetail extends LightningElement {
             .filter((s) => !this._dismissedSuggestions[s.id])
             .map((s) => ({
                 ...s,
-                isAdded:   !!this._addedSuggestionIds[s.id],
-                isFocused: s.id === this.focusedSuggestionId,
-                cardClass: 'c-aip-card'
-                    + (s.id === this.focusedSuggestionId ? ' c-aip-card_focused' : ''),
+                isAdded: !!this._addedSuggestionIds[s.id],
             }));
     }
 
-    get aiSuggestionsCount() {
-        return this.aiSuggestions.filter((s) => !s.isAdded).length;
+    /* The suggestion object currently shown in the sparkle popover */
+    get sparklePopoverSug() {
+        if (!this._sparklePopoverSugId) return null;
+        return this.aiSuggestions.find((s) => s.id === this._sparklePopoverSugId) || null;
+    }
+
+    get sparklePopoverStyle() {
+        return this._sparklePopoverStyle;
     }
 
     // ── Wealth Journey chart data ─────────────────────────────────
@@ -1294,35 +1297,37 @@ export default class AccountDetail extends LightningElement {
 
     get carGoalAmount() { return _CAR_GOAL; }
 
-    get aiSuggestionsBtnClass() {
-        return this.aiSuggestionsOpen
-            ? 'c-ai-suggestions-btn c-ai-suggestions-btn_active'
-            : 'c-ai-suggestions-btn';
-    }
-
-    handleToggleAiSuggestions() {
-        this.aiSuggestionsOpen = !this.aiSuggestionsOpen;
-        if (!this.aiSuggestionsOpen) this.focusedSuggestionId = null;
-    }
-
-    handleCloseAiSuggestions() {
-        this.aiSuggestionsOpen   = false;
-        this.focusedSuggestionId = null;
-    }
-
-    /* Sparkle click: open panel focused on that specific suggestion */
+    /* Sparkle click: compute position from the button and open popover */
     handleSparkleClick(event) {
         event.stopPropagation();
         const sugId = event.currentTarget.dataset.sugId;
-        this.focusedSuggestionId = sugId;
-        this.aiSuggestionsOpen   = true;
+        if (this._sparklePopoverSugId === sugId) {
+            // Toggle off if clicking same sparkle again
+            this._sparklePopoverSugId = null;
+            this._sparklePopoverStyle = '';
+            return;
+        }
+        const rect = event.currentTarget.getBoundingClientRect();
+        // Position popover below the sparkle, horizontally centered
+        const popoverWidth = 320;
+        let left = rect.left + rect.width / 2 - popoverWidth / 2;
+        // Clamp to viewport
+        left = Math.max(8, Math.min(left, window.innerWidth - popoverWidth - 8));
+        const top = rect.bottom + 10; // 10px gap below sparkle
+        this._sparklePopoverStyle = `position:fixed;top:${top}px;left:${left}px;width:${popoverWidth}px;z-index:9000;`;
+        this._sparklePopoverSugId = sugId;
     }
 
-    handleSuggestionAdd(event) {
-        const id  = event.detail.id;
+    handleCloseSparklePopover() {
+        this._sparklePopoverSugId = null;
+        this._sparklePopoverStyle = '';
+    }
+
+    handleSparkleAdd() {
+        const id = this._sparklePopoverSugId;
+        if (!id) return;
         this._addedSuggestionIds = { ...this._addedSuggestionIds, [id]: true };
 
-        /* Convert suggestion into a timeline event that appears in the matching cell */
         const sug      = (this._enrichment?.aiSuggestions || []).find((s) => s.id === id);
         const memberId = sug ? this._getMemberIdByName(sug.member) : null;
         if (sug && memberId) {
@@ -1331,21 +1336,24 @@ export default class AccountDetail extends LightningElement {
                 [id]: {
                     id:         `sug-evt-${id}`,
                     memberId,
-                    monthKey:   sug.targetDate,                       // e.g. 'Aug 2026'
-                    yearKey:    this._getYearFromDate(sug.targetDate), // e.g. 2026
+                    monthKey:   sug.targetDate,
+                    yearKey:    this._getYearFromDate(sug.targetDate),
                     label:      sug.title,
                     type:       this._getSugType(sug.title),
                     isSuggestionAdded: true,
                 },
             };
         }
-        /* Keep panel open so user sees the "Added ✓" confirmation */
+        // Close popover after a brief moment so user sees "Added ✓"
+        // eslint-disable-next-line @lwc/lwc/no-async-operation
+        setTimeout(() => { this.handleCloseSparklePopover(); }, 1200);
     }
 
-    handleSuggestionDismiss(event) {
-        const id = event.detail.id;
+    handleSparkleDismiss() {
+        const id = this._sparklePopoverSugId;
+        if (!id) return;
         this._dismissedSuggestions = { ...this._dismissedSuggestions, [id]: true };
-        if (this.focusedSuggestionId === id) this.focusedSuggestionId = null;
+        this.handleCloseSparklePopover();
     }
 
     handleYearExpand(event) {

@@ -339,16 +339,7 @@
                                             New
                                         </button>
 
-                                        <!-- 5. AI Suggestions (blue outlined) -->
-                                        <button class="c-tl-ctrl-btn c-tl-ctrl-btn_brand" onclick={handleToggleAiSuggestions}>
-                                            <span class="c-agentic-sparkle-icon" aria-hidden="true">✦</span>
-                                            <span>AI Suggestions</span>
-                                            <template lwc:if={aiSuggestionsCount}>
-                                                <span class="c-ai-btn-badge">{aiSuggestionsCount}</span>
-                                            </template>
-                                        </button>
-
-                                        <!-- 6. Expand / full-screen icon -->
+                                        <!-- 5. Expand / full-screen icon -->
                                         <button class="c-tl-ctrl-btn c-tl-expand-btn" title="Expand timeline">
                                             <lightning-icon icon-name="utility:expand_alt" size="xx-small" alternative-text="Expand"></lightning-icon>
                                         </button>
@@ -479,15 +470,38 @@
                                     <span class="c-legend-shared"><span class="c-legend-shared__bar"></span> = Shared (bridging both members)</span>
                                 </div>
 
-                                <!-- AI Suggestions slide-in panel (scoped to Group Timeline) -->
-                                <template lwc:if={aiSuggestionsOpen}>
-                                    <ui-ai-suggestions-panel
-                                        suggestions={aiSuggestions}
-                                        focused-suggestion-id={focusedSuggestionId}
-                                        onclose={handleCloseAiSuggestions}
-                                        onadd={handleSuggestionAdd}
-                                        ondismiss={handleSuggestionDismiss}>
-                                    </ui-ai-suggestions-panel>
+                                <!-- Sparkle suggestion popover — opens from the sparkle icon -->
+                                <template lwc:if={sparklePopoverSug}>
+                                    <div class="c-sparkle-popover-backdrop" onclick={handleCloseSparklePopover}></div>
+                                    <div class="c-sparkle-popover" style={sparklePopoverStyle}>
+                                        <!-- Arrow pointing toward the sparkle -->
+                                        <div class="c-sparkle-popover__arrow"></div>
+                                        <!-- Card toolbar -->
+                                        <div class="c-sparkle-popover__toolbar">
+                                            <span class="c-sparkle-popover__badge">
+                                                <span aria-hidden="true">✦</span>
+                                                AI Suggestion
+                                            </span>
+                                            <div class="c-sparkle-popover__actions">
+                                                <template lwc:if={sparklePopoverSug.isAdded}>
+                                                    <span class="c-sparkle-popover__added-label">
+                                                        <lightning-icon icon-name="utility:check" size="xx-small" alternative-text="Added"></lightning-icon>
+                                                        Added ✓
+                                                    </span>
+                                                </template>
+                                                <template lwc:else>
+                                                    <button class="c-sparkle-popover__add-btn" onclick={handleSparkleAdd}>Add to Timeline</button>
+                                                </template>
+                                                <button class="c-sparkle-popover__dismiss-btn" onclick={handleSparkleDismiss} title="Dismiss">
+                                                    <lightning-icon icon-name="utility:close" size="x-small" alternative-text="Dismiss"></lightning-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <!-- Card content -->
+                                        <h3 class="c-sparkle-popover__title">{sparklePopoverSug.title}</h3>
+                                        <p class="c-sparkle-popover__meta">{sparklePopoverSug.member} · {sparklePopoverSug.targetDate}</p>
+                                        <p class="c-sparkle-popover__desc">{sparklePopoverSug.description}</p>
+                                    </div>
                                 </template>
 
                             </div>
