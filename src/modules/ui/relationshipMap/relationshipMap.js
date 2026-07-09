@@ -34,6 +34,7 @@ export default class RelationshipMap extends LightningElement {
     @track _isDirectMemberAdd = false;
     @track _directAddMode     = 'existing';
     @track _memberLookupQuery = 'Julia Green';
+    @track _directAddCategory = 'Members';
     @track _openEntityMenuKey = null;
     @track _activeEntity      = null;
     @track _showDeleteModal   = false;
@@ -260,8 +261,8 @@ export default class RelationshipMap extends LightningElement {
     get showDirectCreateNew() { return this._directAddMode === 'create'; }
 
     get addModalHeading() {
-        if (this.modalStep1Direct && this.showDirectCreateNew) return 'Add Primary Member';
-        if (this.modalStep1Direct) return 'Add Member';
+        if (this.modalStep1Direct && this.showDirectCreateNew) return this.directCreateHeading;
+        if (this.modalStep1Direct) return this.directAddHeading;
         if (this.modalStep2Create) return 'Create New Person Account';
         const cat = this._addModalRec?.groupCategory || 'Members';
         if (cat === 'Members')          return 'Add Member';
@@ -317,6 +318,26 @@ export default class RelationshipMap extends LightningElement {
         return this._directAddMode;
     }
 
+    get directAddHeading() {
+        if (this._directAddCategory === 'Related Contacts') return 'Add Related Contact';
+        return 'Add Member';
+    }
+
+    get directCreateHeading() {
+        if (this._directAddCategory === 'Related Contacts') return 'Add Related Contact';
+        return 'Add Primary Member';
+    }
+
+    get directCreateDetailsTitle() {
+        if (this._directAddCategory === 'Related Contacts') return 'New Related Contact details';
+        return 'New Member details';
+    }
+
+    get directDetailsSubtitle() {
+        if (this._directAddCategory === 'Related Contacts') return 'Add Related Contact Details';
+        return 'Add Member Details';
+    }
+
     get directAddDuplicates() {
         return (this._addModalRec?.duplicates || []).map((d, i) => ({
             ...d,
@@ -326,6 +347,10 @@ export default class RelationshipMap extends LightningElement {
                 : 'c-rm-modal__dup-row c-rm-modal__dup-row_direct',
             idx: i,
         }));
+    }
+
+    get directItemCountLabel() {
+        return this._directAddCategory === 'Related Contacts' ? '5 Items' : '64 Items';
     }
 
     // Step 2 — "add details" (existing record) fields
@@ -367,6 +392,8 @@ export default class RelationshipMap extends LightningElement {
             { label: 'Dependent',         value: 'Dependent' },
             { label: 'Parent',            value: 'Parent' },
             { label: 'Sibling',           value: 'Sibling' },
+            { label: 'Lawyer',            value: 'Lawyer' },
+            { label: 'Advisor',           value: 'Advisor' },
             { label: 'Other',             value: 'Other' },
         ];
     }
@@ -391,7 +418,11 @@ export default class RelationshipMap extends LightningElement {
         const category = event.currentTarget.dataset.category;
         if (!category) return;
         if (category === 'Members') {
-            this._openDirectMemberAddModal();
+            this._openDirectEntityAddModal('Members');
+            return;
+        }
+        if (category === 'Related Contacts') {
+            this._openDirectEntityAddModal('Related Contacts');
             return;
         }
 
@@ -425,24 +456,34 @@ export default class RelationshipMap extends LightningElement {
         this._modalStep = 1;
     }
 
-    _openDirectMemberAddModal() {
+    _openDirectEntityAddModal(category) {
         this._isDirectMemberAdd = true;
+        this._directAddCategory = category;
         this._directAddMode = 'existing';
-        this._memberLookupQuery = 'Julia Green';
+        this._memberLookupQuery = category === 'Related Contacts' ? 'Adam' : 'Julia Green';
         this._selectedRecordIdx = 0;
-        this._modalRole = 'Wife';
+        this._modalRole = category === 'Related Contacts' ? 'Lawyer' : 'Wife';
         this._modalStatus = 'Active';
-        this._addModalRec = {
-            id: `manual-member-direct-${Date.now()}`,
-            name: 'Julia Green',
-            relationship: 'Wife',
-            groupCategory: 'Members',
-            sourceType: 'multiple',
-            duplicates: [
+        const duplicates = category === 'Related Contacts'
+            ? [
+                { name: 'Adam Smith', ssn: '***-**-6677', address: '44/31 New Avenue...', createdBy: 'Nick', role: 'Lawyer' },
+                { name: 'Joseph Adam', ssn: '***-**-4589', address: '...', createdBy: 'Brian Scott', role: 'Advisor' },
+                { name: 'Maria Green Smith', ssn: '***-**-6439', address: '22/12', createdBy: 'Jack Scott', role: 'Lawyer' },
+                { name: 'Smith Jones', ssn: '***-**-1239', address: '41/31 Avenue...', createdBy: 'Brett J', role: 'Advisor' },
+                { name: 'Julia Smith', ssn: '***-**-6723', address: '--', createdBy: 'Test', role: 'Advisor' },
+            ]
+            : [
                 { name: 'Julia Green', ssn: '***-**-6677', address: '44/31 New Avenue...', createdBy: 'Nick', role: 'Wife' },
                 { name: 'Julia Green', ssn: '***-**-4589', address: '...', createdBy: 'Brian Scott', role: 'Wife' },
                 { name: 'Julia Green', ssn: '***-**-6439', address: '22/12', createdBy: 'Jack Scott', role: 'Wife' },
-            ],
+            ];
+        this._addModalRec = {
+            id: `manual-direct-${Date.now()}`,
+            name: category === 'Related Contacts' ? 'Adam Smith' : 'Julia Green',
+            relationship: category === 'Related Contacts' ? 'Lawyer' : 'Wife',
+            groupCategory: category,
+            sourceType: 'multiple',
+            duplicates,
         };
         this._modalStep = 1;
     }
@@ -682,9 +723,9 @@ export default class RelationshipMap extends LightningElement {
         if (this._isDirectMemberAdd) {
             if (this._selectedRecordIdx !== null) {
                 const selected = this._addModalRec?.duplicates?.[this._selectedRecordIdx];
-                this._addMemberToGraph({
+                this._addEntityToGraph(this._directAddCategory, {
                     name: selected?.name || this._addModalRec?.name,
-                    role: this._modalRole || selected?.role || 'Member',
+                    role: this._modalRole || selected?.role || (this._directAddCategory === 'Related Contacts' ? 'Contact' : 'Member'),
                 });
             }
             this.handleCancelAdd();
@@ -723,6 +764,7 @@ export default class RelationshipMap extends LightningElement {
         this._isDirectMemberAdd = false;
         this._directAddMode = 'existing';
         this._memberLookupQuery = 'Julia Green';
+        this._directAddCategory = 'Members';
         this._selectedRecordIdx = null;
         this._addModalRec = null;
     }
@@ -730,11 +772,31 @@ export default class RelationshipMap extends LightningElement {
     handleDirectCreateAdd() {
         const fullName = `${this._modalFirstName} ${this._modalLastName}`.trim();
         if (!fullName) return;
-        this._addMemberToGraph({ name: fullName, role: 'Member' });
+        const fallbackRole = this._directAddCategory === 'Related Contacts' ? 'Contact' : 'Member';
+        this._addEntityToGraph(this._directAddCategory, { name: fullName, role: fallbackRole });
         this.handleCancelAdd();
     }
 
-    _addMemberToGraph({ name, role }) {
+    _addEntityToGraph(category, { name, role }) {
+        if (category !== 'Members') {
+            const id = `direct-${category.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}`;
+            const icon = category === 'Related Contacts' ? 'standard:contact'
+                : category === 'Related Accounts' ? 'standard:account'
+                : 'standard:household';
+            const rec = {
+                id,
+                name,
+                relationship: role || 'Related',
+                icon,
+                sourceType: 'existing',
+                confidenceType: 'high',
+                confidence: 'High Confidence',
+                reason: 'Added manually.',
+            };
+            this.recommendations = this._upsertFallbackRecIntoRecommendations(rec, category);
+            this._addedIds = { ...this._addedIds, [id]: true };
+            return;
+        }
         const palette = ['#1589ee', '#206476', '#9a6a2e', '#7c3aed', '#c23934'];
         const idx = (this.members || []).length % palette.length;
         const initials = (name || '')

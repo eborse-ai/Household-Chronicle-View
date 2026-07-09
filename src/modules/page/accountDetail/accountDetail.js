@@ -58,10 +58,10 @@ const EVENT_DETAILS = {
     me7e: { description: 'Annual review with Sara and Mark. Reviewed Roth IRA growth, brokerage performance, and car goal progress.', isShared: true, sharedWith: 'Mark Reed', isCritical: false, date: 'Oct 2024', membersAffected: 2, status: 'Completed', aiInsight: null, aiActionLabel: null, members: 'Sara · Mark Reed', cashFlowImpact: null, beneficiaries: null, actionTaken: 'All goals on track at time of review.' },
     me7f: { description: "Sara and Mark jointly set a $45K car savings goal targeting 2027. Funded from the brokerage account.", isShared: true, sharedWith: 'Mark Reed', isCritical: true, date: 'Feb 2025', membersAffected: 2, status: 'At Risk', aiInsight: "Goal is at risk due to recent brokerage account dip (~4% MoM). Consider a dedicated sinking fund rather than relying on the brokerage for this short-term goal.", aiActionLabel: 'Reassess Goal Timeline', members: 'Sara · Mark Reed', cashFlowImpact: '$500/mo target savings', beneficiaries: null, actionTaken: 'Goal recorded.', sentimentInsights: [{ name: 'Sara Reed', role: 'Co-client', keyword: 'Risk-averse', insight: 'The brokerage dip is a concern; prefers a stable, FDIC-insured vehicle rather than market-linked savings for near-term goals.' }] },
     me7g: { description: "Emma Reed born April 14, 2026. Sara entered parental leave immediately following delivery.", isShared: true, sharedWith: 'Mark Reed · Emma Reed', isCritical: true, date: 'Apr 14, 2026', membersAffected: 3, status: 'No plan update', aiInsight: "Sara's parental leave reduces household income by ~$4,200/mo for 4 months. No plan adjustment has been made for this income gap.", aiActionLabel: 'Review Cash-Flow Impact', members: 'Sara · Mark · Emma Reed', cashFlowImpact: '–$4,200/mo (parental leave)', beneficiaries: 'Not updated — Emma not named', actionTaken: 'None on record' },
-    me7h: { description: "Sara's maternity leave began April 14, 2025, following Emma's birth. Employer provides 16 weeks of paid parental leave.", isShared: false, sharedWith: '', isCritical: false, date: 'Apr 2025', membersAffected: 1, status: 'Active', aiInsight: "Maternity leave reduces household cash flow by ~$4,200/mo. No emergency reserve drawdown plan has been initiated. Daycare costs of $2,800/mo will begin in approximately 6 months.", aiActionLabel: 'Review Cash-Flow Plan', members: 'Sara Reed', cashFlowImpact: '–$4,200/mo (partial income reduction)', beneficiaries: null, actionTaken: 'Leave period recorded. No cash-flow plan initiated.' },
+    me7h: { description: "Sara's parental leave began April 14, 2026, following Emma's birth. Employer provides 16 weeks of paid parental leave.", isShared: false, sharedWith: '', isCritical: false, date: 'Apr 2025', membersAffected: 1, status: 'Active', aiInsight: "Maternity leave reduces household cash flow by ~$4,200/mo. No emergency reserve drawdown plan has been initiated. Daycare costs of $2,800/mo will begin in approximately 6 months.", aiActionLabel: 'Review Cash-Flow Plan', members: 'Sara Reed', cashFlowImpact: '–$4,200/mo (partial income reduction)', beneficiaries: null, actionTaken: 'Leave period recorded. No cash-flow plan initiated.' },
     me7: { description: "Emma Reed born. Sara enters maternity leave immediately post-delivery. Household income reduced during leave period.", isShared: true, sharedWith: 'Mark Reed · Emma Reed', isCritical: true, date: 'Aug 2025', membersAffected: 3, status: 'No plan update', aiInsight: "Sara's maternity leave reduces household income. No cash-flow plan or short-term reallocation has been initiated. Daycare costs will begin in ~6 months.", aiActionLabel: 'Review Cash-Flow Impact', members: 'Sara · Mark · Emma Reed', cashFlowImpact: '–$4,200/mo (maternity leave)', beneficiaries: 'Not updated — Emma not named', actionTaken: 'None on record' },
     me8: { description: "Sara returned to work full-time after 10 months of maternity leave, restoring household income to pre-birth levels.", isShared: false, sharedWith: '', isCritical: false, date: 'Jun 2026', membersAffected: 1, status: 'Completed', aiInsight: "Sara's return to work restores household income. This is a good trigger to revisit the car goal timeline, 529 contributions, and Roth IRA funding for the year.", aiActionLabel: 'Revisit Household Plan', members: 'Sara Reed', cashFlowImpact: '+$4,200/mo income restored', beneficiaries: null, actionTaken: 'None on record' },
-    me9a: { description: 'Emma Reed born April 14, 2025. First recorded life event for Emma as a household dependent.', isShared: true, sharedWith: 'Mark Reed · Sara Reed', isCritical: false, date: 'Apr 14, 2025', membersAffected: 3, status: 'Noted', aiInsight: "No 529 plan has been opened for Emma. Starting college savings now gives 18+ years of compounding before she reaches college age in 2043.", aiActionLabel: 'Open 529 Plan', members: 'Emma · Mark · Sara Reed', cashFlowImpact: null, beneficiaries: 'Not yet designated', actionTaken: 'Emma added as household dependent.' },
+    me9a: { description: 'Emma Reed born April 14, 2026. First recorded life event for Emma as a household dependent.', isShared: true, sharedWith: 'Mark Reed · Sara Reed', isCritical: false, date: 'Apr 14, 2026', membersAffected: 3, status: 'Noted', aiInsight: "No 529 plan has been opened for Emma. Starting college savings now gives 18+ years of compounding before she reaches college age in 2043.", aiActionLabel: 'Open 529 Plan', members: 'Emma · Mark · Sara Reed', cashFlowImpact: null, beneficiaries: 'Not yet designated', actionTaken: 'Emma added as household dependent.' },
     me9: { description: "Emma's 1st birthday milestone. No formal planning event, but serves as a reminder to initiate 529 funding and update beneficiaries.", isShared: true, sharedWith: 'Mark Reed · Sara Reed', isCritical: false, date: 'Apr 2026', membersAffected: 3, status: 'Noted', aiInsight: "Emma turns 1 with no 529 plan or updated beneficiary designations on file. Opening a 529 now captures an additional year of compounding before the next annual review.", aiActionLabel: 'Open 529 Plan', members: 'Emma · Mark · Sara Reed', cashFlowImpact: null, beneficiaries: 'Not updated — Emma not named', actionTaken: 'None on record' },
 };
 
@@ -81,7 +81,7 @@ const ENRICHMENT = {
         clientSummary: {
             lastUpdate: 'Last update at 11:30 PM by Agentforce.',
             summary: 'Emerging household focused on family protection and wealth accumulation, with a new-parent life event driving planning priorities.',
-            whatChanged: "Emma born Apr 2025; term-life purchased shortly after; 529 plan not yet opened; brokerage account down ~4% MoM; Sara absent from last two annual reviews.",
+            whatChanged: "Emma born Apr 2026; term-life purchased shortly after; 529 plan not yet opened; brokerage account down ~4% MoM; Sara absent from last two annual reviews.",
             whyItMatters: 'Mid-year review is a high-value opportunity to close the 529 funding gap, re-engage Sara as a co-client, and reassess the $45K new-car goal given the recent market dip.',
             keyDataPoints: [
                 'AUM: $280K (–4% MoM)',
@@ -92,9 +92,9 @@ const ENRICHMENT = {
             ],
             sources: 'Insights synthesized from CRM activity logs, account statements, and internal planning notes.',
         },
-        agenticSummary: "Last 12 months: The household's focus shifted dramatically with Emma's birth in April 2025. Mark purchased term-life insurance shortly after, but gaps remain: no 529 plan has been opened for Emma, and protection planning hasn't been fully updated. Engagement has been Mark-only — Sara has been absent from the last two annual reviews — and the new-car goal is now at risk from a recent market dip.",
+        agenticSummary: "Last 12 months: The household's focus shifted dramatically with Emma's birth in April 2026. Mark purchased term-life insurance shortly after, but gaps remain: no 529 plan has been opened for Emma, and protection planning hasn't been fully updated. Engagement has been Mark-only — Sara has been absent from the last two annual reviews — and the new-car goal is now at risk from a recent market dip.",
         agenticImpact: "The upcoming mid-year review is a high-value opportunity to address college funding for Emma, bring Sara into the planning conversation, and reassess the new-car goal timeline given the recent brokerage dip.",
-        agenticSummaryAllTime: "All time (Mar 2019 – Jul 2026): The Reed household has grown from a $15K portfolio at onboarding to $280K AUM — a 17× increase driven by Mark's career progression and disciplined savings. Key milestones include joint brokerage setup (2020), emergency fund completion (2021), home purchase (2023), and Emma's birth (2025). The relationship has narrowed to Mark-only engagement since 2024; Sara has been absent from the last two annual reviews. The new-car goal ($45K, target 2027) is now at risk following a ~4% brokerage dip.",
+        agenticSummaryAllTime: "All time (Mar 2019 – Jul 2026): The Reed household has grown from a $15K portfolio at onboarding to $280K AUM — a 17× increase driven by Mark's career progression and disciplined savings. Key milestones include joint brokerage setup (2020), emergency fund completion (2021), home purchase (2023), and Emma's birth (2026). The relationship has narrowed to Mark-only engagement since 2024; Sara has been absent from the last two annual reviews. The new-car goal ($45K, target 2027) is now at risk following a ~4% brokerage dip.",
         agenticImpactAllTime: "The 7-year relationship provides a strong foundation for a comprehensive household financial plan review. Addressing the post-birth planning gaps — 529, beneficiary updates, Sara re-engagement — before the next major life phase will be critical to sustaining long-term growth and household alignment.",
         nextBestActions: [],
         meetings: [
@@ -342,7 +342,7 @@ const ENRICHMENT = {
                 initials: 'SR',
                 avatarStyle: 'background:#206476;color:#ffffff;',
                 relationshipStrength: 'Low',
-                lastInteraction: 'Apr 2025',
+                lastInteraction: 'Apr 2026',
                 upcomingLifeEvents: ['Re-engage in annual reviews'],
             },
             {
@@ -353,7 +353,7 @@ const ENRICHMENT = {
                 initials: 'ER',
                 avatarStyle: 'background:#9a6a2e;color:#ffffff;',
                 relationshipStrength: 'N/A',
-                lastInteraction: 'Apr 2025 (born)',
+                lastInteraction: 'Apr 2026 (born)',
                 upcomingLifeEvents: ['College 2043 (529 not started)'],
             },
         ],
@@ -370,7 +370,7 @@ const ENRICHMENT = {
                         sourceType: 'existing',
                         confidence: 'High Confidence',
                         confidenceType: 'high',
-                        reason: "Listed as beneficiary in Mark Reed's Term Life Insurance policy (May 2025). Birth record confirmed.",
+                        reason: "Listed as beneficiary in Mark Reed's Term Life Insurance policy (Jun 2026). Birth record confirmed.",
                         duplicates: [
                             { name: 'Emma Reed', company: 'Reed & Associates LLC', title: 'Daughter', email: 'emma.reed@reedassoc.com' },
                             { name: 'Emma Reed', company: 'Westbrook Primary School', title: 'Student', email: 'emma.r@westbrook.edu' },
@@ -797,7 +797,7 @@ export default class AccountDetail extends LightningElement {
     get agenticSummarySegments() {
         return [
             { id: 's1',  text: "Across the past 12 months the Reed household\u2019s journey has been defined by ", bold: false },
-            { id: 's2',  text: "one pivotal life event \u2013 Emma\u2019s birth (Apr 2025)",                      bold: true  },
+            { id: 's2',  text: "one pivotal life event \u2013 Emma\u2019s birth (Apr 2026)",                      bold: true  },
             { id: 's3',  text: " \u2013 and the arc it set in motion. The sequence tells the story: a new dependent arrived, engagement stayed ", bold: false },
             { id: 's4',  text: "Mark-only",                                                                        bold: true  },
             { id: 's5',  text: " through every touchpoint, and the plan hasn\u2019t caught up \u2013 ",            bold: false },

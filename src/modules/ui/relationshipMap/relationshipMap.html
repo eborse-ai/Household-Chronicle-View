@@ -503,7 +503,7 @@
                                     onchange={handleMemberLookupChange}
                                     class="c-rm-modal__field c-rm-modal__field_search">
                                 </lightning-input>
-                                <span class="c-rm-modal__item-count">64 Items</span>
+                                <span class="c-rm-modal__item-count">{directItemCountLabel}</span>
                             </div>
                             <div class="c-rm-modal__dup-table">
                                 <div class="c-rm-modal__dup-thead c-rm-modal__dup-thead_direct">
@@ -546,7 +546,7 @@
                                 onchange={handleDirectModeChange}>
                             </lightning-radio-group>
                             <div class="c-rm-modal__new-member-card">
-                                <p class="c-rm-modal__new-member-title">New Member details</p>
+                                <p class="c-rm-modal__new-member-title">{directCreateDetailsTitle}</p>
                                 <lightning-combobox
                                     label="Salutation"
                                     value={addModalSalutation}
@@ -653,7 +653,7 @@
                 <!-- ── STEP 2A: Add details (existing record selected) ── -->
                 <template lwc:if={modalStep2Details}>
                     <div class="c-rm-modal__body">
-                        <h3 class="c-rm-modal__subtitle">Add Member Details</h3>
+                        <h3 class="c-rm-modal__subtitle">{directDetailsSubtitle}</h3>
                         <!-- Row: Name (lookup, read-only) | Role (required combobox) -->
                         <div class="c-rm-modal__row">
                             <lightning-input
