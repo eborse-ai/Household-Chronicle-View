@@ -20,7 +20,7 @@ export const APP_STORAGE_KEY = 'shell-current-app';
 export const apps = [
   {
     id: 'standard',
-    label: 'Standard App',
+    label: 'Next Gen Wealth Management',
     variant: 'standard',
     pathPrefix: '/app',
     defaultPath: '/app',
