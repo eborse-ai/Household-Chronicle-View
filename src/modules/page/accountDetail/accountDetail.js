@@ -508,7 +508,7 @@ const ENRICHMENT = {
                     { id: 'me1l', month: 'Jun 2025', label: 'Term Life',         type: 'financial' },
                     { id: 'me1',  month: 'Aug 2025', label: 'Paternity Leave',   type: 'life'      },
                     { id: 'me2',  month: 'Oct 2025', label: 'Annual Review',     type: 'meeting'   },
-                    { id: 'me3',  month: 'Nov 2025', label: 'Year-End Planning', type: 'meeting'   },
+
                     { id: 'me4',  month: 'Mar 2026', label: 'New Role',          type: 'life'      },
 
                     { id: 'me6',  month: 'Jun 2026', label: 'Mid-Year Check-in', type: 'meeting'   },
