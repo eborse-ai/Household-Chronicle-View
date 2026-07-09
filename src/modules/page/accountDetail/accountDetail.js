@@ -910,6 +910,13 @@ export default class AccountDetail extends LightningElement {
             goal:        'c-type-dot c-type-dot_goal',
             financial:   'c-type-dot c-type-dot_financial',
         };
+        const TYPE_ICON = {
+            life:        'utility:people',
+            meeting:     'utility:event',
+            goal:        'utility:target',
+            financial:   'utility:money',
+            transaction: 'utility:currency',
+        };
         /* Pending (non-dismissed, non-added) AI suggestions for sparkle indicators */
         const pendingSugs = (this._enrichment?.aiSuggestions || [])
             .filter((s) => !this._addedSuggestionIds[s.id] && !this._dismissedSuggestions[s.id]);
@@ -935,6 +942,7 @@ export default class AccountDetail extends LightningElement {
                             detail:       det,
                             isCritical:   !!(det?.isCritical),
                             typeDotClass: TYPE_DOT[e.type] || 'c-type-dot',
+                            iconName:     TYPE_ICON[e.type] || 'utility:record',
                         };
                     });
 

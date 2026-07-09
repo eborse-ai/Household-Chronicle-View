@@ -1324,17 +1324,44 @@ lightning-card {
 
 /* ── Event pills ─────────────────────────────────────── */
 .c-event-pill {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    /* Standardized fixed width — all pill types identical */
+    width: 108px;
+    box-sizing: border-box;
     /* No SLDS hook for 0.25rem vertical pill padding */
-    padding: 0.25rem 0.625rem;
-    border-radius: 0.375rem; /* No SLDS hook — matches screenshot rounded-rect shape */
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
     font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
     font-weight: var(--slds-g-font-weight-6, 600);
     white-space: nowrap;
+    overflow: hidden;
     /* intentional static: solid white so pill is always opaque regardless of cell bg */
     background: #ffffff;
     border: var(--slds-g-sizing-border-2, 2px) solid var(--slds-g-color-border-base-1, #dddbda);
     cursor: pointer;
+}
+
+/* Icon inside pill — inherits pill color via CSS custom property */
+.c-pill-icon {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+}
+
+.c-pill-icon .slds-icon {
+    fill: currentColor;
+}
+
+/* Label — truncates when text is too long */
+.c-pill-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    min-width: 0;
 }
 
 .c-event-pill:hover {
@@ -1349,6 +1376,7 @@ lightning-card {
     /* No SLDS hook for #0094B7 — intentional brand color */
     border-color: #0094B7;
     color: #0094B7;
+    --slds-c-icon-color-foreground: #0094B7;
 }
 
 /* Meeting — slate gray */
@@ -1356,6 +1384,7 @@ lightning-card {
     /* No SLDS v2 hook for this neutral-gray surface */
     border-color: #706e6b;
     color: #706e6b;
+    --slds-c-icon-color-foreground: #706e6b;
 }
 
 /* Transaction — amber/gold */
@@ -1363,12 +1392,14 @@ lightning-card {
     /* No SLDS v2 hook for amber-gold; closest palette suggestion */
     border-color: var(--slds-g-color-palette-yellow-30, #c89200);
     color: var(--slds-g-color-palette-yellow-30, #c89200);
+    --slds-c-icon-color-foreground: var(--slds-g-color-palette-yellow-30, #c89200);
 }
 
 /* Financial Goal — orange */
 .c-event-pill_goal {
     border-color: var(--slds-g-color-palette-orange-50, #b45309);
     color: var(--slds-g-color-palette-orange-50, #b45309);
+    --slds-c-icon-color-foreground: var(--slds-g-color-palette-orange-50, #b45309);
 }
 
 /* Financial Account — teal */
@@ -1376,6 +1407,7 @@ lightning-card {
     /* No SLDS v2 hook for teal; using palette-teal */
     border-color: var(--slds-g-color-palette-teal-50, #00796b);
     color: var(--slds-g-color-palette-teal-50, #00796b);
+    --slds-c-icon-color-foreground: var(--slds-g-color-palette-teal-50, #00796b);
 }
 
 /* ── Timeline legend ─────────────────────────────────── */

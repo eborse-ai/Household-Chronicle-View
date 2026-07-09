@@ -421,7 +421,10 @@
                                                         <template for:each={cell.events} for:item="evt">
                                                             <div key={evt.id} class="c-pill-wrap">
                                                                 <div class="c-pill-inner">
-                                                                    <span class={evt.pillClass} data-event-id={evt.id} onclick={handlePillClick} role="button" tabindex="0">{evt.label}</span>
+                                                                    <span class={evt.pillClass} data-event-id={evt.id} onclick={handlePillClick} role="button" tabindex="0">
+                                                                        <lightning-icon icon-name={evt.iconName} size="xx-small" class="c-pill-icon"></lightning-icon>
+                                                                        <span class="c-pill-label">{evt.label}</span>
+                                                                    </span>
                                                                     <template lwc:if={evt.isCritical}>
                                                                         <span class="c-pill-critical-badge"></span>
                                                                     </template>
