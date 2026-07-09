@@ -141,11 +141,11 @@
                                             <div key={rec.id} class="c-rel-map-member-card c-rel-map-member-card_added">
                                                 <div class="c-rel-map-member-header">
                                                     <div class="c-rm-added-icon-wrap">
-                                                        <lightning-icon icon-name={rec.icon} size="x-small" alternative-text={rec.name}></lightning-icon>
-                                                    </div>
-                                                    <div class="c-rel-map-member-identity">
-                                                        <span class="slds-text-link slds-text-body_small c-rel-map-member-name">{rec.name}</span>
-                                                        <p class="slds-text-body_small slds-text-color_weak">{rec.relationship}</p>
+                                        <lightning-icon icon-name={rec.icon} size="medium" alternative-text={rec.name}></lightning-icon>
+                                            </div>
+                                            <div class="c-rel-map-member-identity">
+                                                <span class="slds-text-link slds-text-body_small c-rel-map-member-name">{rec.name}</span>
+                                                <p class="slds-text-body_small slds-text-color_weak">{rec.relationship}</p>
                                                     </div>
                                                     <div class="c-rel-map-member-actions" onclick={handleStopProp}>
                                                         <button
@@ -291,7 +291,7 @@
                                     <template for:each={addedAccounts} for:item="rec">
                                         <div key={rec.id} class="c-rel-map-member-collapsed">
                                             <div class="c-rm-added-icon-wrap">
-                                                <lightning-icon icon-name={rec.icon} size="x-small" alternative-text={rec.name}></lightning-icon>
+                                                <lightning-icon icon-name={rec.icon} size="medium" alternative-text={rec.name}></lightning-icon>
                                             </div>
                                             <div class="c-rel-map-collapsed-body">
                                                 <span class="slds-text-link slds-text-body_small">{rec.name}</span>
@@ -341,7 +341,7 @@
                                     <template for:each={addedContacts} for:item="rec">
                                         <div key={rec.id} class="c-rel-map-member-collapsed">
                                             <div class="c-rm-added-icon-wrap">
-                                                <lightning-icon icon-name={rec.icon} size="x-small" alternative-text={rec.name}></lightning-icon>
+                                                <lightning-icon icon-name={rec.icon} size="medium" alternative-text={rec.name}></lightning-icon>
                                             </div>
                                             <div class="c-rel-map-collapsed-body">
                                                 <span class="slds-text-link slds-text-body_small">{rec.name}</span>
