@@ -1688,14 +1688,15 @@ lightning-card {
 .c-ask-agentforce-btn {
     display: inline-flex;
     align-items: center;
-    gap: var(--slds-g-spacing-2, 0.5rem);
-    /* intentional static: 0.4rem 1.25rem — generous pill padding matching screenshot */
-    padding: 0.4rem 1.25rem;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    /* intentional static: height 2rem matches other page control buttons */
+    height: 2rem;
+    padding: 0 0.75rem;
     border-radius: var(--slds-g-radius-border-4, 1.5rem);
     /* intentional static: #444 dark charcoal border matching screenshot */
     border: 1.5px solid #444444;
     background: var(--slds-g-color-neutral-base-100, #ffffff);
-    font-size: var(--slds-g-font-scale-1, 1rem);
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
     font-weight: var(--slds-g-font-weight-6, 600);
     color: var(--slds-g-color-brand-base-50, #0176d3);
     cursor: pointer;
@@ -1711,9 +1712,9 @@ lightning-card {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    /* intentional static: 1.5rem to contain all sparkle stars */
-    width: 1.5rem;
-    height: 1.5rem;
+    /* intentional static: 1.1rem to contain all sparkle stars at reduced size */
+    width: 1.1rem;
+    height: 1.1rem;
     flex-shrink: 0;
 }
 
@@ -1727,8 +1728,8 @@ lightning-card {
 /* Large dominant star — centred */
 .c-af-spark_lg {
     display: block;
-    /* intentional static: 1.25rem large star */
-    font-size: 1.25rem;
+    /* intentional static: 0.9rem large star scaled for smaller button */
+    font-size: 0.9rem;
 }
 
 /* Smaller satellite stars — absolute positioned */
@@ -1738,14 +1739,14 @@ lightning-card {
 
 .c-af-spark_tr {
     /* intentional static: top-right small star */
-    font-size: 0.55rem;
+    font-size: 0.4rem;
     top: 0;
     right: 0;
 }
 
 .c-af-spark_br {
     /* intentional static: bottom-right smallest star */
-    font-size: 0.4rem;
+    font-size: 0.28rem;
     bottom: 0.05rem;
     right: 0.05rem;
 }
