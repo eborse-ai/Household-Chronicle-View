@@ -304,6 +304,8 @@ const ENRICHMENT = {
             { period: 'Oct 2026', aum: 287000, liquidity: 18500, isPredicted: true },
             { period: 'Nov 2026', aum: 290000, liquidity: 19200, isPredicted: true },
             { period: 'Dec 2026', aum: 294000, liquidity: 20000, isPredicted: true },
+            { period: 'Jan 2027', aum: 297000, liquidity: 20800, isPredicted: true },
+            { period: 'Feb 2027', aum: 300000, liquidity: 21500, isPredicted: true },
         ],
         activities: [
             { id: 'act1', type: 'call',  iconName: 'standard:log_a_call', subject: 'Mid-year review (Mark)',         time: 'Today',    description: "Annual mid-year review with Mark Reed. Sara unavailable due to childcare." },
@@ -618,7 +620,7 @@ function _buildMonthRange(startY, startM, endY, endM) {
     }
     return out;
 }
-const TIMELINE_MONTHS   = _buildMonthRange(2019, 1, 2026, 12); // 96 months
+const TIMELINE_MONTHS   = _buildMonthRange(2019, 1, 2027, 2); // Jan 2019 → Feb 2027
 const CURRENT_MONTH     = 'Jul 2026'; // today's month for isToday marker
 const CURRENT_MONTH_IDX = TIMELINE_MONTHS.indexOf(CURRENT_MONTH);
 
@@ -641,6 +643,7 @@ const _MARKET_MILESTONES = [
     { period: 'Mar 2026', value: 33000 }, // dip trough
     { period: 'Jul 2026', value: 35500 }, // current (slight rebound)
     { period: 'Dec 2026', value: 37000 }, // projected — still below goal
+    { period: 'Feb 2027', value: 38500 }, // projected — continuing recovery
 ];
 
 function _buildMarketMonthly() {
