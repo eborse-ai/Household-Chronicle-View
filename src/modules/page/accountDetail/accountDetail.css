@@ -1419,8 +1419,8 @@ lightning-card {
     /* Standardized fixed width — all pill types identical */
     width: 116px;
     box-sizing: border-box;
-    /* intentional static: 0.375rem 0.625rem — slightly more padding for elegance */
-    padding: 0.375rem 0.625rem;
+    /* intentional static: 0.2rem 0.5rem — thin pill */
+    padding: 0.2rem 0.5rem;
     /* intentional static: 0.625rem — slightly more rounded corners */
     border-radius: 0.625rem;
     font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
@@ -1441,41 +1441,31 @@ lightning-card {
     line-height: 1;
 }
 
-/* Circular icon badge wrapper — base */
+/* Icon badge wrapper — no background, just sizes the icon flush */
 .c-pill-icon-badge {
     flex-shrink: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    /* intentional static: 1.625rem — extra breathing room around xx-small icon */
-    width: 1.625rem;
-    height: 1.625rem;
-    border-radius: 50%;
-    /* force the SVG inside lightning-icon to white via both mechanisms */
-    --slds-c-icon-color-foreground: #ffffff;
 }
 
-/* Life Event — teal-blue circle */
-.c-pill-icon-badge_life {
-    background: #0094B7;
-}
+/* Life Event — teal-blue icon */
+.c-pill-icon-badge_life { --slds-c-icon-color-foreground: #0094B7; }
 .c-pill-icon-badge_life .slds-icon,
-.c-pill-icon-badge_life lightning-icon svg { fill: #ffffff; }
+.c-pill-icon-badge_life lightning-icon svg { fill: #0094B7; }
 
-/* Financial Goal — orange circle */
-.c-pill-icon-badge_goal {
-    background: var(--slds-g-color-palette-orange-50, #b45309);
-}
+/* Financial Goal — orange icon */
+.c-pill-icon-badge_goal { --slds-c-icon-color-foreground: var(--slds-g-color-palette-orange-50, #b45309); }
 .c-pill-icon-badge_goal .slds-icon,
-.c-pill-icon-badge_goal lightning-icon svg { fill: #ffffff; }
+.c-pill-icon-badge_goal lightning-icon svg { fill: var(--slds-g-color-palette-orange-50, #b45309); }
 
-/* Financial Account — medium green circle */
+/* Financial Account — medium green icon */
 .c-pill-icon-badge_financial {
     /* intentional static: #5aab5e medium green per screenshot */
-    background: #5aab5e;
+    --slds-c-icon-color-foreground: #5aab5e;
 }
 .c-pill-icon-badge_financial .slds-icon,
-.c-pill-icon-badge_financial lightning-icon svg { fill: #ffffff; }
+.c-pill-icon-badge_financial lightning-icon svg { fill: #5aab5e; }
 
 /* Label — truncates when text is too long */
 .c-pill-label {
