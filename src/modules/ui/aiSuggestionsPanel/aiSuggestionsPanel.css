@@ -20,7 +20,7 @@
     min-height: 400px;
     z-index: 8999;
     background: var(--slds-g-color-surface-1, #ffffff);
-    box-shadow: var(--slds-g-shadow-5, -4px 0 24px rgba(0, 0, 0, 0.14));
+    box-shadow: none;
     display: flex;
     flex-direction: column;
     overflow: hidden;

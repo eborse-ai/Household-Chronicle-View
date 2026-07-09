@@ -291,19 +291,7 @@
                                         <p class="slds-text-body_small slds-text-color_weak">{timelineMetaText}</p>
                                     </div>
                                     <div class="c-group-timeline__controls">
-                                        <!-- 1. Agentic Insights toggle -->
-                                        <div class="c-ai-toggle">
-                                            <span class="slds-text-body_small c-ai-toggle__label">Agentic Insights</span>
-                                            <button
-                                                class={agenticInsightsSwitchClass}
-                                                onclick={handleAgenticInsights}
-                                                role="switch"
-                                                title="Toggle Agentic Insights">
-                                                <span class="c-ai-switch__thumb"></span>
-                                            </button>
-                                        </div>
-
-                                        <!-- 2. Monthly / Yearly toggle -->
+                                        <!-- Monthly / Yearly toggle -->
                                         <div class="c-tl-toggle">
                                             <button class={monthlyBtnClass} data-mode="monthly" onclick={handleTimelineMode}>Monthly</button>
                                             <button class={yearlyBtnClass}  data-mode="yearly"  onclick={handleTimelineMode}>Yearly</button>
