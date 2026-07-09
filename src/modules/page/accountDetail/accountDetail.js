@@ -509,7 +509,6 @@ const ENRICHMENT = {
                     { id: 'me1',  month: 'Aug 2025', label: 'Paternity Leave',   type: 'life'      },
                     { id: 'me2',  month: 'Oct 2025', label: 'Annual Review',     type: 'meeting'   },
 
-                    { id: 'me4',  month: 'Mar 2026', label: 'New Role',          type: 'life'      },
 
                     { id: 'me6',  month: 'Jun 2026', label: 'Mid-Year Check-in', type: 'meeting'   },
                 ],
@@ -548,7 +547,6 @@ const ENRICHMENT = {
                 strengthClass: 'c-strength-dot c-strength-dot_na',
                 events: [
                     { id: 'me9a', month: 'Apr 2025', label: 'Born',         type: 'life' },
-                    { id: 'me9',  month: 'Apr 2026', label: '1st Birthday', type: 'life' },
                 ],
             },
         ],
