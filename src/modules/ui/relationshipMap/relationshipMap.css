@@ -883,6 +883,9 @@
     background: #eeeaf9;
     align-items: center;
     justify-content: center;
+    /* intentional static: inset padding + rounded corners so it floats inside the panel body */
+    margin: var(--slds-g-spacing-3, 0.75rem);
+    border-radius: var(--slds-g-radius-border-3, 0.5rem);
     overflow: hidden;
 }
 
