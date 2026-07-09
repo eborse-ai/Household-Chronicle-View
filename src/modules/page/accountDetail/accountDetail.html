@@ -423,7 +423,12 @@
                                                                         <span class={evt.iconBadgeClass}>
                                                                             <lightning-icon icon-name={evt.iconName} size="xx-small" class="c-pill-icon"></lightning-icon>
                                                                         </span>
-                                                                        <span class="c-pill-label">{evt.label}</span>
+                                                                        <span class="c-pill-body">
+                                                                            <span class="c-pill-label">{evt.label}</span>
+                                                                            <template lwc:if={evt.targetYear}>
+                                                                                <span class="c-pill-target">→ {evt.targetYear}</span>
+                                                                            </template>
+                                                                        </span>
                                                                     </span>
                                                                     <template lwc:if={evt.isCritical}>
                                                                         <span class="c-pill-critical-badge"></span>

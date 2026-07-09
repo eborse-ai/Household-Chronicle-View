@@ -1504,7 +1504,7 @@ lightning-card {
 /* ── Event pills ─────────────────────────────────────── */
 .c-event-pill {
     display: inline-flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.3rem;
     /* Standardized fixed width — all pill types identical */
     width: 116px;
@@ -1528,6 +1528,7 @@ lightning-card {
     flex-shrink: 0;
     display: inline-flex;
     align-items: center;
+    margin-top: 0.05rem;
     line-height: 1;
 }
 
@@ -1536,6 +1537,7 @@ lightning-card {
     flex-shrink: 0;
     display: inline-flex;
     align-items: center;
+    margin-top: 0.05rem;
     justify-content: center;
 }
 
@@ -1565,14 +1567,34 @@ lightning-card {
 .c-pill-icon-badge_financial .slds-icon,
 .c-pill-icon-badge_financial lightning-icon svg { fill: #5aab5e; }
 
+/* Body wrapper: stacks label + target year vertically */
+.c-pill-body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+}
+
 /* Label — truncates when text is too long; always neutral dark grey */
 .c-pill-label {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    flex: 1;
     min-width: 0;
     color: var(--slds-g-color-neutral-base-20, #3e3e3c);
+    line-height: 1.2;
+}
+
+/* Target year — small grey secondary line below the label */
+.c-pill-target {
+    font-size: 0.6875rem;
+    /* intentional static: muted grey for secondary info */
+    color: #888;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 0.0625rem;
 }
 
 .c-event-pill:hover {
