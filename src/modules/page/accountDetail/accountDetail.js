@@ -911,11 +911,11 @@ export default class AccountDetail extends LightningElement {
             financial:   'c-type-dot c-type-dot_financial',
         };
         const TYPE_ICON = {
-            life:        'utility:people',
+            life:        'utility:event',     // calendar icon
             meeting:     'utility:event',
-            goal:        'utility:target',
-            financial:   'utility:money',
-            transaction: 'utility:currency',
+            goal:        'utility:priority',  // flag icon
+            financial:   'utility:company',   // institution/bank building icon
+            transaction: 'utility:money',
         };
         /* Pending (non-dismissed, non-added) AI suggestions for sparkle indicators */
         const pendingSugs = (this._enrichment?.aiSuggestions || [])
