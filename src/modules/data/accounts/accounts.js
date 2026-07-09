@@ -165,7 +165,7 @@ const ACCOUNTS = [
         billingCountry: 'USA',
         annualRevenue: 280000,
         totalGiving: 9800,
-        lastActivityDate: '2026-07-02',
+        lastActivityDate: '2026-06-15',
         owner: 'Kim Chen',
         rating: 'Warm',
         description: 'Midwestern household with three members. Angela leads community outreach efforts.',
