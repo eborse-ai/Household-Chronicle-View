@@ -1671,38 +1671,26 @@ lightning-card {
     display: inline-flex;
     align-items: center;
     gap: var(--slds-g-spacing-2, 0.5rem);
-    padding: var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-4, 1rem);
+    /* intentional static: 0.4rem 1.25rem — generous pill padding matching screenshot */
+    padding: 0.4rem 1.25rem;
     border-radius: var(--slds-g-radius-border-4, 1.5rem);
-    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
-    background: var(--slds-g-color-neutral-base-100, #fff);
-    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    /* intentional static: #444 dark charcoal border matching screenshot */
+    border: 1.5px solid #444444;
+    background: var(--slds-g-color-neutral-base-100, #ffffff);
+    font-size: var(--slds-g-font-scale-1, 1rem);
     font-weight: var(--slds-g-font-weight-6, 600);
-    color: var(--slds-g-color-neutral-base-10, #181818);
+    color: var(--slds-g-color-brand-base-50, #0176d3);
     cursor: pointer;
     white-space: nowrap;
 }
-
 .c-ask-agentforce-btn:hover {
     background: var(--slds-g-color-surface-2, #f3f3f3);
 }
 
-/* Primary filled variant */
-.c-ask-agentforce-btn_primary {
-    /* intentional static: violet brand primary */
-    background: #7c3aed;
-    border-color: #7c3aed;
-    color: #ffffff;
-}
-
-.c-ask-agentforce-btn_primary:hover {
-    background: #6d28d9;
-    border-color: #6d28d9;
-}
-
-.c-af-btn-sparkle {
-    font-size: 1rem;
-    line-height: 1;
-}
+/* Blue icon tint to match text */
+.c-af-btn-icon { --slds-c-icon-color-foreground: var(--slds-g-color-brand-base-50, #0176d3); }
+.c-af-btn-icon .slds-icon,
+.c-af-btn-icon lightning-icon svg { fill: var(--slds-g-color-brand-base-50, #0176d3); }
 
 /* ── Agentforce chat panel (Salesforce-style) ────────────────── */
 
