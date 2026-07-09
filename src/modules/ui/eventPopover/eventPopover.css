@@ -84,7 +84,8 @@
 .c-ep-avatar_transaction { background: var(--slds-g-color-warning-base-70, #f59e0b); }
 /* intentional static: #b45309 orange — matches financial goal pill color and screenshot 3 */
 .c-ep-avatar_goal        { background: #b45309; }
-.c-ep-avatar_financial   { background: var(--slds-g-color-palette-green-65, #10b981); }
+/* intentional static: #5aab5e medium green — matches financial account pill icon badge */
+.c-ep-avatar_financial   { background: #5aab5e; }
 
 .c-ep-avatar lightning-icon {
     --slds-c-icon-color-foreground: var(--slds-g-color-on-accent-1, #fff);
