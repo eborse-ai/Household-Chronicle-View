@@ -134,14 +134,15 @@
     position: relative;
 }
 
-/* Vertical spine running down the left side of all sections */
+/* Vertical spine — runs from just below the trunk to above the last section header */
 .c-rel-map-sections-col::before {
     content: '';
     position: absolute;
     left: 0;
-    /* intentional static: 1.25rem vertical offset — no SLDS hook */
-    top: 1.25rem;
-    bottom: 1.25rem;
+    /* intentional static: starts at top, ends before last section midpoint */
+    top: 0;
+    /* Stop before the bottom section's header midpoint (1.25rem header half) */
+    bottom: calc(1.25rem + 0.75rem);
     width: var(--slds-g-sizing-border-2, 2px);
     background: var(--slds-g-color-border-base-1, #c0c0c0);
     border-radius: var(--slds-g-radius-border-1, 0.125rem);
@@ -153,14 +154,17 @@
     position: relative;
 }
 
-/* Horizontal branch from spine to section box */
+/* L-shaped rounded branch connector — vertical drop then curve right into section box */
 .c-rel-map-branch-line {
-    width: var(--slds-g-sizing-7, 1.5rem);
-    height: var(--slds-g-sizing-border-2, 2px);
-    background: var(--slds-g-color-border-base-1, #c0c0c0);
-    /* intentional static: 1.25rem — centres on section header */
-    margin-top: 1.25rem;
+    /* intentional static: 1.5rem wide, 1.25rem tall — no SLDS spacing hook */
+    width: 1.5rem;
+    height: 1.25rem;
     flex-shrink: 0;
+    background: transparent;
+    border-left: var(--slds-g-sizing-border-2, 2px) solid var(--slds-g-color-border-base-1, #c0c0c0);
+    border-bottom: var(--slds-g-sizing-border-2, 2px) solid var(--slds-g-color-border-base-1, #c0c0c0);
+    /* intentional static: 8px radius for the L-curve — no SLDS hook */
+    border-bottom-left-radius: 8px;
 }
 
 .c-rel-map-section-box {
