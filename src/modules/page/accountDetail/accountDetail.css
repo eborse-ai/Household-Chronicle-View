@@ -1464,9 +1464,10 @@ lightning-card {
 }
 .c-pill-icon-badge_goal .slds-icon { fill: #ffffff; }
 
-/* Financial Account — teal-green circle */
+/* Financial Account — medium green circle matching screenshot */
 .c-pill-icon-badge_financial {
-    background: var(--slds-g-color-palette-teal-50, #00796b);
+    /* intentional static: #5aab5e medium green per screenshot */
+    background: #5aab5e;
 }
 .c-pill-icon-badge_financial .slds-icon { fill: #ffffff; }
 
@@ -1511,11 +1512,11 @@ lightning-card {
     color: var(--slds-g-color-palette-orange-50, #b45309);
 }
 
-/* Financial Account — teal green */
+/* Financial Account — medium green matching screenshot */
 .c-event-pill_financial {
-    /* No SLDS v2 hook for teal; using palette-teal */
-    border-color: var(--slds-g-color-palette-teal-50, #00796b);
-    color: var(--slds-g-color-palette-teal-50, #00796b);
+    /* intentional static: #5aab5e medium green per screenshot */
+    border-color: #5aab5e;
+    color: #5aab5e;
 }
 
 /* ── Timeline legend ─────────────────────────────────── */
