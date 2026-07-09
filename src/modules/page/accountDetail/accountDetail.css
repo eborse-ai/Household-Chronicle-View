@@ -884,12 +884,12 @@ lightning-card {
     min-width: 100%;
 }
 
-/* Monthly: fixed-width columns, scrolls horizontally (Jan 2019–Dec 2026 = 96 months) */
+/* Monthly: fixed-width columns, scrolls horizontally (Jan 2019–Feb 2027 = 98 months) */
 .c-timeline-table_monthly .c-timeline-header,
 .c-timeline-table_monthly .c-timeline-row {
-    /* 12rem member col + 96 × 8.5rem month cols = 828rem total */
+    /* 12rem member col + 98 × 8.5rem month cols */
     /* intentional static: matches yearly column widths; no SLDS grid hook */
-    grid-template-columns: 12rem repeat(96, 8.5rem);
+    grid-template-columns: 12rem repeat(98, 8.5rem);
 }
 
 .c-timeline-table_monthly {
