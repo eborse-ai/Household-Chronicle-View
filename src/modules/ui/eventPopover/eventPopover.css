@@ -85,6 +85,8 @@
 .c-ep-avatar_goal        { background: #b45309; }
 /* intentional static: #5aab5e medium green — matches financial account pill icon badge */
 .c-ep-avatar_financial   { background: #5aab5e; }
+/* intentional static: #1e3a8a dark indigo — matches engagement pill color on timeline */
+.c-ep-avatar_engagement  { background: #1e3a8a; }
 
 .c-ep-avatar lightning-icon {
     --slds-c-icon-color-foreground: var(--slds-g-color-on-accent-1, #fff);

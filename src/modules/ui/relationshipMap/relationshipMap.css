@@ -7,8 +7,14 @@
 .c-rel-map-canvas {
     background: var(--slds-g-color-surface-2, #f3f3f3);
     border-radius: var(--slds-g-radius-border-2, 0.25rem);
-    /* intentional static: 32rem min-height — no SLDS hook */
-    min-height: 32rem;
+    /* Fixed viewport: height = 1.25 × width via aspect-ratio.
+     * intentional static: 30rem min-height guards against very narrow containers;
+     * no SLDS hook for aspect-ratio or min-height here. */
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    min-height: 30rem;
+    /* contain: layout prevents internal expand/collapse from resizing the canvas */
+    contain: layout;
     /* No padding on canvas — topbar and map wrap carry their own padding
      * so the panel can be flush with the canvas right/top/bottom edges */
     padding: 0;
@@ -249,13 +255,25 @@
 .c-rel-map-member-header {
     display: flex;
     align-items: center;
-    gap: var(--slds-g-spacing-2, 0.5rem);
-    padding: var(--slds-g-spacing-3, 0.75rem);
-    cursor: pointer;
+    /* toggle button carries the padding; actions div sits flush right */
 }
 
 .c-rel-map-member-header:hover {
     background: var(--slds-g-color-surface-2, #f8f8f8);
+}
+
+/* Toggle button wraps chevron + avatar + identity */
+.c-rel-map-member-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    padding: var(--slds-g-spacing-3, 0.75rem);
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
 }
 
 .c-rel-map-member-chevron {
@@ -302,6 +320,9 @@
 .c-rel-map-member-actions {
     position: relative;
     flex-shrink: 0;
+    padding-right: var(--slds-g-spacing-3, 0.75rem);
+    display: flex;
+    align-items: center;
 }
 
 /* Circular dropdown button */

@@ -69,31 +69,36 @@
                                         <template for:each={decoratedMembers} for:item="member">
                                             <div key={member.id} class={member.cardClass}>
                                                 <!-- Card header — clicking toggles this member -->
-                                                <div class="c-rel-map-member-header"
-                                                    onclick={handleToggleMember}
-                                                    data-id={member.id}>
-                                                    <lightning-icon
-                                                        icon-name={member.chevronIcon}
-                                                        size="xx-small"
-                                                        alternative-text="Toggle"
-                                                        class="c-rel-map-member-chevron">
-                                                    </lightning-icon>
-                                                    <div class="c-rel-map-avatar" style={member.avatarStyle}>{member.initials}</div>
-                                                    <div class="c-rel-map-member-identity">
-                                                        <div class="c-rel-map-member-name-row">
-                                                            <span class="slds-text-link slds-text-body_small c-rel-map-member-name">{member.name}</span>
-                                                            <template lwc:if={member.isPrimary}>
-                                                                <lightning-icon
-                                                                    icon-name="utility:favorite"
-                                                                    size="xx-small"
-                                                                    alternative-text="Primary member"
-                                                                    class="c-primary-star">
-                                                                </lightning-icon>
-                                                            </template>
+                                                <div class="c-rel-map-member-header">
+                                                    <button
+                                                        class="c-rel-map-member-toggle"
+                                                        onclick={handleToggleMember}
+                                                        data-id={member.id}
+                                                        aria-expanded={member.isExpanded}
+                                                        title="Toggle member details">
+                                                        <lightning-icon
+                                                            icon-name={member.chevronIcon}
+                                                            size="xx-small"
+                                                            alternative-text="Toggle"
+                                                            class="c-rel-map-member-chevron">
+                                                        </lightning-icon>
+                                                        <div class="c-rel-map-avatar" style={member.avatarStyle}>{member.initials}</div>
+                                                        <div class="c-rel-map-member-identity">
+                                                            <div class="c-rel-map-member-name-row">
+                                                                <span class="slds-text-link slds-text-body_small c-rel-map-member-name">{member.name}</span>
+                                                                <template lwc:if={member.isPrimary}>
+                                                                    <lightning-icon
+                                                                        icon-name="utility:favorite"
+                                                                        size="xx-small"
+                                                                        alternative-text="Primary member"
+                                                                        class="c-primary-star">
+                                                                    </lightning-icon>
+                                                                </template>
+                                                            </div>
+                                                            <p class="slds-text-body_small slds-text-color_weak">{member.role}</p>
                                                         </div>
-                                                        <p class="slds-text-body_small slds-text-color_weak">{member.role}</p>
-                                                    </div>
-                                                    <div class="c-rel-map-member-actions" onclick={handleStopProp}>
+                                                    </button>
+                                                    <div class="c-rel-map-member-actions">
                                                         <button
                                                             class="c-rel-map-member-options"
                                                             title="Member options"
