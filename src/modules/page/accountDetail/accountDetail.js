@@ -952,10 +952,12 @@ export default class AccountDetail extends LightningElement {
                         (this.isYearlyMode ? ae.yearKey === col.key : ae.monthKey === col.key))
                     .map((ae) => ({
                         ...ae,
-                        pillClass:    (PILL[ae.type] || PILL.goal) + ' c-event-pill_suggestion',
-                        detail:       null,
-                        isCritical:   false,
-                        typeDotClass: TYPE_DOT[ae.type] || 'c-type-dot',
+                        pillClass:      (PILL[ae.type] || PILL.goal) + ' c-event-pill_suggestion',
+                        detail:         null,
+                        isCritical:     false,
+                        typeDotClass:   TYPE_DOT[ae.type]       || 'c-type-dot',
+                        iconName:       TYPE_ICON[ae.type]      || 'utility:record',
+                        iconBadgeClass: TYPE_ICON_BADGE[ae.type]|| 'c-pill-icon-badge',
                     }));
 
                 /* Apply timeline type filter (meetings always excluded) */
