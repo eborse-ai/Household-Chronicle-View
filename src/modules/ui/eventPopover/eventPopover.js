@@ -4,7 +4,7 @@ const TYPE_INFO = {
     life:        { label: 'LIFE EVENT',        icon: 'utility:event',      avatarClass: 'c-ep-avatar c-ep-avatar_life'        },
     meeting:     { label: 'MEETING',           icon: 'utility:date_input', avatarClass: 'c-ep-avatar c-ep-avatar_meeting'     },
     transaction: { label: 'TRANSACTION',       icon: 'utility:moneybag',   avatarClass: 'c-ep-avatar c-ep-avatar_transaction' },
-    goal:        { label: 'FINANCIAL GOAL',    icon: 'utility:target',     avatarClass: 'c-ep-avatar c-ep-avatar_goal'        },
+    goal:        { label: 'FINANCIAL GOAL',    icon: 'utility:priority',   avatarClass: 'c-ep-avatar c-ep-avatar_goal'        },
     financial:   { label: 'FINANCIAL ACCOUNT', icon: 'utility:account',    avatarClass: 'c-ep-avatar c-ep-avatar_financial'   },
 };
 

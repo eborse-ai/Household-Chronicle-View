@@ -82,7 +82,8 @@
 .c-ep-avatar_life        { background: #0094B7; }
 .c-ep-avatar_meeting     { background: var(--slds-g-color-accent-1, #0176d3); }
 .c-ep-avatar_transaction { background: var(--slds-g-color-warning-base-70, #f59e0b); }
-.c-ep-avatar_goal        { background: var(--slds-g-color-palette-violet-40, #7c3aed); }
+/* intentional static: #b45309 orange — matches financial goal pill color and screenshot 3 */
+.c-ep-avatar_goal        { background: #b45309; }
 .c-ep-avatar_financial   { background: var(--slds-g-color-palette-green-65, #10b981); }
 
 .c-ep-avatar lightning-icon {
