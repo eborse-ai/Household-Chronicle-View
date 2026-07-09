@@ -168,6 +168,15 @@
     position: relative;
 }
 
+/* First branch is at spine-top level — render as straight horizontal, no L-curve */
+.c-rel-map-section:first-child .c-rel-map-branch-line {
+    border-left: none;
+    border-bottom-left-radius: 0;
+    /* shift down to centre on the section header midpoint */
+    align-self: center;
+    height: 0;
+}
+
 .c-rel-map-section-box {
     /* intentional static: 18rem — uniform card width for all sections */
     width: 18rem;
