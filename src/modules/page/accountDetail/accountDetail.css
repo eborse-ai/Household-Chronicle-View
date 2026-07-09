@@ -1587,7 +1587,7 @@ lightning-card {
 .c-client-summary__header {
     display: flex;
     align-items: center;
-    gap: var(--slds-g-spacing-2, 0.5rem);
+    gap: var(--slds-g-spacing-1, 0.25rem);
     margin-bottom: var(--slds-g-spacing-2, 0.5rem);
 }
 
@@ -1601,6 +1601,48 @@ lightning-card {
     font-size: 1rem;
     line-height: 1;
     flex-shrink: 0;
+}
+
+/* Multi-star "Client Pulse" sparkle cluster */
+.c-summary-sparkle-cluster {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* intentional static: 2.25rem to size the cluster to match the large heading */
+    width: 2.25rem;
+    height: 2.25rem;
+    flex-shrink: 0;
+}
+
+.c-sparkle-lg {
+    /* intentional static: #2251cc cobalt blue matching screenshot icon */
+    color: #2251cc;
+    /* intentional static: 2rem for dominant star */
+    font-size: 2rem;
+    line-height: 1;
+    display: block;
+}
+
+.c-sparkle-sm {
+    position: absolute;
+    /* intentional static: #2251cc cobalt blue matching screenshot icon */
+    color: #2251cc;
+    line-height: 1;
+}
+
+.c-sparkle-sm_tr {
+    /* intentional static: top-right smaller star */
+    font-size: 0.7rem;
+    top: 0;
+    right: 0;
+}
+
+.c-sparkle-sm_bl {
+    /* intentional static: bottom-left smallest star */
+    font-size: 0.5rem;
+    bottom: 0.1rem;
+    left: 0;
 }
 
 .c-summary-icon {
@@ -1865,9 +1907,14 @@ lightning-card {
 }
 
 .c-summary-title {
-    /* No SLDS hook for Salesforce dark-navy #032d60 */
-    color: #032d60;
+    /* No SLDS hook for dark-navy #0c1a5e matching screenshot */
+    color: #0c1a5e;
     font-weight: var(--slds-g-font-weight-7, 700);
+    /* intentional static: 1.375rem to match the prominent logo-style heading */
+    font-size: 1.375rem;
+    letter-spacing: -0.01em;
+    margin: 0;
+    line-height: 1.2;
 }
 
 .c-summary-update {
