@@ -402,20 +402,21 @@ lightning-card {
 }
 .c-tl-ctrl-btn:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
 
-/* Brand (blue outlined) variant — used for AI Suggestions */
+/* Brand variant — used for AI Suggestions */
 .c-tl-ctrl-btn_brand {
-    border-color: var(--slds-g-color-brand-base-50, #0176d3);
-    /* intentional static: 1.5px border for visual weight matching screenshot */
+    /* intentional static: neutral charcoal border per design spec */
+    border-color: #444444;
     border-width: 1.5px;
-    color: var(--slds-g-color-brand-base-50, #0176d3);
+    /* intentional static: #0250D9 cobalt blue for all content */
+    color: #0250D9;
     font-weight: var(--slds-g-font-weight-6, 600);
 }
-.c-tl-ctrl-btn_brand:hover { background: #e8f4fd; }
+.c-tl-ctrl-btn_brand:hover { background: #eaf0fd; }
 
-/* Purple sparkle inside brand buttons */
+/* Sparkle inside AI Suggestions button */
 .c-tl-ctrl-btn_brand .c-agentic-sparkle-icon {
-    /* intentional static: violet sparkle to match screenshot */
-    color: #7c3aed;
+    /* intentional static: #0250D9 cobalt blue matching text */
+    color: #0250D9;
     font-size: 0.9rem;
 }
 
@@ -882,7 +883,8 @@ lightning-card {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: var(--slds-g-color-palette-violet-40, #7c3aed);
+    /* intentional static: #0250D9 cobalt blue to match button text/sparkle */
+    background: #0250D9;
     color: #ffffff;
     font-size: var(--slds-g-font-scale-neg-3, 0.6875rem);
     font-weight: var(--slds-g-font-weight-7, 700);
