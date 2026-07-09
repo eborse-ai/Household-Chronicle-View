@@ -29,6 +29,8 @@ export default class RelationshipMap extends LightningElement {
     @track _modalLastName     = '';
     @track _modalPhone        = '';
     @track _modalEmail        = '';
+    @track _modalCompany      = '';
+    @track _modalTitle        = '';
     @track _openEntityMenuKey = null;
     @track _activeEntity      = null;
     @track _showDeleteModal   = false;
@@ -307,6 +309,8 @@ export default class RelationshipMap extends LightningElement {
     get addModalLastName()   { return this._modalLastName; }
     get addModalPhone()      { return this._modalPhone; }
     get addModalEmail()      { return this._modalEmail; }
+    get addModalCompany()    { return this._modalCompany; }
+    get addModalTitle()      { return this._modalTitle; }
 
     get salutationOptions() {
         return [
@@ -377,6 +381,8 @@ export default class RelationshipMap extends LightningElement {
         this._modalLastName     = rec.lastName || parts.slice(1).join(' ') || '';
         this._modalPhone        = rec.phone || '';
         this._modalEmail        = rec.email || '';
+        this._modalCompany      = rec.company || '';
+        this._modalTitle        = rec.title || '';
         // Always open at step 1
         this._modalStep = 1;
     }
@@ -398,6 +404,8 @@ export default class RelationshipMap extends LightningElement {
                 lastName: 'Green',
                 phone: '+1 415-555-0199',
                 email: 'john.green@turbotax.com',
+                company: 'TurboTax',
+                title: 'Tax Consultant',
                 duplicates: [
                     { name: 'John Green', company: 'TaxPro Advisors', title: 'Tax Consultant', email: 'john.green@taxpro.com' },
                     { name: 'John L. Green', company: 'Green & Associates', title: 'Managing Partner', email: 'jgreen@greenandassoc.com' },
@@ -419,6 +427,8 @@ export default class RelationshipMap extends LightningElement {
                 lastName: 'Green',
                 phone: '+1 415-555-0199',
                 email: 'john.green@turbotax.com',
+                company: 'TurboTax',
+                title: 'Tax Consultant',
                 duplicates: [
                     { name: 'Emma Reed', company: 'Reed & Associates LLC', title: 'Daughter', email: 'emma.reed@reedassoc.com' },
                     { name: 'Emma Reed', company: 'Westbrook Primary School', title: 'Student', email: 'emma.r@westbrook.edu' },
@@ -440,6 +450,8 @@ export default class RelationshipMap extends LightningElement {
                 lastName: 'Green',
                 phone: '+1 415-555-0199',
                 email: 'john.green@turbotax.com',
+                company: 'TurboTax',
+                title: 'Tax Consultant',
                 duplicates: [],
             };
         }
@@ -457,6 +469,8 @@ export default class RelationshipMap extends LightningElement {
             lastName: 'Green',
             phone: '+1 415-555-0199',
             email: 'john.green@turbotax.com',
+            company: 'TurboTax',
+            title: 'Tax Consultant',
             duplicates: [],
         };
     }
@@ -557,6 +571,8 @@ export default class RelationshipMap extends LightningElement {
         this._modalLastName = '';
         this._modalPhone = '';
         this._modalEmail = '';
+        this._modalCompany = '';
+        this._modalTitle = '';
         this._modalStep = 2;
     }
 
@@ -577,6 +593,8 @@ export default class RelationshipMap extends LightningElement {
     handleModalLastNameChange(event)    { this._modalLastName   = event.detail.value; }
     handleModalPhoneChange(event)       { this._modalPhone      = event.detail.value; }
     handleModalEmailChange(event)       { this._modalEmail      = event.detail.value; }
+    handleModalCompanyChange(event)     { this._modalCompany    = event.detail.value; }
+    handleModalTitleChange(event)       { this._modalTitle      = event.detail.value; }
 
     handleConfirmAdd() {
         const id = this._addModalRec?.id;
@@ -596,6 +614,8 @@ export default class RelationshipMap extends LightningElement {
                                 lastName: this._modalLastName,
                                 phone: this._modalPhone,
                                 email: this._modalEmail,
+                                company: this._modalCompany,
+                                title: this._modalTitle,
                               }
                             : item
                     )),

@@ -646,6 +646,20 @@
                                 class="c-rm-modal__field c-rm-modal__field_half">
                             </lightning-input>
                         </div>
+                        <div class="c-rm-modal__row">
+                            <lightning-input
+                                label="Company"
+                                value={addModalCompany}
+                                onchange={handleModalCompanyChange}
+                                class="c-rm-modal__field c-rm-modal__field_half">
+                            </lightning-input>
+                            <lightning-input
+                                label="Title"
+                                value={addModalTitle}
+                                onchange={handleModalTitleChange}
+                                class="c-rm-modal__field c-rm-modal__field_half">
+                            </lightning-input>
+                        </div>
                     </div>
                     <div class="c-rm-modal__footer c-rm-modal__footer_step2">
                         <button class="c-rm-modal__back" onclick={handleModalBack}>Back</button>
@@ -656,7 +670,7 @@
                         </div>
                         <div class="c-rm-modal__footer-actions">
                             <button class="c-rm-modal__cancel" onclick={handleCancelAdd}>Cancel</button>
-                            <button class="c-rm-modal__add"    onclick={handleConfirmAdd}>Add</button>
+                            <button class="c-rm-modal__add"    onclick={handleConfirmAdd}>Save</button>
                         </div>
                     </div>
                 </template>
