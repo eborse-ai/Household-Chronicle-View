@@ -117,10 +117,10 @@
 
 /* Horizontal connector from root to sections */
 .c-rel-map-trunk {
-    /* intentional static: 2.5rem connector — no SLDS hook */
-    width: 2.5rem;
-    height: var(--slds-g-sizing-border-2, 2px);
-    background: var(--slds-g-color-border-base-1, #c0c0c0);
+    /* intentional static: 2rem connector — no SLDS hook */
+    width: 2rem;
+    height: 1.5px;
+    background: var(--slds-g-color-border-base-1, #c9c9c9);
     margin-top: var(--slds-g-spacing-4, 1rem);
     flex-shrink: 0;
 }
@@ -139,14 +139,13 @@
     content: '';
     position: absolute;
     left: 0;
-    /* intentional static: start at first header midpoint */
+    /* intentional static: start at centre of first section header (~1.25rem) */
     top: 1.25rem;
-    /* intentional static: end at last header midpoint */
+    /* intentional static: end at centre of last section header */
     bottom: calc(1.25rem + 0.75rem);
-    width: 2px;
-    background: var(--slds-g-color-border-base-1, #c0c0c0);
-    /* rounded end-caps so the spine fades cleanly */
-    border-radius: 2px;
+    width: 1.5px;
+    background: var(--slds-g-color-border-base-1, #c9c9c9);
+    border-radius: 1px;
 }
 
 .c-rel-map-section {
@@ -155,31 +154,18 @@
     position: relative;
 }
 
-/* L-shaped branch: vertical drop + smooth outward curve into section */
+/* L-shaped branch: drops from spine midpoint then curves smoothly into section */
 .c-rel-map-branch-line {
-    /* intentional static: 1.5rem wide, 1.25rem tall */
-    width: 1.5rem;
+    /* intentional static: 1.75rem wide, 1.25rem tall — aligns with card header midpoint */
+    width: 1.75rem;
     height: 1.25rem;
     flex-shrink: 0;
     background: transparent;
-    border-left: 2px solid var(--slds-g-color-border-base-1, #c0c0c0);
-    border-bottom: 2px solid var(--slds-g-color-border-base-1, #c0c0c0);
-    /* intentional static: 12px — larger radius for smooth outer L-curve */
-    border-bottom-left-radius: 12px;
+    border-left: 1.5px solid var(--slds-g-color-border-base-1, #c9c9c9);
+    border-bottom: 1.5px solid var(--slds-g-color-border-base-1, #c9c9c9);
+    /* intentional static: 18px radius for a noticeably smooth outer L-curve */
+    border-bottom-left-radius: 18px;
     position: relative;
-}
-
-/* Circular dot at the junction masks the inner right-angle where branch meets spine */
-.c-rel-map-branch-line::before {
-    content: '';
-    position: absolute;
-    /* intentional static: 6px dot centred over the 2px spine */
-    top: -3px;
-    left: -3px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--slds-g-color-border-base-1, #c0c0c0);
 }
 
 .c-rel-map-section-box {
