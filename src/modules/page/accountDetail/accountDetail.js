@@ -1391,16 +1391,23 @@ export default class AccountDetail extends LightningElement {
     }
 
     /* ── Spatial Anchoring: scroll to target column after monthly/drill renders ── */
+    _scrollChainActive = false; // guard: only one retry chain at a time
+
     renderedCallback() {
-        if (this._pendingScrollColIdx !== null) {
+        if (this._pendingScrollColIdx !== null && !this._scrollChainActive) {
             const colIdx = this._pendingScrollColIdx;
+            this._scrollChainActive = true;
             this._scrollToColumn(colIdx, 0);
         }
     }
 
-    /* Retry scroll until the container is ready (up to 6 attempts, ~600ms total) */
+    /* Retry scroll until the container is ready (up to 8 attempts, ~720ms total) */
     _scrollToColumn(colIdx, attempt) {
-        if (attempt > 6) { this._pendingScrollColIdx = null; return; }
+        if (attempt > 8) {
+            this._pendingScrollColIdx = null;
+            this._scrollChainActive   = false;
+            return;
+        }
         // eslint-disable-next-line @lwc/lwc/no-async-operation
         setTimeout(() => {
             const body = this.template.querySelector('.c-group-timeline__body');
@@ -1420,7 +1427,12 @@ export default class AccountDetail extends LightningElement {
                 this._scrollToColumn(colIdx, attempt + 1);
                 return;
             }
+            // Success — sync the breadcrumb to match the actual scroll position
+            const landedIdx = Math.max(0, Math.floor((body.scrollLeft) / COL_W_PX));
+            const landedMonth = TIMELINE_MONTHS[Math.min(landedIdx, TIMELINE_MONTHS.length - 1)] || '';
+            this._scrollVisibleYear   = landedMonth.split(' ')[1] || '';
             this._pendingScrollColIdx = null;
+            this._scrollChainActive   = false;
         }, 80 + attempt * 80);
     }
 
