@@ -344,7 +344,6 @@
 .c-ep-detail-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    border-top: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #dddbda);
     margin-top: var(--slds-g-spacing-3, 0.75rem);
 }
 
@@ -381,7 +380,6 @@
 /* ── Footer ──────────────────────────────────────────────────── */
 .c-ep-footer {
     padding: var(--slds-g-spacing-3, 0.75rem);
-    border-top: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #dddbda);
     display: flex;
     justify-content: flex-end;
     margin-top: var(--slds-g-spacing-3, 0.75rem);
