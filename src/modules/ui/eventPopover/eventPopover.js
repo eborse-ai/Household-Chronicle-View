@@ -31,7 +31,9 @@ export default class EventPopover extends LightningElement {
     }
 
     get showAiCard() {
-        return !this._aiDismissed && (!!this.detail.aiInsight || !!this.detail.sentimentInsights?.length);
+        return !this._aiDismissed
+            && !!this.detail.isCritical
+            && (!!this.detail.aiInsight || !!this.detail.sentimentInsights?.length);
     }
 
     get hasSentimentInsights() {
