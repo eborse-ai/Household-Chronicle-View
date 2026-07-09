@@ -1446,30 +1446,35 @@ lightning-card {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    /* intentional static: 1.3rem circle to fit xx-small icon */
-    width: 1.3rem;
-    height: 1.3rem;
+    /* intentional static: 1.625rem — extra breathing room around xx-small icon */
+    width: 1.625rem;
+    height: 1.625rem;
     border-radius: 50%;
+    /* force the SVG inside lightning-icon to white via both mechanisms */
+    --slds-c-icon-color-foreground: #ffffff;
 }
 
 /* Life Event — teal-blue circle */
 .c-pill-icon-badge_life {
     background: #0094B7;
 }
-.c-pill-icon-badge_life .slds-icon { fill: #ffffff; }
+.c-pill-icon-badge_life .slds-icon,
+.c-pill-icon-badge_life lightning-icon svg { fill: #ffffff; }
 
-/* Financial Goal — orange circle (matching screenshot) */
+/* Financial Goal — orange circle */
 .c-pill-icon-badge_goal {
     background: var(--slds-g-color-palette-orange-50, #b45309);
 }
-.c-pill-icon-badge_goal .slds-icon { fill: #ffffff; }
+.c-pill-icon-badge_goal .slds-icon,
+.c-pill-icon-badge_goal lightning-icon svg { fill: #ffffff; }
 
-/* Financial Account — medium green circle matching screenshot */
+/* Financial Account — medium green circle */
 .c-pill-icon-badge_financial {
     /* intentional static: #5aab5e medium green per screenshot */
     background: #5aab5e;
 }
-.c-pill-icon-badge_financial .slds-icon { fill: #ffffff; }
+.c-pill-icon-badge_financial .slds-icon,
+.c-pill-icon-badge_financial lightning-icon svg { fill: #ffffff; }
 
 /* Label — truncates when text is too long */
 .c-pill-label {
