@@ -1630,17 +1630,17 @@ lightning-card {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    /* intentional static: 2.25rem to size the cluster to match the large heading */
-    width: 2.25rem;
-    height: 2.25rem;
+    /* intentional static: 1.25rem — sized to match text cap height */
+    width: 1.25rem;
+    height: 1.25rem;
     flex-shrink: 0;
 }
 
 .c-sparkle-lg {
     /* intentional static: #2251cc cobalt blue matching screenshot icon */
     color: #2251cc;
-    /* intentional static: 2rem for dominant star */
-    font-size: 2rem;
+    /* intentional static: 1.1rem dominant star matches text height */
+    font-size: 1.1rem;
     line-height: 1;
     display: block;
 }
@@ -1654,15 +1654,15 @@ lightning-card {
 
 .c-sparkle-sm_tr {
     /* intentional static: top-right smaller star */
-    font-size: 0.7rem;
+    font-size: 0.4rem;
     top: 0;
     right: 0;
 }
 
 .c-sparkle-sm_bl {
     /* intentional static: bottom-left smallest star */
-    font-size: 0.5rem;
-    bottom: 0.1rem;
+    font-size: 0.3rem;
+    bottom: 0.05rem;
     left: 0;
 }
 
@@ -1983,9 +1983,9 @@ lightning-card {
 .c-summary-title {
     /* No SLDS hook for dark-navy #0c1a5e matching screenshot */
     color: #0c1a5e;
-    font-weight: var(--slds-g-font-weight-7, 700);
-    /* intentional static: 1.375rem to match the prominent logo-style heading */
-    font-size: 1.375rem;
+    font-weight: var(--slds-g-font-weight-4, 400);
+    /* intentional static: 1.125rem — regular-weight heading to match screenshot */
+    font-size: 1.125rem;
     letter-spacing: -0.01em;
     margin: 0;
     line-height: 1.2;
