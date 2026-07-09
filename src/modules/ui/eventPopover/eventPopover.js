@@ -5,7 +5,7 @@ const TYPE_INFO = {
     meeting:     { label: 'MEETING',           icon: 'utility:date_input', avatarClass: 'c-ep-avatar c-ep-avatar_meeting'     },
     transaction: { label: 'TRANSACTION',       icon: 'utility:moneybag',   avatarClass: 'c-ep-avatar c-ep-avatar_transaction' },
     goal:        { label: 'FINANCIAL GOAL',    icon: 'utility:priority',   avatarClass: 'c-ep-avatar c-ep-avatar_goal'        },
-    financial:   { label: 'FINANCIAL ACCOUNT', icon: 'standard:financial_account', avatarClass: 'c-ep-avatar c-ep-avatar_financial'   },
+    financial:   { label: 'FINANCIAL ACCOUNT', icon: 'utility:company', avatarClass: 'c-ep-avatar c-ep-avatar_financial'   },
 };
 
 export default class EventPopover extends LightningElement {

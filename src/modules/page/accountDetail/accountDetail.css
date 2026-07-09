@@ -1477,35 +1477,40 @@ lightning-card {
 .c-pill-icon-badge_goal .slds-icon,
 .c-pill-icon-badge_goal lightning-icon svg { fill: var(--slds-g-color-palette-orange-50, #b45309); }
 
-/* Financial Account — white bank icon on green circular badge */
+/* Financial Account — white bank icon on a green circular background */
 .c-pill-icon-badge_financial {
-    /* intentional static: size to show the full circular standard icon */
+    /* intentional static: 1.25rem green circle */
     width: 1.25rem;
     height: 1.25rem;
     border-radius: 50%;
-    overflow: hidden;
+    background: #5aab5e;
     flex-shrink: 0;
-}
-/* Keep the standard icon's built-in green circular background */
-.c-pill-icon-badge_financial .slds-icon_container,
-.c-pill-icon-badge_financial span[class*="slds-icon-standard"] {
-    /* intentional static: #5aab5e green background matching screenshot */
-    background: #5aab5e !important;
-    border-radius: 50%;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
-    padding: 0;
+    overflow: hidden;
 }
-/* White icon inside */
+/* Strip any background/padding from the inner icon container */
+.c-pill-icon-badge_financial .slds-icon_container,
+.c-pill-icon-badge_financial span[class*="slds-icon-standard"],
+.c-pill-icon-badge_financial span[class*="slds-icon_container"] {
+    background: transparent !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    box-shadow: none !important;
+}
+/* Force icon SVG fill to white */
 .c-pill-icon-badge_financial .slds-icon,
-.c-pill-icon-badge_financial lightning-icon svg {
-    fill: #ffffff;
+.c-pill-icon-badge_financial lightning-icon svg,
+.c-pill-icon-badge_financial svg {
+    fill: #ffffff !important;
 }
 .c-pill-icon-badge_financial {
     --slds-c-icon-color-foreground: #ffffff;
+    --slds-c-icon-color-foreground-default: #ffffff;
 }
 
 /* Label — truncates when text is too long; always neutral dark grey */
