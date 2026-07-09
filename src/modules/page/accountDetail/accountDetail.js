@@ -141,7 +141,6 @@ const ENRICHMENT = {
                 badgeLabel: 'AI Suggestion',
                 badgeClass: 'c-badge c-badge_ai',
                 title: "Model 529 scenarios",
-                memberMeta: "Emma Reed · Aug 2026",
                 description: "Emma's college need is ~2043 (18 years out); current 529 balance is $0. College Funding Gap — Start Contributions Now. Model 529 contribution scenarios to close the projected shortfall before compounding window narrows further.",
                 actionLabel: 'Add to Timeline',
             },
