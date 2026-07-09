@@ -764,6 +764,46 @@
     font-weight: var(--slds-g-font-weight-6, 600);
 }
 
+.c-rm-modal__dup-thead_direct {
+    grid-template-columns: 3rem 1fr 1fr 1fr 1fr;
+}
+
+.c-rm-modal__dup-row_direct {
+    grid-template-columns: 3rem 1fr 1fr 1fr 1fr;
+}
+
+.c-rm-modal__lookup-row {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-3, 0.75rem);
+}
+
+.c-rm-modal__field_search {
+    flex: 1;
+}
+
+.c-rm-modal__item-count {
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    color: var(--slds-g-color-neutral-base-50, #6b7280);
+    white-space: nowrap;
+}
+
+.c-rm-modal__new-member-card {
+    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    border-radius: var(--slds-g-radius-border-3, 0.5rem);
+    padding: var(--slds-g-spacing-4, 1rem);
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-4, 1rem);
+}
+
+.c-rm-modal__new-member-title {
+    margin: 0;
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    color: var(--slds-g-color-on-surface-1, #080707);
+}
+
 /* ── No-records card (step 1B) ──────────────────────────── */
 .c-rm-modal__norec-card {
     border: 1px solid var(--slds-g-color-border-base-1, #dddbda);

@@ -31,6 +31,9 @@ export default class RelationshipMap extends LightningElement {
     @track _modalEmail        = '';
     @track _modalCompany      = '';
     @track _modalTitle        = '';
+    @track _isDirectMemberAdd = false;
+    @track _directAddMode     = 'existing';
+    @track _memberLookupQuery = 'Julia Green';
     @track _openEntityMenuKey = null;
     @track _activeEntity      = null;
     @track _showDeleteModal   = false;
@@ -248,12 +251,17 @@ export default class RelationshipMap extends LightningElement {
     get _hasDuplicates()    { return (this._addModalRec?.duplicates?.length || 0) > 0; }
 
     // Step visibility
-    get modalStep1Select()  { return this._modalStep === 1 && this._hasDuplicates; }
-    get modalStep1NoRec()   { return this._modalStep === 1 && this._isNewFlow; }
+    get modalStep1Select()  { return this._modalStep === 1 && this._hasDuplicates && !this._isDirectMemberAdd; }
+    get modalStep1NoRec()   { return this._modalStep === 1 && this._isNewFlow && !this._isDirectMemberAdd; }
+    get modalStep1Direct()  { return this._modalStep === 1 && this._isDirectMemberAdd; }
     get modalStep2Details() { return this._modalStep === 2 && !this._isNewFlow; }
     get modalStep2Create()  { return this._modalStep === 2 && this._isNewFlow; }
+    get showDirectFromExisting() { return this._directAddMode === 'existing'; }
+    get showDirectCreateNew() { return this._directAddMode === 'create'; }
 
     get addModalHeading() {
+        if (this.modalStep1Direct && this.showDirectCreateNew) return 'Add Primary Member';
+        if (this.modalStep1Direct) return 'Add Member';
         if (this.modalStep2Create) return 'Create New Person Account';
         const cat = this._addModalRec?.groupCategory || 'Members';
         if (cat === 'Members')          return 'Add Member';
@@ -292,6 +300,32 @@ export default class RelationshipMap extends LightningElement {
 
     get saveAndNextDisabled() {
         return this._selectedRecordIdx === null;
+    }
+
+    get directAddModeOptions() {
+        return [
+            { label: 'From existing', value: 'existing' },
+            { label: 'Create New', value: 'create' },
+        ];
+    }
+
+    get memberLookupQuery() {
+        return this._memberLookupQuery;
+    }
+
+    get directAddMode() {
+        return this._directAddMode;
+    }
+
+    get directAddDuplicates() {
+        return (this._addModalRec?.duplicates || []).map((d, i) => ({
+            ...d,
+            isSelected: this._selectedRecordIdx === i,
+            rowClass: this._selectedRecordIdx === i
+                ? 'c-rm-modal__dup-row c-rm-modal__dup-row_direct c-rm-modal__dup-row_selected'
+                : 'c-rm-modal__dup-row c-rm-modal__dup-row_direct',
+            idx: i,
+        }));
     }
 
     // Step 2 — "add details" (existing record) fields
@@ -356,6 +390,10 @@ export default class RelationshipMap extends LightningElement {
         event.stopPropagation();
         const category = event.currentTarget.dataset.category;
         if (!category) return;
+        if (category === 'Members') {
+            this._openDirectMemberAddModal();
+            return;
+        }
 
         const existingRec = this._allRecsFlat.find(
             item => item.groupCategory === category && !this._dismissedIds[item.id]
@@ -384,6 +422,28 @@ export default class RelationshipMap extends LightningElement {
         this._modalCompany      = rec.company || '';
         this._modalTitle        = rec.title || '';
         // Always open at step 1
+        this._modalStep = 1;
+    }
+
+    _openDirectMemberAddModal() {
+        this._isDirectMemberAdd = true;
+        this._directAddMode = 'existing';
+        this._memberLookupQuery = 'Julia Green';
+        this._selectedRecordIdx = 0;
+        this._modalRole = 'Wife';
+        this._modalStatus = 'Active';
+        this._addModalRec = {
+            id: `manual-member-direct-${Date.now()}`,
+            name: 'Julia Green',
+            relationship: 'Wife',
+            groupCategory: 'Members',
+            sourceType: 'multiple',
+            duplicates: [
+                { name: 'Julia Green', ssn: '***-**-6677', address: '44/31 New Avenue...', createdBy: 'Nick', role: 'Wife' },
+                { name: 'Julia Green', ssn: '***-**-4589', address: '...', createdBy: 'Brian Scott', role: 'Wife' },
+                { name: 'Julia Green', ssn: '***-**-6439', address: '22/12', createdBy: 'Jack Scott', role: 'Wife' },
+            ],
+        };
         this._modalStep = 1;
     }
 
@@ -493,6 +553,15 @@ export default class RelationshipMap extends LightningElement {
         this._selectedRecordIdx = parseInt(event.currentTarget.dataset.idx, 10);
     }
 
+    handleDirectModeChange(event) {
+        this._directAddMode = event.detail.value;
+        this._selectedRecordIdx = this._directAddMode === 'existing' ? 0 : null;
+    }
+
+    handleMemberLookupChange(event) {
+        this._memberLookupQuery = event.detail.value;
+    }
+
     handleEntityMenuToggle(event) {
         event.stopPropagation();
         this._setActiveEntityFromDataset(event.currentTarget.dataset);
@@ -577,12 +646,25 @@ export default class RelationshipMap extends LightningElement {
     }
 
     handleSaveAndNext() {
+        if (this.modalStep1Direct && this.showDirectFromExisting) {
+            if (this._selectedRecordIdx !== null) {
+                const selected = this._addModalRec?.duplicates?.[this._selectedRecordIdx];
+                this._modalRole = selected?.role || this._modalRole || 'Member';
+                this._modalStatus = 'Active';
+                this._modalStep = 2;
+            }
+            return;
+        }
         if (this._selectedRecordIdx !== null) {
             this._modalStep = 2;
         }
     }
 
     handleModalBack() {
+        if (this._isDirectMemberAdd) {
+            this._modalStep = 1;
+            return;
+        }
         this._modalStep = 1;
     }
 
@@ -597,6 +679,17 @@ export default class RelationshipMap extends LightningElement {
     handleModalTitleChange(event)       { this._modalTitle      = event.detail.value; }
 
     handleConfirmAdd() {
+        if (this._isDirectMemberAdd) {
+            if (this._selectedRecordIdx !== null) {
+                const selected = this._addModalRec?.duplicates?.[this._selectedRecordIdx];
+                this._addMemberToGraph({
+                    name: selected?.name || this._addModalRec?.name,
+                    role: this._modalRole || selected?.role || 'Member',
+                });
+            }
+            this.handleCancelAdd();
+            return;
+        }
         const id = this._addModalRec?.id;
         if (id) {
             if (this.modalStep2Create) {
@@ -627,7 +720,45 @@ export default class RelationshipMap extends LightningElement {
     }
 
     handleCancelAdd() {
+        this._isDirectMemberAdd = false;
+        this._directAddMode = 'existing';
+        this._memberLookupQuery = 'Julia Green';
+        this._selectedRecordIdx = null;
         this._addModalRec = null;
+    }
+
+    handleDirectCreateAdd() {
+        const fullName = `${this._modalFirstName} ${this._modalLastName}`.trim();
+        if (!fullName) return;
+        this._addMemberToGraph({ name: fullName, role: 'Member' });
+        this.handleCancelAdd();
+    }
+
+    _addMemberToGraph({ name, role }) {
+        const palette = ['#1589ee', '#206476', '#9a6a2e', '#7c3aed', '#c23934'];
+        const idx = (this.members || []).length % palette.length;
+        const initials = (name || '')
+            .split(' ')
+            .filter(Boolean)
+            .map((w) => w[0])
+            .join('')
+            .slice(0, 2)
+            .toUpperCase();
+        const id = `rm-${Date.now()}`;
+        const newMember = {
+            id,
+            name,
+            role: role || 'Member',
+            initials: initials || 'NM',
+            avatarStyle: `background:${palette[idx]};color:#ffffff;`,
+            relationshipStrength: 'N/A',
+            lastInteraction: 'Just added',
+            upcomingLifeEvents: [],
+            isPrimary: false,
+        };
+        this.members = [...(this.members || []), newMember];
+        this.isMembersExpanded = true;
+        this._expandedMemberIds = { ...this._expandedMemberIds, [id]: false };
     }
 
     handleDismissRec(event) {

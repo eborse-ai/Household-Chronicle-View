@@ -485,6 +485,102 @@
                     </button>
                 </div>
 
+                <!-- ── STEP 1 (Members + icon): From existing / Create New ── -->
+                <template lwc:if={modalStep1Direct}>
+                    <template lwc:if={showDirectFromExisting}>
+                        <div class="c-rm-modal__body">
+                            <lightning-radio-group
+                                label="Add"
+                                options={directAddModeOptions}
+                                type="radio"
+                                value={directAddMode}
+                                onchange={handleDirectModeChange}>
+                            </lightning-radio-group>
+                            <div class="c-rm-modal__lookup-row">
+                                <lightning-input
+                                    type="search"
+                                    value={memberLookupQuery}
+                                    onchange={handleMemberLookupChange}
+                                    class="c-rm-modal__field c-rm-modal__field_search">
+                                </lightning-input>
+                                <span class="c-rm-modal__item-count">64 Items</span>
+                            </div>
+                            <div class="c-rm-modal__dup-table">
+                                <div class="c-rm-modal__dup-thead c-rm-modal__dup-thead_direct">
+                                    <span class="c-rm-modal__dup-radio-spacer"></span>
+                                    <span class="c-rm-modal__dup-th">Name</span>
+                                    <span class="c-rm-modal__dup-th">SSN</span>
+                                    <span class="c-rm-modal__dup-th">Address</span>
+                                    <span class="c-rm-modal__dup-th">Created By</span>
+                                </div>
+                                <template for:each={directAddDuplicates} for:item="dup">
+                                    <div key={dup.idx} class={dup.rowClass} onclick={handleSelectDuplicate} data-idx={dup.idx}>
+                                        <input type="radio" class="c-rm-modal__dup-radio" name="directDupSelect" data-idx={dup.idx} checked={dup.isSelected}>
+                                        <span class="c-rm-modal__dup-cell c-rm-modal__dup-link">{dup.name}</span>
+                                        <span class="c-rm-modal__dup-cell">{dup.ssn}</span>
+                                        <span class="c-rm-modal__dup-cell">{dup.address}</span>
+                                        <span class="c-rm-modal__dup-cell">{dup.createdBy}</span>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                        <div class="c-rm-modal__footer c-rm-modal__footer_step1">
+                            <button class="c-rm-modal__cancel" onclick={handleCancelAdd}>Cancel</button>
+                            <div class="c-rm-modal__step-dots">
+                                <span class="c-rm-modal__dot c-rm-modal__dot_active"></span>
+                                <span class="c-rm-modal__step-track"></span>
+                                <span class="c-rm-modal__dot c-rm-modal__dot_future"></span>
+                            </div>
+                            <div class="c-rm-modal__footer-actions">
+                                <button class="c-rm-modal__next" disabled={saveAndNextDisabled} onclick={handleSaveAndNext}>Next</button>
+                            </div>
+                        </div>
+                    </template>
+                    <template lwc:if={showDirectCreateNew}>
+                        <div class="c-rm-modal__body">
+                            <lightning-radio-group
+                                label="Add"
+                                options={directAddModeOptions}
+                                type="radio"
+                                value={directAddMode}
+                                onchange={handleDirectModeChange}>
+                            </lightning-radio-group>
+                            <div class="c-rm-modal__new-member-card">
+                                <p class="c-rm-modal__new-member-title">New Member details</p>
+                                <lightning-combobox
+                                    label="Salutation"
+                                    value={addModalSalutation}
+                                    options={salutationOptions}
+                                    placeholder="Select..."
+                                    required
+                                    onchange={handleModalSalutationChange}
+                                    class="c-rm-modal__field c-rm-modal__field_half">
+                                </lightning-combobox>
+                                <div class="c-rm-modal__row">
+                                    <lightning-input
+                                        label="First Name"
+                                        value={addModalFirstName}
+                                        required
+                                        onchange={handleModalFirstNameChange}
+                                        class="c-rm-modal__field c-rm-modal__field_half">
+                                    </lightning-input>
+                                    <lightning-input
+                                        label="Last Name"
+                                        value={addModalLastName}
+                                        required
+                                        onchange={handleModalLastNameChange}
+                                        class="c-rm-modal__field c-rm-modal__field_half">
+                                    </lightning-input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="c-rm-modal__footer">
+                            <button class="c-rm-modal__cancel" onclick={handleCancelAdd}>Cancel</button>
+                            <button class="c-rm-modal__add" onclick={handleDirectCreateAdd}>Add</button>
+                        </div>
+                    </template>
+                </template>
+
                 <!-- ── STEP 1A: Select from existing duplicates ── -->
                 <template lwc:if={modalStep1Select}>
                     <div class="c-rm-modal__body">

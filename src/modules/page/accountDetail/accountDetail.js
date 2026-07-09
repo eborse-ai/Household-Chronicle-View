@@ -104,7 +104,7 @@ const ENRICHMENT = {
                 datetime: 'Oct 25, 2025 · 10:00 AM',
                 description: 'Completed with Mark only. Sara absent for the second consecutive year. Key gaps — 529 funding, beneficiary updates — remain unaddressed.',
                 status: 'Completed',
-                statusClass: 'c-mtg-badge c-mtg-badge_completed',
+                statusClass: 'c-mtg-badge c-mtg-badge_complete',
                 cardClass: 'c-mtg-item',
             },
             {
