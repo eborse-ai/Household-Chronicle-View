@@ -179,6 +179,20 @@ lightning-card {
     color: #0f766e;
 }
 
+.c-badge_ai {
+    /* Purple tint — matches sparkle popover AI Suggestion badge */
+    background: #ede9fe;
+    color: #7c3aed;
+}
+
+.c-highlight-card__member-meta {
+    /* Purple member/date line — matches the sparkle popover style */
+    color: #7c3aed;
+    font-size: var(--slds-g-font-scale-neg1, 0.8125rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    margin: var(--slds-g-spacing-1, 0.25rem) 0 0;
+}
+
 /* ── Highlight card split action button ─────────────── */
 .c-highlight-action {
     display: inline-flex;

@@ -137,11 +137,20 @@ const ENRICHMENT = {
         ],
         highlights: [
             {
+                id: 'h7',
+                badgeLabel: 'AI Suggestion',
+                badgeClass: 'c-badge c-badge_ai',
+                title: "Model 529 scenarios",
+                memberMeta: "Emma Reed · Aug 2026",
+                description: "Emma's college need is ~2043 (18 years out); current 529 balance is $0. College Funding Gap — Start Contributions Now. Model 529 contribution scenarios to close the projected shortfall before compounding window narrows further.",
+                actionLabel: 'Add to Timeline',
+            },
+            {
                 id: 'h1',
                 badgeLabel: 'Gap',
                 badgeClass: 'c-badge c-badge_gap',
                 title: "Open 529 Savings Plan for Emma",
-                description: "Emma was born in April 2025 — no 529 plan has been opened. Starting now maximises compounding over 17+ years before college.",
+                description: "Emma was born in April 2026 — no 529 plan has been opened. Starting now maximises compounding over 17+ years before college.",
                 actionLabel: 'Start 529 Plan',
             },
             {

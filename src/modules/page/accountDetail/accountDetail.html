@@ -234,6 +234,9 @@
                                         </template>
                                     </div>
                                     <h3 class="slds-text-heading_x-small slds-m-top_x-small">{hl.title}</h3>
+                                    <template lwc:if={hl.memberMeta}>
+                                        <p class="c-highlight-card__member-meta">{hl.memberMeta}</p>
+                                    </template>
                                     <p class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">{hl.description}</p>
                                 </div>
                             </template>
