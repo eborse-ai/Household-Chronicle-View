@@ -162,44 +162,44 @@ lightning-card {
 /* ── Highlight card split action button ─────────────── */
 .c-highlight-action {
     display: inline-flex;
-    align-items: stretch;
-    border: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #c9c9c9);
-    border-radius: var(--slds-g-radius-border-2, 0.25rem);
-    overflow: hidden;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
     flex-shrink: 0;
 }
 
+/* Main label — pill border, blue text, transparent fill */
 .c-highlight-action__btn {
     background: var(--slds-g-color-surface-1, #ffffff);
-    border: none;
-    /* No SLDS hook for 0.625rem horizontal padding on compact action button */
-    padding: var(--slds-g-spacing-1, 0.25rem) 0.625rem;
+    border: 1px solid var(--slds-g-color-border-base-1, #c9c9c9);
+    border-radius: var(--slds-g-radius-border-4, 1.5rem);
+    padding: var(--slds-g-spacing-1, 0.25rem) var(--slds-g-spacing-4, 1rem);
     font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
-    font-weight: var(--slds-g-font-weight-5, 400);
-    color: var(--slds-g-color-on-surface-1, #181818);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    color: var(--slds-g-color-brand-base-50, #0176d3);
     cursor: pointer;
     white-space: nowrap;
-    /* No SLDS hook for line-height 1.4 */
     line-height: 1.4;
 }
+.c-highlight-action__btn:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
 
-.c-highlight-action__btn:hover {
-    background: var(--slds-g-color-surface-2, #f3f3f3);
-}
-
+/* Chevron — standalone circle, blue filled ▼ */
 .c-highlight-action__chevron {
-    background: var(--slds-g-color-surface-1, #ffffff);
-    border: none;
-    border-left: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #c9c9c9);
-    padding: var(--slds-g-spacing-1, 0.25rem);
-    cursor: pointer;
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
+    /* intentional static: 1.5rem circle */
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--slds-g-color-border-base-1, #c9c9c9);
+    background: var(--slds-g-color-surface-1, #ffffff);
+    cursor: pointer;
+    flex-shrink: 0;
 }
-
-.c-highlight-action__chevron:hover {
-    background: var(--slds-g-color-surface-2, #f3f3f3);
-}
+.c-highlight-action__chevron:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
+.c-highlight-action__chevron .slds-icon,
+.c-highlight-action__chevron lightning-icon svg { fill: var(--slds-g-color-brand-base-50, #0176d3); }
+.c-highlight-action__chevron { --slds-c-icon-color-foreground: var(--slds-g-color-brand-base-50, #0176d3); }
 
 /* ── Tab panel white card wrapping the lightning-tabset ─────────── */
 .c-tab-panel {
