@@ -406,9 +406,15 @@ lightning-card {
 }
 .c-tl-ctrl-btn_brand:hover { background: #e8f4fd; }
 
-/* Add button — icon + label, no dropdown chevron */
-.c-tl-add-btn {
-    gap: var(--slds-g-spacing-1, 0.25rem);
+/* New Milestone button — neutral pill, bold label */
+.c-tl-milestone-btn {
+    font-weight: var(--slds-g-font-weight-7, 700);
+    background: var(--slds-g-color-neutral-base-100, #ffffff);
+    border-color: var(--slds-g-color-neutral-base-30, #706e6b);
+    color: var(--slds-g-color-neutral-base-10, #181818);
+}
+.c-tl-milestone-btn:hover {
+    background: var(--slds-g-color-surface-2, #f3f3f3);
 }
 
 /* Expand icon button — circle, no label */
@@ -500,6 +506,7 @@ lightning-card {
     z-index: 100;
 }
 
+/* ── New Milestone modal ─────────────────────────────────────────── */
 .c-ne-modal {
     position: fixed;
     top: 50%;
@@ -516,12 +523,29 @@ lightning-card {
     overflow: hidden;
 }
 
+/* Milestone variant: wider to fit 2-column layout comfortably */
+.c-ne-modal_milestone {
+    width: 60rem;
+}
+
 .c-ne-modal__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: var(--slds-g-spacing-4, 1rem) var(--slds-g-spacing-5, 1.25rem);
     border-bottom: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+}
+
+/* Centered title header variant (for milestone modal) */
+.c-ne-modal__header_centered {
+    position: relative;
+    justify-content: center;
+}
+.c-ne-modal__header_centered .c-ne-modal__close {
+    position: absolute;
+    right: var(--slds-g-spacing-4, 1rem);
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .c-ne-modal__title {
@@ -553,12 +577,54 @@ lightning-card {
     max-height: 70vh;
 }
 
+/* "* = Required Information" note — right-aligned */
+.c-ne-required-note {
+    text-align: right;
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    color: var(--slds-g-color-neutral-base-50, #6b7280);
+    margin: 0;
+}
+.c-ne-required-note::before {
+    content: '';
+    color: var(--slds-g-color-palette-red-50, #ba0517);
+}
+
+/* Gray "Information" section bar */
+.c-ne-section-bar {
+    background: var(--slds-g-color-surface-2, #f3f3f3);
+    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    padding: var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-3, 0.75rem);
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    color: var(--slds-g-color-neutral-base-10, #181818);
+}
+
+/* "Milestone Date" sub-section label */
+.c-ne-date-section-label {
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    color: var(--slds-g-color-neutral-base-30, #706e6b);
+    margin: 0 0 var(--slds-g-spacing-2, 0.5rem) 0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
 .c-ne-modal__row {
     display: flex;
     gap: var(--slds-g-spacing-4, 1rem);
 }
 
+/* Align items to top for mixed-height rows (textarea vs date group) */
+.c-ne-modal__row_align-start { align-items: flex-start; }
+
+/* Compact inner row — smaller gap for date + time side-by-side */
+.c-ne-modal__row_compact { gap: var(--slds-g-spacing-3, 0.75rem); }
+
 .c-ne-modal__field { display: block; flex: 1; }
+
+/* Checkbox fields — compact */
+.c-ne-checkbox { display: block; }
 
 .c-ne-modal__footer {
     display: flex;
@@ -580,6 +646,19 @@ lightning-card {
     color: var(--slds-g-color-neutral-base-10, #181818);
 }
 .c-ne-modal__cancel:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
+
+/* Save & New — neutral outlined */
+.c-ne-modal__save-new {
+    padding: var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-5, 1.25rem);
+    border-radius: var(--slds-g-radius-border-4, 1.5rem);
+    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    background: transparent;
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    cursor: pointer;
+    color: var(--slds-g-color-neutral-base-10, #181818);
+}
+.c-ne-modal__save-new:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
 
 .c-ne-modal__save {
     padding: var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-6, 1.5rem);

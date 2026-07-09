@@ -1044,10 +1044,11 @@ export default class AccountDetail extends LightningElement {
     // Wealth journey uses monthly-width layout in drill or monthly mode
     get wealthJourneyIsMonthly() { return this.isMonthlyMode || this.isDrillMode; }
 
-    @track _agentforceOpen  = false;
-    @track _newMenuOpen     = false;
-    @track _newEventType    = null;   // 'life-event' | 'goal' | 'financial-product'
-    @track _filterMenuOpen  = false;
+    @track _agentforceOpen     = false;
+    @track _milestoneModalOpen = false;
+    @track _newMenuOpen        = false;   // kept for legacy guard in filter handler
+    @track _newEventType       = null;    // unused – kept to avoid removing filter ref
+    @track _filterMenuOpen     = false;
     @track _activeFilter    = 'all';  // 'all' | 'life' | 'meeting' | 'goal' | 'financial'
     @track popoverVisible   = false;
     @track popoverEventData = null;
@@ -1095,19 +1096,34 @@ export default class AccountDetail extends LightningElement {
     handleAskAgentforce()   { this._agentforceOpen = true; }
     handleCloseAgentforce() { this._agentforceOpen = false; }
 
-    // ── New Event dropdown & modal ─────────────────────────────────
-    get newMenuOpen()          { return this._newMenuOpen; }
-    get newEventModalOpen()    { return this._newEventType !== null; }
-    get newEventIsLifeEvent()  { return this._newEventType === 'life-event'; }
-    get newEventIsGoal()       { return this._newEventType === 'goal'; }
-    get newEventIsFinancialProduct() { return this._newEventType === 'financial-product'; }
+    // ── New Milestone modal ───────────────────────────────────────
+    get milestoneModalOpen() { return this._milestoneModalOpen; }
 
-    get newEventTypeLabel() {
-        if (this._newEventType === 'life-event')        return 'Life Event';
-        if (this._newEventType === 'goal')              return 'Goal';
-        if (this._newEventType === 'financial-product') return 'Financial Product';
-        return 'Event';
+    get milestoneTypeOptions() {
+        return [
+            { label: 'Life Event',        value: 'life'      },
+            { label: 'Financial Goal',    value: 'goal'      },
+            { label: 'Financial Account', value: 'financial' },
+        ];
     }
+
+    get defaultMemberValue() {
+        const members = this._enrichment?.timelineMembers || [];
+        return members.length ? members[0].memberId : '';
+    }
+
+    handleOpenMilestoneModal(event) {
+        event.stopPropagation();
+        this._milestoneModalOpen = true;
+    }
+
+    handleCloseMilestoneModal() {
+        this._milestoneModalOpen = false;
+    }
+
+    // ── Legacy placeholders (kept so filter handler compiles) ────
+    get newMenuOpen()    { return this._newMenuOpen; }
+    get newEventModalOpen() { return false; }
 
     get memberOptions() {
         return (this._enrichment?.timelineMembers || []).map(m => ({
@@ -1165,21 +1181,6 @@ export default class AccountDetail extends LightningElement {
         event.stopPropagation();
         this._activeFilter   = event.currentTarget.dataset.value;
         this._filterMenuOpen = false;
-    }
-
-    handleToggleNewMenu(event) {
-        event.stopPropagation();
-        this._newMenuOpen = !this._newMenuOpen;
-    }
-
-    handleNewEventType(event) {
-        event.stopPropagation();
-        this._newEventType = event.currentTarget.dataset.type;
-        this._newMenuOpen  = false;
-    }
-
-    handleCloseNewEventModal() {
-        this._newEventType = null;
     }
 
     handleClosePopover() {

@@ -320,10 +320,9 @@
                                             </template>
                                         </div>
 
-                                        <!-- 4. Add event button -->
-                                        <button class="c-tl-ctrl-btn c-tl-ctrl-btn_brand c-tl-add-btn" title="Add event" data-type="life-event" onclick={handleNewEventType}>
-                                            <lightning-icon icon-name="utility:add" size="xx-small" alternative-text="Add"></lightning-icon>
-                                            Add
+                                        <!-- 4. New Milestone button -->
+                                        <button class="c-tl-ctrl-btn c-tl-milestone-btn" onclick={handleOpenMilestoneModal}>
+                                            New Milestone
                                         </button>
 
                                         <!-- 5. AI Suggestions (blue outlined) -->
@@ -569,65 +568,94 @@
         </ui-event-popover>
     </template>
 
-    <!-- New Event modal -->
-    <template lwc:if={newEventModalOpen}>
-        <div class="c-ne-backdrop" onclick={handleCloseNewEventModal}></div>
-        <div class="c-ne-modal" role="dialog" aria-modal="true">
-            <div class="c-ne-modal__header">
-                <h2 class="c-ne-modal__title">New {newEventTypeLabel}</h2>
-                <button class="c-ne-modal__close" onclick={handleCloseNewEventModal} title="Close">
+    <!-- New Milestone modal -->
+    <template lwc:if={milestoneModalOpen}>
+        <div class="c-ne-backdrop" onclick={handleCloseMilestoneModal}></div>
+        <div class="c-ne-modal c-ne-modal_milestone" role="dialog" aria-modal="true" aria-labelledby="c-nm-title">
+
+            <!-- Header -->
+            <div class="c-ne-modal__header c-ne-modal__header_centered">
+                <h2 class="c-ne-modal__title" id="c-nm-title">New Milestone</h2>
+                <button class="c-ne-modal__close" onclick={handleCloseMilestoneModal} title="Close">
                     <lightning-icon icon-name="utility:close" size="small" alternative-text="Close"></lightning-icon>
                 </button>
             </div>
-            <div class="c-ne-modal__body">
 
+            <!-- Body -->
+            <div class="c-ne-modal__body">
+                <p class="c-ne-required-note">* = Required Information</p>
+
+                <!-- Information section bar -->
+                <div class="c-ne-section-bar">Information</div>
+
+                <!-- Row 1: Milestone Name | Milestone Type -->
                 <div class="c-ne-modal__row">
-                    <lightning-input label="Title" placeholder="e.g. Car Purchase" required class="c-ne-modal__field"></lightning-input>
-                    <lightning-input label="Date" type="date" required class="c-ne-modal__field"></lightning-input>
+                    <lightning-input
+                        label="Milestone Name"
+                        placeholder="e.g. Home Purchase"
+                        required
+                        class="c-ne-modal__field">
+                    </lightning-input>
+                    <lightning-combobox
+                        label="Milestone Type"
+                        value=""
+                        options={milestoneTypeOptions}
+                        placeholder="--None--"
+                        required
+                        class="c-ne-modal__field">
+                    </lightning-combobox>
                 </div>
 
-                <lightning-combobox
-                    label="Member"
-                    value=""
-                    options={memberOptions}
-                    placeholder="Select member…"
-                    class="c-ne-modal__field">
-                </lightning-combobox>
-
-                <!-- Life Event extras -->
-                <template lwc:if={newEventIsLifeEvent}>
-                    <lightning-combobox
-                        label="Life Event Type"
-                        value=""
-                        options={lifeEventTypeOptions}
-                        placeholder="Select type…"
-                        class="c-ne-modal__field">
-                    </lightning-combobox>
-                </template>
-
-                <!-- Goal extras -->
-                <template lwc:if={newEventIsGoal}>
-                    <div class="c-ne-modal__row">
-                        <lightning-input label="Target Amount ($)" type="number" placeholder="e.g. 45000" class="c-ne-modal__field"></lightning-input>
-                        <lightning-input label="Target Year" type="number" placeholder="e.g. 2027" class="c-ne-modal__field"></lightning-input>
+                <!-- Row 2: Milestone Date (left) | Milestone Description (right, spans 2 sub-rows) -->
+                <div class="c-ne-modal__row c-ne-modal__row_align-start">
+                    <!-- Left: date subsection -->
+                    <div class="c-ne-modal__field">
+                        <p class="c-ne-date-section-label">Milestone Date</p>
+                        <div class="c-ne-modal__row c-ne-modal__row_compact">
+                            <lightning-input label="Date" type="date" required class="c-ne-modal__field"></lightning-input>
+                            <lightning-input label="Time" type="time" class="c-ne-modal__field"></lightning-input>
+                        </div>
                     </div>
-                </template>
+                    <!-- Right: description -->
+                    <lightning-textarea
+                        label="Milestone Description"
+                        placeholder="Describe the milestone and its significance…"
+                        max-length="500"
+                        class="c-ne-modal__field">
+                    </lightning-textarea>
+                </div>
 
-                <!-- Financial Product extras -->
-                <template lwc:if={newEventIsFinancialProduct}>
+                <!-- Row 3: Primary Member | Related Account / Location -->
+                <div class="c-ne-modal__row">
                     <lightning-combobox
-                        label="Product Type"
-                        value=""
-                        options={financialProductTypeOptions}
-                        placeholder="Select product…"
+                        label="Primary Member"
+                        value={defaultMemberValue}
+                        options={memberOptions}
+                        required
                         class="c-ne-modal__field">
                     </lightning-combobox>
-                </template>
+                    <lightning-input
+                        label="Related Account"
+                        placeholder="e.g. Joint Brokerage, 529 Plan"
+                        class="c-ne-modal__field">
+                    </lightning-input>
+                </div>
 
-                <lightning-textarea label="Notes" placeholder="Add any relevant context…" class="c-ne-modal__field"></lightning-textarea>
+                <!-- Row 4: Tentative checkbox | Critical checkbox -->
+                <div class="c-ne-modal__row">
+                    <div class="c-ne-modal__field">
+                        <lightning-input type="checkbox" label="Tentative" class="c-ne-checkbox"></lightning-input>
+                    </div>
+                    <div class="c-ne-modal__field">
+                        <lightning-input type="checkbox" label="Critical" class="c-ne-checkbox"></lightning-input>
+                    </div>
+                </div>
             </div>
+
+            <!-- Footer -->
             <div class="c-ne-modal__footer">
-                <button class="c-ne-modal__cancel" onclick={handleCloseNewEventModal}>Cancel</button>
+                <button class="c-ne-modal__cancel" onclick={handleCloseMilestoneModal}>Cancel</button>
+                <button class="c-ne-modal__save-new">Save &amp; New</button>
                 <button class="c-ne-modal__save">Save</button>
             </div>
         </div>
