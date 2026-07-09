@@ -103,9 +103,9 @@ const ENRICHMENT = {
                 title: 'Annual Review — Mark Reed',
                 datetime: 'Oct 25, 2025 · 10:00 AM',
                 description: 'Completed with Mark only. Sara absent for the second consecutive year. Key gaps — 529 funding, beneficiary updates — remain unaddressed.',
-                status: 'Follow-Up Due',
-                statusClass: 'c-mtg-badge c-mtg-badge_overdue',
-                cardClass: 'c-mtg-item c-mtg-item_overdue',
+                status: 'Completed',
+                statusClass: 'c-mtg-badge c-mtg-badge_completed',
+                cardClass: 'c-mtg-item',
             },
             {
                 id: 'mtg2',
