@@ -1471,13 +1471,14 @@ lightning-card {
 .c-pill-icon-badge_financial .slds-icon,
 .c-pill-icon-badge_financial lightning-icon svg { fill: #5aab5e; }
 
-/* Label — truncates when text is too long */
+/* Label — truncates when text is too long; always neutral dark grey */
 .c-pill-label {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     flex: 1;
     min-width: 0;
+    color: var(--slds-g-color-neutral-base-20, #3e3e3c);
 }
 
 .c-event-pill:hover {
@@ -1487,36 +1488,31 @@ lightning-card {
     z-index: 2;
 }
 
-/* Life Event — teal blue */
+/* Life Event — teal blue border, neutral label */
 .c-event-pill_life {
     /* No SLDS hook for #0094B7 — intentional brand color */
     border-color: #0094B7;
-    color: #0094B7;
 }
 
-/* Meeting — slate gray */
+/* Meeting — slate gray border, neutral label */
 .c-event-pill_meeting {
     border-color: #706e6b;
-    color: #706e6b;
 }
 
-/* Transaction — amber/gold */
+/* Transaction — amber/gold border, neutral label */
 .c-event-pill_transaction {
     border-color: var(--slds-g-color-palette-yellow-30, #c89200);
-    color: var(--slds-g-color-palette-yellow-30, #c89200);
 }
 
-/* Financial Goal — orange */
+/* Financial Goal — orange border, neutral label */
 .c-event-pill_goal {
     border-color: var(--slds-g-color-palette-orange-50, #b45309);
-    color: var(--slds-g-color-palette-orange-50, #b45309);
 }
 
-/* Financial Account — medium green matching screenshot */
+/* Financial Account — medium green border, neutral label */
 .c-event-pill_financial {
     /* intentional static: #5aab5e medium green per screenshot */
     border-color: #5aab5e;
-    color: #5aab5e;
 }
 
 /* ── Timeline legend ─────────────────────────────────── */
