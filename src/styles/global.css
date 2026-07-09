@@ -3,6 +3,24 @@ html.builder-active {
     overscroll-behavior-y: none;
 }
 
+/* ── Relationship Map tab: thread flex height through lightning-tabset internals ──
+ * global.css bypasses synthetic-shadow scoping, so these rules reach inside
+ * lightning-tabset's shadow root (slds-tabs_default) and the active lightning-tab
+ * (slds-tabs_default__content slds-show) which tabset.js adds dynamically.
+ * Scoped to .c-tab-panel so other tabsets in the app are unaffected. */
+.c-tab-panel .slds-tabs_default {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+.c-tab-panel .slds-tabs_default__content.slds-show {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
 /* Global Header: Action Icons */
 .lightning-button-menu_custom .slds-button__icon {
     fill: light-dark(var(--slds-g-color-palette-neutral-60), var(--slds-g-color-palette-neutral-40));

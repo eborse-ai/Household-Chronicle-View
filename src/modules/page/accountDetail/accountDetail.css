@@ -264,7 +264,7 @@ lightning-card {
     flex-direction: column;
 }
 
-/* Thread flex height from c-tab-panel → tabset root div → tab → content */
+/* lightning-tabset host fills the tab-panel flex column */
 .c-tab-panel lightning-tabset {
     flex: 1;
     min-height: 0;
@@ -272,19 +272,9 @@ lightning-card {
     flex-direction: column;
 }
 
-/* tabset renders a single root div (computedClass = slds-tabs_default) */
-.c-tab-panel lightning-tabset > div {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-/* tab-bar is fixed height; lightning-tab (the active tabpanel) fills the rest */
-.c-tab-panel lightning-tabset lightning-tab-bar {
-    flex-shrink: 0;
-}
-.c-tab-panel lightning-tabset lightning-tab {
+/* lightning-tab host (active tab) fills the tabset content area.
+ * slds-tabs_default__content / slds-show classes are added by tabset.js at runtime. */
+.c-tab-panel lightning-tab {
     flex: 1;
     min-height: 0;
     display: flex;
@@ -296,13 +286,19 @@ lightning-card {
     padding: var(--slds-g-spacing-4, 1rem);
 }
 
-/* Relationship Map tab: 8px margin on all sides; fills full tab height */
+/* Relationship Map tab: 16px padding; explicit height so canvas can fill it.
+ * intentional static: height is relative to viewport minus fixed chrome above the tab. */
 .c-tab-content--map {
-    padding: var(--slds-g-spacing-2, 0.5rem);
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
+    padding: 1rem;
+    height: calc(100vh - 19rem);
+    min-height: 26rem;
+    box-sizing: border-box;
+}
+
+/* Make the ui-relationship-map host fill the tab content height */
+.c-tab-content--map ui-relationship-map {
+    display: block;
+    height: 100%;
 }
 
 /* ── Agentic Summary ─────────────────────────────────── */

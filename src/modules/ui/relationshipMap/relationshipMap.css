@@ -1,8 +1,6 @@
 :host {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-height: 0;
+    display: block;
+    height: 100%;
 }
 
 /* ── Canvas ───────────────────────────────────────────────────── */
@@ -10,12 +8,10 @@
 .c-rel-map-canvas {
     background: var(--slds-g-color-surface-2, #f3f3f3);
     border-radius: var(--slds-g-radius-border-2, 0.25rem);
-    /* Fill the viewport from canvas top to page bottom with 16px margin.
-     * Subtracts: nav (~2.75rem) + page-header (~4rem) + highlights (~6rem)
-     * + tab-bar (~2.75rem) + tab-padding (1rem) + bottom-gap (1rem).
-     * intentional static: no SLDS hook for vh-based height. */
+    /* Fill the parent tab-content height (set via calc(100vh) in accountDetail.css).
+     * Falls back to min-height on very short viewports. */
     width: 100%;
-    height: calc(100vh - 17.5rem);
+    height: 100%;
     min-height: 24rem;
     /* No padding on canvas — topbar and map wrap carry their own padding
      * so the panel can be flush with the canvas right/top/bottom edges */
