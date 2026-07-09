@@ -416,7 +416,9 @@
                                                             <div key={evt.id} class="c-pill-wrap">
                                                                 <div class="c-pill-inner">
                                                                     <span class={evt.pillClass} data-event-id={evt.id} onclick={handlePillClick} role="button" tabindex="0">
-                                                                        <lightning-icon icon-name={evt.iconName} size="xx-small" class="c-pill-icon"></lightning-icon>
+                                                                        <span class={evt.iconBadgeClass}>
+                                                                            <lightning-icon icon-name={evt.iconName} size="xx-small" class="c-pill-icon"></lightning-icon>
+                                                                        </span>
                                                                         <span class="c-pill-label">{evt.label}</span>
                                                                     </span>
                                                                     <template lwc:if={evt.isCritical}>

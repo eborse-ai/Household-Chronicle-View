@@ -1440,6 +1440,36 @@ lightning-card {
     line-height: 1;
 }
 
+/* Circular icon badge wrapper — base */
+.c-pill-icon-badge {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* intentional static: 1.3rem circle to fit xx-small icon */
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 50%;
+}
+
+/* Life Event — teal-blue circle */
+.c-pill-icon-badge_life {
+    background: #0094B7;
+}
+.c-pill-icon-badge_life .slds-icon { fill: #ffffff; }
+
+/* Financial Goal — orange circle (matching screenshot) */
+.c-pill-icon-badge_goal {
+    background: var(--slds-g-color-palette-orange-50, #b45309);
+}
+.c-pill-icon-badge_goal .slds-icon { fill: #ffffff; }
+
+/* Financial Account — teal-green circle */
+.c-pill-icon-badge_financial {
+    background: var(--slds-g-color-palette-teal-50, #00796b);
+}
+.c-pill-icon-badge_financial .slds-icon { fill: #ffffff; }
+
 /* Label — truncates when text is too long */
 .c-pill-label {
     overflow: hidden;
@@ -1461,42 +1491,32 @@ lightning-card {
     /* No SLDS hook for #0094B7 — intentional brand color */
     border-color: #0094B7;
     color: #0094B7;
-    --slds-c-icon-color-foreground: #0094B7;
 }
-.c-event-pill_life .slds-icon { fill: #0094B7; }
 
 /* Meeting — slate gray */
 .c-event-pill_meeting {
     border-color: #706e6b;
     color: #706e6b;
-    --slds-c-icon-color-foreground: #706e6b;
 }
-.c-event-pill_meeting .slds-icon { fill: #706e6b; }
 
 /* Transaction — amber/gold */
 .c-event-pill_transaction {
     border-color: var(--slds-g-color-palette-yellow-30, #c89200);
     color: var(--slds-g-color-palette-yellow-30, #c89200);
-    --slds-c-icon-color-foreground: var(--slds-g-color-palette-yellow-30, #c89200);
 }
-.c-event-pill_transaction .slds-icon { fill: var(--slds-g-color-palette-yellow-30, #c89200); }
 
 /* Financial Goal — orange */
 .c-event-pill_goal {
     border-color: var(--slds-g-color-palette-orange-50, #b45309);
     color: var(--slds-g-color-palette-orange-50, #b45309);
-    --slds-c-icon-color-foreground: var(--slds-g-color-palette-orange-50, #b45309);
 }
-.c-event-pill_goal .slds-icon { fill: var(--slds-g-color-palette-orange-50, #b45309); }
 
 /* Financial Account — teal green */
 .c-event-pill_financial {
     /* No SLDS v2 hook for teal; using palette-teal */
     border-color: var(--slds-g-color-palette-teal-50, #00796b);
     color: var(--slds-g-color-palette-teal-50, #00796b);
-    --slds-c-icon-color-foreground: var(--slds-g-color-palette-teal-50, #00796b);
 }
-.c-event-pill_financial .slds-icon { fill: var(--slds-g-color-palette-teal-50, #00796b); }
 
 /* ── Timeline legend ─────────────────────────────────── */
 .c-timeline-legend {

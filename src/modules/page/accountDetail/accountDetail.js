@@ -903,11 +903,18 @@ export default class AccountDetail extends LightningElement {
             financial:   'c-type-dot c-type-dot_financial',
         };
         const TYPE_ICON = {
-            life:        'utility:event',     // calendar icon
+            life:        'utility:event',
             meeting:     'utility:event',
-            goal:        'utility:priority',  // flag icon
-            financial:   'utility:company',   // institution/bank building icon
+            goal:        'utility:priority',
+            financial:   'utility:company',
             transaction: 'utility:money',
+        };
+
+        const TYPE_ICON_BADGE = {
+            life:      'c-pill-icon-badge c-pill-icon-badge_life',
+            meeting:   'c-pill-icon-badge c-pill-icon-badge_meeting',
+            goal:      'c-pill-icon-badge c-pill-icon-badge_goal',
+            financial: 'c-pill-icon-badge c-pill-icon-badge_financial',
         };
         /* Pending (non-dismissed, non-added) AI suggestions for sparkle indicators */
         const pendingSugs = (this._enrichment?.aiSuggestions || [])
@@ -934,7 +941,8 @@ export default class AccountDetail extends LightningElement {
                             detail:       det,
                             isCritical:   !!(det?.isCritical),
                             typeDotClass: TYPE_DOT[e.type] || 'c-type-dot',
-                            iconName:     TYPE_ICON[e.type] || 'utility:record',
+                            iconName:         TYPE_ICON[e.type] || 'utility:record',
+                            iconBadgeClass:   TYPE_ICON_BADGE[e.type] || 'c-pill-icon-badge',
                         };
                     });
 
