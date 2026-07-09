@@ -434,19 +434,19 @@ const ENRICHMENT = {
                 events: [
                     { id: 'e1',  year: 2019, month: 'Mar 2019', label: 'Onboarding',      type: 'financial'    },
                     { id: 'e2',  year: 2020, month: 'Apr 2020', label: 'Joint Brokerage', type: 'financial'    },
-                    { id: 'e3',  year: 2020, month: 'Nov 2020', label: 'Annual Review',   type: 'meeting'      },
+                    { id: 'e3',  year: 2020, month: 'Nov 2020', label: 'Annual Review',   type: 'engagement'   },
                     { id: 'e4',  year: 2021, month: 'Jan 2021', label: 'Emergency Fund',  type: 'financial'    },
                     { id: 'e5',  year: 2022, month: 'Mar 2022', label: 'Job Promotion',   type: 'life'         },
-                    { id: 'e6',  year: 2022, month: 'Oct 2022', label: 'Annual Review',   type: 'meeting'      },
+                    { id: 'e6',  year: 2022, month: 'Oct 2022', label: 'Annual Review',   type: 'engagement'   },
                     { id: 'e7',  year: 2023, month: 'Aug 2023', label: 'Home Purchase',   type: 'life'         },
                     { id: 'e8',  year: 2024, month: 'Feb 2024', label: 'HSA Opened',        type: 'financial' },
-                    { id: 'e8m', year: 2024, month: 'Mar 2024', label: 'Mid-Year Check-in', type: 'meeting'   },
-                    { id: 'e9',  year: 2024, month: 'Oct 2024', label: 'Annual Review',     type: 'meeting'   },
+                    { id: 'e8m', year: 2024, month: 'Mar 2024', label: 'Mid-Year Check-in', type: 'engagement' },
+                    { id: 'e9',  year: 2024, month: 'Oct 2024', label: 'Annual Review',     type: 'engagement' },
                     { id: 'e10', year: 2025, month: 'Jan 2025', label: 'Car Goal Set',    type: 'goal'         },
                     { id: 'e11', year: 2025, month: 'Apr 2025', label: 'Emma Born',       type: 'life'         },
                     { id: 'e12', year: 2025, month: 'Jun 2025', label: 'Term Life',       type: 'financial'    },
-                    { id: 'e13', year: 2025, month: 'Oct 2025', label: 'Annual Review',   type: 'meeting'      },
-                    { id: 'e14', year: 2026, month: 'Jun 2026', label: 'Mid-Year Review', type: 'meeting'      },
+                    { id: 'e13', year: 2025, month: 'Oct 2025', label: 'Annual Review',   type: 'engagement'   },
+                    { id: 'e14', year: 2026, month: 'Jun 2026', label: 'Mid-Year Review', type: 'engagement'   },
                     { id: 'e15', year: 2027, month: 'Jan 2027', label: 'RSU Vesting',     type: 'transaction'  },
                 ],
             },
@@ -460,11 +460,11 @@ const ENRICHMENT = {
                 relationshipStrength: 'Strong',
                 strengthClass: 'c-strength-dot c-strength-dot_strong',
                 events: [
-                    { id: 'e16', year: 2020, month: 'Nov 2020', label: 'Annual Review',  type: 'meeting'   },
+                    { id: 'e16', year: 2020, month: 'Nov 2020', label: 'Annual Review',  type: 'engagement' },
                     { id: 'e17', year: 2022, month: 'Apr 2022', label: 'Roth IRA',       type: 'financial' },
-                    { id: 'e18', year: 2022, month: 'Oct 2022', label: 'Annual Review',  type: 'meeting'   },
+                    { id: 'e18', year: 2022, month: 'Oct 2022', label: 'Annual Review',  type: 'engagement' },
                     { id: 'e19', year: 2023, month: 'Aug 2023', label: 'Home Purchase',  type: 'life'      },
-                    { id: 'e20', year: 2024, month: 'Oct 2024', label: 'Annual Review',  type: 'meeting'   },
+                    { id: 'e20', year: 2024, month: 'Oct 2024', label: 'Annual Review',  type: 'engagement' },
                     { id: 'e21', year: 2025, month: 'Jan 2025', label: 'Car Goal Set',   type: 'goal'      },
                     { id: 'e22', year: 2025, month: 'Apr 2025', label: 'Emma Born',      type: 'life'      },
                 ],
@@ -497,22 +497,22 @@ const ENRICHMENT = {
                 events: [
                     { id: 'me1a', month: 'Mar 2019', label: 'Onboarding',        type: 'financial' },
                     { id: 'me1b', month: 'Apr 2020', label: 'Joint Brokerage',   type: 'financial' },
-                    { id: 'me1c', month: 'Nov 2020', label: 'Annual Review',     type: 'meeting'   },
+                    { id: 'me1c', month: 'Nov 2020', label: 'Annual Review',     type: 'engagement' },
                     { id: 'me1d', month: 'Jun 2021', label: 'Emergency Fund',    type: 'financial' },
                     { id: 'me1e', month: 'Apr 2022', label: 'Job Promotion',     type: 'life'      },
-                    { id: 'me1f', month: 'Oct 2022', label: 'Annual Review',     type: 'meeting'   },
+                    { id: 'me1f', month: 'Oct 2022', label: 'Annual Review',     type: 'engagement' },
                     { id: 'me1g', month: 'Aug 2023', label: 'Home Purchase',     type: 'life'      },
                     { id: 'me1h', month: 'Feb 2024', label: 'HSA Opened',          type: 'financial' },
-                    { id: 'e8m',  month: 'Mar 2024', label: 'Mid-Year Check-in',  type: 'meeting'   },
-                    { id: 'me1i', month: 'Oct 2024', label: 'Annual Review',       type: 'meeting'   },
+                    { id: 'e8m',  month: 'Mar 2024', label: 'Mid-Year Check-in',  type: 'engagement' },
+                    { id: 'me1i', month: 'Oct 2024', label: 'Annual Review',       type: 'engagement' },
                     { id: 'me1j', month: 'Jan 2025', label: 'Car Goal Set',      type: 'goal'      },
                     { id: 'me1k', month: 'Apr 2025', label: 'Emma Born',         type: 'life'      },
                     { id: 'me1l', month: 'Jun 2025', label: 'Term Life',         type: 'financial' },
                     { id: 'me1',  month: 'Aug 2025', label: 'Paternity Leave',   type: 'life'      },
-                    { id: 'me2',  month: 'Oct 2025', label: 'Annual Review',     type: 'meeting'   },
+                    { id: 'me2',  month: 'Oct 2025', label: 'Annual Review',     type: 'engagement' },
 
 
-                    { id: 'me6',  month: 'Jun 2026', label: 'Mid-Year Check-in', type: 'meeting'   },
+                    { id: 'me6',  month: 'Jun 2026', label: 'Mid-Year Check-in', type: 'engagement' },
                 ],
             },
             {
@@ -526,11 +526,11 @@ const ENRICHMENT = {
                 strengthClass: 'c-strength-dot c-strength-dot_strong',
                 events: [
                     { id: 'me1b', month: 'Apr 2020', label: 'Joint Brokerage', type: 'financial' },
-                    { id: 'me7a', month: 'Nov 2020', label: 'Annual Review',  type: 'meeting'   },
+                    { id: 'me7a', month: 'Nov 2020', label: 'Annual Review',  type: 'engagement' },
                     { id: 'me7b', month: 'Mar 2022', label: 'Roth IRA',       type: 'financial' },
-                    { id: 'me7c', month: 'Oct 2022', label: 'Annual Review',  type: 'meeting'   },
+                    { id: 'me7c', month: 'Oct 2022', label: 'Annual Review',  type: 'engagement' },
                     { id: 'me7d', month: 'Aug 2023', label: 'Home Purchase',  type: 'life'      },
-                    { id: 'me7e', month: 'Oct 2024', label: 'Annual Review',  type: 'meeting'   },
+                    { id: 'me7e', month: 'Oct 2024', label: 'Annual Review',  type: 'engagement' },
                     { id: 'me7f', month: 'Jan 2025', label: 'Car Goal Set',   type: 'goal'      },
                     { id: 'me7g', month: 'Apr 2025', label: 'Emma Born',      type: 'life'      },
                     { id: 'me7h', month: 'Apr 2025', label: 'Mat. Leave',     type: 'life'      },
@@ -890,6 +890,7 @@ export default class AccountDetail extends LightningElement {
         const cols = this.timelineColumns;
         const PILL = {
             life:        'c-event-pill c-event-pill_life',
+            engagement:  'c-event-pill c-event-pill_engagement',
             meeting:     'c-event-pill c-event-pill_meeting',
             transaction: 'c-event-pill c-event-pill_transaction',
             goal:        'c-event-pill c-event-pill_goal',
@@ -897,6 +898,7 @@ export default class AccountDetail extends LightningElement {
         };
         const TYPE_DOT = {
             life:        'c-type-dot c-type-dot_life',
+            engagement:  'c-type-dot c-type-dot_engagement',
             meeting:     'c-type-dot c-type-dot_meeting',
             transaction: 'c-type-dot c-type-dot_transaction',
             goal:        'c-type-dot c-type-dot_goal',
@@ -904,6 +906,7 @@ export default class AccountDetail extends LightningElement {
         };
         const TYPE_ICON = {
             life:        'utility:event',
+            engagement:  'utility:people',
             meeting:     'utility:event',
             goal:        'utility:priority',
             financial:   'utility:company',
@@ -912,6 +915,7 @@ export default class AccountDetail extends LightningElement {
 
         const TYPE_ICON_BADGE = {
             life:      'c-pill-icon-badge c-pill-icon-badge_life',
+            engagement:'c-pill-icon-badge c-pill-icon-badge_engagement',
             meeting:   'c-pill-icon-badge c-pill-icon-badge_meeting',
             goal:      'c-pill-icon-badge c-pill-icon-badge_goal',
             financial: 'c-pill-icon-badge c-pill-icon-badge_financial',
@@ -961,7 +965,7 @@ export default class AccountDetail extends LightningElement {
                     }));
 
                 /* Apply timeline type filter (meetings always excluded) */
-                const TYPE_FILTER_MAP = { life: 'life', goal: 'goal', financial: 'financial' };
+                const TYPE_FILTER_MAP = { life: 'life', engagement: 'engagement', goal: 'goal', financial: 'financial' };
                 const filterType = TYPE_FILTER_MAP[this._activeFilter] || null;
                 const allEvts = [...evts, ...mergedSugEvts]
                     .filter(e => e.type !== 'meeting')
@@ -1112,6 +1116,7 @@ export default class AccountDetail extends LightningElement {
     get milestoneTypeOptions() {
         return [
             { label: 'Life Event',        value: 'life'      },
+            { label: 'Engagement',        value: 'engagement'},
             { label: 'Financial Goal',    value: 'goal'      },
             { label: 'Financial Account', value: 'financial' },
         ];
@@ -1169,13 +1174,14 @@ export default class AccountDetail extends LightningElement {
     // ── Timeline filter dropdown ───────────────────────────────────
     get filterMenuOpen()  { return this._filterMenuOpen; }
     get activeFilterLabel() {
-        const map = { all: 'Show All', life: 'Life Event', goal: 'Financial Goal', financial: 'Financial Account' };
+        const map = { all: 'Show All', life: 'Life Event', engagement: 'Engagement', goal: 'Financial Goal', financial: 'Financial Account' };
         return map[this._activeFilter] || 'Show All';
     }
     get filterOptions() {
         return [
             { value: 'all',       label: 'Show All'          },
             { value: 'life',      label: 'Life Event'        },
+            { value: 'engagement',label: 'Engagement'        },
             { value: 'goal',      label: 'Financial Goal'    },
             { value: 'financial', label: 'Financial Account' },
         ].map(o => ({ ...o, isActive: o.value === this._activeFilter }));

@@ -372,11 +372,11 @@ export default class RelationshipMap extends LightningElement {
         this._modalRole         = rec.relationship || '';
         this._modalStatus       = 'Active';
         this._selectedRecordIdx = null;
-        this._modalSalutation   = 'Mr';
-        this._modalFirstName    = parts[0] || '';
-        this._modalLastName     = parts.slice(1).join(' ') || '';
-        this._modalPhone        = '';
-        this._modalEmail        = '';
+        this._modalSalutation   = rec.salutation || 'Mr';
+        this._modalFirstName    = rec.firstName || parts[0] || '';
+        this._modalLastName     = rec.lastName || parts.slice(1).join(' ') || '';
+        this._modalPhone        = rec.phone || '';
+        this._modalEmail        = rec.email || '';
         // Always open at step 1
         this._modalStep = 1;
     }
@@ -393,6 +393,11 @@ export default class RelationshipMap extends LightningElement {
                 confidenceType: 'high',
                 confidence: 'High Confidence',
                 reason: 'Potential household member identified from profile data.',
+                salutation: 'Mr',
+                firstName: 'John',
+                lastName: 'Green',
+                phone: '+1 415-555-0199',
+                email: 'john.green@turbotax.com',
                 duplicates: [
                     { name: 'John Green', company: 'TaxPro Advisors', title: 'Tax Consultant', email: 'john.green@taxpro.com' },
                     { name: 'John L. Green', company: 'Green & Associates', title: 'Managing Partner', email: 'jgreen@greenandassoc.com' },
@@ -409,6 +414,11 @@ export default class RelationshipMap extends LightningElement {
                 confidenceType: 'high',
                 confidence: 'High Confidence',
                 reason: 'Contact found with potential relationship to household.',
+                salutation: 'Mr',
+                firstName: 'John',
+                lastName: 'Green',
+                phone: '+1 415-555-0199',
+                email: 'john.green@turbotax.com',
                 duplicates: [
                     { name: 'Emma Reed', company: 'Reed & Associates LLC', title: 'Daughter', email: 'emma.reed@reedassoc.com' },
                     { name: 'Emma Reed', company: 'Westbrook Primary School', title: 'Student', email: 'emma.r@westbrook.edu' },
@@ -425,6 +435,11 @@ export default class RelationshipMap extends LightningElement {
                 confidenceType: 'medium',
                 confidence: 'Medium Confidence',
                 reason: 'Nearby household with overlapping members detected.',
+                salutation: 'Mr',
+                firstName: 'John',
+                lastName: 'Green',
+                phone: '+1 415-555-0199',
+                email: 'john.green@turbotax.com',
                 duplicates: [],
             };
         }
@@ -437,6 +452,11 @@ export default class RelationshipMap extends LightningElement {
             confidenceType: 'medium',
             confidence: 'Medium Confidence',
             reason: 'Account appears to be connected through member activities.',
+            salutation: 'Mr',
+            firstName: 'John',
+            lastName: 'Green',
+            phone: '+1 415-555-0199',
+            email: 'john.green@turbotax.com',
             duplicates: [],
         };
     }
@@ -531,6 +551,12 @@ export default class RelationshipMap extends LightningElement {
     }
 
     handleCreateNew() {
+        // Manual-entry flow: start with clean inputs for user entry.
+        this._modalSalutation = 'Mr';
+        this._modalFirstName = '';
+        this._modalLastName = '';
+        this._modalPhone = '';
+        this._modalEmail = '';
         this._modalStep = 2;
     }
 
@@ -555,6 +581,26 @@ export default class RelationshipMap extends LightningElement {
     handleConfirmAdd() {
         const id = this._addModalRec?.id;
         if (id) {
+            if (this.modalStep2Create) {
+                const updatedName = `${this._modalFirstName} ${this._modalLastName}`.trim();
+                this.recommendations = (this.recommendations || []).map(group => ({
+                    ...group,
+                    items: (group.items || []).map(item => (
+                        item.id === id
+                            ? {
+                                ...item,
+                                name: updatedName || item.name,
+                                relationship: this._modalRole || item.relationship,
+                                salutation: this._modalSalutation,
+                                firstName: this._modalFirstName,
+                                lastName: this._modalLastName,
+                                phone: this._modalPhone,
+                                email: this._modalEmail,
+                              }
+                            : item
+                    )),
+                }));
+            }
             this._addedIds = { ...this._addedIds, [id]: true };
         }
         this._addModalRec = null;
