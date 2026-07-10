@@ -286,9 +286,9 @@ lightning-card {
     padding: var(--slds-g-spacing-4, 1rem);
 }
 
-/* Relationship Map tab: no padding — canvas fills flush to panel edges */
+/* Relationship Map tab: 8px left/right margin, flush top/bottom */
 .c-tab-content--map {
-    padding: 0;
+    padding: 0 0.5rem;
 }
 
 /* ── Agentic Summary ─────────────────────────────────── */
