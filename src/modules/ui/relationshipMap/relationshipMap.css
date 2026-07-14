@@ -511,10 +511,9 @@
     z-index: 10;
 }
 
-/* Panel header */
+/* Panel header — no border-bottom; the tab strip acts as the single divider */
 .c-rm-rec-panel__header {
-    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem) var(--slds-g-spacing-2, 0.5rem);
-    border-bottom: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem) 0;
     flex-shrink: 0;
 }
 
