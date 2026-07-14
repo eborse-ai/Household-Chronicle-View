@@ -208,7 +208,7 @@
     color: var(--slds-g-color-on-surface-1, #080707);
 }
 
-.c-ep-status      { font-size: var(--slds-g-font-scale-2, 1.125rem); font-weight: var(--slds-g-font-weight-7, 700); color: var(--slds-g-color-on-surface-1, #080707); }
+.c-ep-status      { font-size: var(--slds-g-font-scale-neg-1, 0.8125rem); font-weight: var(--slds-g-font-weight-4, 400); color: var(--slds-g-color-on-surface-1, #080707); line-height: var(--slds-g-font-line-height-base, 1.5); }
 .c-ep-status_risk    { color: var(--slds-g-color-error-base-40, #ba0517); }
 .c-ep-status_warn    { color: var(--slds-g-color-warning-base-40, #a94000); }
 .c-ep-status_info    { color: var(--slds-g-color-accent-1, #0176d3); }
