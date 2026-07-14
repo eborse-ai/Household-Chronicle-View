@@ -137,14 +137,6 @@ const ENRICHMENT = {
         ],
         highlights: [
             {
-                id: 'h7',
-                badgeLabel: 'AI Suggestion',
-                badgeClass: 'c-badge c-badge_ai',
-                title: "Model 529 scenarios",
-                description: "Emma was born in April 2026 — no 529 plan has been opened. Starting now maximises compounding over 17+ years before college.",
-                actionLabel: 'Add to Timeline',
-            },
-            {
                 id: 'h1',
                 badgeLabel: 'Gap',
                 badgeClass: 'c-badge c-badge_gap',
@@ -185,14 +177,6 @@ const ENRICHMENT = {
                 targetDate: 'Feb 2027',
                 type: 'goal',
                 description: "Mark flagged RSU grant in Oct-2022 review; vesting expected Feb 2027 (~$40K net). Plan for RSU Vesting Tax & Investment Strategy — model reinvestment scenarios to optimise post-tax outcomes and align proceeds with the household's brokerage and car purchase goals.",
-            },
-            {
-                id: 'sug2',
-                title: 'Model 529 scenarios',
-                member: 'Emma Reed',
-                targetDate: 'Aug 2026',
-                type: 'goal',
-                description: "Emma was born in April 2026 — no 529 plan has been opened. Starting now maximises compounding over 17+ years before college.",
             },
         ],
         wealthJourneyYearly: [
