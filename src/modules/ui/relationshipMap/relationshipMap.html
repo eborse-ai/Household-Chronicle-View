@@ -404,6 +404,26 @@
                             </button>
                         </div>
                         <p class="c-rm-rec-panel__subtitle">{pendingLabel}</p>
+
+                        <!-- Active / Dismissed tab toggle -->
+                        <div class="c-rm-rec-tabs" role="tablist">
+                            <button
+                                class={activeTabClass}
+                                role="tab"
+                                aria-selected={isActiveTab}
+                                data-tab="active"
+                                onclick={handleSwitchTab}>
+                                Active
+                            </button>
+                            <button
+                                class={dismissedTabClass}
+                                role="tab"
+                                aria-selected={isDismissedTab}
+                                data-tab="dismissed"
+                                onclick={handleSwitchTab}>
+                                {dismissedTabLabel}
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Refreshing / loading state -->
@@ -421,8 +441,10 @@
                         </div>
                     </template>
 
-                    <!-- Recommendation groups -->
                     <template lwc:else>
+
+                    <!-- ── ACTIVE tab ── -->
+                    <template lwc:if={isActiveTab}>
                     <div class="c-rm-rec-panel__body">
                         <template for:each={decoratedGroups} for:item="group">
                             <div key={group.category} class="c-rm-rec-group">
@@ -430,52 +452,65 @@
 
                                 <template for:each={group.items} for:item="rec">
                                     <div key={rec.id} class="c-rm-rec-card">
-
-                                        <!-- Card header row -->
                                         <div class="c-rm-rec-card__header">
                                             <div class="c-rm-rec-icon-wrap">
-                                                <lightning-icon
-                                                    icon-name={rec.icon}
-                                                    size="x-small"
-                                                    alternative-text={rec.name}>
-                                                </lightning-icon>
+                                                <lightning-icon icon-name={rec.icon} size="x-small" alternative-text={rec.name}></lightning-icon>
                                             </div>
                                             <span class="c-rm-rec-name">{rec.name}</span>
-                                            <button
-                                                class={rec.addBtnClass}
-                                                data-id={rec.id}
-                                                onclick={handleAddRec}
-                                                title="Add to tree view">
-                                                {rec.addBtnLabel}
-                                            </button>
+                                            <button class={rec.addBtnClass} data-id={rec.id} onclick={handleAddRec} title="Add to tree view">{rec.addBtnLabel}</button>
                                         </div>
-
-                                        <!-- Relationship type -->
                                         <p class="c-rm-rec-relationship">{rec.relationship}</p>
-
-                                        <!-- Source + confidence badges -->
                                         <div class="c-rm-rec-badges">
                                             <span class={rec.sourceBadgeClass}>{rec.sourceLabel}</span>
                                             <span class={rec.confidenceBadgeClass}>{rec.confidence}</span>
                                         </div>
-
-                                        <!-- Reason -->
                                         <p class="c-rm-rec-reason">{rec.reason}</p>
-
                                         <hr class="c-rm-rec-divider" />
-
-                                        <!-- Dismiss -->
-                                        <button
-                                            class="c-rm-rec-dismiss-btn"
-                                            data-id={rec.id}
-                                            onclick={handleDismissRec}>
-                                            Dismiss
-                                        </button>
+                                        <button class="c-rm-rec-dismiss-btn" data-id={rec.id} onclick={handleDismissRec}>Dismiss</button>
                                     </div>
                                 </template>
                             </div>
                         </template>
                     </div>
+                    </template>
+
+                    <!-- ── DISMISSED tab ── -->
+                    <template lwc:if={isDismissedTab}>
+                    <div class="c-rm-rec-panel__body">
+                        <template lwc:if={hasDismissed}>
+                            <template for:each={dismissedGroups} for:item="group">
+                                <div key={group.category} class="c-rm-rec-group">
+                                    <p class="c-rm-rec-group__label">{group.category} ({group.items.length})</p>
+                                    <template for:each={group.items} for:item="rec">
+                                        <div key={rec.id} class="c-rm-rec-card c-rm-rec-card_dismissed">
+                                            <div class="c-rm-rec-card__header">
+                                                <div class="c-rm-rec-icon-wrap c-rm-rec-icon-wrap_dismissed">
+                                                    <lightning-icon icon-name={rec.icon} size="x-small" alternative-text={rec.name}></lightning-icon>
+                                                </div>
+                                                <span class="c-rm-rec-name c-rm-rec-name_dismissed">{rec.name}</span>
+                                                <button class="c-rm-rec-add-btn" data-id={rec.id} onclick={handleAddRec} title="Add to household">+</button>
+                                            </div>
+                                            <p class="c-rm-rec-relationship">{rec.relationship}</p>
+                                            <div class="c-rm-rec-badges">
+                                                <span class={rec.sourceBadgeClass}>{rec.sourceLabel}</span>
+                                                <span class={rec.confidenceBadgeClass}>{rec.confidence}</span>
+                                            </div>
+                                            <p class="c-rm-rec-reason">{rec.reason}</p>
+                                            <hr class="c-rm-rec-divider" />
+                                            <button class="c-rm-rec-restore-btn" data-id={rec.id} onclick={handleRestoreRec}>Move to Active</button>
+                                        </div>
+                                    </template>
+                                </div>
+                            </template>
+                        </template>
+                        <template lwc:else>
+                            <div class="c-rm-rec-empty">
+                                <p class="c-rm-rec-empty__text">No dismissed recommendations for this household.</p>
+                            </div>
+                        </template>
+                    </div>
+                    </template>
+
                     </template>
 
                 </div>

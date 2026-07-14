@@ -13,12 +13,13 @@ export default class RelationshipMap extends LightningElement {
     // First member starts expanded by default
     @track _expandedMemberIds = { rm1: true };
 
-    @track _showRecsPanel  = false;
-    @track _isRefreshing   = false;
-    @track _dismissedIds   = {};
-    @track _addedIds       = {};
-    @track _dismissToast   = null;   // { name } while visible
-    _toastTimer            = null;
+    @track _showRecsPanel    = false;
+    @track _isRefreshing     = false;
+    @track _dismissedIds     = {};
+    @track _addedIds         = {};
+    @track _dismissToast     = null;   // { name } while visible
+    @track _recsPanelTab     = 'active'; // 'active' | 'dismissed'
+    _toastTimer              = null;
     @track _addModalRec       = null;   // rec under review in the add-modal
     @track _modalStep         = 1;      // 1 = select/no-record, 2 = add details / create form
     @track _createNewFromDuplicates = false;
@@ -104,17 +105,17 @@ export default class RelationshipMap extends LightningElement {
         let count = 0;
         (this.recommendations || []).forEach(group => {
             (group.items || []).forEach(item => {
-                if (!this._dismissedIds[item.id]) {
-                    count++;
-                }
+                if (!this._dismissedIds[item.id] && !this._addedIds[item.id]) count++;
             });
         });
         return count;
     }
 
-    get hasPending() {
-        return this.pendingCount > 0;
+    get dismissedCount() {
+        return Object.keys(this._dismissedIds).filter(id => this._dismissedIds[id]).length;
     }
+
+    get hasPending() { return this.pendingCount > 0; }
 
     get pendingLabel() {
         const n = this.pendingCount;
@@ -125,21 +126,59 @@ export default class RelationshipMap extends LightningElement {
         return this._showRecsPanel ? 'Hide Recommendations' : 'Show Recommendations';
     }
 
-    /** Decorated recommendation groups with per-item computed fields */
+    // Tab state
+    get isActiveTab()    { return this._recsPanelTab === 'active'; }
+    get isDismissedTab() { return this._recsPanelTab === 'dismissed'; }
+    get activeTabClass() {
+        return 'c-rm-rec-tab' + (this.isActiveTab ? ' c-rm-rec-tab_active' : '');
+    }
+    get dismissedTabClass() {
+        return 'c-rm-rec-tab' + (this.isDismissedTab ? ' c-rm-rec-tab_active' : '');
+    }
+    get dismissedTabLabel() {
+        const n = this.dismissedCount;
+        return `Dismissed (${n})`;
+    }
+
+    handleSwitchTab(event) {
+        this._recsPanelTab = event.currentTarget.dataset.tab;
+    }
+
+    /** Decorated recommendation groups — ACTIVE tab (not dismissed, not added) */
     get decoratedGroups() {
         return (this.recommendations || []).map(group => {
             const items = (group.items || []).map(item => ({
                 ...item,
-                isDismissed:         !!this._dismissedIds[item.id],
-                isAdded:             !!this._addedIds[item.id],
-                addBtnClass:         this._addedIds[item.id] ? 'c-rm-rec-add-btn c-rm-rec-add-btn_added' : 'c-rm-rec-add-btn',
-                addBtnLabel:         this._addedIds[item.id] ? '✓' : '+',
-                sourceBadgeClass:    this._sourceBadgeClass(item.sourceType),
+                isDismissed:          !!this._dismissedIds[item.id],
+                isAdded:              !!this._addedIds[item.id],
+                addBtnClass:          this._addedIds[item.id] ? 'c-rm-rec-add-btn c-rm-rec-add-btn_added' : 'c-rm-rec-add-btn',
+                addBtnLabel:          this._addedIds[item.id] ? '✓' : '+',
+                sourceBadgeClass:     this._sourceBadgeClass(item.sourceType),
                 confidenceBadgeClass: this._confidenceBadgeClass(item.confidenceType),
-            })).filter(item => !item.isDismissed);
+            })).filter(item => !item.isDismissed && !item.isAdded);
             return { ...group, items, hasItems: items.length > 0 };
         }).filter(g => g.hasItems);
     }
+
+    /** Dismissed items grouped by category — DISMISSED tab */
+    get dismissedGroups() {
+        const byCategory = {};
+        (this.recommendations || []).forEach(group => {
+            (group.items || []).forEach(item => {
+                if (this._dismissedIds[item.id]) {
+                    if (!byCategory[group.category]) byCategory[group.category] = [];
+                    byCategory[group.category].push({
+                        ...item,
+                        sourceBadgeClass:     this._sourceBadgeClass(item.sourceType),
+                        confidenceBadgeClass: this._confidenceBadgeClass(item.confidenceType),
+                    });
+                }
+            });
+        });
+        return Object.entries(byCategory).map(([category, items]) => ({ category, items, hasItems: items.length > 0 }));
+    }
+
+    get hasDismissed() { return this.dismissedCount > 0; }
 
     /** Flat list of all recommendation items, enriched with their group category */
     get _allRecsFlat() {
@@ -964,6 +1003,16 @@ export default class RelationshipMap extends LightningElement {
         this._toastTimer = setTimeout(() => {
             this._dismissToast = null;
         }, 4500);
+    }
+
+    /** Restore a dismissed recommendation back to active (undo dismiss) */
+    handleRestoreRec(event) {
+        const id = event.currentTarget.dataset.id;
+        const updated = { ...this._dismissedIds };
+        delete updated[id];
+        this._dismissedIds = updated;
+        // Switch back to active tab so the restored card is visible
+        this._recsPanelTab = 'active';
     }
 
     get showDismissToast()  { return this._dismissToast !== null; }

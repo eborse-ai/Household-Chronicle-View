@@ -582,6 +582,82 @@
     margin: var(--slds-g-spacing-1, 0.25rem) 0 0;
 }
 
+/* ── Active / Dismissed tab strip ─────────────────────────────── */
+.c-rm-rec-tabs {
+    display: flex;
+    gap: 0;
+    margin-top: var(--slds-g-spacing-3, 0.75rem);
+    border-bottom: 2px solid var(--slds-g-color-border-base-1, #e5e5e5);
+}
+
+.c-rm-rec-tab {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    padding: 0.375rem 0.75rem;
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+    font-weight: 400;
+    color: var(--slds-g-color-on-surface-2, #706e6b);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s;
+}
+
+.c-rm-rec-tab:hover {
+    color: var(--slds-g-color-on-surface-1, #181818);
+}
+
+.c-rm-rec-tab_active {
+    /* intentional static: brand blue underline for active tab */
+    border-bottom-color: #0176d3;
+    color: #0176d3;
+    font-weight: 600;
+}
+
+/* ── Dismissed card variant ───────────────────────────────────── */
+.c-rm-rec-card_dismissed {
+    opacity: 0.85;
+}
+
+.c-rm-rec-name_dismissed {
+    color: var(--slds-g-color-on-surface-2, #706e6b);
+}
+
+.c-rm-rec-icon-wrap_dismissed {
+    opacity: 0.6;
+}
+
+/* Restore button — outlined neutral, mirrors dismiss-btn but labelled differently */
+.c-rm-rec-restore-btn {
+    background: none;
+    border: 1px solid var(--slds-g-color-border-base-1, #c9c9c9);
+    border-radius: 2rem;
+    padding: 0.25rem 0.875rem;
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+    font-weight: 500;
+    color: var(--slds-g-color-brand-base-50, #0176d3);
+    cursor: pointer;
+}
+
+.c-rm-rec-restore-btn:hover {
+    background: var(--slds-g-color-surface-2, #f3f2f2);
+}
+
+/* ── Empty dismissed state ─────────────────────────────────────── */
+.c-rm-rec-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--slds-g-spacing-8, 2rem) var(--slds-g-spacing-4, 1rem);
+}
+
+.c-rm-rec-empty__text {
+    font-size: var(--slds-g-font-scale-neg-1, 0.8125rem);
+    color: var(--slds-g-color-on-surface-2, #706e6b);
+    text-align: center;
+}
+
 /* Panel body — scrollable */
 .c-rm-rec-panel__body {
     flex: 1;
