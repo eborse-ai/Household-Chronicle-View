@@ -640,12 +640,13 @@
                 <div class="c-ne-modal__row">
                     <lightning-input
                         label="Event Name"
+                        value={modalPrefillEventName}
                         required
                         class="c-ne-modal__field">
                     </lightning-input>
                     <lightning-combobox
                         label="Event Type"
-                        value=""
+                        value={modalPrefillEventType}
                         options={milestoneTypeOptions}
                         placeholder="--None--"
                         required
@@ -674,7 +675,7 @@
                 <div class="c-ne-modal__row">
                     <lightning-combobox
                         label="Primary Person"
-                        value={defaultMemberValue}
+                        value={modalPrefillPrimaryMember}
                         options={memberOptions}
                         required
                         class="c-ne-modal__field">

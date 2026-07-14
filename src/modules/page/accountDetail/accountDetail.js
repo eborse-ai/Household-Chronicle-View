@@ -1062,7 +1062,8 @@ export default class AccountDetail extends LightningElement {
     get wealthJourneyIsMonthly() { return this.isMonthlyMode || this.isDrillMode; }
 
     @track _agentforceOpen     = false;
-    @track _milestoneModalOpen = false;
+    @track _milestoneModalOpen   = false;
+    @track _milestoneModalPrefill = null; // { eventName, eventType, primaryMember }
     @track _newMenuOpen        = false;   // kept for legacy guard in filter handler
     @track _newEventType       = null;    // unused – kept to avoid removing filter ref
     @track _filterMenuOpen     = false;
@@ -1116,6 +1117,11 @@ export default class AccountDetail extends LightningElement {
     // ── New Milestone modal ───────────────────────────────────────
     get milestoneModalOpen() { return this._milestoneModalOpen; }
 
+    // Pre-fill getters — fall back to empty/default when no prefill set
+    get modalPrefillEventName()    { return this._milestoneModalPrefill?.eventName    || ''; }
+    get modalPrefillEventType()    { return this._milestoneModalPrefill?.eventType    || ''; }
+    get modalPrefillPrimaryMember(){ return this._milestoneModalPrefill?.primaryMember || this.defaultMemberValue; }
+
     get milestoneTypeOptions() {
         return [
             { label: 'Life Event',        value: 'life'      },
@@ -1132,11 +1138,13 @@ export default class AccountDetail extends LightningElement {
 
     handleOpenMilestoneModal(event) {
         event.stopPropagation();
+        this._milestoneModalPrefill = null;
         this._milestoneModalOpen = true;
     }
 
     handleCloseMilestoneModal() {
-        this._milestoneModalOpen = false;
+        this._milestoneModalOpen   = false;
+        this._milestoneModalPrefill = null;
     }
 
     // ── Legacy placeholders (kept so filter handler compiles) ────
@@ -1385,28 +1393,59 @@ export default class AccountDetail extends LightningElement {
         this._navigateToActionLabel(action);
     }
 
+    // Map of CTA labels → modal pre-fill data (case-insensitive key lookup)
+    _ctaModalPrefillMap = {
+        'start 529 plan': {
+            eventName: 'Start 529 Plan',
+            eventType: 'goal',
+            primaryMember: 'Emma Reed',
+        },
+        'model rsu reinvestment': {
+            eventName: 'Model RSU Reinvestment',
+            eventType: 'goal',
+            primaryMember: 'Mark Reed',
+        },
+        'review goal funding': {
+            eventName: 'Review Goal Funding',
+            eventType: 'goal',
+            primaryMember: 'Mark Reed',
+        },
+    };
+
     _navigateToActionLabel(action) {
         if (!action) return;
-        // Find a matching AI suggestion by title (case-insensitive)
+        const key = action.toLowerCase();
+
+        // 1. Try to find a matching sparkle AI suggestion
         const sug = (this._enrichment?.aiSuggestions || []).find(
-            (s) => s.title.toLowerCase() === action.toLowerCase()
+            (s) => s.title.toLowerCase() === key
         );
-        if (!sug) return;
 
-        // Close any open popovers
-        this.popoverVisible       = false;
-        this.popoverEventData     = null;
-        this._sparklePopoverSugId = null;
-        this._sparklePopoverStyle = '';
+        if (sug) {
+            // Close any open popovers and navigate to the sparkle
+            this.popoverVisible       = false;
+            this.popoverEventData     = null;
+            this._sparklePopoverSugId = null;
+            this._sparklePopoverStyle = '';
+            this.drillYear     = null;
+            this.timelineMode  = 'monthly';
+            const idx = TIMELINE_MONTHS.indexOf(sug.targetDate);
+            if (idx >= 0) this._pendingScrollColIdx = idx;
+            this._pendingOpenSparkleId = sug.id;
+            return;
+        }
 
-        // Switch to monthly and scroll to the suggestion's target month
-        this.drillYear     = null;
-        this.timelineMode  = 'monthly';
-        const idx = TIMELINE_MONTHS.indexOf(sug.targetDate);
-        if (idx >= 0) this._pendingScrollColIdx = idx;
-
-        // After DOM settles, programmatically click the sparkle button
-        this._pendingOpenSparkleId = sug.id;
+        // 2. No sparkle found — open the New Event modal pre-filled
+        const prefill = this._ctaModalPrefillMap[key];
+        if (prefill) {
+            // Close any open popovers first
+            this.popoverVisible       = false;
+            this.popoverEventData     = null;
+            this._sparklePopoverSugId = null;
+            this._sparklePopoverStyle = '';
+            this._milestoneModalPrefill = { ...prefill };
+            this._milestoneModalOpen    = true;
+        }
     }
 
     handleYearExpand(event) {
