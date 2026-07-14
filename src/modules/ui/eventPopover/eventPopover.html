@@ -38,21 +38,95 @@
             </button>
         </div>
 
+        <!-- ── Scrollable body ───────────────────── -->
+        <div class="c-ep-body">
+
         <!-- ── Key metrics bar ───────────────────── -->
-        <div class="c-ep-metrics">
-            <div class="c-ep-metric">
-                <span class="c-ep-metric-label">DATE</span>
-                <span class="c-ep-metric-value">{detail.date}</span>
+        <!-- Life event highlights: Event Name · Event Date · Event Type -->
+        <template lwc:if={isLifeEvent}>
+            <div class="c-ep-metrics">
+                <div class="c-ep-metric">
+                    <span class="c-ep-metric-label">EVENT NAME</span>
+                    <span class="c-ep-metric-value">{title}</span>
+                </div>
+                <div class="c-ep-metric">
+                    <span class="c-ep-metric-label">EVENT DATE</span>
+                    <span class="c-ep-metric-value">{detail.date}</span>
+                </div>
+                <div class="c-ep-metric">
+                    <span class="c-ep-metric-label">EVENT TYPE</span>
+                    <span class="c-ep-metric-value">{typeInfo.label}</span>
+                </div>
             </div>
-            <div class="c-ep-metric">
-                <span class="c-ep-metric-label">MEMBERS AFFECTED</span>
-                <span class="c-ep-metric-value">{detail.membersAffected}</span>
+        </template>
+        <!-- Goal highlights: Name · Target Date · Target Amount -->
+        <template lwc:elseif={isGoalEvent}>
+            <div class="c-ep-metrics">
+                <div class="c-ep-metric">
+                    <span class="c-ep-metric-label">NAME</span>
+                    <span class="c-ep-metric-value">{title}</span>
+                </div>
+                <div class="c-ep-metric">
+                    <span class="c-ep-metric-label">TARGET DATE</span>
+                    <span class="c-ep-metric-value">{detail.targetDate}</span>
+                </div>
+                <div class="c-ep-metric">
+                    <span class="c-ep-metric-label">TARGET AMOUNT</span>
+                    <span class="c-ep-metric-value">{detail.targetAmount}</span>
+                </div>
             </div>
-            <div class="c-ep-metric">
-                <span class="c-ep-metric-label">STATUS</span>
-                <span class={statusClass}>{detail.status}</span>
+        </template>
+        <!-- Financial account highlights: Name · Opening Date · Total Outstanding Amount -->
+        <template lwc:elseif={isFinancialEvent}>
+            <div class="c-ep-metrics">
+                <div class="c-ep-metric">
+                    <span class="c-ep-metric-label">NAME</span>
+                    <span class="c-ep-metric-value">{title}</span>
+                </div>
+                <div class="c-ep-metric">
+                    <span class="c-ep-metric-label">OPENING DATE</span>
+                    <span class="c-ep-metric-value">{detail.openingDate}</span>
+                </div>
+                <div class="c-ep-metric">
+                    <span class="c-ep-metric-label">TOTAL OUTSTANDING</span>
+                    <span class="c-ep-metric-value">{detail.totalOutstandingAmount}</span>
+                </div>
             </div>
-        </div>
+        </template>
+        <!-- Engagement highlights: Subject · Start · Location -->
+        <template lwc:elseif={isEngagementEvent}>
+            <div class="c-ep-metrics">
+                <div class="c-ep-metric">
+                    <span class="c-ep-metric-label">SUBJECT</span>
+                    <span class="c-ep-metric-value">{detail.subject}</span>
+                </div>
+                <div class="c-ep-metric">
+                    <span class="c-ep-metric-label">START</span>
+                    <span class="c-ep-metric-value">{detail.startDateTime}</span>
+                </div>
+                <div class="c-ep-metric">
+                    <span class="c-ep-metric-label">LOCATION</span>
+                    <span class="c-ep-metric-value">{detail.location}</span>
+                </div>
+            </div>
+        </template>
+        <!-- Default highlights: Date · Members Affected · Status -->
+        <template lwc:else>
+            <div class="c-ep-metrics">
+                <div class="c-ep-metric">
+                    <span class="c-ep-metric-label">DATE</span>
+                    <span class="c-ep-metric-value">{detail.date}</span>
+                </div>
+                <div class="c-ep-metric">
+                    <span class="c-ep-metric-label">MEMBERS AFFECTED</span>
+                    <span class="c-ep-metric-value">{detail.membersAffected}</span>
+                </div>
+                <div class="c-ep-metric">
+                    <span class="c-ep-metric-label">STATUS</span>
+                    <span class={statusClass}>{detail.status}</span>
+                </div>
+            </div>
+        </template>
 
         <!-- ── Agentic Insight card ──────────────── -->
         <template lwc:if={showAiCard}>
@@ -106,32 +180,205 @@
         </template>
 
         <!-- ── Detail grid ───────────────────────── -->
-        <div class="c-ep-detail-grid">
-            <div class="c-ep-detail-cell">
-                <span class="c-ep-detail-label">DATE</span>
-                <span class="c-ep-detail-value">{detail.date}</span>
-            </div>
-            <div class="c-ep-detail-cell">
-                <span class="c-ep-detail-label">MEMBERS</span>
-                <span class="c-ep-detail-value">{detail.members}</span>
-            </div>
-            <template lwc:if={showCashFlow}>
+        <!-- Engagement detail: End · Name (Who) · Related To · Show Time As · Description -->
+        <template lwc:if={isEngagementEvent}>
+            <div class="c-ep-detail-grid">
                 <div class="c-ep-detail-cell">
-                    <span class="c-ep-detail-label">CASH-FLOW IMPACT</span>
-                    <span class="c-ep-detail-value">{detail.cashFlowImpact}</span>
+                    <span class="c-ep-detail-label">END</span>
+                    <span class="c-ep-detail-value">{detail.endDateTime}</span>
                 </div>
                 <div class="c-ep-detail-cell">
-                    <span class="c-ep-detail-label">BENEFICIARIES</span>
-                    <span class="c-ep-detail-value">{detail.beneficiaries}</span>
+                    <span class="c-ep-detail-label">NAME (WHO)</span>
+                    <span class="c-ep-detail-value">{detail.whoName}</span>
                 </div>
-            </template>
-        </div>
+                <div class="c-ep-detail-cell">
+                    <span class="c-ep-detail-label">RELATED TO</span>
+                    <span class="c-ep-detail-value">{detail.relatedTo}</span>
+                </div>
+                <div class="c-ep-detail-cell">
+                    <span class="c-ep-detail-label">SHOW TIME AS</span>
+                    <span class="c-ep-detail-value">{detail.showTimeAs}</span>
+                </div>
+            </div>
+            <div class="c-ep-action-taken">
+                <span class="c-ep-detail-label">DESCRIPTION</span>
+                <p class="c-ep-detail-value">{detail.engagementNotes}</p>
+            </div>
+        </template>
+        <!-- Financial account detail: Type · Status · Account Number · Maturity Date · Held Away -->
+        <template lwc:elseif={isFinancialEvent}>
+            <div class="c-ep-detail-grid">
+                <div class="c-ep-detail-cell">
+                    <span class="c-ep-detail-label">TYPE</span>
+                    <span class="c-ep-detail-value">{detail.accountType}</span>
+                </div>
+                <div class="c-ep-detail-cell">
+                    <span class="c-ep-detail-label">STATUS</span>
+                    <span class={statusClass}>{detail.status}</span>
+                </div>
+                <div class="c-ep-detail-cell">
+                    <span class="c-ep-detail-label">FINANCIAL ACCOUNT NUMBER</span>
+                    <span class="c-ep-detail-value">{detail.accountNumber}</span>
+                </div>
+                <div class="c-ep-detail-cell">
+                    <span class="c-ep-detail-label">MATURITY DATE</span>
+                    <span class="c-ep-detail-value">{detail.maturityDate}</span>
+                </div>
+            </div>
+            <div class="c-ep-action-taken">
+                <span class="c-ep-detail-label">HELD AWAY</span>
+                <p class="c-ep-detail-value">{detail.heldAway}</p>
+            </div>
+        </template>
+        <!-- Goal bespoke card -->
+        <template lwc:elseif={isGoalEvent}>
+            <div class="c-ep-goal-card">
 
-        <!-- ── Action taken ──────────────────────── -->
-        <div class="c-ep-action-taken">
-            <span class="c-ep-detail-label">ACTION TAKEN</span>
-            <p class="c-ep-detail-value">{detail.actionTaken}</p>
-        </div>
+                <!-- (a) Goal summary: amounts + pace + progress bar -->
+                <div class="c-ep-goal-section">
+                    <div class="c-ep-goal-progress-header">
+                        <div class="c-ep-goal-amounts">
+                            <span class="c-ep-goal-actual">{detail.actualAmount}</span>
+                            <span class="c-ep-goal-of">of</span>
+                            <span class="c-ep-goal-target">{detail.targetAmount}</span>
+                            <span class="c-ep-goal-pct">{goalProgressPct}%</span>
+                        </div>
+                        <span class={goalPaceClass}>{detail.pace}</span>
+                    </div>
+                    <div class="c-ep-goal-bar-track">
+                        <div class="c-ep-goal-bar-fill" style={goalProgressBarStyle}></div>
+                    </div>
+                    <div class="c-ep-goal-meta">
+                        <span class="c-ep-goal-meta-chip">
+                            <span class="c-ep-goal-meta-lbl">Priority</span>
+                            <span class="c-ep-goal-meta-val">{detail.priority}</span>
+                        </span>
+                        <span class="c-ep-goal-meta-sep">·</span>
+                        <span class="c-ep-goal-meta-chip">
+                            <span class="c-ep-goal-meta-lbl">Type</span>
+                            <span class="c-ep-goal-meta-val">{detail.goalType}</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- (b) Goal span: Start → Today → Target -->
+                <div class="c-ep-goal-section c-ep-goal-section_span">
+                    <p class="c-ep-goal-section-label">Goal Timeline</p>
+                    <div class="c-ep-goal-span-wrap">
+                        <span class="c-ep-goal-span-date">{detail.startDate}</span>
+                        <div class="c-ep-goal-span-rail">
+                            <div class="c-ep-goal-span-line"></div>
+                            <div class="c-ep-goal-today-marker" style={todayMarkerStyle}>
+                                <div class="c-ep-goal-today-pill">Today</div>
+                                <div class="c-ep-goal-today-dot"></div>
+                            </div>
+                        </div>
+                        <span class="c-ep-goal-span-date c-ep-goal-span-date_end">{detail.targetDate}</span>
+                    </div>
+                </div>
+
+                <!-- (c) Linked funding account (1:1) -->
+                <template lwc:if={hasLinkedAccount}>
+                    <div class="c-ep-goal-section c-ep-goal-section_account">
+                        <p class="c-ep-goal-section-label">Funding Account</p>
+                        <div class="c-ep-goal-account-card">
+                            <div class="c-ep-goal-account-top">
+                                <div>
+                                    <p class="c-ep-goal-account-name">{detail.linkedAccount.name}</p>
+                                    <p class="c-ep-goal-account-num">{detail.linkedAccount.number}</p>
+                                </div>
+                            </div>
+                            <div class="c-ep-goal-account-rows">
+                                <div class="c-ep-goal-account-row">
+                                    <span class="c-ep-goal-account-key">Contributing to goal</span>
+                                    <span class="c-ep-goal-account-val">{detail.linkedAccount.contributionAmount}</span>
+                                </div>
+                                <div class="c-ep-goal-account-row">
+                                    <span class="c-ep-goal-account-key">Unallocated balance</span>
+                                    <span class="c-ep-goal-account-val">{detail.linkedAccount.availableBalance}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- (d) Competing goals (same funding account) -->
+                <template lwc:if={hasCompetingGoals}>
+                    <div class="c-ep-goal-section c-ep-goal-section_competing">
+                        <p class="c-ep-goal-section-label">Also funded by {detail.linkedAccount.name}</p>
+                        <template for:each={detail.competingGoals} for:item="cg">
+                            <div key={cg.name} class="c-ep-goal-competing-row">
+                                <span class="c-ep-goal-competing-name">{cg.name}</span>
+                                <div class="c-ep-goal-competing-right">
+                                    <span class="c-ep-goal-competing-amt">{cg.amount}</span>
+                                    <span class={cg.statusClass}>{cg.status}</span>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- View Record -->
+                <div class="c-ep-goal-view-record">
+                    <a class="c-ep-goal-view-link" href="#">View Record →</a>
+                </div>
+
+            </div>
+        </template>
+        <!-- Life event detail: Person fields from PersonLifeEvent object -->
+        <template lwc:elseif={isLifeEvent}>
+            <div class="c-ep-detail-grid">
+                <div class="c-ep-detail-cell">
+                    <span class="c-ep-detail-label">PRIMARY PERSON</span>
+                    <span class="c-ep-detail-value">{detail.primaryPerson}</span>
+                </div>
+                <div class="c-ep-detail-cell">
+                    <span class="c-ep-detail-label">RELATED PERSON</span>
+                    <span class="c-ep-detail-value">{detail.relatedPerson}</span>
+                </div>
+                <div class="c-ep-detail-cell">
+                    <span class="c-ep-detail-label">EVENT LOCATION (CITY)</span>
+                    <span class="c-ep-detail-value">{detail.eventLocation}</span>
+                </div>
+                <div class="c-ep-detail-cell">
+                    <span class="c-ep-detail-label">OWNER</span>
+                    <span class="c-ep-detail-value">{detail.owner}</span>
+                </div>
+            </div>
+            <div class="c-ep-action-taken">
+                <span class="c-ep-detail-label">EVENT DESCRIPTION</span>
+                <p class="c-ep-detail-value">{detail.eventDescription}</p>
+            </div>
+        </template>
+        <!-- Default detail grid: financial / engagement / goal fields -->
+        <template lwc:else>
+            <div class="c-ep-detail-grid">
+                <div class="c-ep-detail-cell">
+                    <span class="c-ep-detail-label">DATE</span>
+                    <span class="c-ep-detail-value">{detail.date}</span>
+                </div>
+                <div class="c-ep-detail-cell">
+                    <span class="c-ep-detail-label">MEMBERS</span>
+                    <span class="c-ep-detail-value">{detail.members}</span>
+                </div>
+                <template lwc:if={showCashFlow}>
+                    <div class="c-ep-detail-cell">
+                        <span class="c-ep-detail-label">CASH-FLOW IMPACT</span>
+                        <span class="c-ep-detail-value">{detail.cashFlowImpact}</span>
+                    </div>
+                    <div class="c-ep-detail-cell">
+                        <span class="c-ep-detail-label">BENEFICIARIES</span>
+                        <span class="c-ep-detail-value">{detail.beneficiaries}</span>
+                    </div>
+                </template>
+            </div>
+            <div class="c-ep-action-taken">
+                <span class="c-ep-detail-label">ACTION TAKEN</span>
+                <p class="c-ep-detail-value">{detail.actionTaken}</p>
+            </div>
+        </template>
+
+        </div><!-- end c-ep-body -->
 
         <!-- ── Footer ───────────────────────────── -->
         <div class="c-ep-footer">

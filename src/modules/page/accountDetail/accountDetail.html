@@ -650,6 +650,7 @@
                         options={milestoneTypeOptions}
                         placeholder="--None--"
                         required
+                        onchange={handleModalEventTypeChange}
                         class="c-ne-modal__field">
                     </lightning-combobox>
                 </div>
@@ -687,17 +688,20 @@
                     </lightning-input>
                 </div>
 
-                <!-- Row 4: Tentative | Expired -->
+                <!-- Row 4: Tentative | Expired (Expired only shown for Goals) -->
                 <div class="c-ne-modal__row">
                     <div class="c-ne-modal__field">
                         <lightning-input type="checkbox" label="Tentative" class="c-ne-checkbox"></lightning-input>
                     </div>
+                    <template lwc:if={modalShowExpiration}>
                     <div class="c-ne-modal__field">
                         <lightning-input type="checkbox" label="Expired" class="c-ne-checkbox"></lightning-input>
                     </div>
+                    </template>
                 </div>
 
-                <!-- Row 5: Expiration Date (left) | Expiration Description (right) -->
+                <!-- Row 5: Expiration Date + Description — Goals only -->
+                <template lwc:if={modalShowExpiration}>
                 <div class="c-ne-modal__row c-ne-modal__row_align-start">
                     <!-- Left: expiration date + time -->
                     <div class="c-ne-modal__field">
@@ -713,6 +717,7 @@
                         class="c-ne-modal__field">
                     </lightning-textarea>
                 </div>
+                </template>
             </div>
 
             <!-- Footer -->

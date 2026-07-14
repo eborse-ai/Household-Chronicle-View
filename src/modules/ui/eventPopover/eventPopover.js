@@ -41,8 +41,57 @@ export default class EventPopover extends LightningElement {
         return !!(this.detail.sentimentInsights && this.detail.sentimentInsights.length);
     }
 
+    get isLifeEvent() {
+        return this.eventData?.type === 'life';
+    }
+
+    get isGoalEvent() {
+        return this.eventData?.type === 'goal';
+    }
+
+    get isFinancialEvent() {
+        return this.eventData?.type === 'financial';
+    }
+
+    get isEngagementEvent() {
+        return this.eventData?.type === 'engagement';
+    }
+
+    // ── Goal bespoke card getters ─────────────────────────────────
+    get goalProgressPct() {
+        const d = this.detail;
+        const actual = parseFloat((d.actualAmount || '').replace(/[$,]/g, '')) || 0;
+        const target = parseFloat((d.targetAmount || '').replace(/[$,]/g, '')) || 1;
+        return Math.min(100, Math.round((actual / target) * 100));
+    }
+
+    get goalProgressBarStyle() {
+        return `width: ${this.goalProgressPct}%`;
+    }
+
+    get goalPaceClass() {
+        const pace = (this.detail.pace || '').toLowerCase();
+        if (pace === 'on track')  return 'c-ep-goal-pace c-ep-goal-pace_ontrack';
+        if (pace === 'behind')    return 'c-ep-goal-pace c-ep-goal-pace_behind';
+        return 'c-ep-goal-pace c-ep-goal-pace_neutral';
+    }
+
+    get todayMarkerStyle() {
+        const pct = this.detail.todayPct || 0;
+        return `left: ${pct}%`;
+    }
+
+    get hasCompetingGoals() {
+        return !!(this.detail.competingGoals && this.detail.competingGoals.length);
+    }
+
+    get hasLinkedAccount() {
+        return !!this.detail.linkedAccount;
+    }
+
     get showCashFlow() {
-        return !!(this.detail.cashFlowImpact || this.detail.beneficiaries);
+        return !this.isLifeEvent && !this.isGoalEvent && !this.isFinancialEvent && !this.isEngagementEvent
+            && !!(this.detail.cashFlowImpact || this.detail.beneficiaries);
     }
 
     get statusClass() {
