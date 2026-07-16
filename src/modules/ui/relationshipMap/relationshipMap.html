@@ -123,6 +123,14 @@
                                                 <template lwc:if={member.isExpanded}>
                                                     <div class="c-rel-map-member-fields">
                                                         <div class="c-rel-map-field">
+                                                            <p class="c-rel-map-field__label">Profession</p>
+                                                            <p class="c-rel-map-field__value">{member.profession}</p>
+                                                        </div>
+                                                        <div class="c-rel-map-field">
+                                                            <p class="c-rel-map-field__label">Age</p>
+                                                            <p class="c-rel-map-field__value">{member.age}</p>
+                                                        </div>
+                                                        <div class="c-rel-map-field">
                                                             <p class="c-rel-map-field__label">Relationship Strength</p>
                                                             <p class="c-rel-map-field__value">{member.relationshipStrength}</p>
                                                         </div>
@@ -130,12 +138,6 @@
                                                             <p class="c-rel-map-field__label">Last Interaction</p>
                                                             <p class="c-rel-map-field__value">{member.lastInteraction}</p>
                                                         </div>
-                                                        <template for:each={member.upcomingLifeEvents} for:item="evt">
-                                                            <div key={evt} class="c-rel-map-field">
-                                                                <p class="c-rel-map-field__label">Upcoming Life Event</p>
-                                                                <p class="c-rel-map-field__value">{evt}</p>
-                                                            </div>
-                                                        </template>
                                                     </div>
                                                 </template>
                                             </div>

@@ -337,11 +337,6 @@
                                             </template>
                                         </div>
 
-                                        <!-- 4. New Event button -->
-                                        <button class="c-tl-ctrl-btn c-tl-milestone-btn" onclick={handleOpenMilestoneModal}>
-                                            New
-                                        </button>
-
                                         <!-- 5. Expand / full-screen icon -->
                                         <button class="c-tl-ctrl-btn c-tl-expand-btn" title="Expand timeline">
                                             <lightning-icon icon-name="utility:expand_alt" size="xx-small" alternative-text="Expand"></lightning-icon>
@@ -437,13 +432,6 @@
                                                                 <span class={evt.typeDotClass}></span>
                                                             </div>
                                                         </template>
-                                                    </template>
-                                                    <!-- Shared-event vertical connectors -->
-                                                    <template lwc:if={cell.hasConnectorAbove}>
-                                                        <div class="c-shared-connector c-shared-connector_up"></div>
-                                                    </template>
-                                                    <template lwc:if={cell.hasConnectorBelow}>
-                                                        <div class="c-shared-connector c-shared-connector_down"></div>
                                                     </template>
                                                     <!-- AI sparkle indicators -->
                                                     <template lwc:if={cell.hasSparkles}>
