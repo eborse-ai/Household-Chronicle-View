@@ -2233,6 +2233,13 @@ export default class AccountDetail extends LightningElement {
         this._dispatchHighlightAction(action);
     }
 
+    /** CTA button on V1 Timeline Insights panel cards — stops card-click propagation then dispatches */
+    handleTliCardCta(event) {
+        event.stopPropagation();
+        const action = event.currentTarget.dataset.action;
+        this._dispatchHighlightAction(action);
+    }
+
     /* Called when V2 bubbles a 'highlightaction' custom event (CTA button or popover CTA) */
     handleV2HighlightAction(event) {
         const action = event.detail?.action;

@@ -449,12 +449,7 @@
                                                                     <template lwc:if={evt.isCritical}>
                                                                         <span class="c-pill-critical-badge"></span>
                                                                     </template>
-                                                                    <template lwc:if={evt.quickActionLabel}>
-                                                                        <button class="c-pill-quick-action" data-action={evt.quickActionLabel} onclick={handlePillQuickAction}>
-                                                                            <lightning-icon icon-name="utility:forward" size="xx-small" class="c-pill-qa-icon"></lightning-icon>
-                                                                            {evt.quickActionLabel}
-                                                                        </button>
-                                                                    </template>
+                                                                    <!-- quick-action chip removed from V1 — CTA lives on the insight card -->
                                                                 </div>
                                                                 <span class={evt.typeDotClass}></span>
                                                             </div>
@@ -522,8 +517,7 @@
                                     <span class="c-legend-item c-legend-item_financial">Financial Account</span>
                                     <span class="c-legend-sep" aria-hidden="true">|</span>
                                     <span class="c-legend-critical"><span class="c-legend-critical__dot"></span> = Critical</span>
-                                    <span class="c-legend-sep" aria-hidden="true">|</span>
-                                    <span class="c-legend-shared"><span class="c-legend-shared__bar"></span> = Shared (bridging both members)</span>
+                                    <!-- Shared legend item removed -->
                                 </div>
 
                                 <!-- Sparkle suggestion popover — opens from the sparkle icon -->
@@ -591,8 +585,13 @@
                                                                 <span class={h.badgeClass}>{h.badgeLabel}</span>
                                                                 <!-- category pill removed in V1 — section dividers communicate grouping -->
                                                             </div>
-                                                            <template lwc:if={h.isActive}>
-                                                                <span class="c-tli-card__active-dot" aria-label="Active"></span>
+                                                            <template lwc:if={h.actionLabel}>
+                                                                <button class="c-tli-card__cta"
+                                                                        data-id={h.id}
+                                                                        data-action={h.actionLabel}
+                                                                        onclick={handleTliCardCta}>
+                                                                    {h.actionLabel}
+                                                                </button>
                                                             </template>
                                                         </div>
                                                         <p class="c-tli-card__title">{h.title}</p>

@@ -3402,6 +3402,26 @@ lightning-card {
     margin-bottom: var(--slds-g-spacing-2, 0.5rem);
 }
 
+/* CTA button — top-right of each V1 Timeline Insights card */
+/* intentional static: brand blue pill button matching V2 card CTA */
+.c-tli-card__cta {
+    background: #0250D9;
+    color: #ffffff;
+    border: none;
+    border-radius: 1rem;
+    /* intentional static: 0.3rem / 0.75rem — standard pill padding */
+    padding: 0.3rem 0.75rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+}
+.c-tli-card__cta:hover { background: #013aac; }
+
 .c-tli-card__active-dot {
     /* intentional static: 0.5rem pulsing dot indicating pill is highlighted */
     width: 0.5rem;
