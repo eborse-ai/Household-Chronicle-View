@@ -3,14 +3,14 @@
     <div class="c-ep-backdrop" onclick={handleBackdropClick}></div>
 
     <!-- Floating panel -->
-    <div class="c-ep-panel" style={panelStyle}>
+    <div class={panelClass} style={panelStyle}>
 
-        <!-- Directional arrow -->
-        <div class={arrowClass}></div>
+        <!-- Directional arrow — style overrides top:50% when arrowTopPx is set by caller -->
+        <div class={arrowClass} style={arrowStyle}></div>
 
         <!-- ── Header ───────────────────────────── -->
         <div class="c-ep-header">
-            <div class={typeInfo.avatarClass}>
+            <div class={typeInfo.avatarClass} style={avatarStyle}>
                 <lightning-icon
                     icon-name={typeInfo.icon}
                     size="small"

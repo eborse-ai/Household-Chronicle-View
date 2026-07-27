@@ -1,0 +1,124 @@
+<template>
+    <div class="c-af-panel">
+
+        <!-- Collapse tab on left edge -->
+        <button class="c-af-collapse-tab" onclick={handleClose} title="Close">&#9664;</button>
+
+        <!-- Header: agent switcher + actions -->
+        <div class="c-af-header">
+            <div class="c-af-agent-switcher">
+                <button class="c-af-agent-title-btn" onclick={handleToggleAgentSwitcher}>
+                    <span class="c-af-agent-title-text">{agentTitle}</span>
+                    <lightning-icon icon-name="utility:chevrondown" size="xx-small" alternative-text="Switch agent" class="c-af-agent-chevron"></lightning-icon>
+                </button>
+            </div>
+            <div class="c-af-header-actions">
+                <button class="c-af-header-btn" title="Pin">
+                    <lightning-icon icon-name="utility:pin" size="xx-small" alternative-text="Pin"></lightning-icon>
+                </button>
+                <button class="c-af-header-btn" onclick={handleClose} title="Close">
+                    <lightning-icon icon-name="utility:close" size="xx-small" alternative-text="Close"></lightning-icon>
+                </button>
+            </div>
+        </div>
+
+        <!-- Welcome body -->
+        <div class="c-af-body">
+            <!-- Astro illustration hero — SVG scales infinitely, pixel-perfect at any density -->
+            <div class="c-af-hero-wrap">
+                <img src="/images/agentforce-astro.svg"
+                     alt="Agentforce Astro"
+                     class="c-af-hero-img" />
+            </div>
+
+            <h3 class="c-af-greeting">Let&#39;s Chat!</h3>
+            <p class="c-af-desc">{agentDesc}</p>
+
+            <div class="c-af-suggestions">
+                <template for:each={suggestions} for:item="sug">
+                    <button key={sug.id} class="c-af-suggestion-btn">
+                        <span>{sug.label}</span>
+                        <lightning-icon icon-name="utility:right" size="x-small" alternative-text="Go" class="c-af-sug-arrow"></lightning-icon>
+                    </button>
+                </template>
+            </div>
+        </div>
+
+        <!-- Chat input footer -->
+        <div class="c-af-footer">
+            <div class="c-af-input-box">
+                <input class="c-af-input" type="text" placeholder="Describe your task or ask a question…" />
+                <div class="c-af-input-actions">
+                    <button class="c-af-input-btn" title="Attach">
+                        <lightning-icon icon-name="utility:add" size="xx-small" alternative-text="Attach"></lightning-icon>
+                    </button>
+                    <button class="c-af-input-btn c-af-input-btn_record" title="Voice">
+                        <lightning-icon icon-name="utility:record" size="xx-small" alternative-text="Voice"></lightning-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="c-af-disclaimer-row">
+                <p class="c-af-disclaimer">Agentforce is AI and can make mistakes.</p>
+                <lightning-icon icon-name="utility:salesforce1" size="xx-small" alternative-text="Salesforce" class="c-af-sf-logo"></lightning-icon>
+            </div>
+        </div>
+
+        <!-- "Select Agent" dropdown — anchored below the title button -->
+        <template lwc:if={agentSwitcherOpen}>
+            <!-- Transparent backdrop closes dropdown on outside click -->
+            <div class="c-af-selector-backdrop" onclick={handleCancelAgentSwitcher}></div>
+            <div class="c-af-selector" role="dialog" aria-modal="true" aria-labelledby="c-af-sel-title">
+                <!-- Header -->
+                <div class="c-af-selector__header">
+                    <h3 class="c-af-selector__title" id="c-af-sel-title">Select Agent</h3>
+                    <button class="c-af-header-btn" onclick={handleCancelAgentSwitcher} title="Close">
+                        <lightning-icon icon-name="utility:close" size="xx-small" alternative-text="Close"></lightning-icon>
+                    </button>
+                </div>
+
+                <!-- Options -->
+                <div class="c-af-selector__body">
+                    <!-- Agentforce option -->
+                    <div class={agentforceOptionClass}
+                         data-agent="agentforce"
+                         onclick={handlePendingAgentSelect}
+                         role="radio"
+                         aria-checked={isAgentforcePending}>
+                        <span class="c-af-radio" aria-hidden="true">
+                            <template lwc:if={isAgentforcePending}>
+                                <span class="c-af-radio__dot"></span>
+                            </template>
+                        </span>
+                        <div class="c-af-option-content">
+                            <p class="c-af-option-name">Agentforce</p>
+                            <p class="c-af-option-desc">General-purpose assistant. Summarise records, search for information, and draft emails.</p>
+                        </div>
+                    </div>
+
+                    <!-- Financial Advisor Assistant option -->
+                    <div class={financialAdvisorOptionClass}
+                         data-agent="financial_advisor"
+                         onclick={handlePendingAgentSelect}
+                         role="radio"
+                         aria-checked={isFinancialAdvisorPending}>
+                        <span class="c-af-radio" aria-hidden="true">
+                            <template lwc:if={isFinancialAdvisorPending}>
+                                <span class="c-af-radio__dot"></span>
+                            </template>
+                        </span>
+                        <div class="c-af-option-content">
+                            <p class="c-af-option-name">Financial Advisor Assistant</p>
+                            <p class="c-af-option-desc">Wealth-management specialist. Analyse household plans, model goals, and surface planning gaps.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="c-af-selector__footer">
+                    <button class="c-af-selector__select-btn" onclick={handleConfirmAgent}>Select</button>
+                </div>
+            </div>
+        </template>
+
+    </div>
+</template>

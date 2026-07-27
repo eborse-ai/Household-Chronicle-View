@@ -3,7 +3,7 @@ import { LightningElement } from 'lwc';
 export default class GlobalHeader extends LightningElement {
     handleAgentforceClick() {
         this.dispatchEvent(new CustomEvent('panelselect', {
-            detail: { name: 'agentforce_panel' },
+            detail: { name: 'agentforce_panel', defaultAgent: 'agentforce' },
             bubbles: true,
             composed: true
         }));

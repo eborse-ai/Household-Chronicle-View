@@ -1,0 +1,364 @@
+<template>
+    <div class={groupTimelineClass}>
+
+        <!-- Header -->
+        <div class="c-group-timeline__header">
+            <div class="c-group-timeline__title-area">
+                <template lwc:if={isDrillMode}>
+                    <button class="c-drill-back-btn" onclick={handleDrillBack}>
+                        <lightning-icon icon-name="utility:back" size="xx-small" alternative-text="Back"></lightning-icon>
+                        <span>All Years</span>
+                    </button>
+                    <span class="c-drill-year-label">{drillYearLabel}</span>
+                </template>
+                <template lwc:else>
+                    <h3 class="slds-text-heading_small">Reed Household Timeline</h3>
+                </template>
+                <p class="slds-text-body_small slds-text-color_weak">{timelineMetaText}</p>
+            </div>
+            <div class="c-group-timeline__controls">
+                <!-- New event dropdown -->
+                <div class="c-tl-new-wrap">
+                    <button class="c-tl-ctrl-btn" onclick={handleToggleNewMenu}>
+                        + New
+                        <lightning-icon icon-name="utility:chevrondown" size="xx-small" alternative-text="" class="c-tl-new-chevron"></lightning-icon>
+                    </button>
+                    <template lwc:if={newMenuOpen}>
+                        <div class="c-tl-new-dropdown" role="menu">
+                            <button class="c-tl-new-item" role="menuitem" data-type="life_event" onclick={handleNewMenuSelect}>Life Event</button>
+                            <button class="c-tl-new-item" role="menuitem" data-type="meeting" onclick={handleNewMenuSelect}>Meeting</button>
+                            <button class="c-tl-new-item" role="menuitem" data-type="financial_account" onclick={handleNewMenuSelect}>Financial Account</button>
+                            <button class="c-tl-new-item" role="menuitem" data-type="financial_goal" onclick={handleNewMenuSelect}>Financial Goal</button>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Ask Agentforce CTA -->
+                <template lwc:if={agenticInsightsEnabled}>
+                    <button class="c-ask-agentforce-btn" onclick={handleAskAgentforce}>
+                        <span class="c-af-btn-sparkles" aria-hidden="true">
+                            <span class="c-af-spark c-af-spark_lg">✦</span>
+                            <span class="c-af-spark c-af-spark_sm c-af-spark_tr">✦</span>
+                            <span class="c-af-spark c-af-spark_sm c-af-spark_br">✦</span>
+                        </span>
+                        Ask Agentforce
+                    </button>
+                </template>
+
+                <!-- Monthly / Yearly toggle -->
+                <div class="c-tl-toggle">
+                    <button class={monthlyBtnClass} data-mode="monthly" onclick={handleTimelineMode}>Monthly</button>
+                    <button class={yearlyBtnClass}  data-mode="yearly"  onclick={handleTimelineMode}>Yearly</button>
+                </div>
+
+                <!-- Show All filter dropdown -->
+                <div class="c-tl-new-wrap">
+                    <button class="c-tl-ctrl-btn" onclick={handleToggleFilterMenu}>
+                        {activeFilterLabel}
+                        <lightning-icon icon-name="utility:chevrondown" size="xx-small" alternative-text="Filter" class="c-tl-new-chevron"></lightning-icon>
+                    </button>
+                    <template lwc:if={filterMenuOpen}>
+                        <div class="c-tl-new-dropdown c-tl-filter-dropdown" role="menu">
+                            <template for:each={filterOptions} for:item="opt">
+                                <button key={opt.value} class="c-tl-new-item" role="menuitem" data-value={opt.value} onclick={handleSetFilter}>
+                                    <template lwc:if={opt.isActive}>
+                                        <lightning-icon icon-name="utility:check" size="xx-small" alternative-text="Active" class="c-tl-filter-check"></lightning-icon>
+                                    </template>
+                                    <template lwc:else>
+                                        <span class="c-tl-filter-check-spacer"></span>
+                                    </template>
+                                    {opt.label}
+                                </button>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Expand / full-screen icon -->
+                <button class="c-tl-ctrl-btn c-tl-expand-btn" title="Expand timeline">
+                    <lightning-icon icon-name="utility:expand_alt" size="xx-small" alternative-text="Expand"></lightning-icon>
+                </button>
+            </div>
+        </div>
+
+        <!-- ── Timeline Insights top panel (V2-Experimental only — always visible) ── -->
+        <div class="c-tli-top-panel" role="complementary" aria-label="Timeline Insights">
+                <div class="c-tli-top-panel__header">
+                    <div class="c-tli-top-panel__title-wrap">
+                        <lightning-icon icon-name="utility:metrics" size="xx-small" alternative-text="" class="c-tli-top-panel__title-icon"></lightning-icon>
+                        <span class="c-tli-top-panel__title">Timeline Insights</span>
+                        <span class="c-tli-top-panel__hint">Click an insight to highlight its pill in the timeline.</span>
+                    </div>
+                </div>
+                <div class="c-tli-top-panel__cards">
+                    <template for:each={groupedInsights} for:item="group">
+                        <!-- Section group — labels/dividers removed; category pills on cards communicate grouping -->
+                        <div key={group.id} class={group.groupClass}>
+                            <div class="c-tli-group__cards">
+                                <template for:each={group.cards} for:item="h">
+                                    <div key={h.id}
+                                         class={h.cardClass}
+                                         data-event-id={h.timelineEventId}
+                                         onclick={handleInsightCardClick}
+                                         role="button"
+                                         tabindex="0">
+                                        <div class="c-tli-card__top">
+                                            <!-- Existing type badge + neutral category pill -->
+                                            <div class="c-tli-card__badges">
+                                                <span class={h.badgeClass}>{h.badgeLabel}</span>
+                                                <span class="c-badge c-badge_category">{h.category}</span>
+                                            </div>
+                                        </div>
+                                        <p class="c-tli-card__title">{h.title}</p>
+                                        <p class="c-tli-card__desc">{h.description}</p>
+                                        <!-- Spacer pushes CTA to the bottom of the fixed-height card -->
+                                        <div class="c-tli-card__spacer"></div>
+                                        <template lwc:if={h.actionLabel}>
+                                            <button class="c-tli-card__cta"
+                                                    data-action={h.actionLabel}
+                                                    onclick={handleInsightCta}>
+                                                {h.actionLabel}
+                                            </button>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+        </div>
+
+        <!-- Sticky contextual breadcrumb: shows which year/month is visible while scrolling -->
+        <template lwc:if={showBreadcrumb}>
+            <div class="c-tl-breadcrumb">
+                <span class="c-tl-breadcrumb__icon">◎</span>
+                <span class="c-tl-breadcrumb__label">Viewing</span>
+                <span class="c-tl-breadcrumb__period">{scrollVisibleYear}</span>
+                <!-- Quarter chips moved here from column headers -->
+                <div class="c-tl-breadcrumb__quarters">
+                    <span class={q1Class}>Q1</span>
+                    <span class={q2Class}>Q2</span>
+                    <span class={q3Class}>Q3</span>
+                    <span class={q4Class}>Q4</span>
+                </div>
+            </div>
+        </template>
+
+        <!-- Timeline table (scroll-body handles horizontal overflow) -->
+        <div class="c-group-timeline__body" onscroll={handleTimelineScroll}>
+            <div class={timelineTableClass}>
+                <!-- Header row: Members + year/month columns -->
+                <div class="c-timeline-header">
+                    <div class="c-timeline-member-col c-timeline-header__cell">{timelineMemberHeaderLabel}</div>
+                    <template for:each={timelineYears} for:item="col">
+                        <div key={col.key} class={col.headerCellClass}>
+                            <span class={col.yearLabelClass}>{col.label}</span>
+                            <template lwc:if={col.isYearStart}>
+                                <span class="c-timeline-year-badge">{col.year}</span>
+                            </template>
+                            <!-- Small Q-label at the start of each quarter (in header cell only) -->
+                            <template lwc:if={col.isQuarterStart}>
+                                <span class="c-tl-q-header-label">{col.quarterLabel}</span>
+                            </template>
+                            <template lwc:if={col.showTodayPill}>
+                                <span class="c-today-pill">Today</span>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Member rows -->
+                <template for:each={timelineRows} for:item="row">
+                    <div key={row.memberId} class="c-timeline-row">
+                        <!-- Fixed member cell — spans BOTH sub-tracks via grid-row:1/3 -->
+                        <div class="c-timeline-member-col c-timeline-row__member">
+                            <div class="c-member-info">
+                                <div class="c-member-name-row">
+                                    <span class="c-member-name"><strong>{row.memberName}</strong></span>
+                                    <template lwc:if={row.isPrimary}>
+                                        <span class="c-member-primary-star">★</span>
+                                    </template>
+                                </div>
+                                <p class="c-member-meta">{row.memberRole}</p>
+                                <p class="c-member-meta">{row.ageLabel}</p>
+                                <div class="c-member-strength">
+                                    <span class={row.strengthClass}></span>
+                                    <span class="c-strength-label">{row.relationshipStrength}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ── MILESTONE TRACK (top sub-lane: life events, goals, financial) ── -->
+                        <template for:each={row.yearCells} for:item="cell">
+                            <div key={cell.msKey} class={cell.cellClass} onclick={handleTimelineCellClick}>
+                                <!-- Yearly collapsed: count badge + type dots -->
+                                <template lwc:if={cell.showCount}>
+                                    <button class="c-year-count-badge" data-year={cell.year} onclick={handleYearExpand}>
+                                        {cell.eventCount}
+                                    </button>
+                                    <div class="c-type-dots">
+                                        <template for:each={cell.typeDots} for:item="dot">
+                                            <span key={dot.type} class={dot.dotClass}></span>
+                                        </template>
+                                    </div>
+                                </template>
+                                <!-- Expanded or monthly: individual event pills -->
+                                <template lwc:if={cell.showEvents}>
+                                    <template for:each={cell.events} for:item="evt">
+                                        <div key={evt.id} class="c-pill-wrap">
+                                            <div class="c-pill-inner">
+                                                <span class={evt.pillClass} data-event-id={evt.id} onclick={handlePillClick} role="button" tabindex="0">
+                                                    <span class={evt.iconBadgeClass}>
+                                                        <template lwc:if={evt.isGoal}>
+                                                            <img src="/images/icon-goal.svg?v=3" class="c-pill-icon c-pill-icon_goal" alt="Financial Goal" />
+                                                        </template>
+                                                        <template lwc:else>
+                                                            <lightning-icon icon-name={evt.iconName} size="xx-small" class="c-pill-icon"></lightning-icon>
+                                                        </template>
+                                                    </span>
+                                                    <span class="c-pill-body">
+                                                        <span class="c-pill-label">{evt.label}</span>
+                                                        <template lwc:if={evt.targetYear}>
+                                                            <span class="c-pill-target">Target: {evt.targetYear}</span>
+                                                        </template>
+                                                    </span>
+                                                </span>
+                                                <template lwc:if={evt.isCritical}>
+                                                    <span class="c-pill-critical-badge"></span>
+                                                </template>
+                                                <!-- V2: quick-action chip removed — action is available in the insight card CTA and popover -->
+                                            </div>
+                                            <span class={evt.typeDotClass}></span>
+                                        </div>
+                                    </template>
+                                </template>
+                                <!-- AI sparkle indicators -->
+                                <template lwc:if={cell.hasSparkles}>
+                                    <template for:each={cell.sparkles} for:item="spark">
+                                        <button key={spark.id}
+                                                class="c-sparkle-btn"
+                                                data-sug-id={spark.id}
+                                                onclick={handleSparkleClick}
+                                                title={spark.title}>
+                                            <span aria-hidden="true">✦</span>
+                                        </button>
+                                    </template>
+                                </template>
+                            </div>
+                        </template>
+
+                        <!-- ── ENGAGEMENT TRACK (bottom sub-lane: meetings, interactions) ── -->
+                        <template for:each={row.yearCells} for:item="cell">
+                            <div key={cell.engKey} class={cell.engagementCellClass}>
+                                <template for:each={cell.engagementEvents} for:item="evt">
+                                    <div key={evt.id}>
+                                        <!-- Monthly / drill mode: full pill -->
+                                        <template lwc:if={evt.showAsPill}>
+                                            <div class="c-pill-wrap">
+                                                <span class={evt.pillClass} data-event-id={evt.id} onclick={handlePillClick} role="button" tabindex="0">
+                                                    <span class={evt.iconBadgeClass}>
+                                                        <lightning-icon icon-name={evt.iconName} size="xx-small" class="c-pill-icon"></lightning-icon>
+                                                    </span>
+                                                    <span class="c-pill-body">
+                                                        <span class="c-pill-label">{evt.label}</span>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </template>
+                                        <!-- Yearly mode: compact touchpoint dot -->
+                                        <template lwc:else>
+                                            <button class={evt.engDotClass}
+                                                    data-event-id={evt.id}
+                                                    onclick={handlePillClick}
+                                                    title={evt.label}
+                                                    aria-label={evt.label}>
+                                            </button>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+
+                    </div>
+                </template>
+
+            </div>
+        </div><!-- end c-group-timeline__body -->
+
+        <!-- Legend -->
+        <div class="c-timeline-legend">
+            <!-- Yearly view: simplified two-category dot legend -->
+            <template lwc:if={isYearlyMode}>
+                <span class="c-legend-item">
+                    <span class="c-legend-dot c-legend-dot_milestone"></span>
+                    Events &amp; Milestones
+                </span>
+                <span class="c-legend-item">
+                    <span class="c-legend-dot c-legend-dot_meeting"></span>
+                    Meetings / Calls
+                </span>
+            </template>
+            <!-- Monthly / drill view: icon-per-type legend -->
+            <template lwc:else>
+                <span class="c-legend-item">
+                    <lightning-icon icon-name="utility:event" size="xx-small" class="c-legend-icon c-legend-icon_life"></lightning-icon>
+                    Life Event
+                </span>
+                <span class="c-legend-item">
+                    <lightning-icon icon-name="utility:people" size="xx-small" class="c-legend-icon c-legend-icon_engagement"></lightning-icon>
+                    Meeting / Call
+                </span>
+                <span class="c-legend-item">
+                    <img src="/images/icon-goal.svg?v=3" class="c-legend-icon c-legend-icon_goal" alt="" aria-hidden="true" />
+                    Financial Goal
+                </span>
+                <span class="c-legend-item">
+                    <lightning-icon icon-name="utility:company" size="xx-small" class="c-legend-icon c-legend-icon_financial"></lightning-icon>
+                    Financial Account
+                </span>
+            </template>
+            <span class="c-legend-sep" aria-hidden="true">|</span>
+            <!-- Insight signal legend — same in both views -->
+            <span class="c-legend-item c-legend-item_ins-gap">Gap</span>
+            <span class="c-legend-item c-legend-item_ins-alert">Alert</span>
+            <span class="c-legend-item c-legend-item_ins-opportunity">Opportunity</span>
+        </div>
+
+        <!-- Sparkle suggestion popover -->
+        <template lwc:if={sparklePopoverVisible}>
+            <div class="c-sparkle-popover-backdrop" onclick={handleCloseSparklePopover}></div>
+            <div class="c-sparkle-popover" style={sparklePopoverStyle}>
+                <div class="c-sparkle-popover__arrow"></div>
+                <div class="c-sparkle-popover__toolbar">
+                    <span class="c-sparkle-popover__badge">
+                        <span aria-hidden="true">✦</span>
+                        AI Suggestion
+                    </span>
+                    <div class="c-sparkle-popover__actions">
+                        <button class="c-sparkle-popover__dismiss-btn" onclick={handleCloseSparklePopover} title="Dismiss">
+                            <lightning-icon icon-name="utility:close" size="x-small" alternative-text="Dismiss"></lightning-icon>
+                        </button>
+                    </div>
+                </div>
+                <h3 class="c-sparkle-popover__title">{sparklePopoverSug.title}</h3>
+                <p class="c-sparkle-popover__meta">{sparklePopoverSug.member} · {sparklePopoverSug.targetDate}</p>
+                <p class="c-sparkle-popover__desc">{sparklePopoverSug.description}</p>
+            </div>
+        </template>
+
+    </div>
+
+    <!-- Pill detail popover -->
+    <template lwc:if={popoverVisible}>
+        <ui-event-popover
+            event-data={popoverEventData}
+            panel-style={popoverPanelStyle}
+            arrow-right={popoverArrowRight}
+            no-center={popoverNoCenter}
+            arrow-top-px={popoverArrowTopPx}
+            icon-bg-color={popoverIconBgColor}
+            onclose={handleClosePopover}
+            onctaclick={handlePopoverCta}>
+        </ui-event-popover>
+    </template>
+</template>

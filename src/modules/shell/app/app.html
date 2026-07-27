@@ -32,7 +32,7 @@
                     <div class="app-main">
                         <div class="app-main__inner">
                             <!-- Router outlet -->
-                            <lwc:component lwc:is={componentCtor} onnavigateback={handleNavigateBack} onopentab={handleOpenTab}></lwc:component>
+                            <lwc:component lwc:is={componentCtor} onnavigateback={handleNavigateBack} onopentab={handleOpenTab} onpanelselect={handlePanelSelect}></lwc:component>
                         </div>
                         <shell-theme-switcher
                             slds-version={_sldsVersion}
@@ -48,5 +48,13 @@
             </lightning-layout-item>
         </lightning-layout>
     </main>
+    <!-- Agentforce side panel — rendered at app-shell level (outside scroll containers)
+         so position:fixed applies to the true viewport with no ancestor clipping. -->
+    <template lwc:if={agentforcePanelOpen}>
+        <ui-agentforce-panel
+            default-agent={agentforcePanelDefaultAgent}
+            onpanelclose={handleAgentforcePanelClose}>
+        </ui-agentforce-panel>
+    </template>
     </template>
 </template>

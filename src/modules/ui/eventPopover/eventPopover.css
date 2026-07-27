@@ -28,6 +28,11 @@
     max-height: min(85vh, 580px);
 }
 
+/* When the caller pre-clamps the vertical position (V2), skip the centering transform */
+.c-ep-panel_no-center {
+    transform: none;
+}
+
 /* ── Scrollable body (metrics + AI card + detail sections) ──── */
 .c-ep-body {
     flex: 1;
@@ -181,31 +186,41 @@
 .c-ep-metrics {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    /* No SLDS hook for 0.5rem gap */
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    padding: var(--slds-g-spacing-3, 0.75rem);
     border-bottom: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #dddbda);
 }
 
 .c-ep-metric {
-    padding: var(--slds-g-spacing-3, 0.75rem);
-    border-right: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #dddbda);
+    /* Individual pill-card: light grey background + rounded corners */
+    background: var(--slds-g-color-surface-2, #f3f2f2);
+    /* No SLDS hook for 0.5rem radius */
+    border-radius: 0.5rem;
+    padding: var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-3, 0.75rem);
     display: flex;
     flex-direction: column;
     gap: var(--slds-g-spacing-1, 0.25rem);
+    /* Remove old table-divider border */
+    border-right: none;
 }
 
 .c-ep-metric:last-child { border-right: none; }
 
 .c-ep-metric-label {
     font-size: var(--slds-g-font-scale-neg-3, 0.6875rem);
-    font-weight: var(--slds-g-font-weight-7, 700);
-    letter-spacing: 0.04em;
+    font-weight: var(--slds-g-font-weight-6, 600);
+    letter-spacing: 0.03em;
     text-transform: uppercase;
     color: var(--slds-g-color-on-surface-2, #706e6b);
 }
 
 .c-ep-metric-value {
-    font-size: var(--slds-g-font-scale-2, 1.125rem);
+    /* Reduced from 1.125rem — more compact, still clearly readable */
+    font-size: var(--slds-g-font-scale-1, 1rem);
     font-weight: var(--slds-g-font-weight-7, 700);
     color: var(--slds-g-color-on-surface-1, #080707);
+    line-height: var(--slds-g-font-line-height-condensed, 1.25);
 }
 
 .c-ep-status      { font-size: var(--slds-g-font-scale-neg-1, 0.8125rem); font-weight: var(--slds-g-font-weight-4, 400); color: var(--slds-g-color-on-surface-1, #080707); line-height: var(--slds-g-font-line-height-base, 1.5); }

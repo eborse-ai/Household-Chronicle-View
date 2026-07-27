@@ -15,7 +15,7 @@ const EVENT_DETAILS = {
     e8m: { description: 'Reviewed portfolio performance and confirmed no changes to goals or risk tolerance between annual reviews.', isShared: false, sharedWith: '', isCritical: false, date: 'Mar 2024', membersAffected: 1, status: 'Completed', aiInsight: null, aiActionLabel: null, members: 'Mark Reed', cashFlowImpact: null, beneficiaries: null, actionTaken: 'Portfolio performance reviewed. No changes made.', subject: 'Mid-Year Check-in', startDateTime: 'Mar 14, 2024 · 2:00 PM', location: 'Phone', endDateTime: 'Mar 14, 2024 · 3:00 PM', whoName: 'Mark Reed', relatedTo: 'Reed Household', showTimeAs: 'Busy', engagementNotes: 'Mid-cycle check-in. Portfolio performance reviewed. No changes to goals or risk tolerance.' },
     e8:  { description: "Opened an HSA under a high-deductible plan, used as a stealth retirement vehicle for triple-tax-advantaged growth.", isShared: false, sharedWith: '', isCritical: false, date: 'Feb 2024', membersAffected: 1, status: 'Active', aiInsight: null, aiActionLabel: null, members: 'Mark Reed', cashFlowImpact: '$3,850/yr contribution (2024 limit)', beneficiaries: 'Sara Reed', actionTaken: 'Account opened. Payroll deduction set.', openingDate: 'Feb 2024', totalOutstandingAmount: '$9,200', accountType: 'Health Savings Account', accountNumber: 'HSA-2024-3319', maturityDate: 'N/A', heldAway: 'No' },
     e9:  { description: 'Couple raised upcoming family planning, prompting a forward look at life insurance, cash reserves, and future education funding.', isShared: true, sharedWith: 'Sara Reed', isCritical: false, date: 'Oct 2024', membersAffected: 2, status: 'Completed', aiInsight: null, aiActionLabel: null, members: 'Mark · Sara Reed', cashFlowImpact: null, beneficiaries: null, actionTaken: 'Investment rebalancing recommended and executed.', subject: 'Annual Review', startDateTime: 'Oct 8, 2024 · 10:00 AM', location: 'Office — 123 Market St, SF', endDateTime: 'Oct 8, 2024 · 11:30 AM', whoName: 'Mark Reed · Sara Reed', relatedTo: 'Reed Household', showTimeAs: 'Busy', engagementNotes: 'Family planning discussion raised. Life insurance, reserves, and education funding reviewed for upcoming dependent.' },
-    e10: { description: "Established a $45K new-car fund targeting 2027, funded from the joint brokerage; later at risk as a market dip pressured the funding source.", isShared: false, sharedWith: '', isCritical: true, date: 'Dec 2025', membersAffected: 1, status: 'At Risk', aiInsight: "The $45K car goal (target 2027) relies on brokerage growth. A recent market dip has put the timeline at risk — rebalance or adjust.", aiActionLabel: 'Review Goal Funding', members: 'Mark Reed', cashFlowImpact: '$500/mo target savings', beneficiaries: null, actionTaken: 'Goal recorded. No adjustment made.', targetAmount: '$45,000', targetDate: 'Feb 2027', priority: 'High', goalType: 'Savings', actualAmount: '$18,500', estSuccess: '42%', startDate: 'Jan 2025', pace: 'Behind', todayPct: 50, linkedAccount: { name: 'Joint Brokerage', number: 'BRK-2020-4471', contributionAmount: '$18,500', availableBalance: '$261,500' }, competingGoals: [{ name: 'Home Purchase', amount: 'Not started', status: 'Pending', statusClass: 'c-ep-goal-competing-status' }] },
+    e10: { description: "Established a $45K new-car fund targeting 2027, funded from the joint brokerage; later at risk as a market dip pressured the funding source.", isShared: false, sharedWith: '', isCritical: true, date: 'Dec 2025', membersAffected: 1, status: 'At Risk', aiInsight: "The $45K car goal (target 2027) relies on brokerage growth. A recent market dip has put the timeline at risk — rebalance or adjust.", aiActionLabel: 'Review Goal', members: 'Mark Reed', cashFlowImpact: '$500/mo target savings', beneficiaries: null, actionTaken: 'Goal recorded. No adjustment made.', targetAmount: '$45,000', targetDate: 'Feb 2027', priority: 'High', goalType: 'Savings', actualAmount: '$18,500', estSuccess: '42%', startDate: 'Jan 2025', pace: 'Behind', todayPct: 50, linkedAccount: { name: 'Joint Brokerage', number: 'BRK-2020-4471', contributionAmount: '$18,500', availableBalance: '$261,500' }, competingGoals: [{ name: 'Home Purchase', amount: 'Not started', status: 'Pending', statusClass: 'c-ep-goal-competing-status' }] },
     e11: { description: "Emma Reed was born, the couple's first child, triggering a life-insurance review, a new education-funding goal, and updated beneficiaries.", isShared: true, sharedWith: 'Sara Reed · Emma Reed', isCritical: true, date: 'Apr 14, 2026', membersAffected: 3, status: 'No plan update', aiInsight: "Emma was born in April 2026 — no 529 plan has been opened. Starting now maximises compounding over 17+ years before college.", aiActionLabel: 'Start 529 Plan', members: 'Mark · Sara · Emma Reed', cashFlowImpact: '$2,800/mo starting Aug 2026', beneficiaries: 'Not updated — Emma not named', actionTaken: 'None on record', primaryPerson: 'Mark Reed', relatedPerson: 'Sara Reed · Emma Reed', eventLocation: 'Austin, TX', eventDescription: "Emma Reed was born on April 14, 2026 — the couple's first child. Event triggered a life-insurance review, a new education-funding goal, and the need to update beneficiaries across all accounts. No 529 plan has been opened.", owner: 'James Parker, CFP' },
     e12: { description: 'Purchased a term-life policy to protect the family\'s income after Emma\'s birth, closing the protection gap from the new dependent.', isShared: false, sharedWith: '', isCritical: false, date: 'Jun 2026', membersAffected: 1, status: 'Active', aiInsight: "Sara does not have equivalent term coverage. Recommend evaluating a matching policy for Sara given the shared income and dependent care obligations.", aiActionLabel: "Review Sara's Coverage", members: 'Mark Reed', cashFlowImpact: '$85/mo premium', beneficiaries: 'Sara Reed (primary), Emma Reed (contingent)', actionTaken: 'Policy purchased and documented.', openingDate: 'Jun 2026', totalOutstandingAmount: '$1,000,000', accountType: '20-Year Term Life', accountNumber: 'TL-2026-7754', maturityDate: 'Jun 2046', heldAway: 'No' },
     e13: { description: 'Couple raised upcoming family planning, prompting a forward look at life insurance, cash reserves, and future education funding.', isShared: false, sharedWith: '', isCritical: false, date: 'Oct 2025', membersAffected: 1, status: 'Completed', aiInsight: null, aiActionLabel: null, members: 'Mark Reed', cashFlowImpact: null, beneficiaries: null, actionTaken: 'Review completed.', subject: 'Annual Review', startDateTime: 'Oct 25, 2025 · 10:00 AM', location: 'Video Call', endDateTime: 'Oct 25, 2025 · 11:00 AM', whoName: 'Mark Reed', relatedTo: 'Reed Household', showTimeAs: 'Busy', engagementNotes: 'Couple raised upcoming family planning. Life insurance, cash reserves, and future education funding reviewed.' },
@@ -42,7 +42,7 @@ const EVENT_DETAILS = {
     me1g: { description: 'Purchased their first home (3-bed/2-bath single-family), shifting cash flow to a mortgage and reshaping savings capacity.', isShared: true, sharedWith: 'Sara Reed', isCritical: false, date: 'Aug 2023', membersAffected: 2, status: 'Completed', aiInsight: "New mortgage has not triggered a review of life insurance coverage or beneficiary updates. Recommend scheduling a protection review.", aiActionLabel: 'Schedule Protection Review', members: 'Mark · Sara Reed', cashFlowImpact: '$2,100/mo mortgage', beneficiaries: 'Not updated post-purchase', actionTaken: 'Home purchase recorded.', sentimentInsights: [{ name: 'Mark Reed', role: 'Primary Client', keyword: 'Pragmatic', insight: 'Equity-focused mindset; open to re-balancing towards mortgage paydown over aggressive investing.' }, { name: 'Sara Reed', role: 'Co-client', keyword: 'Security-driven', insight: 'Home ownership has heightened need for financial stability; insurance and emergency reserves are top of mind.' }], primaryPerson: 'Mark Reed', relatedPerson: 'Sara Reed', eventLocation: 'Austin, TX', eventDescription: 'First home purchase — 3-bed/2-bath single-family in Austin. Down payment funded from joint brokerage. Monthly mortgage of $2,100/mo began in August 2023. Beneficiaries not updated post-purchase.', owner: 'James Parker, CFP' },
     me1h: { description: "Opened an HSA under a high-deductible plan, used as a stealth retirement vehicle for triple-tax-advantaged growth.", isShared: false, sharedWith: '', isCritical: false, date: 'Feb 2024', membersAffected: 1, status: 'Active', aiInsight: null, aiActionLabel: null, members: 'Mark Reed', cashFlowImpact: '$3,850/yr contribution (2024 limit)', beneficiaries: 'Sara Reed', actionTaken: 'Account opened. Payroll deduction set.', openingDate: 'Feb 2024', totalOutstandingAmount: '$9,200', accountType: 'Health Savings Account', accountNumber: 'HSA-2024-3319', maturityDate: 'N/A', heldAway: 'No' },
     me1i: { description: 'Couple raised upcoming family planning, prompting a forward look at life insurance, cash reserves, and future education funding.', isShared: true, sharedWith: 'Sara Reed', isCritical: false, date: 'Oct 2024', membersAffected: 2, status: 'Completed', aiInsight: null, aiActionLabel: null, members: 'Mark · Sara Reed', cashFlowImpact: null, beneficiaries: null, actionTaken: 'Investment rebalancing recommended and executed.', subject: 'Annual Review', startDateTime: 'Oct 8, 2024 · 10:00 AM', location: 'Office — 123 Market St, SF', endDateTime: 'Oct 8, 2024 · 11:30 AM', whoName: 'Mark Reed · Sara Reed', relatedTo: 'Reed Household', showTimeAs: 'Busy', engagementNotes: 'Family planning discussion raised. Life insurance, reserves, and education funding reviewed for upcoming dependent.' },
-    me1j: { description: "Established a $45K new-car fund targeting 2027, funded from the joint brokerage; later at risk as a market dip pressured the funding source.", isShared: false, sharedWith: '', isCritical: true, date: 'Dec 2025', membersAffected: 1, status: 'At Risk', aiInsight: "The $45K car goal (target 2027) relies on brokerage growth. A recent market dip has put the timeline at risk — rebalance or adjust.", aiActionLabel: 'Review Goal Funding', members: 'Mark Reed', cashFlowImpact: '$500/mo target savings', beneficiaries: null, actionTaken: 'Goal recorded. No adjustment made.', targetAmount: '$45,000', targetDate: 'Feb 2027', priority: 'High', goalType: 'Savings', actualAmount: '$18,500', estSuccess: '42%', startDate: 'Jan 2025', pace: 'Behind', todayPct: 50, linkedAccount: { name: 'Joint Brokerage', number: 'BRK-2020-4471', contributionAmount: '$18,500', availableBalance: '$261,500' }, competingGoals: [{ name: 'Home Purchase', amount: 'Not started', status: 'Pending', statusClass: 'c-ep-goal-competing-status' }] },
+    me1j: { description: "Established a $45K new-car fund targeting 2027, funded from the joint brokerage; later at risk as a market dip pressured the funding source.", isShared: false, sharedWith: '', isCritical: true, date: 'Dec 2025', membersAffected: 1, status: 'At Risk', aiInsight: "The $45K car goal (target 2027) relies on brokerage growth. A recent market dip has put the timeline at risk — rebalance or adjust.", aiActionLabel: 'Review Goal', members: 'Mark Reed', cashFlowImpact: '$500/mo target savings', beneficiaries: null, actionTaken: 'Goal recorded. No adjustment made.', targetAmount: '$45,000', targetDate: 'Feb 2027', priority: 'High', goalType: 'Savings', actualAmount: '$18,500', estSuccess: '42%', startDate: 'Jan 2025', pace: 'Behind', todayPct: 50, linkedAccount: { name: 'Joint Brokerage', number: 'BRK-2020-4471', contributionAmount: '$18,500', availableBalance: '$261,500' }, competingGoals: [{ name: 'Home Purchase', amount: 'Not started', status: 'Pending', statusClass: 'c-ep-goal-competing-status' }] },
     me1k: { description: "Emma Reed was born, the couple's first child, triggering a life-insurance review, a new education-funding goal, and updated beneficiaries.", isShared: true, sharedWith: 'Sara Reed · Emma Reed', isCritical: true, date: 'Apr 14, 2026', membersAffected: 3, status: 'No plan update', aiInsight: "Emma was born in April 2026 — no 529 plan has been opened. Starting now maximises compounding over 17+ years before college.", aiActionLabel: 'Start 529 Plan', members: 'Mark · Sara · Emma Reed', cashFlowImpact: '$2,800/mo starting Aug 2026', beneficiaries: 'Not updated — Emma not named', actionTaken: 'None on record', primaryPerson: 'Mark Reed', relatedPerson: 'Sara Reed · Emma Reed', eventLocation: 'Austin, TX', eventDescription: "Emma Reed was born on April 14, 2026 — the couple's first child. Event triggered a life-insurance review, a new education-funding goal, and the need to update beneficiaries across all accounts. No 529 plan has been opened.", owner: 'James Parker, CFP' },
     me1l: { description: 'Purchased a term-life policy to protect the family\'s income after Emma\'s birth, closing the protection gap from the new dependent.', isShared: false, sharedWith: '', isCritical: false, date: 'Jun 2026', membersAffected: 1, status: 'Active', aiInsight: "Sara does not have equivalent term coverage. Recommend evaluating a matching policy for Sara given the shared income and dependent care obligations.", aiActionLabel: "Review Sara's Coverage", members: 'Mark Reed', cashFlowImpact: '$85/mo premium', beneficiaries: 'Sara Reed (primary), Emma Reed (contingent)', actionTaken: 'Policy purchased and documented.', openingDate: 'Jun 2026', totalOutstandingAmount: '$1,000,000', accountType: '20-Year Term Life', accountNumber: 'TL-2026-7754', maturityDate: 'Jun 2046', heldAway: 'No' },
     me1: { description: "Mark took 4 weeks of paternity leave following Emma's birth. Employer provides 4 weeks of paid leave.", isShared: false, sharedWith: '', isCritical: false, date: 'Aug 2025', membersAffected: 1, status: 'Completed', aiInsight: null, aiActionLabel: null, members: 'Mark Reed', cashFlowImpact: 'No income impact (paid leave)', beneficiaries: null, actionTaken: 'Leave recorded.' },
@@ -58,7 +58,7 @@ const EVENT_DETAILS = {
     me7c: { description: 'Focused on home-purchase readiness; modeled down-payment funding and timing. Mark flagged the RSU grant as a future liquidity source.', isShared: true, sharedWith: 'Mark Reed', isCritical: false, date: 'Oct 2022', membersAffected: 2, status: 'Completed', aiInsight: null, aiActionLabel: null, members: 'Sara · Mark Reed', cashFlowImpact: null, beneficiaries: null, actionTaken: 'Goals updated. No allocation changes needed.', subject: 'Annual Review', startDateTime: 'Oct 12, 2022 · 10:00 AM', location: 'Office — 123 Market St, SF', endDateTime: 'Oct 12, 2022 · 11:00 AM', whoName: 'Sara Reed · Mark Reed', relatedTo: 'Reed Household', showTimeAs: 'Busy', engagementNotes: 'Home-purchase readiness discussion. Down-payment modeled. RSU grant noted as future liquidity source.' },
     me7d: { description: 'Purchased their first home (3-bed/2-bath single-family), shifting cash flow to a mortgage and reshaping savings capacity.', isShared: true, sharedWith: 'Mark Reed', isCritical: false, date: 'Aug 2023', membersAffected: 2, status: 'Completed', aiInsight: null, aiActionLabel: null, members: 'Sara · Mark Reed', cashFlowImpact: '$2,100/mo mortgage', beneficiaries: null, actionTaken: 'Home purchase recorded in plan.', primaryPerson: 'Sara Reed', relatedPerson: 'Mark Reed', eventLocation: 'Austin, TX', eventDescription: 'First home purchase — 3-bed/2-bath single-family in Austin. Down payment funded from joint brokerage. Monthly mortgage of $2,100/mo began in August 2023.', owner: 'James Parker, CFP' },
     me7e: { description: 'Couple raised upcoming family planning, prompting a forward look at life insurance, cash reserves, and future education funding.', isShared: true, sharedWith: 'Mark Reed', isCritical: false, date: 'Oct 2024', membersAffected: 2, status: 'Completed', aiInsight: null, aiActionLabel: null, members: 'Sara · Mark Reed', cashFlowImpact: null, beneficiaries: null, actionTaken: 'All goals on track at time of review.', subject: 'Annual Review', startDateTime: 'Oct 8, 2024 · 10:00 AM', location: 'Office — 123 Market St, SF', endDateTime: 'Oct 8, 2024 · 11:30 AM', whoName: 'Sara Reed · Mark Reed', relatedTo: 'Reed Household', showTimeAs: 'Busy', engagementNotes: 'Family planning discussion raised. Life insurance, reserves, and education funding reviewed for upcoming dependent.' },
-    me7f: { description: "Established a $45K new-car fund targeting 2027, funded from the joint brokerage; later at risk as a market dip pressured the funding source.", isShared: false, sharedWith: '', isCritical: true, date: 'Dec 2025', membersAffected: 1, status: 'At Risk', aiInsight: "The $45K car goal (target 2027) relies on brokerage growth. A recent market dip has put the timeline at risk — rebalance or adjust.", aiActionLabel: 'Review Goal Funding', members: 'Mark Reed', cashFlowImpact: '$500/mo target savings', beneficiaries: null, actionTaken: 'Goal recorded.', targetAmount: '$45,000', targetDate: 'Feb 2027', priority: 'High', goalType: 'Savings', actualAmount: '$18,500', estSuccess: '42%', startDate: 'Jan 2025', pace: 'Behind', todayPct: 50, linkedAccount: { name: 'Joint Brokerage', number: 'BRK-2020-4471', contributionAmount: '$18,500', availableBalance: '$261,500' }, competingGoals: [{ name: 'Home Purchase', amount: 'Not started', status: 'Pending', statusClass: 'c-ep-goal-competing-status' }] },
+    me7f: { description: "Established a $45K new-car fund targeting 2027, funded from the joint brokerage; later at risk as a market dip pressured the funding source.", isShared: false, sharedWith: '', isCritical: true, date: 'Dec 2025', membersAffected: 1, status: 'At Risk', aiInsight: "The $45K car goal (target 2027) relies on brokerage growth. A recent market dip has put the timeline at risk — rebalance or adjust.", aiActionLabel: 'Review Goal', members: 'Mark Reed', cashFlowImpact: '$500/mo target savings', beneficiaries: null, actionTaken: 'Goal recorded.', targetAmount: '$45,000', targetDate: 'Feb 2027', priority: 'High', goalType: 'Savings', actualAmount: '$18,500', estSuccess: '42%', startDate: 'Jan 2025', pace: 'Behind', todayPct: 50, linkedAccount: { name: 'Joint Brokerage', number: 'BRK-2020-4471', contributionAmount: '$18,500', availableBalance: '$261,500' }, competingGoals: [{ name: 'Home Purchase', amount: 'Not started', status: 'Pending', statusClass: 'c-ep-goal-competing-status' }] },
     me7g: { description: "Emma Reed was born, the couple's first child, triggering a life-insurance review, a new education-funding goal, and updated beneficiaries.", isShared: true, sharedWith: 'Mark Reed · Emma Reed', isCritical: true, date: 'Apr 14, 2026', membersAffected: 3, status: 'No plan update', aiInsight: "Emma was born in April 2026 — no 529 plan has been opened. Starting now maximises compounding over 17+ years before college.", aiActionLabel: 'Start 529 Plan', members: 'Sara · Mark · Emma Reed', cashFlowImpact: '–$4,200/mo (parental leave)', beneficiaries: 'Not updated — Emma not named', actionTaken: 'None on record', primaryPerson: 'Sara Reed', relatedPerson: 'Mark Reed · Emma Reed', eventLocation: 'Austin, TX', eventDescription: "Emma Reed was born on April 14, 2026 — the couple's first child. Sara entered parental leave. Event triggered life-insurance review and the need to update beneficiaries. No 529 plan has been opened.", owner: 'James Parker, CFP' },
     me7h: { description: "Sara's parental leave began April 14, 2026, following Emma's birth. Employer provides 16 weeks of paid parental leave.", isShared: false, sharedWith: '', isCritical: false, date: 'Apr 2025', membersAffected: 1, status: 'Active', aiInsight: "Maternity leave reduces household cash flow by ~$4,200/mo. No emergency reserve drawdown plan has been initiated. Daycare costs of $2,800/mo will begin in approximately 6 months.", aiActionLabel: 'Review Cash-Flow Plan', members: 'Sara Reed', cashFlowImpact: '–$4,200/mo (partial income reduction)', beneficiaries: null, actionTaken: 'Leave period recorded. No cash-flow plan initiated.' },
     me7: { description: "Emma Reed born. Sara enters maternity leave immediately post-delivery. Household income reduced during leave period.", isShared: true, sharedWith: 'Mark Reed · Emma Reed', isCritical: true, date: 'Aug 2025', membersAffected: 3, status: 'No plan update', aiInsight: "Sara's maternity leave reduces household income. No cash-flow plan or short-term reallocation has been initiated. Daycare costs will begin in ~6 months.", aiActionLabel: 'Review Cash-Flow Impact', members: 'Sara · Mark · Emma Reed', cashFlowImpact: '–$4,200/mo (maternity leave)', beneficiaries: 'Not updated — Emma not named', actionTaken: 'None on record' },
@@ -142,33 +142,45 @@ const ENRICHMENT = {
                 id: 'h1',
                 badgeLabel: 'Gap',
                 badgeClass: 'c-badge c-badge_gap',
+                category: 'Life Event Gaps',
                 title: "Open 529 Savings Plan for Emma",
                 description: "Emma was born in April 2026 — no 529 plan has been opened. Starting now maximises compounding over 17+ years before college.",
                 actionLabel: 'Start 529 Plan',
+                timelineEventId: 'e23',   // Born life-event pill (Emma Reed row, Apr 2026)
+                hideFromAlerts: true,
             },
             {
                 id: 'h2',
                 badgeLabel: 'Opportunity',
                 badgeClass: 'c-badge c-badge_opportunity',
+                category: 'Relationship Health',
                 title: "Engage Sara in the Planning Conversation",
                 description: "Sara has been absent from the last two annual reviews (2025, 2026). A dedicated 1:1 can re-anchor her as an active co-client.",
-                actionLabel: 'Schedule 1:1 with Sara',
+                actionLabel: 'Create Meeting',
+                timelineEventId: 'e14',   // Mid-Year Review Jun 2026 (Mark Reed row)
+                hideFromAlerts: true,
             },
             {
                 id: 'h3',
                 badgeLabel: 'Predicted',
                 badgeClass: 'c-badge c-badge_predicted',
+                category: 'Generational Wealth Readiness',
                 title: "RSU Vesting — Tax & Investment Strategy",
                 description: "Mark's 4-year RSU grant (flagged in Oct 2022 review) is expected to vest in Feb 2027 (~$40K net). Plan now for tax-efficient reinvestment.",
                 actionLabel: 'Model RSU Reinvestment',
+                timelineEventId: 'e15',   // RSU Vesting pill (Mark Reed row, Jan 2027)
+                hideFromTimeline: true,
             },
             {
                 id: 'h5',
                 badgeLabel: 'Alert',
                 badgeClass: 'c-badge c-badge_alert',
+                category: 'Generational Wealth Readiness',
                 title: "New-Car Goal at Risk from Market Dip",
                 description: "The $45K car goal (target 2027) relies on brokerage growth. A recent market dip has put the timeline at risk — rebalance or adjust.",
-                actionLabel: 'Review Goal Funding',
+                actionLabel: 'Review Goal',
+                timelineEventId: 'e10',   // Car Goal Set pill (Mark Reed row, Dec 2025)
+                hideFromAlerts: true,
             },
         ],
         aiSuggestions: [],
@@ -431,7 +443,6 @@ const ENRICHMENT = {
                     { id: 'e8m', year: 2024, month: 'Mar 2024', label: 'Mid-Year Check-in', type: 'engagement' },
                     { id: 'e9',  year: 2024, month: 'Oct 2024', label: 'Annual Review',     type: 'engagement' },
                     { id: 'e10', year: 2025, month: 'Dec 2025', label: 'Car Goal Set',    type: 'goal', targetYear: 2027 },
-                    { id: 'e11', year: 2026, month: 'Apr 2026', label: 'Emma Born',       type: 'life'         },
                     { id: 'e12', year: 2026, month: 'Jun 2026', label: 'Term Life',       type: 'financial'    },
                     { id: 'e13', year: 2025, month: 'Oct 2025', label: 'Annual Review',   type: 'engagement'   },
                     { id: 'e_mc26', year: 2026, month: 'Mar 2026', label: 'Mid-Year Check-in', type: 'engagement' },
@@ -455,7 +466,6 @@ const ENRICHMENT = {
                     { id: 'e18', year: 2022, month: 'Oct 2022', label: 'Annual Review',  type: 'engagement' },
                     { id: 'e19', year: 2023, month: 'Aug 2023', label: 'Home Purchase',  type: 'life'      },
                     { id: 'e20', year: 2024, month: 'Oct 2024', label: 'Annual Review',  type: 'engagement' },
-                    { id: 'e22', year: 2026, month: 'Apr 2026', label: 'Emma Born',      type: 'life'      },
                 ],
             },
             {
@@ -494,14 +504,13 @@ const ENRICHMENT = {
                     { id: 'me1h', month: 'Feb 2024', label: 'HSA Opened',          type: 'financial' },
                     { id: 'e8m',  month: 'Mar 2024', label: 'Mid-Year Check-in',  type: 'engagement' },
                     { id: 'me1i', month: 'Oct 2024', label: 'Annual Review',       type: 'engagement' },
-                    { id: 'me1j', month: 'Dec 2025', label: 'Car Goal Set',      type: 'goal', targetYear: 2027 },
-                    { id: 'me1k', month: 'Apr 2026', label: 'Emma Born',         type: 'life'      },
-                    { id: 'me1l', month: 'Jun 2026', label: 'Term Life',         type: 'financial' },
-                    { id: 'me2',  month: 'Oct 2025', label: 'Annual Review',     type: 'engagement' },
-
-
-                    { id: 'e_mc26', month: 'Mar 2026', label: 'Mid-Year Check-in', type: 'engagement' },
-                    { id: 'e_ar26', month: 'Oct 2026', label: 'Annual Review',    type: 'engagement' },
+                    { id: 'e10',    month: 'Dec 2025', label: 'Car Goal Set',       type: 'goal',       targetYear: 2027 },
+                    { id: 'me1l',   month: 'Jun 2026', label: 'Term Life',          type: 'financial' },
+                    { id: 'me2',    month: 'Oct 2025', label: 'Annual Review',      type: 'engagement' },
+                    { id: 'e_mc26', month: 'Mar 2026', label: 'Mid-Year Check-in',  type: 'engagement' },
+                    { id: 'e14',    month: 'Jun 2026', label: 'Mid-Year Check-in',  type: 'engagement' },
+                    { id: 'e_ar26', month: 'Oct 2026', label: 'Annual Review',      type: 'engagement' },
+                    { id: 'e15',    month: 'Jan 2027', label: 'RSU Vesting',        type: 'goal' },
                 ],
             },
             {
@@ -520,7 +529,6 @@ const ENRICHMENT = {
                     { id: 'me7c', month: 'Oct 2022', label: 'Annual Review',  type: 'engagement' },
                     { id: 'me7d', month: 'Aug 2023', label: 'Home Purchase',  type: 'life'      },
                     { id: 'me7e', month: 'Oct 2024', label: 'Annual Review',  type: 'engagement' },
-                    { id: 'me7g', month: 'Apr 2026', label: 'Emma Born',      type: 'life'      },
                 ],
             },
             {
@@ -533,7 +541,8 @@ const ENRICHMENT = {
                 relationshipStrength: 'N/A',
                 strengthClass: 'c-strength-dot c-strength-dot_na',
                 events: [
-                    { id: 'me9a', month: 'Apr 2026', label: 'Born',         type: 'life' },
+                    { id: 'e23',  month: 'Apr 2026', label: 'Born',      type: 'life' },
+                    { id: 'e24',  month: 'Jan 2027', label: '529 Plan',  type: 'goal', targetYear: 2043 },
                 ],
             },
         ],
@@ -734,6 +743,8 @@ export default class AccountDetail extends LightningElement {
     get relMapMembers()         { return this._enrichment?.relMapMembers        || []; }
     get relMapRecommendations() { return this._enrichment?.relMapRecommendations || []; }
     get highlights()            { return this._enrichment?.highlights            || []; }
+    // Subset shown in the Alerts & Insights sidebar — excludes items flagged hideFromAlerts
+    get alertsInsights()        { return this.highlights.filter(h => !h.hideFromAlerts); }
     get meetings()              { return this._enrichment?.meetings               || []; }
 
     get agenticMetrics() {
@@ -847,24 +858,31 @@ export default class AccountDetail extends LightningElement {
                 };
             });
         }
+        const Q_MAP = { Jan: 'Q1', Apr: 'Q2', Jul: 'Q3', Oct: 'Q4' };
         return TIMELINE_MONTHS.map((m, idx) => {
-            const isToday     = m === CURRENT_MONTH;
-            const isPredicted = idx > CURRENT_MONTH_IDX;
-            const isYearStart = m.startsWith('Jan ');
-            const year        = m.split(' ')[1]; // e.g. '2020'
+            const isToday        = m === CURRENT_MONTH;
+            const isPredicted    = idx > CURRENT_MONTH_IDX;
+            const month          = m.split(' ')[0];
+            const year           = m.split(' ')[1]; // e.g. '2020'
+            const isYearStart    = month === 'Jan';
+            const quarterLabel   = Q_MAP[month] || null;
+            const isQuarterStart = !!quarterLabel; // true for Jan, Apr, Jul, Oct
             return {
                 key: m,
                 label: m.slice(0, 3),
                 year,
                 isYearStart,
+                isQuarterStart,
+                quarterLabel,
                 yearLabelClass: 'c-timeline-year-label',
                 isToday,
                 isPredicted,
                 showTodayPill: isToday,
                 headerCellClass: 'c-timeline-year-col c-timeline-header__cell'
-                    + (isYearStart  ? ' c-timeline-header__cell_year-start' : '')
-                    + (isToday      ? ' c-timeline-header__cell_today'      : '')
-                    + (isPredicted  ? ' c-timeline-header__cell_predicted'  : ''),
+                    + (isYearStart                       ? ' c-timeline-header__cell_year-start' : '')
+                    + (isQuarterStart && !isYearStart    ? ' c-timeline-header__cell_q-start'    : '')
+                    + (isToday                           ? ' c-timeline-header__cell_today'      : '')
+                    + (isPredicted                       ? ' c-timeline-header__cell_predicted'  : ''),
             };
         });
     }
@@ -911,7 +929,7 @@ export default class AccountDetail extends LightningElement {
             life:        'utility:event',
             engagement:  'utility:people',
             meeting:     'utility:event',
-            goal:        'utility:priority',
+            goal:        'standard:goal',
             financial:   'utility:company',
             transaction: 'utility:money',
         };
@@ -942,9 +960,13 @@ export default class AccountDetail extends LightningElement {
                     .filter((e) => this.isYearlyMode ? e.year === col.key : e.month === col.key)
                     .map((e) => {
                         const det = EVENT_DETAILS[e.id] || null;
+                        const highlighted = e.id === this._highlightedPillId;
                         return {
                             ...e,
-                            pillClass:    PILL[e.type] || PILL.financial,
+                            pillClass:       (PILL[e.type] || PILL.financial) + (highlighted ? ' c-pill_highlighted' : ''),
+                            isGoal:          e.type === 'goal',
+                            isFinancial:     e.type === 'financial',
+                            quickActionLabel: highlighted ? this._highlightedActionLabel : null,
                             detail:       det,
                             isCritical:   !!(det?.isCritical),
                             isShared:       !!(det?.isShared),
@@ -991,6 +1013,8 @@ export default class AccountDetail extends LightningElement {
                         return {
                             ...ae,
                             pillClass:      (PILL[ae.type] || PILL.goal) + ' c-event-pill_suggestion',
+                            isGoal:         ae.type === 'goal',
+                            isFinancial:    ae.type === 'financial',
                             detail:         sugDetail,
                             isCritical:     false,
                             typeDotClass:   TYPE_DOT[ae.type]       || 'c-type-dot',
@@ -999,12 +1023,27 @@ export default class AccountDetail extends LightningElement {
                         };
                     });
 
-                /* Apply timeline type filter (meetings always excluded) */
+                /* Apply timeline type filter — only to milestone track */
                 const TYPE_FILTER_MAP = { life: 'life', engagement: 'engagement', goal: 'goal', financial: 'financial' };
                 const filterType = TYPE_FILTER_MAP[this._activeFilter] || null;
-                const allEvts = [...evts, ...mergedSugEvts]
-                    .filter(e => e.type !== 'meeting')
+
+                // Milestone track: life, goal, financial, transaction (no meetings)
+                const milestoneEvts = [...evts, ...mergedSugEvts]
+                    .filter(e => !['meeting', 'engagement'].includes(e.type))
                     .filter(e => !filterType || e.type === filterType);
+
+                // Engagement track: meetings + engagements
+                // Yearly → colored touchpoint dots; Monthly/Drill → full pills
+                const engagementEvts = evts
+                    .filter(e => ['meeting', 'engagement'].includes(e.type))
+                    .map(e => ({
+                        ...e,
+                        engDotClass:  'c-eng-dot c-eng-dot_' + e.type,
+                        showAsPill:   this.isMonthlyMode || this.isDrillMode,
+                    }));
+
+                // allEvts drives connectors post-process (milestones only)
+                const allEvts = milestoneEvts;
 
                 /* Sparkle indicators for pending AI suggestions in this cell */
                 const sparkles = pendingSugs.filter((s) => {
@@ -1015,26 +1054,38 @@ export default class AccountDetail extends LightningElement {
                     return memberMatch && periodMatch;
                 });
 
-                const uniqueTypes = [...new Set(allEvts.map((e) => e.type))];
+                const uniqueTypes = [...new Set(milestoneEvts.map((e) => e.type))];
+                // Shared border-modifier suffix (same logic for both tracks)
+                const _borderMods =
+                      (col.isYearStart && !col.isToday                ? ' c-timeline-row__cell_year-start' : '')
+                    + (col.isQuarterStart && !col.isYearStart && !col.isToday ? ' c-timeline-row__cell_q-start' : '')
+                    + (col.isToday && this.isYearlyMode               ? ' c-timeline-row__cell_today_yr'   : '')
+                    + (col.isToday && !this.isYearlyMode              ? ' c-timeline-row__cell_today'      : '')
+                    + (col.isPredicted                                ? ' c-timeline-row__cell_predicted'  : '');
                 return {
-                    key:  `${m.memberId}-${col.key}`,
-                    year: col.key,
-                    cellClass: 'c-timeline-year-col c-timeline-row__cell'
-                        + (col.isYearStart && !col.isToday   ? ' c-timeline-row__cell_year-start' : '')
-                        + (col.isToday && this.isYearlyMode  ? ' c-timeline-row__cell_today_yr'   : '')
-                        + (col.isToday && !this.isYearlyMode ? ' c-timeline-row__cell_today'       : '')
-                        + (col.isPredicted ? ' c-timeline-row__cell_predicted' : ''),
-                    events:      allEvts,
-                    eventCount:  allEvts.length,
-                    // typeDots only shown in yearly collapsed view (auto-hidden by CSS in monthly/drill)
+                    key:        `${m.memberId}-${col.key}`,
+                    msKey:      `${m.memberId}-${col.key}-ms`,
+                    engKey:     `${m.memberId}-${col.key}-eng`,
+                    year:       col.key,
+                    memberId:   m.memberId,
+                    memberName: m.memberName,
+                    // ── Milestone track (top sub-lane) ──
+                    cellClass: 'c-timeline-year-col c-timeline-row__cell c-milestone-cell' + _borderMods,
+                    events:      milestoneEvts,
+                    eventCount:  milestoneEvts.length,
                     typeDots:    uniqueTypes.map((t) => ({ type: t, dotClass: TYPE_DOT[t] || 'c-type-dot' })),
-                    showCount:   this.isYearlyMode && allEvts.length > 0,
-                    showEvents:  !this.isYearlyMode,   // drill + monthly both show events directly
-                    showAdd:     allEvts.length === 0 && col.isPredicted && sparkles.length === 0 && !this.isYearlyMode,
+                    showCount:   this.isYearlyMode && milestoneEvts.length > 0,
+                    showEvents:  !this.isYearlyMode,
+                    showAdd:     milestoneEvts.length === 0 && col.isPredicted && sparkles.length === 0 && !this.isYearlyMode,
                     sparkles,
                     hasSparkles: sparkles.length > 0,
-                    hasConnectorBelow: false, // filled in post-process
-                    hasConnectorAbove: false, // filled in post-process
+                    // ── Engagement track (bottom sub-lane) ──
+                    engagementCellClass: 'c-timeline-year-col c-timeline-row__cell c-engagement-cell' + _borderMods,
+                    engagementEvents: engagementEvts,
+                    hasEngagement:    engagementEvts.length > 0,
+                    // ── Shared connectors ──
+                    hasConnectorBelow: false,
+                    hasConnectorAbove: false,
                 };
             }),
         }));
@@ -1093,10 +1144,33 @@ export default class AccountDetail extends LightningElement {
     // Wealth journey uses monthly-width layout in drill or monthly mode
     get wealthJourneyIsMonthly() { return this.isMonthlyMode || this.isDrillMode; }
 
-    @track _agentforceOpen     = false;
+    // ── Chronicle View version toggle ────────────────────────────────────────
+    @track _chronicleVersion = 'v1'; // 'v1' | 'v2'
+    get isChronicleV1()  { return this._chronicleVersion === 'v1'; }
+    get toggleV1Class()  { return 'c-cv-toggle__btn' + (this._chronicleVersion === 'v1' ? ' c-cv-toggle__btn_active' : ''); }
+    get toggleV2Class()  { return 'c-cv-toggle__btn' + (this._chronicleVersion === 'v2' ? ' c-cv-toggle__btn_active' : ''); }
+    handleChronicleVersionToggle(event) { this._chronicleVersion = event.currentTarget.dataset.version; }
+    get enrichmentData() {
+        // Attach module-level EVENT_DETAILS so V2 can populate pill detail objects
+        return this._enrichment ? { ...this._enrichment, eventDetails: EVENT_DETAILS } : null;
+    }
+
+    @track _tlInsightsOpen      = false;  // Timeline Insights panel open/closed
+    @track _highlightedPillId      = null;   // pill to spotlight when insight card clicked
+    @track _highlightedActionLabel = null;   // action label for the highlighted pill
+    @track _agentforceOpen      = false;
+    @track _agentType           = 'financial_advisor'; // 'financial_advisor' | 'agentforce'
+    @track _agentSwitcherOpen   = false;
     @track _milestoneModalOpen    = false;
     @track _milestoneModalPrefill = null; // { eventName, eventType, primaryMember }
     @track _modalSelectedType     = '';   // tracks live combobox selection
+    @track _goalWizardStep        = 1;    // 1 | 2 | 3
+    @track _timelineCtxMenu       = null; // { x, y, memberId, memberName } or null
+    @track _meetingPrefill        = null; // { subject, description, name, relatedTo } or null
+    @track _financialPrefill      = null; // { name, type } pre-fill for financial account modal
+    @track _goalPrefill           = null; // { name, type, targetAmount, priority } pre-fill for goal wizard
+    @track _aapExpanded           = true;  // Agent Actions Panel open/collapsed
+    @track _ghsExpanded           = true;  // Generational Health Score card expanded
     @track _newMenuOpen        = false;   // kept for legacy guard in filter handler
     @track _newEventType       = null;    // unused – kept to avoid removing filter ref
     @track _filterMenuOpen     = false;
@@ -1105,6 +1179,66 @@ export default class AccountDetail extends LightningElement {
     @track popoverEventData = null;
     popoverPanelStyle       = '';
     popoverArrowRight       = false;
+
+    // ── Timeline cell context menu ("Add to Timeline") ───────────
+    get timelineContextMenuOpen()  { return !!this._timelineCtxMenu; }
+    get timelineContextMenuStyle() {
+        if (!this._timelineCtxMenu) return '';
+        const { x, y } = this._timelineCtxMenu;
+        return `left:${x}px;top:${y}px;`;
+    }
+    get timelineContextMenuItems() {
+        return [
+            { type: 'life_event',        label: 'Life Event',        iconName: 'utility:event'   },
+            { type: 'meeting',           label: 'Meeting',           iconName: 'utility:people'  },
+            { type: 'financial_account', label: 'Financial Account', iconName: 'utility:company' },
+            { type: 'financial_goal',    label: 'Financial Goal',    iconName: 'standard:goals', isGoal: true },
+        ];
+    }
+
+    handleTimelineCellClick(event) {
+        // Don't open menu if a child handler already consumed the event
+        if (event.defaultPrevented) return;
+        // Position relative to viewport so menu sits near the click
+        const x = Math.min(event.clientX + 4, window.innerWidth  - 260);
+        const y = Math.min(event.clientY + 4, window.innerHeight - 280);
+        // Capture which member's lane was clicked for modal pre-fill
+        const memberId   = event.currentTarget.dataset.memberId   || '';
+        const memberName = event.currentTarget.dataset.memberName || '';
+        this._timelineCtxMenu = { x, y, memberId, memberName };
+    }
+
+    handleCloseTimelineCtxMenu() {
+        this._timelineCtxMenu = null;
+    }
+
+    handleTimelineContextSelect(event) {
+        event.stopPropagation();
+        const type       = event.currentTarget.dataset.type;
+        const memberName = this._timelineCtxMenu?.memberName || '';
+        const memberId   = this._timelineCtxMenu?.memberId   || '';
+        this._timelineCtxMenu = null;
+        const typeMap = { life_event: 'life', meeting: 'engagement', financial_account: 'financial', financial_goal: 'goal' };
+        const eventType = typeMap[type] || '';
+        this._milestoneModalPrefill = { eventType, primaryMember: memberName, primaryMemberId: memberId };
+        this._modalSelectedType     = '';
+        // Financial goal → open wizard directly
+        if (eventType === 'goal') {
+            this._goalWizardStep     = 1;
+            this._milestoneModalOpen = true;
+            return;
+        }
+        // Meeting → open with pre-filled name
+        if (eventType === 'engagement' && memberName) {
+            this._meetingPrefill = {
+                subject:     '',
+                description: '',
+                name:        memberName,
+                relatedTo:   'Reed Household',
+            };
+        }
+        this._milestoneModalOpen = true;
+    }
 
     handlePillClick(event) {
         event.stopPropagation();
@@ -1133,7 +1267,8 @@ export default class AccountDetail extends LightningElement {
         let found = null;
         for (const row of this.timelineRows) {
             for (const cell of row.yearCells) {
-                const e = cell.events.find((ev) => ev.id === eventId);
+                const e = cell.events.find((ev) => ev.id === eventId)
+                        || (cell.engagementEvents || []).find((ev) => ev.id === eventId);
                 if (e) { found = e; break; }
             }
             if (found) break;
@@ -1143,21 +1278,473 @@ export default class AccountDetail extends LightningElement {
         this.popoverVisible   = true;
     }
 
-    get agentforceOpen() { return this._agentforceOpen; }
-    handleAskAgentforce()   { this._agentforceOpen = true; }
-    handleCloseAgentforce() { this._agentforceOpen = false; }
+    // ── Timeline Insights panel ──────────────────────────────────
+    get tlInsightsOpen() { return this._tlInsightsOpen; }
+
+    get tlInsightsBtnClass() {
+        return this._tlInsightsOpen
+            ? 'c-tl-ctrl-btn c-tl-ctrl-btn_active'
+            : 'c-tl-ctrl-btn';
+    }
+
+    get groupTimelineClass() {
+        return this._tlInsightsOpen
+            ? 'c-group-timeline c-group-timeline_insights-open'
+            : 'c-group-timeline';
+    }
+
+    get tlInsightsHighlights() {
+        return (this.highlights || [])
+            .filter(h => !h.hideFromTimeline)
+            .map((h) => ({
+                ...h,
+                isActive:  h.timelineEventId === this._highlightedPillId,
+                cardClass: 'c-tli-card' + (h.timelineEventId === this._highlightedPillId ? ' c-tli-card_active' : ''),
+            }));
+    }
+
+    /** Groups V1 timeline insights into the 3 named sections for the side panel. */
+    get groupedTlInsights() {
+        const SECTION_ORDER = [
+            'Life Event Gaps',
+            'Relationship Health',
+            'Generational Wealth Readiness',
+        ];
+        const buckets = {};
+        for (const h of this.tlInsightsHighlights) {
+            const cat = h.category || 'Other';
+            if (!buckets[cat]) buckets[cat] = [];
+            buckets[cat].push(h);
+        }
+        const ordered = SECTION_ORDER.filter(c => buckets[c]);
+        return ordered.map((c, i) => ({
+            id:         `v1grp-${i}`,
+            label:      c,
+            cards:      buckets[c],
+            groupClass: 'c-tl-insights-section' + (i < ordered.length - 1 ? ' c-tl-insights-section_sep' : ''),
+        }));
+    }
+
+    handleToggleTlInsights() {
+        this._tlInsightsOpen = !this._tlInsightsOpen;
+        // Clear highlight + action when panel closes
+        if (!this._tlInsightsOpen) {
+            this._highlightedPillId      = null;
+            this._highlightedActionLabel = null;
+        }
+    }
+
+    handleInsightCardClick(event) {
+        const eventId = event.currentTarget.dataset.eventId;
+        if (!eventId) return;
+
+        // Toggle: clicking the active card clears the highlight
+        const isSame = this._highlightedPillId === eventId;
+        this._highlightedPillId      = isSame ? null : eventId;
+        this._highlightedActionLabel = isSame ? null : (() => {
+            const h = (this.highlights || []).find(i => i.timelineEventId === eventId);
+            return h ? h.actionLabel : null;
+        })();
+        // Always close any open popover when navigating via insight card
+        this.popoverVisible   = false;
+        this.popoverEventData = null;
+
+        if (!this._highlightedPillId) return;
+
+        // If currently in yearly overview, pills are not in the DOM (showEvents = false).
+        // Auto-drill into the year that contains this event so pills become visible.
+        if (this.isYearlyMode) {
+            const targetYear = this._getEventYear(eventId);
+            if (targetYear) {
+                this._expandingYear  = targetYear;
+                this._drillAnimPhase = 'leaving';
+                // eslint-disable-next-line @lwc/lwc/no-async-operation
+                setTimeout(() => {
+                    this.drillYear       = targetYear;
+                    this._drillAnimPhase = 'entering';
+                    this._pendingScrollColIdx = Math.max(0, (targetYear - 2019) * 12);
+                    // eslint-disable-next-line @lwc/lwc/no-async-operation
+                    setTimeout(() => {
+                        this._drillAnimPhase = 'idle';
+                        this._scrollToPill(eventId);
+                    }, 420);
+                }, 270);
+                return;
+            }
+        }
+
+        // Monthly / drill mode: pills already in DOM — scroll after repaint
+        // eslint-disable-next-line @lwc/lwc/no-async-operation
+        requestAnimationFrame(() => { this._scrollToPill(eventId); });
+    }
+
+    /** Find the year number for a given event id from the raw members data */
+    _getEventYear(eventId) {
+        const members = this._enrichment?.timelineMembers || [];
+        for (const m of members) {
+            const e = (m.events || []).find((ev) => ev.id === eventId);
+            if (e) return e.year || null;
+        }
+        return null;
+    }
+
+    /** Scroll the highlighted pill comfortably into the centre of the visible timeline area */
+    _scrollToPill(eventId) {
+        const pillEl = this.template.querySelector(`[data-event-id="${eventId}"]`);
+        if (!pillEl) return;
+        // 'center' vertically and 'center' horizontally so the pill sits in the middle of the viewport
+        pillEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+    }
+
+    /** Programmatically position and open the event popover for an insight-linked pill */
+    _openPopoverForInsight(eventId) {
+        const pillEl = this.template.querySelector(`[data-event-id="${eventId}"]`);
+        if (!pillEl) return;
+
+        const POPOVER_WIDTH = 410;
+        const rect          = pillEl.getBoundingClientRect();
+        const pillCenterY   = rect.top + rect.height / 2;
+        let   left          = rect.right + 14;
+        let   arrowRight    = false;
+
+        // Avoid overlapping the Timeline Insights panel (320px wide on the right)
+        const rightBound = this._tlInsightsOpen
+            ? window.innerWidth - 340
+            : window.innerWidth - 16;
+
+        if (left + POPOVER_WIDTH > rightBound) {
+            left       = rect.left - POPOVER_WIDTH - 4;
+            arrowRight = true;
+        }
+        left = Math.max(8, left);
+
+        this.popoverPanelStyle = `top: ${pillCenterY}px; left: ${left}px;`;
+        this.popoverArrowRight = arrowRight;
+
+        // Find the event object across all timeline rows (works in monthly + drill mode)
+        let found = null;
+        for (const row of this.timelineRows) {
+            for (const cell of row.yearCells) {
+                const e = cell.events.find((ev) => ev.id === eventId);
+                if (e) { found = e; break; }
+            }
+            if (found) break;
+        }
+        if (!found) return;
+
+        // Inject the linked insight's text + CTA into the detail so the AI card renders
+        const insight = (this.highlights || []).find((h) => h.timelineEventId === eventId);
+        this.popoverEventData = insight ? {
+            ...found,
+            detail: {
+                ...found.detail,
+                aiInsight:     insight.description,
+                aiActionLabel: insight.actionLabel,
+            },
+        } : found;
+
+        this.popoverVisible = true;
+    }
+
+    handlePillQuickAction(event) {
+        event.stopPropagation();
+        const action = event.currentTarget.dataset.action;
+        // Dismiss highlight then dispatch
+        this._highlightedPillId      = null;
+        this._highlightedActionLabel = null;
+        this._dispatchHighlightAction(action);
+    }
+
+    get agentforceOpen()    { return this._agentforceOpen; }
+    get agentSwitcherOpen() { return this._agentSwitcherOpen; }
+    get agentTitle() {
+        return this._agentType === 'agentforce' ? 'Agentforce' : 'Financial Advisor Assistant';
+    }
+
+    handleAskAgentforce() {
+        // Bubble the same event the global header fires so the app shell opens the panel.
+        // defaultAgent: 'financial_advisor' since this is triggered from the timeline/page.
+        this.dispatchEvent(new CustomEvent('panelselect', {
+            detail: { name: 'agentforce_panel', defaultAgent: 'financial_advisor' },
+            bubbles: true,
+            composed: true
+        }));
+    }
+    // ── Generational Wealth Health Score ─────────────────────────
+    get ghsExpanded()  { return this._ghsExpanded; }
+    get ghsChevron()   { return this._ghsExpanded ? 'utility:chevronup' : 'utility:chevrondown'; }
+    handleToggleGhs()  { this._ghsExpanded = !this._ghsExpanded; }
+
+    get generationalHealthScore() {
+        // ── Rule 1: Spouse & Heir Engagement ─────────────────────
+        // Sara absent from 2025 and 2026 reviews (2 of last 2 missed).
+        // Emma (born Apr 2026, heir) not included in any planning session.
+        // Mark attended every review. 1 of 3 household members fully engaged.
+        const r1Score   = 30;
+        const r1Status  = 'critical';
+        const r1Label   = 'Critical';
+        const r1Finding = 'Sara Reed has not attended the 2025 or 2026 annual reviews. Emma Reed (3 months) is not yet included in any estate planning conversation.';
+
+        // ── Rule 2: Beneficiary Coverage ─────────────────────────
+        // BRK-2020-4471 ✓ · HSA-2024-3319 ✓ · TL-2026-7754 ✓ · IRA-2022-5581 ✓
+        // SAV-2021-8832 ✗ · 3 accounts not updated post-Emma birth.
+        const r2Score   = 60;
+        const r2Status  = 'at-risk';
+        const r2Label   = 'At Risk';
+        const r2Finding = '4 of 5 accounts have named beneficiaries. Emma Reed is not yet designated on 3 accounts following her birth in April 2026.';
+
+        // ── Rule 3: Trust Established ─────────────────────────────
+        // No revocable living trust, will, or POA on file.
+        const r3Score   = 0;
+        const r3Status  = 'critical';
+        const r3Label   = 'Critical';
+        const r3Finding = 'No revocable living trust, will, or power of attorney has been documented for the Reed Household.';
+
+        const overall = Math.round((r1Score + r2Score + r3Score) / 3);
+        const overallStatus = overall < 40 ? 'critical' : overall < 70 ? 'at-risk' : 'on-track';
+
+        const _ruleClass = (s) =>
+            s === 'critical' ? 'c-ghs-rule__status c-ghs-rule__status_critical'
+          : s === 'at-risk'  ? 'c-ghs-rule__status c-ghs-rule__status_at-risk'
+          :                    'c-ghs-rule__status c-ghs-rule__status_on-track';
+
+        const _barClass = (s) =>
+            s === 'critical' ? 'c-ghs-bar__fill c-ghs-bar__fill_critical'
+          : s === 'at-risk'  ? 'c-ghs-bar__fill c-ghs-bar__fill_at-risk'
+          :                    'c-ghs-bar__fill c-ghs-bar__fill_on-track';
+
+        return {
+            overall,
+            overallLabel:  overall < 40 ? 'Critical' : overall < 70 ? 'At Risk' : 'On Track',
+            overallClass: 'c-ghs-score c-ghs-score_' + overallStatus,
+            overallRingClass: 'c-ghs-ring c-ghs-ring_' + overallStatus,
+            rules: [
+                {
+                    id: 'r1', iconName: 'utility:people',
+                    title: 'Spouse & Heir Engagement',
+                    score: r1Score, statusLabel: r1Label,
+                    statusClass: _ruleClass(r1Status),
+                    barFillClass: _barClass(r1Status),
+                    barStyle: `width:${r1Score}%`,
+                    finding: r1Finding,
+                },
+                {
+                    id: 'r2', iconName: 'utility:shield',
+                    title: 'Beneficiary Coverage',
+                    score: r2Score, statusLabel: r2Label,
+                    statusClass: _ruleClass(r2Status),
+                    barFillClass: _barClass(r2Status),
+                    barStyle: `width:${r2Score}%`,
+                    finding: r2Finding,
+                },
+                {
+                    id: 'r3', iconName: 'utility:file',
+                    title: 'Trust Established',
+                    score: r3Score, statusLabel: r3Label,
+                    statusClass: _ruleClass(r3Status),
+                    barFillClass: _barClass(r3Status),
+                    barStyle: `width:${r3Score}%`,
+                    finding: r3Finding,
+                },
+            ],
+        };
+    }
+
+    // ── Agent Actions Panel ────────────────────────────────────────
+    get aapExpanded()  { return this._aapExpanded; }
+    get aapChevron()   { return this._aapExpanded ? 'utility:chevronup' : 'utility:chevrondown'; }
+    handleToggleAap()  { this._aapExpanded = !this._aapExpanded; }
+
+    get agentActions() {
+        const mkStatus = (label) => {
+            const map = {
+                'Ready to Send':   'c-aap-status c-aap-status_send',
+                'Action Needed':   'c-aap-status c-aap-status_action',
+                'Ready to Review': 'c-aap-status c-aap-status_review',
+            };
+            return map[label] || 'c-aap-status c-aap-status_review';
+        };
+        const cats = [
+            {
+                id: 'cat1',
+                category: 'Life Event Gaps',
+                iconName: 'utility:event',
+                catIconClass: 'c-aap-cat-icon c-aap-cat-icon_life',
+                items: [
+                    {
+                        id: 'aa1',
+                        agentNote: 'Agentforce identified a protection gap following Emma\'s birth in April 2026',
+                        title: '529 Plan initiation checklist ready — Emma Reed',
+                        statusLabel: 'Action Needed',
+                        ctaLabel: 'Review & Open 529',
+                    },
+                    {
+                        id: 'aa2',
+                        agentNote: 'Agentforce flagged Sara\'s missing term life coverage after Mark\'s policy was purchased',
+                        title: 'Comparative term life analysis prepared — Sara Reed',
+                        statusLabel: 'Ready to Review',
+                        ctaLabel: 'Review Analysis',
+                    },
+                    {
+                        id: 'aa3',
+                        agentNote: 'Agentforce scanned all accounts and found 4 with outdated beneficiaries post-Emma\'s birth',
+                        title: 'Beneficiary update checklist compiled — Reed Household',
+                        statusLabel: 'Action Needed',
+                        ctaLabel: 'Review Accounts',
+                    },
+                ],
+            },
+            {
+                id: 'cat2',
+                category: 'Interaction & Relationship Health',
+                iconName: 'utility:people',
+                catIconClass: 'c-aap-cat-icon c-aap-cat-icon_interaction',
+                items: [
+                    {
+                        id: 'aa4',
+                        agentNote: 'Agentforce has prepped a meeting summary for Sara\'s 1:1 re-engagement session',
+                        title: 'Meeting summary draft ready — Sara Reed 1:1',
+                        statusLabel: 'Ready to Send',
+                        ctaLabel: 'Add to Meeting Concierge',
+                    },
+                    {
+                        id: 'aa5',
+                        agentNote: 'Agentforce drafted a personalised re-engagement email based on Sara\'s 2-year absence',
+                        title: 'Re-engagement email drafted — Sara Reed',
+                        statusLabel: 'Ready to Send',
+                        ctaLabel: 'Review Draft',
+                    },
+                    {
+                        id: 'aa6',
+                        agentNote: 'Agentforce compiled talking points and open action items for the upcoming mid-year review',
+                        title: 'Annual review agenda prepared — Reed Household',
+                        statusLabel: 'Ready to Review',
+                        ctaLabel: 'View Agenda',
+                    },
+                ],
+            },
+            {
+                id: 'cat3',
+                category: 'Generational Wealth Readiness',
+                iconName: 'utility:moneybag',
+                catIconClass: 'c-aap-cat-icon c-aap-cat-icon_wealth',
+                items: [
+                    {
+                        id: 'aa7',
+                        agentNote: 'Agentforce modelled 3 529 growth scenarios over 17+ years for Emma\'s college education',
+                        title: 'College savings projection ready — Emma Reed',
+                        statusLabel: 'Ready to Review',
+                        ctaLabel: 'Review Projection',
+                    },
+                    {
+                        id: 'aa8',
+                        agentNote: 'Agentforce mapped tax-efficient reinvestment paths for Mark\'s Feb 2027 RSU vesting (~$40K net)',
+                        title: 'RSU reinvestment strategy outlined — Mark Reed',
+                        statusLabel: 'Ready to Review',
+                        ctaLabel: 'Review Strategy',
+                    },
+                    {
+                        id: 'aa9',
+                        agentNote: 'Agentforce identified 4 missing estate planning documents including will, trust, and POA',
+                        title: 'Estate planning gap report created — Reed Household',
+                        statusLabel: 'Action Needed',
+                        ctaLabel: 'View Checklist',
+                    },
+                ],
+            },
+        ];
+        return cats.map(cat => ({
+            ...cat,
+            items: cat.items.map(item => ({ ...item, statusClass: mkStatus(item.statusLabel) })),
+        }));
+    }
+
+    handleAgentActionCta(event) {
+        event.stopPropagation();
+        const id = event.currentTarget.dataset.id;
+        // "Add to Meeting Concierge" — open meeting modal with Sara pre-fill
+        if (id === 'aa4' || id === 'aa5') {
+            this._meetingPrefill = {
+                subject:     '1:1 Planning Review with Sara Reed',
+                description: 'Sara has been absent from the last two annual reviews (2025, 2026). This 1:1 aims to re-anchor her as an active co-client and review her current financial priorities.',
+                name:        'Sara Reed',
+                relatedTo:   'Reed Household',
+            };
+            this._milestoneModalPrefill = { eventType: 'engagement', primaryMember: '' };
+            this._modalSelectedType     = '';
+            this._milestoneModalOpen    = true;
+        }
+        // "Review & Open 529" — open goal wizard
+        if (id === 'aa1' || id === 'aa7') {
+            this._milestoneModalPrefill = { eventType: 'goal', primaryMember: '' };
+            this._modalSelectedType     = '';
+            this._milestoneModalOpen    = true;
+        }
+    }
+
+    handleToggleAgentSwitcher(event) {
+        event.stopPropagation();
+        this._agentSwitcherOpen = !this._agentSwitcherOpen;
+    }
+    handleSelectAgent(event) {
+        event.stopPropagation();
+        this._agentType         = event.currentTarget.dataset.agent;
+        this._agentSwitcherOpen = false;
+    }
 
     // ── New Milestone modal ───────────────────────────────────────
-    get milestoneModalOpen() { return this._milestoneModalOpen; }
+    // Each type has its own template
+    get meetingModalOpen()          { return this._milestoneModalOpen && this._milestoneModalPrefill?.eventType === 'engagement'; }
 
-    // Pre-fill getters — fall back to empty/default when no prefill set
-    get modalPrefillEventName()    { return this._milestoneModalPrefill?.eventName     || ''; }
-    get modalPrefillEventType()    { return this._milestoneModalPrefill?.eventType     || ''; }
-    get modalPrefillPrimaryMember(){ return this._milestoneModalPrefill?.primaryMember || this.defaultMemberValue; }
+    // AI pre-fill getters for the meeting modal
+    get meetingHasAiPrefill()       { return !!this._meetingPrefill; }
+    get meetingPrefillSubject()     { return this._meetingPrefill?.subject     || ''; }
+    get meetingPrefillDescription() { return this._meetingPrefill?.description || ''; }
+    get meetingPrefillName()        { return this._meetingPrefill?.name        || ''; }
+    get meetingPrefillRelatedTo()   { return this._meetingPrefill?.relatedTo   || ''; }
 
-    // The effective selected type: pre-fill OR live combobox change
+    get financialHasAiPrefill()  { return !!(this._financialPrefill?.name || this._financialPrefill?.type); }
+    get financialPrefillName()   { return this._financialPrefill?.name || ''; }
+    get financialPrefillType()   { return this._financialPrefill?.type || ''; }
+
+    // ── Financial Goal wizard pre-fill getters ────────────────────
+    get goalHasAiPrefill()          { return !!this._goalPrefill; }
+    get goalPrefillName()           { return this._goalPrefill?.name           || ''; }
+    get goalPrefillType()           { return this._goalPrefill?.type           || ''; }
+    get goalPrefillTargetAmount()   { return this._goalPrefill?.targetAmount != null ? String(this._goalPrefill.targetAmount) : ''; }
+    get goalPrefillPriority()       { return this._goalPrefill?.priority       || ''; }
+
+    get financialAccountModalOpen() { return this._milestoneModalOpen && this._milestoneModalPrefill?.eventType === 'financial'; }
+    get financialGoalModalOpen()    { return this._milestoneModalOpen && this._milestoneModalPrefill?.eventType === 'goal'; }
+    get milestoneModalOpen() {
+        const t = this._milestoneModalPrefill?.eventType;
+        return this._milestoneModalOpen && t !== 'engagement' && t !== 'financial' && t !== 'goal';
+    }
+
+    // Dynamic title based on which new-event type was chosen
+    get modalTitle() {
+        const map = {
+            life:       'New Person Life Event',
+            engagement: 'New Meeting',
+            financial:  'New Financial Account',
+            goal:       'New Financial Goal',
+        };
+        return map[this._milestoneModalPrefill?.eventType] || 'New Event';
+    }
+
+    // Pre-fill getters — event name/type start blank; only primary person defaults
+    get modalPrefillEventName()    { return ''; }
+    get modalPrefillEventType()    { return ''; }
+    get modalPrefillPrimaryMember(){
+        // Prefer the memberId (matches combobox option values); fall back to name or default
+        return this._milestoneModalPrefill?.primaryMemberId
+            || this._milestoneModalPrefill?.primaryMember
+            || this.defaultMemberValue;
+    }
+
+    // The effective selected type: live combobox change only (type is no longer pre-filled)
     get _effectiveModalType() {
-        return this._modalSelectedType || this._milestoneModalPrefill?.eventType || '';
+        return this._modalSelectedType || '';
     }
 
     // Only Goals have an expiration date / description
@@ -1167,12 +1754,64 @@ export default class AccountDetail extends LightningElement {
         this._modalSelectedType = event.detail?.value || '';
     }
 
+    // Context-aware Event Type options — sub-types per category
     get milestoneTypeOptions() {
+        const category = this._milestoneModalPrefill?.eventType;
+        if (category === 'life') {
+            return [
+                { label: 'Birth / Adoption',  value: 'birth'      },
+                { label: 'Marriage',          value: 'marriage'   },
+                { label: 'Home Purchase',     value: 'home'       },
+                { label: 'Career Change',     value: 'career'     },
+                { label: 'Retirement',        value: 'retirement' },
+                { label: 'Education',         value: 'education'  },
+                { label: 'Other',             value: 'other'      },
+            ];
+        }
+        if (category === 'engagement') {
+            return [
+                { label: 'One-on-One Meeting', value: 'one_on_one' },
+                { label: 'Group Meeting',      value: 'group'      },
+                { label: 'Call',               value: 'call'       },
+                { label: 'Email',              value: 'email'      },
+                { label: 'Other',              value: 'other'      },
+            ];
+        }
+        if (category === 'financial') {
+            return [
+                { label: 'Brokerage Account', value: 'brokerage' },
+                { label: 'Retirement (IRA)',  value: 'ira'       },
+                { label: '401(k)',            value: '401k'      },
+                { label: '529 Plan',          value: '529'       },
+                { label: 'Insurance Policy',  value: 'insurance' },
+                { label: 'Trust',             value: 'trust'     },
+                { label: 'Other',             value: 'other'     },
+            ];
+        }
+        if (category === 'goal') {
+            return [
+                { label: 'College Funding',  value: 'college'    },
+                { label: 'Retirement',       value: 'retirement' },
+                { label: 'Home Purchase',    value: 'home'       },
+                { label: 'Emergency Fund',   value: 'emergency'  },
+                { label: 'Other',            value: 'other'      },
+            ];
+        }
+        // Generic fallback (e.g. opened without a category)
         return [
             { label: 'Life Event',        value: 'life'      },
-            { label: 'Engagement',        value: 'engagement'},
+            { label: 'Meeting',        value: 'engagement'},
             { label: 'Financial Goal',    value: 'goal'      },
             { label: 'Financial Account', value: 'financial' },
+        ];
+    }
+
+    get financialAccountStatusOptions() {
+        return [
+            { label: 'Active',   value: 'active'   },
+            { label: 'Inactive', value: 'inactive' },
+            { label: 'Pending',  value: 'pending'  },
+            { label: 'Closed',   value: 'closed'   },
         ];
     }
 
@@ -1192,10 +1831,107 @@ export default class AccountDetail extends LightningElement {
         this._milestoneModalOpen    = false;
         this._milestoneModalPrefill = null;
         this._modalSelectedType     = '';
+        this._goalWizardStep        = 1;
+        this._meetingPrefill        = null;
+        this._financialPrefill      = null;
+        this._goalPrefill           = null;
     }
 
-    // ── Legacy placeholders (kept so filter handler compiles) ────
-    get newMenuOpen()    { return this._newMenuOpen; }
+    // ── Financial Goal wizard ─────────────────────────────────────
+    get goalStep1Active() { return this._goalWizardStep === 1; }
+    get goalStep2Active() { return this._goalWizardStep === 2; }
+    get goalStep3Active() { return this._goalWizardStep === 3; }
+    get goalShowPrevious(){ return this._goalWizardStep > 1; }
+    get goalShowNext()    { return this._goalWizardStep < 3; }
+    get goalShowSave()    { return this._goalWizardStep === 3; }
+
+    _goalCircleClass(n) {
+        if (this._goalWizardStep > n)  return 'c-goal-step-circle c-goal-step-circle_done';
+        if (this._goalWizardStep === n) return 'c-goal-step-circle c-goal-step-circle_active';
+        return 'c-goal-step-circle c-goal-step-circle_future';
+    }
+    _goalLabelClass(n) {
+        return this._goalWizardStep === n
+            ? 'c-goal-step-label c-goal-step-label_active'
+            : 'c-goal-step-label';
+    }
+    get goalStepData() {
+        const s = this._goalWizardStep;
+        return [
+            { id: 1, label: 'Goal Details',           circleClass: this._goalCircleClass(1), labelClass: this._goalLabelClass(1), isDone: s > 1 },
+            { id: 2, label: 'Goal Members',           circleClass: this._goalCircleClass(2), labelClass: this._goalLabelClass(2), isDone: s > 2 },
+            { id: 3, label: 'Link Financial Account', circleClass: this._goalCircleClass(3), labelClass: this._goalLabelClass(3), isDone: false  },
+        ];
+    }
+    handleGoalNext()     { if (this._goalWizardStep < 3) this._goalWizardStep += 1; }
+    handleGoalPrevious() { if (this._goalWizardStep > 1) this._goalWizardStep -= 1; }
+
+    get goalTypeOptions() {
+        return [
+            { label: 'College Funding', value: 'college'    },
+            { label: 'Retirement',      value: 'retirement' },
+            { label: 'Home Purchase',   value: 'home'       },
+            { label: 'Emergency Fund',  value: 'emergency'  },
+            { label: 'Education',       value: 'education'  },
+            { label: 'Other',           value: 'other'      },
+        ];
+    }
+    get goalPriorityOptions() {
+        return [
+            { label: 'High',   value: 'high'   },
+            { label: 'Medium', value: 'medium' },
+            { label: 'Low',    value: 'low'    },
+        ];
+    }
+    get goalStatusOptions() {
+        return [
+            { label: 'In Progress', value: 'in_progress' },
+            { label: 'On Track',    value: 'on_track'    },
+            { label: 'At Risk',     value: 'at_risk'     },
+            { label: 'Completed',   value: 'completed'   },
+        ];
+    }
+    get goalMembersData() {
+        return [
+            { id: '1', name: 'Mark Reed',  email: 'mark.reed@email.com', phone: '(512) 555-0101' },
+            { id: '2', name: 'Sara Reed',  email: 'sara.reed@email.com', phone: '(512) 555-0102' },
+        ];
+    }
+    get goalFinancialAccountOptions() {
+        return [
+            { label: 'BRK-2020-4471 – Taxable Brokerage', value: 'brk1' },
+            { label: 'IRA-2019-8823 – Retirement IRA',     value: 'ira1' },
+        ];
+    }
+
+    // ── New-event dropdown ────────────────────────────────────────
+    get newMenuOpen() { return this._newMenuOpen; }
+
+    handleToggleNewMenu(event) {
+        event.stopPropagation();
+        this._newMenuOpen    = !this._newMenuOpen;
+        if (this._newMenuOpen) this._filterMenuOpen = false;
+    }
+
+    handleNewMenuSelect(event) {
+        event.stopPropagation();
+        const type = event.currentTarget.dataset.type;
+        this._newMenuOpen = false;
+        const typeMap = {
+            life_event:        'life',
+            meeting:           'engagement',
+            financial_account: 'financial',
+            financial_goal:    'goal',
+        };
+        // Store only the category — drives title, type options, and expiration visibility
+        this._milestoneModalPrefill = {
+            eventType:     typeMap[type] || '',
+            primaryMember: '',
+        };
+        this._modalSelectedType  = '';  // combobox starts at --None--
+        this._milestoneModalOpen = true;
+    }
+
     get newEventModalOpen() { return false; }
 
     get memberOptions() {
@@ -1232,14 +1968,14 @@ export default class AccountDetail extends LightningElement {
     // ── Timeline filter dropdown ───────────────────────────────────
     get filterMenuOpen()  { return this._filterMenuOpen; }
     get activeFilterLabel() {
-        const map = { all: 'Show All', life: 'Life Event', engagement: 'Engagement', goal: 'Financial Goal', financial: 'Financial Account' };
+        const map = { all: 'Show All', life: 'Life Event', engagement: 'Meeting', goal: 'Financial Goal', financial: 'Financial Account' };
         return map[this._activeFilter] || 'Show All';
     }
     get filterOptions() {
         return [
             { value: 'all',       label: 'Show All'          },
             { value: 'life',      label: 'Life Event'        },
-            { value: 'engagement',label: 'Engagement'        },
+            { value: 'engagement',label: 'Meeting'        },
             { value: 'goal',      label: 'Financial Goal'    },
             { value: 'financial', label: 'Financial Account' },
         ].map(o => ({ ...o, isActive: o.value === this._activeFilter }));
@@ -1431,31 +2167,100 @@ export default class AccountDetail extends LightningElement {
     /* Called from the Agentic Insights CTA inside the event popover */
     handlePopoverCta(event) {
         const action = event.detail?.action;
+        // Close the popover + clear highlight first
+        this.popoverVisible          = false;
+        this.popoverEventData        = null;
+        this._highlightedPillId      = null;
+        this._highlightedActionLabel = null;
+        // Dispatch the action
+        this._dispatchHighlightAction(action);
+    }
+
+    /** Shared action dispatcher used by pill quick-action chip, popover CTA, and highlights panel */
+    _dispatchHighlightAction(action) {
+        if (!action) return;
+        if (action === 'Create Meeting') {
+            this._meetingPrefill = {
+                subject:     '1:1 Planning Review with Sara Reed',
+                description: 'Sara has been absent from the last two annual reviews (2025, 2026). This 1:1 aims to re-anchor her as an active co-client and review her current financial priorities.',
+                name:        'Sara Reed',
+                relatedTo:   'Reed Household',
+            };
+            this._milestoneModalPrefill = { eventType: 'engagement', primaryMember: '' };
+            this._modalSelectedType     = '';
+            this._milestoneModalOpen    = true;
+            return;
+        }
+        const key = action.toLowerCase();
+        const pre = this._ctaModalPrefillMap[key];
+        if (pre) {
+            if (pre.eventType === 'financial') {
+                // Open Financial Account modal with AI-prefilled name + type
+                this._financialPrefill      = { name: pre.financialName || '', type: pre.financialType || '' };
+                this._milestoneModalPrefill = { eventType: 'financial', primaryMember: pre.primaryMember || '', primaryMemberId: pre.primaryMemberId || '' };
+                this._modalSelectedType     = '';
+                this._milestoneModalOpen    = true;
+                return;
+            }
+            if (pre.eventType === 'goal') {
+                // Set AI pre-fill when goal-specific details are provided
+                if (pre.goalName) {
+                    this._goalPrefill = {
+                        name:         pre.goalName,
+                        type:         pre.goalType         || '',
+                        targetAmount: pre.goalTargetAmount || '',
+                        priority:     pre.goalPriority     || '',
+                    };
+                }
+                this._milestoneModalPrefill = { eventType: 'goal', primaryMember: pre.primaryMember || '', primaryMemberId: pre.primaryMemberId || '' };
+                this._modalSelectedType     = 'goal';
+                this._goalWizardStep        = 1;
+                this._milestoneModalOpen    = true;
+                return;
+            }
+            // Fallback: generic modal open
+            this._milestoneModalPrefill = pre;
+            this._modalSelectedType     = pre.eventType || '';
+            this._milestoneModalOpen    = true;
+            return;
+        }
         this._navigateToActionLabel(action);
     }
 
     /* Called from the Highlights panel action buttons */
     handleHighlightAction(event) {
         const action = event.currentTarget.dataset.action;
-        this._navigateToActionLabel(action);
+        this._dispatchHighlightAction(action);
+    }
+
+    /* Called when V2 bubbles a 'highlightaction' custom event (CTA button or popover CTA) */
+    handleV2HighlightAction(event) {
+        const action = event.detail?.action;
+        this._dispatchHighlightAction(action);
     }
 
     // Map of CTA labels → modal pre-fill data (case-insensitive key lookup)
     _ctaModalPrefillMap = {
         'start 529 plan': {
-            eventName: 'Start 529 Plan',
-            eventType: 'goal',
-            primaryMember: 'Emma Reed',
+            eventType:       'financial',
+            financialName:   "Emma's 529 Plan",
+            financialType:   '529',
+            primaryMember:   'Emma Reed',
+            primaryMemberId: 'm3',
         },
         'model rsu reinvestment': {
             eventName: 'Model RSU Reinvestment',
             eventType: 'goal',
             primaryMember: 'Mark Reed',
         },
-        'review goal funding': {
-            eventName: 'Review Goal Funding',
-            eventType: 'goal',
-            primaryMember: 'Mark Reed',
+        'review goal': {
+            eventType:        'goal',
+            goalName:         'New Car Fund',
+            goalType:         'savings',
+            goalTargetAmount: 45000,
+            goalPriority:     'high',
+            primaryMember:    'Mark Reed',
+            primaryMemberId:  'm1',
         },
     };
 
@@ -1486,6 +2291,7 @@ export default class AccountDetail extends LightningElement {
     }
 
     handleYearExpand(event) {
+        event.stopPropagation();
         if (this._drillAnimPhase !== 'idle') return;
         const year = Number(event.currentTarget.dataset.year);
         // 1. Mark the target year + start leaving animation on existing cells

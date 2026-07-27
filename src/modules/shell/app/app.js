@@ -1,4 +1,4 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, track } from 'lwc';
 import { subscribe, navigate, linkHref, setCurrentAppForLinks } from '../../../router';
 import { routes } from '../../../routes.config';
 import {
@@ -53,6 +53,8 @@ export default class App extends LightningElement {
     _currentApp = getPersistedAppId() || DEFAULT_APP_ID;
     selectedPanel = 'agentforce_panel';
     isPanelOpen = false;
+    @track _agentforcePanelOpen       = false;
+    @track _agentforcePanelDefaultAgent = 'agentforce';
     openTabs = [];
     activeTabId = null;
 
@@ -196,9 +198,29 @@ export default class App extends LightningElement {
         navigate(target.defaultPath);
     }
 
+    get agentforcePanelOpen()        { return this._agentforcePanelOpen; }
+    get agentforcePanelDefaultAgent() { return this._agentforcePanelDefaultAgent; }
+
     handlePanelSelect(event) {
-        this.selectedPanel = event.detail?.name ?? this.selectedPanel;
-        this.isPanelOpen = true;
+        const name         = event.detail?.name         ?? this.selectedPanel;
+        const defaultAgent = event.detail?.defaultAgent ?? 'agentforce';
+        if (name === 'agentforce_panel') {
+            if (this._agentforcePanelOpen && this._agentforcePanelDefaultAgent === defaultAgent) {
+                // Same trigger clicked again → close the panel
+                this._agentforcePanelOpen = false;
+            } else {
+                // Different trigger or panel was closed → open / switch agent
+                this._agentforcePanelOpen         = true;
+                this._agentforcePanelDefaultAgent = defaultAgent;
+            }
+        } else {
+            this.selectedPanel = name;
+            this.isPanelOpen = true;
+        }
+    }
+
+    handleAgentforcePanelClose() {
+        this._agentforcePanelOpen = false;
     }
 
     handlePanelClose() {

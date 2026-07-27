@@ -215,12 +215,12 @@
                     <div class="c-highlights-panel slds-m-bottom_medium">
                         <div class="c-highlights-panel__header">
                             <span class="c-highlights-icon-circle" aria-hidden="true">
-                                <lightning-icon icon-name="utility:favorite" size="x-small" alternative-text="Highlights"></lightning-icon>
+                                <lightning-icon icon-name="utility:notification" size="x-small" alternative-text="Alerts and Insights"></lightning-icon>
                             </span>
-                            <h2 class="c-highlights-title">Highlights</h2>
+                            <h2 class="c-highlights-title">Alerts &amp; Insights</h2>
                         </div>
                         <div class="c-highlights-scroller">
-                            <template for:each={highlights} for:item="hl">
+                            <template for:each={alertsInsights} for:item="hl">
                                 <div key={hl.id} class="c-highlight-card">
                                     <div class="c-highlight-card__header">
                                         <span class={hl.badgeClass}>{hl.badgeLabel}</span>
@@ -259,38 +259,20 @@
                         <lightning-tab label="Chronicle View">
                             <div class="c-tab-content">
 
-                            <!-- Group Timeline -->
-                            <div class="c-group-timeline">
-
-                                <!-- Timeline Insights — sits above the header bar, inside the timeline box -->
-                                <template lwc:if={agenticInsightsEnabled}>
-                                <div class="c-agentic-summary c-agentic-summary_above-header">
-                                    <div class="c-agentic-summary__header">
-                                        <div class="c-agentic-summary__title">
-                                            <span class="c-agentic-sparkle-icon" aria-hidden="true">✦</span>
-                                            <h3 class="slds-text-heading_small slds-m-left_x-small">Timeline Insights</h3>
-                                        </div>
-                                        <div class="c-agentic-summary__actions">
-                                            <button class="c-ask-agentforce-btn" onclick={handleAskAgentforce}>
-                                                <span class="c-af-btn-sparkles" aria-hidden="true">
-                                                    <span class="c-af-spark c-af-spark_lg">✦</span>
-                                                    <span class="c-af-spark c-af-spark_sm c-af-spark_tr">✦</span>
-                                                    <span class="c-af-spark c-af-spark_sm c-af-spark_br">✦</span>
-                                                </span>
-                                                Ask Agentforce
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="c-tl-insight-body">
-                                        <p class="slds-text-body_small c-tl-insight-col">
-                                            <template for:each={agenticSummarySegments} for:item="seg">
-                                                <span key={seg.id} class={seg.spanClass}>{seg.text}</span>
-                                            </template>
-                                        </p>
-                                        <p class="slds-text-body_small c-tl-insight-col">{agenticImpactText}</p>
-                                    </div>
+                            <!-- Version toggle -->
+                            <div class="c-cv-version-bar">
+                                <span class="c-cv-version-label">View version:</span>
+                                <div class="c-cv-toggle" role="group">
+                                    <button class={toggleV1Class} data-version="v1" onclick={handleChronicleVersionToggle}>V1 — Working</button>
+                                    <button class={toggleV2Class} data-version="v2" onclick={handleChronicleVersionToggle}>V2 — Experimental</button>
                                 </div>
-                                </template>
+                            </div>
+
+                            <template lwc:if={isChronicleV1}>
+
+
+                            <!-- Group Timeline -->
+                            <div class={groupTimelineClass}>
 
                                 <!-- Header -->
                                 <div class="c-group-timeline__header">
@@ -308,6 +290,39 @@
                                         <p class="slds-text-body_small slds-text-color_weak">{timelineMetaText}</p>
                                     </div>
                                     <div class="c-group-timeline__controls">
+                                        <!-- New event dropdown -->
+                                        <div class="c-tl-new-wrap">
+                                            <button class="c-tl-ctrl-btn" onclick={handleToggleNewMenu}>
+                                                + New
+                                                <lightning-icon icon-name="utility:chevrondown" size="xx-small" alternative-text="" class="c-tl-new-chevron"></lightning-icon>
+                                            </button>
+                                            <template lwc:if={newMenuOpen}>
+                                                <div class="c-tl-new-dropdown" role="menu">
+                                                    <button class="c-tl-new-item" role="menuitem" data-type="life_event" onclick={handleNewMenuSelect}>Life Event</button>
+                                                    <button class="c-tl-new-item" role="menuitem" data-type="meeting" onclick={handleNewMenuSelect}>Meeting</button>
+                                                    <button class="c-tl-new-item" role="menuitem" data-type="financial_account" onclick={handleNewMenuSelect}>Financial Account</button>
+                                                    <button class="c-tl-new-item" role="menuitem" data-type="financial_goal" onclick={handleNewMenuSelect}>Financial Goal</button>
+                                                </div>
+                                            </template>
+                                        </div>
+
+                                        <!-- Ask Agentforce CTA -->
+                                        <template lwc:if={agenticInsightsEnabled}>
+                                        <button class="c-ask-agentforce-btn" onclick={handleAskAgentforce}>
+                                            <span class="c-af-btn-sparkles" aria-hidden="true">
+                                                <span class="c-af-spark c-af-spark_lg">✦</span>
+                                                <span class="c-af-spark c-af-spark_sm c-af-spark_tr">✦</span>
+                                                <span class="c-af-spark c-af-spark_sm c-af-spark_br">✦</span>
+                                            </span>
+                                            Ask Agentforce
+                                        </button>
+                                        </template>
+
+                                        <!-- Timeline Insights panel toggle -->
+                                        <button class={tlInsightsBtnClass} onclick={handleToggleTlInsights} title="Timeline Insights">
+                                            <lightning-icon icon-name="utility:metrics" size="xx-small" alternative-text="Timeline Insights" class="c-tl-insights-btn-icon"></lightning-icon>
+                                            Timeline Insights
+                                        </button>
                                         <!-- Monthly / Yearly toggle -->
                                         <div class="c-tl-toggle">
                                             <button class={monthlyBtnClass} data-mode="monthly" onclick={handleTimelineMode}>Monthly</button>
@@ -365,6 +380,9 @@
                                                 <template lwc:if={col.isYearStart}>
                                                     <span class="c-timeline-year-badge">{col.year}</span>
                                                 </template>
+                                                <template lwc:if={col.isQuarterStart}>
+                                                    <span class="c-timeline-quarter-badge">{col.quarterLabel}</span>
+                                                </template>
                                                 <template lwc:if={col.showTodayPill}>
                                                     <span class="c-today-pill">Today</span>
                                                 </template>
@@ -375,11 +393,8 @@
                                     <!-- Member rows -->
                                     <template for:each={timelineRows} for:item="row">
                                         <div key={row.memberId} class="c-timeline-row">
-                                            <!-- Fixed member cell -->
+                                            <!-- Fixed member cell — spans BOTH sub-tracks via grid-row:1/3 -->
                                             <div class="c-timeline-member-col c-timeline-row__member">
-                                                <div class={row.avatarClass}>
-                                                    <span class="c-member-avatar__initials">{row.initials}</span>
-                                                </div>
                                                 <div class="c-member-info">
                                                     <div class="c-member-name-row">
                                                         <span class="c-member-name"><strong>{row.memberName}</strong></span>
@@ -395,9 +410,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- Scrolling event cells -->
+
+                                            <!-- ── MILESTONE TRACK (top sub-lane: life events, goals, financial) ── -->
                                             <template for:each={row.yearCells} for:item="cell">
-                                                <div key={cell.key} class={cell.cellClass}>
+                                                <div key={cell.msKey} class={cell.cellClass} data-member-id={cell.memberId} data-member-name={cell.memberName} onclick={handleTimelineCellClick}>
                                                     <!-- Yearly collapsed: count badge + type dots -->
                                                     <template lwc:if={cell.showCount}>
                                                         <button class="c-year-count-badge" data-year={cell.year} onclick={handleYearExpand}>
@@ -416,7 +432,12 @@
                                                                 <div class="c-pill-inner">
                                                                     <span class={evt.pillClass} data-event-id={evt.id} onclick={handlePillClick} role="button" tabindex="0">
                                                                         <span class={evt.iconBadgeClass}>
-                                                                            <lightning-icon icon-name={evt.iconName} size="xx-small" class="c-pill-icon"></lightning-icon>
+                                                                            <template lwc:if={evt.isGoal}>
+                                                                                <img src="/images/icon-goal.svg?v=3" class="c-pill-icon c-pill-icon_goal" alt="Financial Goal" />
+                                                                            </template>
+                                                                            <template lwc:else>
+                                                                                <lightning-icon icon-name={evt.iconName} size="xx-small" class="c-pill-icon"></lightning-icon>
+                                                                            </template>
                                                                         </span>
                                                                         <span class="c-pill-body">
                                                                             <span class="c-pill-label">{evt.label}</span>
@@ -427,6 +448,12 @@
                                                                     </span>
                                                                     <template lwc:if={evt.isCritical}>
                                                                         <span class="c-pill-critical-badge"></span>
+                                                                    </template>
+                                                                    <template lwc:if={evt.quickActionLabel}>
+                                                                        <button class="c-pill-quick-action" data-action={evt.quickActionLabel} onclick={handlePillQuickAction}>
+                                                                            <lightning-icon icon-name="utility:forward" size="xx-small" class="c-pill-qa-icon"></lightning-icon>
+                                                                            {evt.quickActionLabel}
+                                                                        </button>
                                                                     </template>
                                                                 </div>
                                                                 <span class={evt.typeDotClass}></span>
@@ -447,6 +474,39 @@
                                                     </template>
                                                 </div>
                                             </template>
+
+                                            <!-- ── ENGAGEMENT TRACK (bottom sub-lane: meetings, interactions) ── -->
+                                            <template for:each={row.yearCells} for:item="cell">
+                                                <div key={cell.engKey} class={cell.engagementCellClass}>
+                                                    <template for:each={cell.engagementEvents} for:item="evt">
+                                                        <div key={evt.id}>
+                                                            <!-- Monthly / drill mode: full pill (same style as milestone track) -->
+                                                            <template lwc:if={evt.showAsPill}>
+                                                                <div class="c-pill-wrap">
+                                                                    <span class={evt.pillClass} data-event-id={evt.id} onclick={handlePillClick} role="button" tabindex="0">
+                                                                        <span class={evt.iconBadgeClass}>
+                                                                            <lightning-icon icon-name={evt.iconName} size="xx-small" class="c-pill-icon"></lightning-icon>
+                                                                        </span>
+                                                                        <span class="c-pill-body">
+                                                                            <span class="c-pill-label">{evt.label}</span>
+                                                                        </span>
+                                                                    </span>
+                                                                </div>
+                                                            </template>
+                                                            <!-- Yearly mode: compact touchpoint dot -->
+                                                            <template lwc:else>
+                                                                <button class={evt.engDotClass}
+                                                                        data-event-id={evt.id}
+                                                                        onclick={handlePillClick}
+                                                                        title={evt.label}
+                                                                        aria-label={evt.label}>
+                                                                </button>
+                                                            </template>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </template>
+
                                         </div>
                                     </template>
 
@@ -457,7 +517,7 @@
                                 <!-- Legend -->
                                 <div class="c-timeline-legend">
                                     <span class="c-legend-item c-legend-item_life">Life Event</span>
-                                    <span class="c-legend-item c-legend-item_engagement">Engagement</span>
+                                    <span class="c-legend-item c-legend-item_engagement">Meeting / Call</span>
                                     <span class="c-legend-item c-legend-item_goal">Financial Goal</span>
                                     <span class="c-legend-item c-legend-item_financial">Financial Account</span>
                                     <span class="c-legend-sep" aria-hidden="true">|</span>
@@ -502,76 +562,55 @@
 
                             </div>
 
-                            <!-- Agentforce chat panel — slides in from right, bounded within Chronicle View -->
-                            <template lwc:if={agentforceOpen}>
-                            <div class="c-af-panel">
-                                <!-- Collapse tab on left edge -->
-                                <button class="c-af-collapse-tab" onclick={handleCloseAgentforce} title="Close">&#9664;</button>
-
-                                <!-- Header -->
-                                <div class="c-af-header">
-                                    <span class="c-af-header-title">Financial Advisor Assistant</span>
-                                    <div class="c-af-header-actions">
-                                        <button class="c-af-header-btn" title="Settings">
-                                            <lightning-icon icon-name="utility:settings" size="xx-small" alternative-text="Settings"></lightning-icon>
-                                        </button>
-                                        <button class="c-af-header-btn" title="Pin">
-                                            <lightning-icon icon-name="utility:pin" size="xx-small" alternative-text="Pin"></lightning-icon>
-                                        </button>
-                                        <button class="c-af-header-btn" onclick={handleCloseAgentforce} title="Close">
+                            <!-- Timeline Insights side panel (slides in from right, component-level) -->
+                            <template lwc:if={tlInsightsOpen}>
+                                <div class="c-tl-insights-panel" role="complementary" aria-label="Timeline Insights">
+                                    <div class="c-tl-insights-panel__header">
+                                        <div class="c-tl-insights-panel__title-wrap">
+                                            <lightning-icon icon-name="utility:metrics" size="x-small" alternative-text="" class="c-tl-insights-panel__title-icon"></lightning-icon>
+                                            <h3 class="c-tl-insights-panel__title">Timeline Insights</h3>
+                                        </div>
+                                        <button class="c-tl-insights-panel__close" onclick={handleToggleTlInsights} title="Close">
                                             <lightning-icon icon-name="utility:close" size="xx-small" alternative-text="Close"></lightning-icon>
                                         </button>
                                     </div>
-                                </div>
-
-                                <!-- Welcome body -->
-                                <div class="c-af-body">
-                                    <!-- Hero circle with sparkles -->
-                                    <div class="c-af-hero-wrap">
-                                        <div class="c-af-hero-circle">
-                                            <span class="c-af-hero-spark c-af-hero-spark_center" aria-hidden="true">✦</span>
-                                            <span class="c-af-hero-spark c-af-hero-spark_tl"   aria-hidden="true">✦</span>
-                                            <span class="c-af-hero-spark c-af-hero-spark_tr"   aria-hidden="true">✦</span>
-                                            <span class="c-af-hero-spark c-af-hero-spark_bl"   aria-hidden="true">✦</span>
-                                            <span class="c-af-hero-spark c-af-hero-spark_br"   aria-hidden="true">✦</span>
-                                        </div>
-                                    </div>
-
-                                    <h3 class="c-af-greeting">Let's Chat!</h3>
-                                    <p class="c-af-desc">Hi, I'm Agentforce! I can do things like search for information, summarize records, and draft and revise emails. What can I help you with?</p>
-
-                                    <div class="c-af-suggestions">
-                                        <button class="c-af-suggestion-btn">
-                                            <span>"Summarize Reed Household"</span>
-                                            <lightning-icon icon-name="utility:right" size="x-small" alternative-text="Go" class="c-af-sug-arrow"></lightning-icon>
-                                        </button>
-                                        <button class="c-af-suggestion-btn">
-                                            <span>"What planning gaps exist?"</span>
-                                            <lightning-icon icon-name="utility:right" size="x-small" alternative-text="Go" class="c-af-sug-arrow"></lightning-icon>
-                                        </button>
-                                        <button class="c-af-suggestion-btn">
-                                            <span>"Draft a follow-up for Sara"</span>
-                                            <lightning-icon icon-name="utility:right" size="x-small" alternative-text="Go" class="c-af-sug-arrow"></lightning-icon>
-                                        </button>
+                                    <p class="c-tl-insights-panel__hint">Click an insight to highlight its pill in the timeline.</p>
+                                    <div class="c-tl-insights-panel__body">
+                                        <template for:each={groupedTlInsights} for:item="group">
+                                            <div key={group.id} class={group.groupClass}>
+                                                <span class="c-tl-insights-section__label">{group.label}</span>
+                                                <template for:each={group.cards} for:item="h">
+                                                    <div key={h.id}
+                                                         class={h.cardClass}
+                                                         data-event-id={h.timelineEventId}
+                                                         onclick={handleInsightCardClick}
+                                                         role="button"
+                                                         tabindex="0">
+                                                        <div class="c-tli-card__top">
+                                                            <div class="c-tli-card__badges">
+                                                                <span class={h.badgeClass}>{h.badgeLabel}</span>
+                                                                <!-- category pill removed in V1 — section dividers communicate grouping -->
+                                                            </div>
+                                                            <template lwc:if={h.isActive}>
+                                                                <span class="c-tli-card__active-dot" aria-label="Active"></span>
+                                                            </template>
+                                                        </div>
+                                                        <p class="c-tli-card__title">{h.title}</p>
+                                                        <p class="c-tli-card__desc">{h.description}</p>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </template>
                                     </div>
                                 </div>
+                            </template>
 
-                                <!-- Chat input footer -->
-                                <div class="c-af-footer">
-                                    <div class="c-af-input-box">
-                                        <input class="c-af-input" type="text" placeholder="Describe your task or ask a question…" />
-                                        <div class="c-af-input-actions">
-                                            <button class="c-af-input-btn" title="Attach">
-                                                <lightning-icon icon-name="utility:add" size="xx-small" alternative-text="Attach"></lightning-icon>
-                                            </button>
-                                            <button class="c-af-input-btn" title="Voice">
-                                                <lightning-icon icon-name="utility:record" size="xx-small" alternative-text="Voice"></lightning-icon>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <p class="c-af-disclaimer">Agentforce is AI and can make mistakes.</p>
-                                </div>
-                            </div>
+                            </template>
+                            <template lwc:else>
+                                <ui-chronicle-view-v2
+                                    enrichment={enrichmentData}
+                                    onhighlightaction={handleV2HighlightAction}>
+                                </ui-chronicle-view-v2>
                             </template>
 
                             </div><!-- /.c-tab-content -->
@@ -593,6 +632,25 @@
         </template>
     </div>
 
+    <!-- Timeline cell "Add to Timeline" context menu -->
+    <template lwc:if={timelineContextMenuOpen}>
+        <div class="c-tl-ctx-backdrop" onclick={handleCloseTimelineCtxMenu}></div>
+        <div class="c-tl-ctx-menu" style={timelineContextMenuStyle} role="menu">
+            <p class="c-tl-ctx-menu__heading">Add to Timeline</p>
+            <template for:each={timelineContextMenuItems} for:item="item">
+                <button key={item.type} class="c-tl-ctx-menu__item" role="menuitem" data-type={item.type} onclick={handleTimelineContextSelect}>
+                    <template lwc:if={item.isGoal}>
+                        <img src="/images/icon-goal.svg?v=3" class="c-tl-ctx-menu__goal-icon" alt="Financial Goal" />
+                    </template>
+                    <template lwc:else>
+                        <lightning-icon icon-name={item.iconName} size="small" alternative-text={item.label} class="c-tl-ctx-menu__icon"></lightning-icon>
+                    </template>
+                    {item.label}
+                </button>
+            </template>
+        </div>
+    </template>
+
     <!-- Event detail popover (rendered outside page flow, position: fixed) -->
     <template lwc:if={popoverVisible}>
         <ui-event-popover
@@ -611,7 +669,7 @@
 
             <!-- Header -->
             <div class="c-ne-modal__header c-ne-modal__header_centered">
-                <h2 class="c-ne-modal__title" id="c-nm-title">New Person Life Event</h2>
+                <h2 class="c-ne-modal__title" id="c-nm-title">{modalTitle}</h2>
                 <button class="c-ne-modal__close" onclick={handleCloseMilestoneModal} title="Close">
                     <lightning-icon icon-name="utility:close" size="small" alternative-text="Close"></lightning-icon>
                 </button>
@@ -712,6 +770,508 @@
             <div class="c-ne-modal__footer">
                 <button class="c-ne-modal__cancel" onclick={handleCloseMilestoneModal}>Cancel</button>
                 <button class="c-ne-modal__save-new">Save &amp; New</button>
+                <button class="c-ne-modal__save">Save</button>
+            </div>
+        </div>
+    </template>
+
+    <!-- New Financial Goal wizard (3-step) -->
+    <template lwc:if={financialGoalModalOpen}>
+        <div class="c-ne-backdrop" onclick={handleCloseMilestoneModal}></div>
+        <div class="c-goal-wizard" role="dialog" aria-modal="true" aria-labelledby="c-goal-step-title">
+
+            <!-- ── Left: content + footer ── -->
+            <div class="c-goal-wizard__main">
+                <div class="c-goal-wizard__body">
+
+                    <!-- STEP 1: Goal Details -->
+                    <template lwc:if={goalStep1Active}>
+                        <h2 class="c-goal-wizard__step-heading" id="c-goal-step-title">Goal Details</h2>
+
+                        <!-- Goal Information -->
+                        <div class="c-goal-section">
+                            <h3 class="c-goal-section__title">
+                                <lightning-icon icon-name="utility:chevrondown" size="xx-small" alternative-text="Section" class="c-goal-section__chevron"></lightning-icon>
+                                Goal Information
+                            </h3>
+                            <div class="c-ne-modal__row slds-m-top_small">
+                                <!-- Goal Type -->
+                                <template lwc:if={goalHasAiPrefill}>
+                                    <div class="c-ne-modal__field">
+                                        <div class="c-ai-label-row">
+                                            <span class="c-ai-sparkle" aria-hidden="true">✦</span>
+                                            <span class="slds-form-element__label">Goal Type</span>
+                                        </div>
+                                        <lightning-combobox value={goalPrefillType} options={goalTypeOptions} placeholder="--None--" required variant="label-hidden" class="c-ai-prefilled"></lightning-combobox>
+                                    </div>
+                                </template>
+                                <template lwc:else>
+                                    <lightning-combobox label="Goal Type" options={goalTypeOptions} placeholder="--None--" required class="c-ne-modal__field"></lightning-combobox>
+                                </template>
+                                <!-- Goal Name -->
+                                <template lwc:if={goalHasAiPrefill}>
+                                    <div class="c-ne-modal__field">
+                                        <div class="c-ai-label-row">
+                                            <span class="c-ai-sparkle" aria-hidden="true">✦</span>
+                                            <span class="slds-form-element__label">Goal Name</span>
+                                        </div>
+                                        <lightning-input value={goalPrefillName} required variant="label-hidden" class="c-ai-prefilled"></lightning-input>
+                                    </div>
+                                </template>
+                                <template lwc:else>
+                                    <lightning-input label="Goal Name" required class="c-ne-modal__field"></lightning-input>
+                                </template>
+                            </div>
+                            <div class="c-ne-modal__row">
+                                <!-- Goal Priority -->
+                                <template lwc:if={goalHasAiPrefill}>
+                                    <div class="c-ne-modal__field">
+                                        <div class="c-ai-label-row">
+                                            <span class="c-ai-sparkle" aria-hidden="true">✦</span>
+                                            <span class="slds-form-element__label">Goal Priority</span>
+                                        </div>
+                                        <lightning-combobox value={goalPrefillPriority} options={goalPriorityOptions} placeholder="--None--" required variant="label-hidden" class="c-ai-prefilled"></lightning-combobox>
+                                    </div>
+                                </template>
+                                <template lwc:else>
+                                    <lightning-combobox label="Goal Priority" options={goalPriorityOptions} placeholder="--None--" required class="c-ne-modal__field"></lightning-combobox>
+                                </template>
+                                <lightning-combobox label="Goal Status"   options={goalStatusOptions}   placeholder="--None--" required class="c-ne-modal__field"></lightning-combobox>
+                            </div>
+                            <div class="c-ne-modal__row">
+                                <lightning-combobox
+                                    label="Primary Member"
+                                    value={modalPrefillPrimaryMember}
+                                    options={memberOptions}
+                                    placeholder="--None--"
+                                    class="c-ne-modal__field">
+                                </lightning-combobox>
+                            </div>
+                            <lightning-input label="Description" class="c-ne-modal__field"></lightning-input>
+                        </div>
+
+                        <!-- Date Range -->
+                        <div class="c-goal-section">
+                            <h3 class="c-goal-section__title">
+                                <lightning-icon icon-name="utility:chevrondown" size="xx-small" alternative-text="Section" class="c-goal-section__chevron"></lightning-icon>
+                                Date Range
+                            </h3>
+                            <div class="c-ne-modal__row slds-m-top_small">
+                                <lightning-input label="Start Date"  type="date" required class="c-ne-modal__field"></lightning-input>
+                                <lightning-input label="Target Date" type="date" required class="c-ne-modal__field"></lightning-input>
+                            </div>
+                        </div>
+
+                        <!-- Amount -->
+                        <div class="c-goal-section">
+                            <h3 class="c-goal-section__title">
+                                <lightning-icon icon-name="utility:chevrondown" size="xx-small" alternative-text="Section" class="c-goal-section__chevron"></lightning-icon>
+                                Amount
+                            </h3>
+                            <div class="c-ne-modal__row slds-m-top_small">
+                                <lightning-input label="Actual Value" type="number" class="c-ne-modal__field"></lightning-input>
+                                <!-- Target Value -->
+                                <template lwc:if={goalHasAiPrefill}>
+                                    <div class="c-ne-modal__field">
+                                        <div class="c-ai-label-row">
+                                            <span class="c-ai-sparkle" aria-hidden="true">✦</span>
+                                            <span class="slds-form-element__label">Target Value</span>
+                                        </div>
+                                        <lightning-input value={goalPrefillTargetAmount} type="number" required variant="label-hidden" class="c-ai-prefilled"></lightning-input>
+                                    </div>
+                                </template>
+                                <template lwc:else>
+                                    <lightning-input label="Target Value" type="number" required class="c-ne-modal__field"></lightning-input>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- STEP 2: Goal Members -->
+                    <template lwc:if={goalStep2Active}>
+                        <h2 class="c-goal-wizard__step-heading">Goal Members</h2>
+
+                        <div class="c-goal-members-search">
+                            <lightning-input label="Members" class="c-goal-members-search__input"></lightning-input>
+                            <button class="c-goal-add-member-btn">Add Member</button>
+                        </div>
+
+                        <table class="c-goal-members-table">
+                            <thead>
+                                <tr>
+                                    <th class="c-goal-members-table__chk-col"></th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={goalMembersData} for:item="mbr">
+                                    <tr key={mbr.id} class="c-goal-members-table__row">
+                                        <td class="c-goal-members-table__chk-col">
+                                            <lightning-input type="checkbox" label="Select" variant="label-hidden"></lightning-input>
+                                        </td>
+                                        <td>{mbr.name}</td>
+                                        <td>{mbr.email}</td>
+                                        <td>{mbr.phone}</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </template>
+
+                    <!-- STEP 3: Link Financial Account -->
+                    <template lwc:if={goalStep3Active}>
+                        <h2 class="c-goal-wizard__step-heading">Link Financial Account</h2>
+                        <p class="slds-text-body_regular slds-m-bottom_medium">Select a Financial Account.</p>
+
+                        <lightning-combobox
+                            label="Financial Account"
+                            variant="label-hidden"
+                            options={goalFinancialAccountOptions}
+                            placeholder="Select account..."
+                            class="c-goal-fa-combobox">
+                        </lightning-combobox>
+
+                        <!-- Details card -->
+                        <div class="c-goal-fa-card slds-m-top_medium">
+                            <h4 class="c-goal-fa-card__title">Financial Account Details</h4>
+
+                            <div class="c-goal-fa-card__row">
+                                <div class="c-goal-fa-card__field">
+                                    <p class="c-goal-fa-card__label">Owner</p>
+                                    <p class="c-goal-fa-card__value">Mark Reed · Sara Reed</p>
+                                </div>
+                            </div>
+
+                            <div class="c-goal-fa-card__row c-goal-fa-card__row_3col">
+                                <div class="c-goal-fa-card__field">
+                                    <p class="c-goal-fa-card__label">Account Number</p>
+                                    <p class="c-goal-fa-card__value">BRK-2020-4471</p>
+                                </div>
+                                <div class="c-goal-fa-card__field">
+                                    <p class="c-goal-fa-card__label">Branch Name</p>
+                                    <p class="c-goal-fa-card__value">—</p>
+                                </div>
+                                <div class="c-goal-fa-card__field">
+                                    <p class="c-goal-fa-card__label">Account Type</p>
+                                    <p class="c-goal-fa-card__value">Taxable Brokerage</p>
+                                </div>
+                            </div>
+
+                            <div class="c-goal-fa-card__row c-goal-fa-card__row_3col">
+                                <div class="c-goal-fa-card__field">
+                                    <p class="c-goal-fa-card__label">Account Balance</p>
+                                    <p class="c-goal-fa-card__value">$280,000</p>
+                                </div>
+                                <div class="c-goal-fa-card__field">
+                                    <p class="c-goal-fa-card__label">Account Balance Last Updated</p>
+                                    <p class="c-goal-fa-card__value">Jun 15, 2026</p>
+                                </div>
+                                <div class="c-goal-fa-card__field">
+                                    <p class="c-goal-fa-card__label">Available Account Balance for Goal Funding</p>
+                                    <p class="c-goal-fa-card__value">$261,500</p>
+                                </div>
+                            </div>
+
+                            <div class="c-goal-fa-card__row">
+                                <div class="c-goal-fa-card__field">
+                                    <p class="c-goal-fa-card__label">Goals Funded by Financial Account</p>
+                                    <p class="c-goal-fa-card__value">New-car fund</p>
+                                    <p class="c-goal-fa-card__value">$18,500</p>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                </div><!-- /.c-goal-wizard__body -->
+
+                <!-- Footer -->
+                <div class="c-goal-wizard__footer">
+                    <button class="c-goal-wizard__footer-cancel" onclick={handleCloseMilestoneModal}>Cancel</button>
+                    <div class="c-goal-wizard__footer-actions">
+                        <template lwc:if={goalShowPrevious}>
+                            <button class="c-ne-modal__cancel" onclick={handleGoalPrevious}>Previous</button>
+                        </template>
+                        <template lwc:if={goalShowNext}>
+                            <button class="c-ne-modal__save" onclick={handleGoalNext}>Next</button>
+                        </template>
+                        <template lwc:if={goalShowSave}>
+                            <button class="c-ne-modal__save" onclick={handleCloseMilestoneModal}>Save</button>
+                        </template>
+                    </div>
+                </div>
+            </div><!-- /.c-goal-wizard__main -->
+
+            <!-- ── Right: steps sidebar ── -->
+            <div class="c-goal-wizard__sidebar">
+                <p class="c-goal-wizard__sidebar-heading">Steps</p>
+                <ol class="c-goal-wizard__steps-list">
+                    <template for:each={goalStepData} for:item="step">
+                        <li key={step.id} class="c-goal-step-item">
+                            <span class={step.circleClass}>
+                                <template lwc:if={step.isDone}>
+                                    <lightning-icon icon-name="utility:check" size="xx-small" alternative-text="Complete"></lightning-icon>
+                                </template>
+                            </span>
+                            <span class={step.labelClass}>{step.label}</span>
+                        </li>
+                    </template>
+                </ol>
+            </div>
+
+        </div><!-- /.c-goal-wizard -->
+    </template>
+
+    <!-- New Financial Account modal -->
+    <template lwc:if={financialAccountModalOpen}>
+        <div class="c-ne-backdrop" onclick={handleCloseMilestoneModal}></div>
+        <div class="c-ne-modal c-ne-modal_milestone" role="dialog" aria-modal="true" aria-labelledby="c-fa-title">
+
+            <!-- Header -->
+            <div class="c-ne-modal__header c-ne-modal__header_centered">
+                <h2 class="c-ne-modal__title" id="c-fa-title">New Financial Account</h2>
+                <button class="c-ne-modal__close" onclick={handleCloseMilestoneModal} title="Close">
+                    <lightning-icon icon-name="utility:close" size="small" alternative-text="Close"></lightning-icon>
+                </button>
+            </div>
+
+            <!-- Body -->
+            <div class="c-ne-modal__body">
+                <p class="c-ne-required-note">* = Required Information</p>
+
+                <!-- Information section bar -->
+                <div class="c-ne-section-bar">Information</div>
+
+                <!-- Row 1: Name | Financial Account Number -->
+                <div class="c-ne-modal__row">
+                    <div class="c-ne-modal__field">
+                        <template lwc:if={financialHasAiPrefill}>
+                            <span class="c-ne-ai-label">
+                                <span class="c-ne-ai-label-sparkle" aria-hidden="true">✦</span>
+                                Name *
+                            </span>
+                            <lightning-input
+                                value={financialPrefillName}
+                                variant="label-hidden"
+                                required
+                                class="c-ne-modal__field_ai">
+                            </lightning-input>
+                        </template>
+                        <template lwc:else>
+                            <lightning-input
+                                label="Name"
+                                required>
+                            </lightning-input>
+                        </template>
+                    </div>
+                    <lightning-input
+                        label="Financial Account Number"
+                        required
+                        class="c-ne-modal__field">
+                    </lightning-input>
+                </div>
+
+                <!-- Row 2: Type | Status -->
+                <div class="c-ne-modal__row">
+                    <div class="c-ne-modal__field">
+                        <template lwc:if={financialHasAiPrefill}>
+                            <span class="c-ne-ai-label">
+                                <span class="c-ne-ai-label-sparkle" aria-hidden="true">✦</span>
+                                Type *
+                            </span>
+                            <lightning-combobox
+                                value={financialPrefillType}
+                                options={milestoneTypeOptions}
+                                placeholder="--None--"
+                                required
+                                variant="label-hidden"
+                                class="c-ne-modal__field_ai">
+                            </lightning-combobox>
+                        </template>
+                        <template lwc:else>
+                            <lightning-combobox
+                                label="Type"
+                                options={milestoneTypeOptions}
+                                placeholder="--None--"
+                                required>
+                            </lightning-combobox>
+                        </template>
+                    </div>
+                    <lightning-combobox
+                        label="Status"
+                        options={financialAccountStatusOptions}
+                        placeholder="--None--"
+                        class="c-ne-modal__field">
+                    </lightning-combobox>
+                </div>
+
+                <!-- Row 3: Primary Member | Managed -->
+                <div class="c-ne-modal__row">
+                    <lightning-combobox
+                        label="Primary Member"
+                        value={modalPrefillPrimaryMember}
+                        options={memberOptions}
+                        placeholder="--None--"
+                        class="c-ne-modal__field">
+                    </lightning-combobox>
+                    <div class="c-ne-modal__field">
+                        <lightning-input type="checkbox" label="Managed" class="c-ne-checkbox"></lightning-input>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="c-ne-modal__footer">
+                <button class="c-ne-modal__cancel" onclick={handleCloseMilestoneModal}>Cancel</button>
+                <button class="c-ne-modal__save-new">Save &amp; New</button>
+                <button class="c-ne-modal__save">Save</button>
+            </div>
+        </div>
+    </template>
+
+    <!-- New Meeting modal -->
+    <template lwc:if={meetingModalOpen}>
+        <div class="c-ne-backdrop" onclick={handleCloseMilestoneModal}></div>
+        <div class="c-ne-modal c-ne-modal_meeting" role="dialog" aria-modal="true" aria-labelledby="c-mtg-title">
+
+            <!-- Header -->
+            <div class="c-ne-modal__header c-ne-modal__header_centered">
+                <h2 class="c-ne-modal__title" id="c-mtg-title">New Meeting</h2>
+                <button class="c-ne-modal__close" onclick={handleCloseMilestoneModal} title="Close">
+                    <lightning-icon icon-name="utility:close" size="small" alternative-text="Close"></lightning-icon>
+                </button>
+            </div>
+
+            <!-- Body -->
+            <div class="c-ne-modal__body">
+
+                <!-- Subject -->
+                <div class="c-ne-ai-field-wrap">
+                    <template lwc:if={meetingHasAiPrefill}>
+                        <span class="c-ne-ai-label">
+                            <abbr class="slds-required" title="required">*</abbr> Subject
+                            <span class="c-ne-ai-label-sparkle" aria-label="AI suggested">✦</span>
+                        </span>
+                        <lightning-input
+                            variant="label-hidden"
+                            value={meetingPrefillSubject}
+                            required
+                            class="c-ne-modal__field c-ne-modal__field_ai">
+                        </lightning-input>
+                    </template>
+                    <template lwc:else>
+                        <lightning-input
+                            label="Subject"
+                            value={meetingPrefillSubject}
+                            required
+                            class="c-ne-modal__field">
+                        </lightning-input>
+                    </template>
+                </div>
+
+                <!-- Description -->
+                <div class="c-ne-ai-field-wrap slds-m-top_medium">
+                    <template lwc:if={meetingHasAiPrefill}>
+                        <span class="c-ne-ai-label">
+                            Description
+                            <span class="c-ne-ai-label-sparkle" aria-label="AI suggested">✦</span>
+                        </span>
+                        <lightning-textarea
+                            variant="label-hidden"
+                            value={meetingPrefillDescription}
+                            placeholder="Tip: Type Command + period to insert quick text."
+                            class="c-ne-modal__field c-ne-modal__field_ai">
+                        </lightning-textarea>
+                    </template>
+                    <template lwc:else>
+                        <lightning-textarea
+                            label="Description"
+                            value={meetingPrefillDescription}
+                            placeholder="Tip: Type Command + period to insert quick text."
+                            class="c-ne-modal__field">
+                        </lightning-textarea>
+                    </template>
+                </div>
+
+                <!-- START / END datetime row -->
+                <div class="c-ne-mtg-datetime-row slds-m-top_medium">
+                    <!-- START -->
+                    <div class="c-ne-mtg-datetime-group">
+                        <p class="c-ne-mtg-datetime-label">START</p>
+                        <div class="c-ne-modal__row c-ne-modal__row_compact">
+                            <lightning-input label="Date" type="date" required class="c-ne-modal__field"></lightning-input>
+                            <lightning-input label="Time" type="time" class="c-ne-modal__field"></lightning-input>
+                        </div>
+                    </div>
+                    <!-- END -->
+                    <div class="c-ne-mtg-datetime-group">
+                        <p class="c-ne-mtg-datetime-label">END</p>
+                        <div class="c-ne-modal__row c-ne-modal__row_compact">
+                            <lightning-input label="Date" type="date" class="c-ne-modal__field"></lightning-input>
+                            <lightning-input label="Time" type="time" class="c-ne-modal__field"></lightning-input>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Name / Related To -->
+                <div class="c-ne-modal__row slds-m-top_medium">
+                    <div class="c-ne-ai-field-wrap">
+                        <template lwc:if={meetingHasAiPrefill}>
+                            <span class="c-ne-ai-label">
+                                Name
+                                <span class="c-ne-ai-label-sparkle" aria-label="AI suggested">✦</span>
+                            </span>
+                            <lightning-input
+                                variant="label-hidden"
+                                value={meetingPrefillName}
+                                placeholder="Search Contacts..."
+                                class="c-ne-modal__field c-ne-modal__field_ai">
+                            </lightning-input>
+                        </template>
+                        <template lwc:else>
+                            <lightning-input
+                                label="Name"
+                                value={meetingPrefillName}
+                                placeholder="Search Contacts..."
+                                class="c-ne-modal__field">
+                            </lightning-input>
+                        </template>
+                    </div>
+                    <div class="c-ne-ai-field-wrap">
+                        <template lwc:if={meetingHasAiPrefill}>
+                            <span class="c-ne-ai-label">
+                                Related To
+                                <span class="c-ne-ai-label-sparkle" aria-label="AI suggested">✦</span>
+                            </span>
+                            <lightning-input
+                                variant="label-hidden"
+                                value={meetingPrefillRelatedTo}
+                                class="c-ne-modal__field c-ne-modal__field_ai">
+                            </lightning-input>
+                        </template>
+                        <template lwc:else>
+                            <lightning-input
+                                label="Related To"
+                                value={meetingPrefillRelatedTo}
+                                class="c-ne-modal__field">
+                            </lightning-input>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Location -->
+                <lightning-input
+                    label="Location"
+                    placeholder="e.g. Video Call, Office"
+                    class="c-ne-modal__field slds-m-top_medium">
+                </lightning-input>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="c-ne-modal__footer">
+                <button class="c-ne-modal__cancel" onclick={handleCloseMilestoneModal}>Cancel</button>
                 <button class="c-ne-modal__save">Save</button>
             </div>
         </div>

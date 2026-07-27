@@ -11,29 +11,56 @@ const TYPE_INFO = {
 
 export default class EventPopover extends LightningElement {
     /** Full event object (including .detail) from the timeline */
-    @api eventData;
+    @api
+    get eventData() { return this._eventData; }
+    set eventData(val) {
+        // Reset AI dismissed state whenever a new event is loaded
+        if (val?.id !== this._eventData?.id || val?.detail?.aiInsight !== this._eventData?.detail?.aiInsight) {
+            this._aiDismissed = false;
+        }
+        this._eventData = val;
+    }
+    _eventData = null;
+
     /** CSS position string — "top: Xpx; left: Ypx;" */
     @api panelStyle;
     /** Whether the popover arrow is on the right (popover appears to the left of pill) */
     @api arrowRight = false;
+    /**
+     * When true the panel uses no vertical centering transform (position is pre-clamped
+     * by the caller — V2 uses this so the panel never overflows the viewport).
+     */
+    /** Optional override for the avatar icon circle background colour (e.g. neutral blue in V2) */
+    @api iconBgColor = null;
+
+    @api noCenter = false;
+    /**
+     * Pixel offset from the panel top where the arrow tip should sit.
+     * When null (default) the arrow stays at 50% (centred) via CSS.
+     */
+    @api arrowTopPx = null;
 
     @track _aiDismissed = false;
 
     get typeInfo() {
-        return TYPE_INFO[this.eventData?.type] || TYPE_INFO.financial;
+        return TYPE_INFO[this._eventData?.type] || TYPE_INFO.financial;
+    }
+
+    /** Inline background override for the avatar circle; null = use CSS type class colour */
+    get avatarStyle() {
+        return this.iconBgColor ? `background: ${this.iconBgColor};` : null;
     }
 
     get detail() {
-        return this.eventData?.detail || {};
+        return this._eventData?.detail || {};
     }
 
     get title() {
-        return this.eventData?.label || '';
+        return this._eventData?.label || '';
     }
 
     get showAiCard() {
         return !this._aiDismissed
-            && !!this.detail.isCritical
             && (!!this.detail.aiInsight || !!this.detail.sentimentInsights?.length);
     }
 
@@ -42,19 +69,19 @@ export default class EventPopover extends LightningElement {
     }
 
     get isLifeEvent() {
-        return this.eventData?.type === 'life';
+        return this._eventData?.type === 'life';
     }
 
     get isGoalEvent() {
-        return this.eventData?.type === 'goal';
+        return this._eventData?.type === 'goal';
     }
 
     get isFinancialEvent() {
-        return this.eventData?.type === 'financial';
+        return this._eventData?.type === 'financial';
     }
 
     get isEngagementEvent() {
-        return this.eventData?.type === 'engagement';
+        return this._eventData?.type === 'engagement';
     }
 
     // ── Goal bespoke card getters ─────────────────────────────────
@@ -103,8 +130,19 @@ export default class EventPopover extends LightningElement {
         return 'c-ep-status';
     }
 
+    get panelClass() {
+        return 'c-ep-panel' + (this.noCenter ? ' c-ep-panel_no-center' : '');
+    }
+
     get arrowClass() {
         return this.arrowRight ? 'c-ep-arrow c-ep-arrow_right' : 'c-ep-arrow c-ep-arrow_left';
+    }
+
+    /** Inline style for the arrow — overrides the default top:50% when arrowTopPx is set. */
+    get arrowStyle() {
+        if (this.arrowTopPx == null) return '';
+        // rotate(45deg) is already in CSS; only override the top value
+        return `top: ${this.arrowTopPx}px; transform: translateY(-50%) rotate(45deg);`;
     }
 
     handleDismissAi() {

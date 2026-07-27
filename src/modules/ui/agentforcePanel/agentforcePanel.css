@@ -1,0 +1,400 @@
+/* ── Agentforce chat panel (Salesforce-style) ────────────────────────────── */
+/* Rendered at app-shell level (outside scroll containers) so position:fixed
+   applies to the true viewport with no ancestor clipping. */
+
+:host {
+    display: contents; /* let the inner .c-af-panel be the actual box */
+}
+
+.c-af-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    /* intentional static: 22rem — no SLDS hook for panel width */
+    width: 22rem;
+    /* intentional static: light blue-grey panel bg matching Salesforce Agentforce */
+    background: #e8edf8;
+    border-left: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    display: flex;
+    flex-direction: column;
+    z-index: 9050;
+    animation: c-af-slide-in 0.25s ease-out;
+}
+
+@keyframes c-af-slide-in {
+    from { transform: translateX(100%); opacity: 0; }
+    to   { transform: translateX(0);    opacity: 1; }
+}
+
+/* ── Collapse chevron tab ──────────────────────────────────────────────────── */
+.c-af-collapse-tab {
+    position: absolute;
+    left: -1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.25rem;
+    height: 2.5rem;
+    /* intentional static: brand blue collapse tab */
+    background: #0176d3;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.375rem 0 0 0.375rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.625rem;
+    z-index: 1;
+}
+
+/* ── Header ────────────────────────────────────────────────────────────────── */
+.c-af-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem);
+    background: var(--slds-g-color-neutral-base-100, #ffffff);
+    border-bottom: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    flex-shrink: 0;
+}
+
+/* Agent switcher */
+.c-af-agent-switcher { position: relative; }
+
+.c-af-agent-title-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.c-af-agent-title-text {
+    font-size: var(--slds-g-font-scale-neg1, 0.875rem);
+    font-weight: 700;
+    /* intentional static: brand blue title matching screenshot */
+    color: #0176d3;
+}
+
+.c-af-agent-chevron { color: #0176d3; }
+
+.c-af-agent-dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    background: var(--slds-g-color-surface-1, #fff);
+    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    border-radius: var(--slds-g-radius-border-2, 0.375rem);
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+    min-width: 14rem;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.c-af-agent-option {
+    display: block;
+    width: 100%;
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem);
+    background: transparent;
+    border: none;
+    text-align: left;
+    font-size: var(--slds-g-font-scale-neg1, 0.875rem);
+    color: var(--slds-g-color-on-surface-1, #181818);
+    cursor: pointer;
+}
+.c-af-agent-option:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
+
+.c-af-header-actions {
+    display: flex;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+}
+
+.c-af-header-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: none;
+    background: transparent;
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    cursor: pointer;
+    color: var(--slds-g-color-neutral-base-50, #6b7280);
+}
+.c-af-header-btn:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
+
+/* ── Body ──────────────────────────────────────────────────────────────────── */
+.c-af-body {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--slds-g-spacing-6, 1.5rem) var(--slds-g-spacing-4, 1rem);
+    gap: var(--slds-g-spacing-3, 0.75rem);
+}
+
+/* Hero illustration — edge-to-edge, 2× srcset for retina sharpness */
+.c-af-hero-wrap {
+    /* Bleed the illustration to the panel edges by cancelling the body padding */
+    width: calc(100% + 2 * var(--slds-g-spacing-4, 1rem));
+    /* intentional static: negative margins to cancel parent body padding */
+    margin-left: calc(-1 * var(--slds-g-spacing-4, 1rem));
+    margin-right: calc(-1 * var(--slds-g-spacing-4, 1rem));
+    margin-top: calc(-1 * var(--slds-g-spacing-6, 1.5rem));
+    margin-bottom: var(--slds-g-spacing-3, 0.75rem);
+    line-height: 0;
+    overflow: hidden;
+}
+
+.c-af-hero-img {
+    /* SVG scales infinitely — sharp at any device pixel ratio */
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.c-af-greeting {
+    font-size: var(--slds-g-font-scale-2, 1.125rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    color: var(--slds-g-color-neutral-base-10, #181818);
+    text-align: center;
+    margin: 0;
+}
+
+.c-af-desc {
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    color: var(--slds-g-color-neutral-base-30, #374151);
+    text-align: center;
+    line-height: var(--slds-g-font-line-height-base, 1.5);
+    margin: 0;
+}
+
+.c-af-suggestions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    width: 100%;
+    margin-top: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-af-suggestion-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem);
+    border-radius: var(--slds-g-radius-border-4, 1.5rem);
+    border: 1px solid var(--slds-g-color-border-base-1, #c9c9c9);
+    background: var(--slds-g-color-neutral-base-100, #ffffff);
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    /* intentional static: brand blue text matching Salesforce screenshot */
+    color: #0176d3;
+    cursor: pointer;
+    text-align: left;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+}
+.c-af-suggestion-btn:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
+
+/* Blue arrow on suggestion buttons */
+.c-af-sug-arrow .slds-icon { fill: #0176d3; }
+
+/* ── Select Agent dropdown ─────────────────────────────────────────────────── */
+/* Transparent full-panel backdrop — closes dropdown on outside click */
+.c-af-selector-backdrop {
+    position: absolute;
+    inset: 0;
+    background: transparent;
+    z-index: 19;
+}
+
+/* Dropdown card — drops down from below the header bar */
+.c-af-selector {
+    position: absolute;
+    /* intentional static: header is ~3rem tall; drop below it */
+    top: 3rem;
+    left: 0;
+    right: 0;
+    background: var(--slds-g-color-neutral-base-100, #ffffff);
+    border-radius: 0 0 var(--slds-g-radius-border-3, 0.75rem) var(--slds-g-radius-border-3, 0.75rem);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    z-index: 20;
+    overflow: hidden;
+    animation: c-af-dropdown-in 0.18s ease-out;
+}
+
+@keyframes c-af-dropdown-in {
+    from { opacity: 0; transform: translateY(-0.5rem); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.c-af-selector__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--slds-g-spacing-4, 1rem) var(--slds-g-spacing-4, 1rem) var(--slds-g-spacing-3, 0.75rem);
+    border-bottom: 1px solid var(--slds-g-color-border-base-1, #e5e5e5);
+}
+
+.c-af-selector__title {
+    font-size: var(--slds-g-font-scale-1, 1rem);
+    font-weight: 700;
+    color: var(--slds-g-color-on-surface-1, #181818);
+    margin: 0;
+}
+
+.c-af-selector__body {
+    padding: var(--slds-g-spacing-2, 0.5rem) 0;
+}
+
+/* Individual option row */
+.c-af-agent-option-row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--slds-g-spacing-3, 0.75rem);
+    padding: var(--slds-g-spacing-4, 1rem);
+    cursor: pointer;
+    border-bottom: 1px solid var(--slds-g-color-border-base-1, #f0f0f0);
+    transition: background 0.1s;
+}
+.c-af-agent-option-row:last-child { border-bottom: none; }
+.c-af-agent-option-row:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
+
+.c-af-agent-option-row_selected {
+    background: var(--slds-g-color-surface-2, #f3f3f3);
+}
+
+/* Custom radio ring */
+.c-af-radio {
+    /* intentional static: 1.25rem radio circle */
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    border: 2px solid #c9c9c9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.1rem;
+    /* intentional static: transition for smooth selection */
+    transition: border-color 0.15s;
+}
+
+.c-af-agent-option-row_selected .c-af-radio {
+    /* intentional static: brand blue radio when selected */
+    border-color: #0176d3;
+}
+
+.c-af-radio__dot {
+    /* intentional static: filled inner dot */
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    background: #0176d3;
+}
+
+.c-af-option-content { flex: 1; min-width: 0; }
+
+.c-af-option-name {
+    font-size: var(--slds-g-font-scale-neg1, 0.875rem);
+    font-weight: 700;
+    /* intentional static: brand blue agent name matching screenshot */
+    color: #0176d3;
+    margin: 0 0 var(--slds-g-spacing-1, 0.25rem);
+}
+
+.c-af-option-desc {
+    font-size: var(--slds-g-font-scale-neg-2, 0.8125rem);
+    color: var(--slds-g-color-neutral-base-50, #6b7280);
+    margin: 0;
+    line-height: 1.45;
+}
+
+/* Footer with Select button */
+.c-af-selector__footer {
+    padding: var(--slds-g-spacing-4, 1rem);
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid var(--slds-g-color-border-base-1, #e5e5e5);
+}
+
+.c-af-selector__select-btn {
+    /* intentional static: cobalt blue pill button matching screenshot */
+    background: #0176d3;
+    color: #ffffff;
+    border: none;
+    border-radius: var(--slds-g-radius-border-4, 1.5rem);
+    padding: var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-6, 1.5rem);
+    font-size: var(--slds-g-font-scale-neg1, 0.875rem);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+.c-af-selector__select-btn:hover { background: #0150a0; }
+
+/* ── Footer ────────────────────────────────────────────────────────────────── */
+.c-af-footer {
+    flex-shrink: 0;
+    background: var(--slds-g-color-neutral-base-100, #ffffff);
+    border-top: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem);
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-af-input-box {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--slds-g-color-border-base-1, #c9c9c9);
+    border-radius: var(--slds-g-radius-border-2, 0.375rem);
+    background: var(--slds-g-color-neutral-base-100, #ffffff);
+    padding: var(--slds-g-spacing-2, 0.5rem) var(--slds-g-spacing-3, 0.75rem);
+    gap: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-af-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: var(--slds-g-font-scale-neg-1, 0.875rem);
+    color: var(--slds-g-color-neutral-base-10, #181818);
+    background: transparent;
+}
+.c-af-input::placeholder { color: var(--slds-g-color-neutral-base-50, #9ca3af); }
+
+.c-af-input-actions {
+    display: flex;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+}
+
+.c-af-input-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--slds-g-color-neutral-base-50, #6b7280);
+    border-radius: var(--slds-g-radius-border-1, 0.25rem);
+}
+.c-af-input-btn:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
+
+.c-af-disclaimer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.c-af-disclaimer {
+    font-size: var(--slds-g-font-scale-neg-3, 0.6875rem);
+    color: var(--slds-g-color-neutral-base-50, #9ca3af);
+    text-align: center;
+    margin: 0;
+}
+
+.c-af-sf-logo { opacity: 0.5; }
