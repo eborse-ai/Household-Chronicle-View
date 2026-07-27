@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none">
+  <!-- Pole -->
+  <rect x="2.5" y="1.5" width="2.2" height="17" rx="1.1" fill="#5a5a5a"/>
+  <!-- Flag body — waving shape -->
+  <path d="M4.7 2.5
+           C8 2.5 10 4.5 13 4
+           C15.5 3.6 17 2.5 17 2.5
+           L17 11.5
+           C17 11.5 15 12.5 13 12
+           C10 11.4 8 13.5 4.7 13.5
+           Z"
+        fill="#5a5a5a"/>
+</svg>

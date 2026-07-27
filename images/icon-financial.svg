@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Green circle background -->
+  <circle cx="50" cy="50" r="50" fill="#5b9a5e"/>
+
+  <!-- Pediment triangle roof -->
+  <path d="M50 16 L82 38 L18 38 Z" fill="white"/>
+
+  <!-- Pediment base bar -->
+  <rect x="16" y="36" width="68" height="7" rx="3.5" fill="white"/>
+
+  <!-- Circle window in pediment -->
+  <circle cx="50" cy="28" r="5" fill="#5b9a5e"/>
+
+  <!-- Four columns -->
+  <rect x="22" y="43" width="10" height="28" rx="5" fill="white"/>
+  <rect x="37" y="43" width="10" height="28" rx="5" fill="white"/>
+  <rect x="53" y="43" width="10" height="28" rx="5" fill="white"/>
+  <rect x="68" y="43" width="10" height="28" rx="5" fill="white"/>
+
+  <!-- Base platform -->
+  <rect x="14" y="71" width="72" height="12" rx="6" fill="white"/>
+</svg>
