@@ -1,3 +1,9 @@
+/*
+ * chronicleViewV2.css
+ * Copied from accountDetail.css for visual parity with V1.
+ * Modify freely — changes here ONLY affect V2.
+ */
+
 :host {
     display: block;
     /* Prevent any wide child (e.g. timeline table) from causing page-level horizontal scroll */
@@ -128,70 +134,18 @@ lightning-card {
     flex: 0 0 auto;
     /* intentional static: 19rem card width; no SLDS sizing hook */
     width: 19rem;
-    /* intentional static: uniform card height so all cards in the strip align */
-    height: 9rem;
     background: var(--slds-g-color-surface-1, #ffffff);
-    /* intentional static: #c9c9c9 slightly darker than default border for card definition */
-    border: var(--slds-g-sizing-border-1, 1px) solid #c9c9c9;
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-base-1, #e5e5e5);
     border-radius: var(--slds-g-radius-border-3, 0.5rem);
-    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    padding: var(--slds-g-spacing-4, 1rem);
 }
 
-/* Title row: title left, badge pinned to right */
-.c-highlight-card__title-row {
+.c-highlight-card__header {
     display: flex;
     align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    flex-wrap: nowrap;
     justify-content: space-between;
-    gap: var(--slds-g-spacing-2, 0.5rem);
-    min-width: 0;
-}
-
-.c-highlight-card__title {
-    /* intentional static: #001E5B deep navy — brand heading colour */
-    font-size: var(--slds-g-font-scale-1, 0.875rem);
-    font-weight: var(--slds-g-font-weight-4, 400);
-    color: #001E5B;
-    margin: 0;
-    flex: 1;
-    min-width: 0;
-    /* Single-line truncation */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Trigger / meta — intentionally de-emphasised: grey and small */
-.c-highlight-card__trigger {
-    /* intentional static: neutral mid-grey, smaller than body */
-    color: var(--slds-g-color-on-surface-4, #9e9e9e);
-    font-size: var(--slds-g-font-scale-neg-3, 0.6875rem);
-    font-weight: var(--slds-g-font-weight-4, 400);
-    margin: var(--slds-g-spacing-1, 0.25rem) 0 0;
-}
-
-/* Clamp highlight card description to 2 lines */
-.c-highlight-card__desc {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-    margin-top: var(--slds-g-spacing-1, 0.25rem);
-    flex: 1;
-    /* intentional static: matches .c-tli-card__desc — neutral mid-grey body text */
-    font-size: 0.75rem;
-    color: var(--slds-g-color-neutral-base-50, #6b7280);
-    line-height: 1.3;
-}
-
-/* CTA row anchored to bottom-left of card */
-.c-highlight-card__footer {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--slds-g-spacing-2, 0.5rem);
-    margin-top: var(--slds-g-spacing-1, 0.25rem);
 }
 
 /* ── Badges ─────────────────────────────────────────── */
@@ -206,54 +160,33 @@ lightning-card {
     letter-spacing: 0.01em;
 }
 
-.c-badge_neutral {
-    /* intentional static: neutral grey — used for operational/RMD alert badge labels */
-    background: var(--slds-g-color-neutral-base-95, #f3f3f3);
-    color: var(--slds-g-color-on-surface-3, #5c5c5c);
-    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+.c-badge_alert {
+    /* V2: vivid red — action-needed, high contrast */
+    /* intentional static: red-100/red-700 pair — no SLDS v2 hook for danger surface */
+    background: #fee2e2;
+    color: #b91c1c;
 }
 
-.c-badge_blue {
-    /* intentional static: Salesforce brand-blue tint for RMD operational badge labels */
-    background: #dbeafe;
-    color: #1d4ed8;
-}
-
-/* intentional static: yellow tint — "Attention Needed" for moderate-priority RMD alerts */
-.c-badge_attention {
-    background: #fef9c3;
-    color: #854d0e;
-}
-
-/* intentional static: amber tint — "Attention Needed" darker variant */
-.c-badge_attention_amber {
+.c-badge_gap {
+    /* V2: vivid amber-yellow — action-needed gap */
+    /* intentional static: amber-100/amber-800 pair — no SLDS v2 warning-surface hook */
     background: #fef3c7;
     color: #92400e;
 }
 
-.c-badge_alert {
-    /* Vivid pink/rose tint matching screenshot — no SLDS v2 hook for this surface */
-    background: #fce7f0;
-    color: #c2185b;
-}
-
-.c-badge_gap {
-    background: var(--slds-g-color-warning-container-1, #fff3cd);
-    color: var(--slds-g-color-palette-orange-50, #b45309);
-}
-
 .c-badge_predicted {
-    /* Blue-violet tint for predicted insights — no SLDS v2 hook for this exact surface */
-    background: #ede9fe;
-    /* No SLDS v2 hook for violet-700 */
-    color: #5b21b6;
+    /* V2: neutral grey — not action-needed; users differentiate via icon */
+    /* intentional static: matches c-badge_category neutral palette */
+    background: #f3f2f2;
+    color: var(--slds-g-color-neutral-base-50, #706e6b);
+    border: 1px solid #dddbda;
 }
 
 .c-badge_opportunity {
-    /* Teal tint for opportunity insights — no SLDS v2 hook for this surface */
-    background: #ccfbf1;
-    /* No SLDS v2 hook for teal-700 */
-    color: #0f766e;
+    /* V2: vivid green — action-needed opportunity */
+    /* intentional static: green-100/green-800 pair — no SLDS v2 success-surface hook */
+    background: #dcfce7;
+    color: #166534;
 }
 
 .c-badge_ai {
@@ -268,25 +201,30 @@ lightning-card {
     color: #3730a3;
 }
 
-.c-badge_service {
-    /* intentional static: orange-red for service-request urgency — no SLDS v2 hook */
-    background: #ffedd5;
-    color: #c2410c;
+.c-highlight-card__member-meta {
+    /* Purple member/date line — matches the sparkle popover style */
+    color: #7c3aed;
+    font-size: var(--slds-g-font-scale-neg1, 0.8125rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    margin: var(--slds-g-spacing-1, 0.25rem) 0 0;
 }
 
-.c-badge_compliance {
-    /* intentional static: sky-blue for compliance/KYC items — no SLDS v2 hook */
-    background: #e0f2fe;
-    color: #0369a1;
-}
-
-.c-badge_cash {
-    /* intentional static: emerald tint for cash/liquidity items — no SLDS v2 hook */
-    background: #d1fae5;
-    color: #065f46;
+/* Clamp highlight card description to 3 lines */
+.c-highlight-card__desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
 }
 
 /* ── Highlight card split action button ─────────────── */
+.c-highlight-action {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    flex-shrink: 0;
+}
+
 /* Main label — pill border, blue text, transparent fill */
 .c-highlight-action__btn {
     background: var(--slds-g-color-surface-1, #ffffff);
@@ -1094,7 +1032,7 @@ lightning-card {
     flex-shrink: 0;
     color: var(--slds-g-color-neutral-base-50, #747474);
 }
-/* Context-menu goal icon — flat grey flag SVG, no background */
+/* Goal icon in context menu — amber circle + white flag */
 .c-tl-ctx-menu__goal-icon {
     width: 1.25rem;
     height: 1.25rem;
@@ -1151,8 +1089,8 @@ lightning-card {
     gap: 0.3rem;
     /* intentional static: match SLDS form-element__label sizing */
     font-size: 0.75rem;
-    font-weight: 700;
-    color: #032d60;
+    font-weight: 600;
+    color: var(--slds-g-color-neutral-base-30, #3e3e3c);
     margin-bottom: 0.25rem;
     line-height: 1.25;
 }
@@ -1172,103 +1110,11 @@ lightning-card {
     flex-shrink: 0;
 }
 
-/* Light-blue background + blue border on AI-autofilled inputs / textareas */
-.c-ne-modal__field_ai,
-.c-ai-prefilled {
-    /* intentional static: soft brand-tinted highlight matching screenshot */
-    --slds-c-input-color-background:       #eef4ff;
-    --slds-c-textarea-color-background:    #eef4ff;
-    --slds-c-combobox-color-background:    #eef4ff;
-    /* blue border to match the AI pre-fill visual treatment */
-    --slds-c-input-color-border:           #0176d3;
-    --slds-c-textarea-color-border:        #0176d3;
-    --slds-c-combobox-color-border:        #0176d3;
-}
-
-/* Goal wizard AI label row + sparkle (c-ai-label-row / c-ai-sparkle) */
-.c-ai-label-row {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #032d60;        /* navy — matches AI-prefill label treatment */
-    margin-bottom: 0.25rem;
-    line-height: 1.25;
-}
-/* Keep the SLDS form-element__label inside the row the same colour */
-.c-ai-label-row .slds-form-element__label {
-    color: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    margin: 0;
-}
-/* Blue Salesforce-brand sparkle — matches c-ne-ai-spark */
-.c-ai-sparkle {
-    color: #0176d3;
-    font-size: 0.75rem;
-    line-height: 1;
-    filter: drop-shadow(0 0 2px rgba(1, 118, 211, 0.35));
-    flex-shrink: 0;
-}
-
-/* Aliases used in the life-event modal AI prefill markup */
-.c-ne-ai-spark {
-    color: #0176d3;
-    font-size: 0.75rem;
-    line-height: 1;
-    filter: drop-shadow(0 0 2px rgba(1, 118, 211, 0.35));
-    flex-shrink: 0;
-}
-.c-ne-ai-label-row {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #032d60;         /* navy — AI-sparkle labels */
-    margin-bottom: 0.25rem;
-}
-/* Plain (non-AI) usage of the same label-row: override colour back to standard SLDS grey */
-.c-ne-ai-label-row:not(:has(.c-ne-ai-spark)) {
-    font-weight: 600;
-    color: var(--slds-g-color-neutral-base-30, #3e3e3c);
-}
-.c-ne-modal__label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #032d60;
-    line-height: 1.25;
-}
-
-/* AI Insight card inside the life event modal */
-.c-ne-ai-insight-card {
-    background: #f5f3ff;
-    border: 1px solid #c4b5fd;
-    border-radius: 0.5rem;
-    padding: 0.75rem 1rem;
-    margin-bottom: 0.75rem;
-}
-.c-ne-ai-insight-card__header {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-bottom: 0.35rem;
-}
-.c-ne-ai-insight-card__icon {
-    --slds-c-icon-color-foreground: #7c3aed;
-    --slds-c-icon-color-foreground-default: #7c3aed;
-}
-.c-ne-ai-insight-card__title {
-    font-size: 0.8125rem;
-    font-weight: 700;
-    color: #5b21b6;
-}
-.c-ne-ai-insight-card__body {
-    font-size: 0.8125rem;
-    color: #4c1d95;
-    line-height: 1.4;
-    margin: 0;
+/* Light-blue background on AI-autofilled inputs / textareas */
+.c-ne-modal__field_ai {
+    /* intentional static: soft brand-tinted highlight matching screenshot 2 */
+    --slds-c-input-color-background: #eef4ff;
+    --slds-c-textarea-color-background: #eef4ff;
 }
 
 /* START / END datetime side-by-side */
@@ -1712,13 +1558,10 @@ lightning-card {
      * AI Suggestions panel (position: absolute) so it overlays only this section.
      */
     position: relative;
-    /* Smooth resize when the Timeline Insights panel slides in/out */
     margin-right: 0;
     transition: margin-right 0.25s ease;
 }
 
-/* When the Timeline Insights panel (17rem wide) is open, shrink the timeline
-   by the same amount so no pill is ever cropped behind the panel. */
 .c-group-timeline_insights-open {
     margin-right: 17.5rem;
 }
@@ -1786,6 +1629,38 @@ lightning-card {
     line-height: var(--slds-g-font-line-height-base, 1.5);
     /* Animated update: smooth colour crossfade when year changes */
     transition: color 0.2s ease;
+}
+
+/* Quarter chips row — pushed to the right of the breadcrumb */
+.c-tl-breadcrumb__quarters {
+    display: flex;
+    align-items: center;
+    /* intentional static: 1rem — separator gap between year label and Q chips */
+    gap: 0.25rem;
+    margin-left: auto;
+}
+
+/* Individual Q chip */
+.c-tl-breadcrumb__q {
+    /* intentional static: small pill chip */
+    padding: 0.1rem 0.5rem;
+    border-radius: 1rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    /* Neutral default — not the current quarter */
+    background: #f3f2f2;
+    color: var(--slds-g-color-neutral-base-50, #706e6b);
+    border: 1px solid #dddbda;
+    transition: background 0.2s, color 0.2s;
+}
+
+/* Active quarter — matches the indigo accent used on timeline Q dividers */
+.c-tl-breadcrumb__q_active {
+    /* intentional static: indigo-100/indigo-700 — matches c-timeline-quarter-badge colour */
+    background: #e0e7ff;
+    color: #4338ca;
+    border-color: #c7d2fe;
 }
 
 /* ── View transition animations ─────────────────────────────────── */
@@ -1978,50 +1853,6 @@ lightning-card {
 .c-timeline-row__member {
     grid-row: 1 / 3;
     grid-column: 1;
-    /* Split into two flex sections: member info (top) + engagement label (bottom) */
-    display: flex;
-    flex-direction: column;
-}
-
-/* Top section — name, role, age — expands to fill the milestone track height */
-.c-member-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;   /* pack content to top — no dead space below */
-    padding: var(--slds-g-spacing-3, 0.75rem);
-}
-
-/* Bottom section — matches the grey engagement lane tint exactly */
-.c-member-engagement-label {
-    /* intentional static: matches .c-engagement-cell background + dashed separator */
-    background: var(--slds-g-color-surface-2, #f9f9f9);
-    border-top: 1px dashed var(--slds-g-color-border-base-1, #e5e7eb);
-    padding: 0.2rem 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    flex-shrink: 0;
-    /* Exact height match with .c-engagement-cell */
-    min-height: 1.4rem;
-    box-sizing: border-box;
-}
-/* "Engagement" small caps label */
-.c-member-eng-track-label {
-    /* intentional static: compact uppercase label */
-    font-size: 0.6rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--slds-g-color-neutral-base-50, #706e6b);
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-/* Strength indicator in engagement section — separator then dot + label */
-.c-member-strength_eng {
-    flex-shrink: 0;
-    padding-left: 0.4rem;
-    border-left: 1px solid var(--slds-g-color-border-base-1, #e0e0e0);
 }
 
 /* ── Engagement sub-lane cells ────────────────────────────────────────────── */
@@ -2041,6 +1872,13 @@ lightning-card {
     border-top: 1px dashed var(--slds-g-color-border-base-1, #e5e7eb);
 }
 
+/* Engagement gap band — rose tint for relationship-drift periods (e.g. Grace's ~18-month gap) */
+/* intentional static: #fff1f2 rose-50 / #fecdd3 rose-200 top-border — no SLDS v2 engagement-gap token */
+.c-engagement-cell_gap {
+    background: #fff1f2;
+    border-top-color: #fecdd3;
+}
+
 /* Engagement dot — coloured touchpoint circle */
 .c-eng-dot {
     width: 0.55rem;
@@ -2058,12 +1896,12 @@ lightning-card {
     transform: scale(1.6);
     box-shadow: 0 0 0 2px rgba(0,0,0,0.12);
 }
-/* Meeting → teal (matches c-type-dot_meeting) */
-.c-eng-dot_meeting    { background: var(--slds-g-color-palette-teal-65, #14b8a6); }
-/* Engagement → dark indigo (matches c-type-dot_engagement) */
-.c-eng-dot_engagement { background: #4d4d4d; }
-/* Call → sky-blue phone icon dot (monthly / detail view) */
-/* intentional static: #0ea5e9 sky-500 */
+/* V2: meeting/engagement track dots → grey, matching yearly c-type-dot treatment */
+/* intentional static: #706e6b — SLDS neutral-60 grey */
+.c-eng-dot_meeting    { background: #706e6b; }
+.c-eng-dot_engagement { background: #706e6b; }
+/* Call touchpoint dot — sky blue to distinguish from meeting (monthly / detail view) */
+/* intentional static: #0ea5e9 sky-500 — no SLDS v2 call-dot token */
 .c-eng-dot_call       { background: #0ea5e9; }
 /* Yearly view: calls shown as same grey as meetings — no colour differentiation */
 .c-timeline-table_yearly .c-eng-dot_call { background: #706e6b; }
@@ -2135,7 +1973,8 @@ lightning-card {
 
 /* Year header cells — opaque bg (needed for sticky) + dashed left separator */
 .c-timeline-year-col.c-timeline-header__cell {
-    background: var(--slds-g-color-surface-1, #ffffff);
+    /* Match the rest of the header row — light grey so the bar reads as a single unit */
+    background: var(--slds-g-color-neutral-base-95, #f3f3f3);
     border-left: var(--slds-g-sizing-border-1, thin) dashed var(--slds-g-color-border-base-1, #c0c0c0);
 }
 
@@ -2210,10 +2049,14 @@ lightning-card {
 
 /* ── Member column ─────────────────────────────────── */
 .c-timeline-row__member {
-    /* display/flex-direction set above; only visual props here */
-    align-items: stretch;          /* sections fill the full width */
+    display: flex;
+    align-items: flex-start;
+    padding: var(--slds-g-spacing-3, 0.75rem);
+    gap: var(--slds-g-spacing-2, 0.5rem);
     border-right: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #dddbda);
     background: var(--slds-g-color-surface-1, #ffffff);
+    /* taller rows to accommodate multi-line member info */
+    min-height: 5.5rem;
 }
 
 /* Colored initial avatar */
@@ -2250,7 +2093,6 @@ lightning-card {
     flex-direction: column;
     gap: 0;
     min-width: 0;
-    /* flex:1 and justify-content set by .c-timeline-row__member > .c-member-info rule above */
 }
 
 .c-member-name {
@@ -2294,17 +2136,12 @@ lightning-card {
 }
 
 .c-strength-dot_strong { background: var(--slds-g-color-success-1, #2e844a); }
-.c-strength-dot_low    { background: #c9820a; /* intentional static: amber — caution level */ }
 .c-strength-dot_na     { background: var(--slds-g-color-border-base-1, #c0c0c0); }
 
 .c-strength-label {
     font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
     font-weight: var(--slds-g-font-weight-7, 700);
     color: var(--slds-g-color-success-1, #2e844a);
-}
-
-.c-strength-dot_low + .c-strength-label {
-    color: #c9820a; /* intentional static: amber to match dot */
 }
 
 .c-strength-dot_na + .c-strength-label {
@@ -2491,13 +2328,36 @@ lightning-card {
 
 /* Quarter-start divider on header cells (Apr, Jul, Oct — not Jan which has year-start) */
 .c-timeline-header__cell_q-start {
-    /* intentional static: #d1d5db dashed left border — subtle Q boundary */
-    border-left: 1.5px dashed #d1d5db;
+    /* V2: solid indigo left border — clearly marks the Q boundary */
+    /* intentional static: #818cf8 indigo-400 — no SLDS v2 indigo surface token */
+    border-left: 2px solid #818cf8;
+    position: relative;
 }
 
-/* Quarter-start divider on row cells */
+/* Quarter-start divider on row cells — matches header */
 .c-timeline-row__cell_q-start {
-    border-left: 1.5px dashed #e5e7eb;
+    /* intentional static: #818cf8 indigo-400 */
+    border-left: 2px solid #818cf8;
+}
+
+/* Alternating even-quarter band (Q2, Q4) — very subtle tint */
+/* intentional static: indigo-50 4% opacity — no SLDS v2 quarter-band token */
+.c-timeline-col_q-even {
+    background: rgba(99, 102, 241, 0.04);
+}
+
+/* Small Q label shown in the header cell at the start of each quarter */
+.c-tl-q-header-label {
+    display: block;
+    /* intentional static: 0.55rem — smaller than month label, sits below it */
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    /* intentional static: indigo-400 — matches the border colour */
+    color: #818cf8;
+    margin-top: 0.1rem;
+    line-height: 1;
 }
 
 /* Type dots are only meaningful in yearly expanded view; hide in monthly/drill */
@@ -2595,7 +2455,7 @@ lightning-card {
     line-height: 1;
 }
 
-/* Icon badge wrapper — fixed square so no icon can inflate pill height */
+/* Icon badge wrapper — no background, just sizes the icon flush */
 .c-pill-icon-badge {
     flex-shrink: 0;
     display: inline-flex;
@@ -2613,27 +2473,12 @@ lightning-card {
 .c-pill-icon-badge_life lightning-icon svg { fill: #0094B7; }
 
 /* Engagement — dark indigo icon (darkened for accessibility) */
-.c-pill-icon-badge_engagement {    /* intentional static: dark-indigo engagement icon */
+.c-pill-icon-badge_engagement {
+    /* intentional static: dark-indigo engagement icon */
     --slds-c-icon-color-foreground: #4d4d4d;
 }
 .c-pill-icon-badge_engagement .slds-icon,
 .c-pill-icon-badge_engagement lightning-icon svg { fill: #4d4d4d; }
-
-/* Call — sky-blue phone icon */
-/* intentional static: #0ea5e9 sky-500 */
-.c-pill-icon-badge_call {
-    --slds-c-icon-color-foreground: #0ea5e9;
-}
-.c-pill-icon-badge_call .slds-icon,
-.c-pill-icon-badge_call lightning-icon svg { fill: #0ea5e9; }
-
-/* Opportunity — violet sparkle icon */
-.c-pill-icon-badge_opportunity {
-    /* intentional static: violet-500 */
-    --slds-c-icon-color-foreground: #7c3aed;
-}
-.c-pill-icon-badge_opportunity .slds-icon,
-.c-pill-icon-badge_opportunity lightning-icon svg { fill: #7c3aed; }
 
 /* Financial Goal — flat grey waving-flag SVG icon, no background */
 .c-pill-icon-badge_goal {
@@ -2643,25 +2488,33 @@ lightning-card {
     width: 1.25rem;
     height: 1.25rem;
     flex-shrink: 0;
-    /* intentional static: #706e6b neutral grey — matches other pill icons in V1 */
-    --slds-c-icon-color-foreground: #706e6b;
-    fill: #706e6b;
 }
-/* Tint the goal SVG icon amber to match the legend/dot/border colour */
-/* Goal SVG icon — neutral grey to match other pill icons in V1 */
 .c-pill-icon_goal {
-    /* intentional static: greyscale at ~44% brightness → #706e6b neutral grey */
-    filter: grayscale(100%) brightness(0.44);
     width: 0.85rem;
     height: 0.85rem;
     display: block;
     flex-shrink: 0;
 }
-/* Financial Account — standard:account building icon; let it render in its natural green/white */
-.c-pill-icon-badge_financial {
-    width: 1.1rem;
-    height: 1.1rem;
+/* Financial Account — flat grey utility:company icon, no background */
+.c-pill-icon-badge_financial { --slds-c-icon-color-foreground: #5b5b5b; }
+.c-pill-icon-badge_financial .slds-icon,
+.c-pill-icon-badge_financial lightning-icon svg { fill: #5b5b5b; }
+
+/* Opportunity — violet sparkle icon */
+/* intentional static: #7c3aed violet — no SLDS v2 opportunity-type token */
+.c-pill-icon-badge_opportunity {
+    --slds-c-icon-color-foreground: #7c3aed;
 }
+.c-pill-icon-badge_opportunity .slds-icon,
+.c-pill-icon-badge_opportunity lightning-icon svg { fill: #7c3aed; }
+
+/* Call — sky-blue phone icon */
+/* intentional static: #0ea5e9 sky-500 — no SLDS v2 call-type token */
+.c-pill-icon-badge_call {
+    --slds-c-icon-color-foreground: #0ea5e9;
+}
+.c-pill-icon-badge_call .slds-icon,
+.c-pill-icon-badge_call lightning-icon svg { fill: #0ea5e9; }
 
 /* Body wrapper: stacks label + target year vertically */
 .c-pill-body {
@@ -2725,6 +2578,12 @@ lightning-card {
     flex-shrink: 0;
 }
 
+/* V2: neutral blue outline — 1px, accessible contrast (≥3:1 on white per WCAG AA) */
+/* intentional static: #2272b6 — ~4.5:1 contrast on white; no SLDS v2 neutral-pill-border token */
+.c-event-pill {
+    border: 1px solid #2272b6;
+}
+
 .c-event-pill:hover {
     background: #ffffff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
@@ -2732,50 +2591,42 @@ lightning-card {
     z-index: 2;
 }
 
-/* Life Event — teal blue border, neutral label */
-.c-event-pill_life {
-    /* No SLDS hook for #0094B7 — intentional brand color */
-    border-color: #0094B7;
-}
+/* V2: type-specific modifier classes kept for structural compat; border NOT overridden */
+.c-event-pill_life,
+.c-event-pill_engagement,
+.c-event-pill_meeting,
+.c-event-pill_transaction,
+.c-event-pill_goal,
+.c-event-pill_financial { /* inherits neutral blue from .c-event-pill above */ }
 
-/* Engagement — dark indigo border (darkened for accessibility) */
-.c-event-pill_engagement {
-    /* intentional static: dark indigo #4d4d4d for accessibility */
-    border-color: #4d4d4d;
-}
-
-/* Meeting — slate gray border, neutral label */
-.c-event-pill_meeting {
-    border-color: #706e6b;
-}
-
-/* Call — same slate-gray border as meeting pills */
-.c-event-pill_call {
-    border-color: #706e6b;
-}
-
-/* Opportunity — violet border + faint violet fill */
-.c-event-pill_opportunity {
-    /* intentional static: violet-500 — no SLDS v2 hook for this exact shade */
+/* Opportunity type pill — violet border + lightest violet tint fill */
+/* intentional static: #7c3aed violet border / #f5f3ff violet-50 fill — no SLDS v2 opportunity-type-pill token */
+.c-event-pill_type-opportunity {
     border-color: #7c3aed;
     background: #f5f3ff;
 }
 
-/* Transaction — amber/gold border, neutral label */
-.c-event-pill_transaction {
-    border-color: var(--slds-g-color-palette-yellow-30, #c89200);
+/* ── Action-needed pill overrides (insight-driven) ─────────────────── */
+
+/* Gap — amber: life event with no follow-through */
+/* intentional static: amber-300 border / amber-50 fill — no SLDS v2 gap-pill token */
+.c-event-pill_gap {
+    border-color: #f59e0b;
+    background: #fffbeb;
 }
 
-/* Financial Goal — orange border, neutral label */
-.c-event-pill_goal {
-    /* intentional static: amber #c9820a — matches goal legend swatch */
-    border-color: #c9820a;
+/* Alert — red: goal or event at risk */
+/* intentional static: red-400 border / red-50 fill — no SLDS v2 alert-pill token */
+.c-event-pill_alert {
+    border-color: #f87171;
+    background: #fff5f5;
 }
 
-/* Financial Account — medium green border, neutral label */
-.c-event-pill_financial {
-    /* intentional static: #5aab5e medium green per screenshot */
-    border-color: #5aab5e;
+/* Opportunity — green: engagement gap or growth moment */
+/* intentional static: green-400 border / green-50 fill — no SLDS v2 opportunity-pill token */
+.c-event-pill_opportunity {
+    border-color: #4ade80;
+    background: #f0fdf4;
 }
 
 /* ── Timeline legend ─────────────────────────────────── */
@@ -2790,6 +2641,22 @@ lightning-card {
     margin-top: var(--slds-g-spacing-2, 0.5rem);
 }
 
+/* Yearly-view simplified legend dots */
+.c-legend-dot {
+    /* No SLDS hook for 0.625rem dot */
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+/* intentional static: #2272b6 — matches updated accessible pill border */
+.c-legend-dot_milestone { background: #2272b6; }
+/* intentional static: #706e6b — matches c-type-dot_meeting / c-eng-dot_meeting */
+.c-legend-dot_meeting   { background: #706e6b; }
+/* intentional static: #0ea5e9 sky-500 — matches c-eng-dot_call */
+.c-legend-dot_call      { background: #0ea5e9; }
+
 .c-legend-item {
     display: flex;
     align-items: center;
@@ -2798,7 +2665,11 @@ lightning-card {
     color: var(--slds-g-color-on-surface-2, #444);
 }
 
-.c-legend-item::before {
+/* V2: type legend items use actual icons — no ::before dot needed for those */
+/* Insight-signal items still use ::before colored dot */
+.c-legend-item_ins-gap::before,
+.c-legend-item_ins-alert::before,
+.c-legend-item_ins-opportunity::before {
     content: '';
     /* No SLDS hook for 0.625rem legend dot */
     width: 0.625rem;
@@ -2808,15 +2679,76 @@ lightning-card {
     flex-shrink: 0;
 }
 
-/* Filled solid dots for clear visual distinction */
-.c-legend-item_life::before        { background: #0094B7; }
-.c-legend-item_engagement::before  { background: #4d4d4d; /* intentional static: dark indigo */ }
-.c-legend-item_meeting::before     { background: #706e6b; /* No SLDS v2 hook for slate-gray */ }
-.c-legend-item_transaction::before { background: var(--slds-g-color-palette-yellow-30, #c89200); }
-.c-legend-item_goal::before        { background: #c9820a; }
-.c-legend-item_financial::before   { background: #5b9a5e; }
-/* intentional static: violet #7c3aed — matches opportunity pill border and type dot */
-.c-legend-item_opportunity::before { background: #7c3aed; }
+/* Insight-signal dot colors — filled, match action-needed pill border colors */
+/* intentional static: amber-400 — matches c-event-pill_gap border */
+.c-legend-item_ins-gap::before         { background: #f59e0b; }
+/* intentional static: red-400 — matches c-event-pill_alert border */
+.c-legend-item_ins-alert::before       { background: #f87171; }
+/* intentional static: green-400 — matches c-event-pill_opportunity border */
+.c-legend-item_ins-opportunity::before { background: #4ade80; }
+/* intentional static: indigo-500 — matches c-badge_relationship */
+.c-legend-item_ins-relationship::before {
+    content: '';
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+    background: #6366f1;
+}
+
+/* Engagement gap band legend swatch */
+/* intentional static: rose-200 — matches c-engagement-cell_gap border-top */
+.c-legend-item_eng-gap::before {
+    content: '';
+    width: 1.5rem;
+    height: 0.5rem;
+    border-radius: 0.125rem;
+    display: inline-block;
+    flex-shrink: 0;
+    background: #fecdd3;
+    border: 1px solid #fb7185;
+}
+
+/* Legend icon sizing — constrained to match small dot scale */
+.c-legend-icon {
+    /* intentional static: 0.875rem — slightly smaller than pill icon for legend context */
+    width: 0.875rem;
+    height: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+/* Life event icon — teal, matching pill icon colour */
+.c-legend-icon_life {
+    --slds-c-icon-color-foreground: #0094B7;
+}
+.c-legend-icon_life lightning-icon svg,
+.c-legend-icon_life .slds-icon { fill: #0094B7; }
+
+/* Meeting/engagement icon — dark grey */
+.c-legend-icon_engagement {
+    --slds-c-icon-color-foreground: #4d4d4d;
+}
+.c-legend-icon_engagement lightning-icon svg,
+.c-legend-icon_engagement .slds-icon { fill: #4d4d4d; }
+
+/* Financial account icon — grey */
+.c-legend-icon_financial {
+    --slds-c-icon-color-foreground: #5b5b5b;
+}
+.c-legend-icon_financial lightning-icon svg,
+.c-legend-icon_financial .slds-icon { fill: #5b5b5b; }
+
+/* Financial goal — SVG image, constrained size */
+.c-legend-icon_goal {
+    width: 0.875rem;
+    height: 0.875rem;
+    object-fit: contain;
+}
 
 /* Legend separator */
 .c-legend-sep {
@@ -3332,42 +3264,41 @@ lightning-card {
     background: var(--slds-g-color-border-base-1, #dddbda);
 }
 
-.c-type-dot_life {
-    /* No SLDS hook for #0094B7 — intentional brand color */
-    background: #0094B7;
+/* V2: milestone-type dots → accessible blue, matching updated pill border */
+/* intentional static: #2272b6 — ~4.5:1 on white; matches c-event-pill border */
+.c-type-dot_life,
+.c-type-dot_transaction,
+.c-type-dot_goal,
+.c-type-dot_financial {
+    background: #2272b6;
 }
 
-.c-type-dot_engagement {
-    /* intentional static: dark indigo for accessibility */
-    background: #4d4d4d;
+/* V2: opportunity type dot → violet to match opportunity pill */
+/* intentional static: #7c3aed — violet, matches c-event-pill_type-opportunity border */
+.c-type-dot_opportunity {
+    background: #7c3aed;
 }
 
-.c-type-dot_meeting {
-    background: var(--slds-g-color-palette-teal-65, #14b8a6);
-}
-
-/* intentional static: #0ea5e9 sky-500 — call type dot */
+/* V2: call type dot → sky-blue to match phone icon and c-eng-dot_call */
+/* intentional static: #0ea5e9 sky-500 — no SLDS v2 call-dot token */
 .c-type-dot_call {
     background: #0ea5e9;
 }
 
-.c-type-dot_transaction {
-    background: var(--slds-g-color-warning-base-70, #f59e0b);
+/* V2: meeting / engagement dots → grey (distinct from milestone blue in yearly view) */
+/* intentional static: #706e6b — SLDS neutral-60 grey */
+.c-type-dot_engagement,
+.c-type-dot_meeting {
+    background: #706e6b;
 }
 
-.c-type-dot_opportunity {
-    /* intentional static: violet-500 — matches opportunity pill border */
-    background: #7c3aed;
-}
-
-.c-type-dot_goal {
-    /* intentional static: amber #c9820a — matches goal legend swatch and pill border */
-    background: #c9820a;
-}
-
-.c-type-dot_financial {
-    background: var(--slds-g-color-palette-green-65, #10b981);
-}
+/* Insight-signal type dots — colored to match action-needed pill borders */
+/* intentional static: amber-400 — matches c-event-pill_gap */
+.c-type-dot_gap        { background: #f59e0b; }
+/* intentional static: red-400 — matches c-event-pill_alert */
+.c-type-dot_alert      { background: #f87171; }
+/* intentional static: green-400 — matches c-event-pill_opportunity */
+.c-type-dot_opportunity { background: #4ade80; }
 
 /* ── Sparkle suggestion popover ──────────────────────────────── */
 .c-sparkle-popover-backdrop {
@@ -3621,66 +3552,15 @@ lightning-card {
     box-shadow: 0 2px 8px rgba(2, 80, 217, 0.15);
 }
 
-/* ── V1 Timeline Insights section groups ─────────────────────────────────── */
-.c-tl-insights-section {
-    display: flex;
-    flex-direction: column;
-    gap: var(--slds-g-spacing-2, 0.5rem);
-}
-
-/* Horizontal rule between sections */
-.c-tl-insights-section_sep {
-    padding-bottom: var(--slds-g-spacing-3, 0.75rem);
-    margin-bottom: var(--slds-g-spacing-3, 0.75rem);
-    /* intentional static: subtle divider */
-    border-bottom: 1px solid #e5e7eb;
-}
-
-/* Section label */
-.c-tl-insights-section__label {
-    /* intentional static: 0.6875rem — smallest readable label */
-    font-size: 0.6875rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--slds-g-color-neutral-base-50, #6b7280);
-    padding: 0 var(--slds-g-spacing-1, 0.25rem);
-}
-
-/* Badge row: type badge + neutral category pill side-by-side */
-.c-tli-card__badges {
-    display: flex;
-    align-items: center;
-    gap: var(--slds-g-spacing-1, 0.25rem);
-    flex-wrap: wrap;
-    flex: 1;
-    min-width: 0;
-}
-
-/* Neutral category pill */
-.c-badge_category {
-    /* intentional static: light grey — neutral, no semantic colour */
-    background: #f3f2f2;
-    color: var(--slds-g-color-neutral-base-50, #706e6b);
-    border: 1px solid #dddbda;
-    font-size: 0.625rem;
-    font-weight: 500;
-    /* intentional static: 0.125rem / 0.5rem pill padding */
-    padding: 0.125rem 0.5rem;
-    border-radius: var(--slds-g-radius-border-4, 1rem);
-    white-space: nowrap;
-}
-
 .c-tli-card__top {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     margin-bottom: var(--slds-g-spacing-2, 0.5rem);
 }
 
-/* CTA button — bottom-left of each V1 Timeline Insights card */
-/* intentional static: brand blue pill button matching V2 card CTA */
+/* CTA action button — bottom-left of each insight card */
 .c-tli-card__cta {
+    /* intentional static: brand blue pill button */
     background: #0250D9;
     color: #ffffff;
     border: none;
@@ -3692,15 +3572,13 @@ lightning-card {
     cursor: pointer;
     white-space: nowrap;
     transition: background 0.15s ease;
+    /* Prevent card click (highlight/scroll) from firing when CTA is clicked */
+    position: relative;
+    z-index: 1;
+    /* Stay at natural width (left-aligned), don't stretch to fill the card */
+    align-self: flex-start;
 }
 .c-tli-card__cta:hover { background: #013aac; }
-
-/* Footer row — holds the CTA aligned to the left */
-.c-tli-card__footer {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: var(--slds-g-spacing-2, 0.5rem);
-}
 
 .c-tli-card__active-dot {
     /* intentional static: 0.5rem pulsing dot indicating pill is highlighted */
@@ -3730,6 +3608,172 @@ lightning-card {
     color: var(--slds-g-color-neutral-base-50, #6b7280);
     margin: 0;
     line-height: 1.4;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   V2-Experimental ONLY — Timeline Insights as a TOP inline panel
+   (replaces the side panel used in V1-Working)
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Container: full-width strip inside the timeline card, above the body */
+.c-tli-top-panel {
+    border-bottom: 1px solid var(--slds-g-color-border-base-1, #e5e5e5);
+    /* intentional static: very light blue-grey tint to distinguish from timeline bg */
+    background: #f4f7fd;
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem);
+    animation: c-tli-top-slide 0.2s ease-out;
+}
+
+@keyframes c-tli-top-slide {
+    from { opacity: 0; transform: translateY(-0.375rem); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Header row: title + close */
+.c-tli-top-panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--slds-g-spacing-3, 0.75rem);
+}
+
+.c-tli-top-panel__title-wrap {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.c-tli-top-panel__title-icon { color: #0250D9; }
+
+.c-tli-top-panel__title {
+    font-size: var(--slds-g-font-scale-neg1, 0.875rem);
+    font-weight: 700;
+    color: var(--slds-g-color-on-surface-1, #181818);
+}
+
+.c-tli-top-panel__hint {
+    /* intentional static: 0.75rem subdued helper text */
+    font-size: 0.75rem;
+    color: var(--slds-g-color-neutral-base-50, #6b7280);
+}
+
+.c-tli-top-panel__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: transparent;
+    border: none;
+    border-radius: var(--slds-g-radius-border-1, 0.25rem);
+    cursor: pointer;
+    color: var(--slds-g-color-neutral-base-50, #6b7280);
+    flex-shrink: 0;
+}
+.c-tli-top-panel__close:hover { background: var(--slds-g-color-surface-2, #e8ecf4); }
+
+/* Horizontally scrollable card row */
+.c-tli-top-panel__cards {
+    display: flex;
+    flex-direction: row;
+    /* intentional static: 8px — uniform gap between all groups */
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: var(--slds-g-spacing-1, 0.25rem);
+    /* hide scrollbar but keep scrollable */
+    scrollbar-width: thin;
+    scrollbar-color: #c9d8f0 transparent;
+}
+.c-tli-top-panel__cards::-webkit-scrollbar {
+    height: 4px;
+}
+.c-tli-top-panel__cards::-webkit-scrollbar-track { background: transparent; }
+.c-tli-top-panel__cards::-webkit-scrollbar-thumb {
+    /* intentional static: subtle blue scrollbar */
+    background: #c9d8f0;
+    border-radius: 2px;
+}
+
+/* ── Section groups inside the horizontal card strip ─────────────────────── */
+.c-tli-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    flex-shrink: 0;
+    /* Remove padding-right — gap on parent container handles spacing */
+    padding-right: 0;
+}
+
+/* Right divider between groups (applied to all non-last groups via JS) */
+.c-tli-group_sep {
+    /* Dividers removed — category pills on cards communicate grouping */
+    border-right: none;
+    margin-right: 0;
+}
+
+/* Section label above card row */
+.c-tli-group__label {
+    /* intentional static: 0.6875rem — smallest readable label size */
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--slds-g-color-neutral-base-50, #6b7280);
+    white-space: nowrap;
+    padding: 0 var(--slds-g-spacing-1, 0.25rem);
+}
+
+/* Cards within a section sit side-by-side at equal height */
+.c-tli-group__cards {
+    display: flex;
+    flex-direction: row;
+    /* intentional static: 8px — consistent gap between all insight cards */
+    gap: 8px;
+    /* Stretch all cards to the height of the tallest sibling in the group */
+    align-items: stretch;
+}
+
+/* Each card: fixed width + consistent fixed height; flex column so CTA pins to bottom */
+.c-tli-top-panel .c-tli-card {
+    /* intentional static: 240px min-width — comfortable card width in horizontal strip */
+    min-width: 240px;
+    max-width: 300px;
+    flex-shrink: 0;
+    /* Fixed height gives uniform cards across all groups */
+    /* intentional static: 11rem — fits badge + title (2 lines max) + desc + CTA */
+    height: 11rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Spacer grows to fill remaining vertical space, pushing CTA to the bottom */
+.c-tli-card__spacer {
+    flex: 1;
+}
+
+/* Badge + category pill row — wrap so they don't push the CTA off-screen */
+.c-tli-card__badges {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    flex-wrap: wrap;
+    flex: 1;
+    min-width: 0;
+}
+
+/* Neutral category pill (after the type badge) */
+.c-badge_category {
+    /* intentional static: blue-100/blue-800 — V3 category uses light blue to match brand blue badge palette */
+    background: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #bfdbfe;
+    font-size: 0.625rem;
+    font-weight: 500;
+    /* intentional static: 0.125rem / 0.5rem pill padding */
+    padding: 0.125rem 0.5rem;
+    border-radius: var(--slds-g-radius-border-4, 1rem);
+    white-space: nowrap;
 }
 
 /* ── Highlighted pill state ─────────────────────────────────────────────── */
@@ -3820,61 +3864,324 @@ lightning-card {
 }
 .c-cv-toggle__btn:hover:not(.c-cv-toggle__btn_active) { background: var(--slds-g-color-surface-2, #f3f3f3); }
 
-/* ── V1-only: remove divider lines above/below the metric highlight blocks in the event popover ── */
-/* Targets the shared ui-event-popover child via synthetic shadow (LWC local dev) */
-ui-event-popover .c-ep-header  { border-bottom: none; }
-ui-event-popover .c-ep-metrics { border-bottom: none; }
+/* ═══════════════════════════════════════════════════════════════
+   V3 — Right-side detail panel (replaces floating popover)
+   ═══════════════════════════════════════════════════════════════ */
 
-/* ── Placeholder tabs (Details, Related, Financial Goal, etc.) ── */
-.c-tab-content_placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 12rem;
-    padding: var(--slds-g-spacing-6, 1.5rem);
-}
-.c-tab-placeholder-text {
-    color: var(--slds-g-color-neutral-base-50, #706e6b);
-    font-size: var(--slds-g-font-scale-1, 0.875rem);
-    font-style: italic;
-    margin: 0;
-}
-
-/* ── V4 yearly view: per-type count pills ───────────────────────────────── */
-.c-v4-type-counts {
+/* Viewport wrapper: positions panel relative to the timeline body */
+.c-v3-tl-viewport {
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.2rem;
-    padding: 0.2rem 0.35rem;
 }
 
-.c-v4-count-pill {
+/* Semi-transparent backdrop — only covers the timeline body */
+.c-v3-panel-backdrop {
+    position: absolute;
+    inset: 0;
+    /* intentional static: no dim — panel slides in without obscuring the timeline */
+    background: transparent;
+    z-index: 19;
+    pointer-events: none; /* allow clicks to pass through to the timeline */
+}
+
+/* The sliding panel itself */
+.c-v3-detail-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    /* intentional static: 22rem — matches floating popover width */
+    width: 22rem;
+    background: var(--slds-g-color-surface-1, #ffffff);
+    /* intentional static: left border + shadow to separate from timeline */
+    border-left: 1px solid var(--slds-g-color-border-base-1, #e5e5e5);
+    box-shadow: -6px 0 20px rgba(0, 0, 0, 0.12);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: v3PanelSlideIn 0.22s ease forwards;
+}
+
+@keyframes v3PanelSlideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to   { transform: translateX(0);    opacity: 1; }
+}
+
+/* ── Panel Header ─────────────────────────────── */
+.c-v3p-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--slds-g-spacing-3, 0.75rem);
+    padding: var(--slds-g-spacing-4, 1rem);
+    border-bottom: 1px solid var(--slds-g-color-border-base-1, #e5e5e5);
+    flex-shrink: 0;
+}
+.c-v3p-avatar {
+    /* intentional static: 2.75rem circle matching eventPopover avatar */
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 1.5rem;
-    padding: 0.1rem 0.5rem;
-    border-radius: 9999px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: #fff;
-    line-height: 1.3;
-    white-space: nowrap;
-    user-select: none;
+    flex-shrink: 0;
+    /* intentional static: white icon on coloured background (bg set via inline style) */
+    --slds-c-icon-color-foreground: #ffffff;
+    --slds-c-icon-color-foreground-default: #ffffff;
+}
+/* Force the SVG path inside lightning-icon to white (synthetic shadow cascade) */
+.c-v3p-avatar lightning-icon svg,
+.c-v3p-avatar lightning-icon .slds-icon {
+    fill: #ffffff;
+}
+.c-v3p-header-body {
+    flex: 1;
+    min-width: 0;
+}
+.c-v3p-type-label {
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--slds-g-color-on-surface-3, #5c5c5c);
+    margin: 0 0 var(--slds-g-spacing-1, 0.25rem);
+}
+.c-v3p-title {
+    font-size: var(--slds-g-font-scale-3, 1rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    color: var(--slds-g-color-on-surface-1, #181818);
+    margin: 0 0 var(--slds-g-spacing-1, 0.25rem);
+    line-height: 1.25;
+}
+.c-v3p-desc {
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    color: var(--slds-g-color-on-surface-3, #5c5c5c);
+    margin: 0;
+    line-height: 1.4;
+}
+.c-v3p-shared-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    margin-top: var(--slds-g-spacing-1, 0.25rem);
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    color: var(--slds-g-color-on-surface-3, #5c5c5c);
+}
+.c-v3p-close {
+    background: none;
     border: none;
     cursor: pointer;
-    transition: opacity 0.15s ease;
+    padding: var(--slds-g-spacing-1, 0.25rem);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    flex-shrink: 0;
+    color: var(--slds-g-color-on-surface-3, #5c5c5c);
+    --slds-c-icon-color-foreground: var(--slds-g-color-on-surface-3, #5c5c5c);
+}
+.c-v3p-close:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
+
+/* ── Scrollable body ──────────────────────────── */
+.c-v3p-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--slds-g-spacing-4, 1rem);
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-4, 1rem);
 }
 
-.c-v4-count-pill:hover { opacity: 0.82; }
+/* ── Key metrics bar ──────────────────────────── */
+.c-v3p-metrics {
+    display: flex;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    background: var(--slds-g-color-surface-2, #f9f9f9);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    padding: var(--slds-g-spacing-3, 0.75rem);
+}
+.c-v3p-metric {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+}
+.c-v3p-metric-lbl {
+    font-size: var(--slds-g-font-scale-neg-3, 0.6875rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--slds-g-color-on-surface-3, #5c5c5c);
+}
+.c-v3p-metric-val {
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-6, 600);
+    color: var(--slds-g-color-on-surface-1, #181818);
+}
 
-/* Type-specific colors */
-.c-v4-count-pill_life        { background: #0176d3; }   /* brand blue  */
-.c-v4-count-pill_goal        { background: #c9820a; }   /* amber       */
-.c-v4-count-pill_financial   { background: #22a06b; }   /* emerald     */
-.c-v4-count-pill_opportunity { background: #7c3aed; }   /* violet      */
-/* Meetings and calls share the same neutral grey */
-.c-v4-count-pill_meeting     { background: #706e6b; }
-.c-v4-count-pill_engagement  { background: #706e6b; }
-.c-v4-count-pill_call        { background: #706e6b; }
+/* ── Agentic Insights card ────────────────────── */
+.c-v3p-ai-card {
+    /* intentional static: lavender tint matching eventPopover AI card */
+    background: #f5f3ff;
+    border-radius: var(--slds-g-radius-border-2, 0.375rem);
+    padding: var(--slds-g-spacing-3, 0.75rem);
+}
+.c-v3p-ai-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--slds-g-spacing-2, 0.5rem);
+}
+.c-v3p-ai-title-row {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+}
+.c-v3p-ai-sparkle {
+    /* intentional static: violet sparkle */
+    color: #7c3aed;
+    font-size: 0.875rem;
+}
+.c-v3p-ai-title {
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    /* intentional static: violet */
+    color: #5b21b6;
+}
+.c-v3p-ai-dismiss {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.125rem;
+    color: var(--slds-g-color-on-surface-3, #5c5c5c);
+    --slds-c-icon-color-foreground: var(--slds-g-color-on-surface-3, #5c5c5c);
+}
+.c-v3p-ai-text {
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    color: var(--slds-g-color-on-surface-2, #3e3e3c);
+    line-height: 1.5;
+    margin: 0 0 var(--slds-g-spacing-2, 0.5rem);
+}
+
+/* ── Sentiment grid ───────────────────────────── */
+.c-v3p-sentiment-grid { display: flex; flex-direction: column; gap: var(--slds-g-spacing-2, 0.5rem); margin-bottom: var(--slds-g-spacing-2, 0.5rem); }
+.c-v3p-sentiment-row  { display: flex; gap: var(--slds-g-spacing-2, 0.5rem); }
+.c-v3p-sentiment-person { flex: 0 0 6rem; }
+.c-v3p-sentiment-name { font-size: var(--slds-g-font-scale-neg-2, 0.75rem); font-weight: 600; margin: 0; }
+.c-v3p-sentiment-role { font-size: var(--slds-g-font-scale-neg-3, 0.6875rem); color: var(--slds-g-color-on-surface-3, #5c5c5c); margin: 0; }
+.c-v3p-sentiment-text { font-size: var(--slds-g-font-scale-neg-2, 0.75rem); color: var(--slds-g-color-on-surface-2, #3e3e3c); margin: 0; line-height: 1.4; flex: 1; }
+
+/* ── Detail grid (lower section) ─────────────── */
+.c-v3p-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--slds-g-spacing-3, 0.75rem);
+}
+.c-v3p-detail-cell { display: flex; flex-direction: column; gap: var(--slds-g-spacing-1, 0.25rem); }
+.c-v3p-detail-lbl {
+    font-size: var(--slds-g-font-scale-neg-3, 0.6875rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--slds-g-color-on-surface-3, #5c5c5c);
+}
+.c-v3p-detail-val { font-size: var(--slds-g-font-scale-neg-2, 0.75rem); color: var(--slds-g-color-on-surface-1, #181818); }
+.c-v3p-action-taken { display: flex; flex-direction: column; gap: var(--slds-g-spacing-1, 0.25rem); }
+
+/* ── Goal section ─────────────────────────────── */
+.c-v3p-goal-section { display: flex; flex-direction: column; gap: var(--slds-g-spacing-2, 0.5rem); }
+.c-v3p-goal-progress-header {
+    display: flex;
+    align-items: center;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    flex-wrap: wrap;
+}
+.c-v3p-goal-actual  { font-weight: 600; font-size: 0.875rem; }
+.c-v3p-goal-of      { font-size: 0.75rem; color: var(--slds-g-color-on-surface-3, #5c5c5c); }
+.c-v3p-goal-target  { font-size: 0.875rem; }
+.c-v3p-goal-pct     { font-size: 0.75rem; color: var(--slds-g-color-on-surface-3, #5c5c5c); }
+.c-v3p-goal-pace         { font-size: var(--slds-g-font-scale-neg-2, 0.75rem); font-weight: 600; padding: 0.1rem 0.4rem; border-radius: 1rem; }
+.c-v3p-goal-pace_ontrack { background: #d1fae5; color: #065f46; }
+.c-v3p-goal-pace_behind  { background: #fee2e2; color: #991b1b; }
+.c-v3p-goal-bar-track {
+    height: 0.375rem;
+    background: var(--slds-g-color-border-base-1, #e5e5e5);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+.c-v3p-goal-bar-fill { height: 100%; background: var(--slds-g-color-brand-base-50, #0176d3); border-radius: 1rem; }
+
+/* ── Status chips ─────────────────────────────── */
+.c-v3p-status      { font-size: 0.75rem; }
+.c-v3p-status_risk { color: #991b1b; font-weight: 600; }
+.c-v3p-status_warn { color: #92400e; font-weight: 600; }
+.c-v3p-status_info { color: #1d4ed8; font-weight: 600; }
+
+/* ── Footer ───────────────────────────────────── */
+.c-v3p-footer {
+    padding: var(--slds-g-spacing-3, 0.75rem) var(--slds-g-spacing-4, 1rem);
+    border-top: 1px solid var(--slds-g-color-border-base-1, #e5e5e5);
+    flex-shrink: 0;
+}
+
+/* Ensure the timeline body fills the viewport wrapper */
+.c-v3-tl-viewport .c-group-timeline__body {
+    flex: 1;
+    min-height: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   V3-ONLY: Unified "Opportunity" violet theme for timeline pills + legend
+   Gap, Alert, and Opportunity insight pills all collapse to one violet
+   signal so the timeline communicates a single visual language.
+   TLI card badges (Alert / Gap / Relationship) are intentionally kept
+   distinct — only the timeline pill outlines are unified here.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* --- Insight pills: all types → violet border / violet-50 fill ------- */
+.c-event-pill_gap,
+.c-event-pill_alert,
+.c-event-pill_opportunity {
+    border-color: #7c3aed; /* violet-600 */
+    background:   #f5f3ff; /* violet-50  */
+}
+
+/* --- Neutral Salesforce blue badge for Gap / Relationship in V3 ----- */
+/* intentional static: blue-100/blue-800 pair — light surface, dark text, matches other badge styles */
+.c-badge_v3blue {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.75rem;
+    font-size: var(--slds-g-font-scale-neg-2, 0.75rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+/* --- Unified badge (kept for possible reuse) ------------------------- */
+/* intentional static: violet-600 bg / white text — no SLDS v2 v3opp token */
+.c-badge_v3opp {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.75rem;
+    font-size: 0.6875rem;
+    font-weight: var(--slds-g-font-weight-6, 600);
+    background: #7c3aed;
+    color: #ffffff;
+}
+
+/* --- Legend dot for the single unified legend entry ----------------- */
+.c-legend-item_ins-v3opp::before {
+    content: '';
+    display: inline-block;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    background: #7c3aed; /* violet-600 */
+    margin-right: 0.25rem;
+    vertical-align: middle;
+}

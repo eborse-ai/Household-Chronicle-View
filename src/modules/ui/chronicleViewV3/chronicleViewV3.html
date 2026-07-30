@@ -25,7 +25,9 @@
                                         <div class="c-tli-card__top">
                                             <!-- Existing type badge + neutral category pill -->
                                             <div class="c-tli-card__badges">
-                                                <span class={h.badgeClass}>{h.badgeLabel}</span>
+                                                <template lwc:if={h.badgeLabel}>
+                                                    <span class={h.badgeClass}>{h.badgeLabel}</span>
+                                                </template>
                                                 <span class="c-badge c-badge_category">{h.category}</span>
                                             </div>
                                         </div>
@@ -147,6 +149,7 @@
         </template>
 
         <!-- Timeline table (scroll-body handles horizontal overflow) -->
+        <div class="c-v3-tl-viewport">
         <div class="c-group-timeline__body" onscroll={handleTimelineScroll}>
             <div class={timelineTableClass}>
                 <!-- Header row: Members + year/month columns -->
@@ -301,6 +304,165 @@
             </div>
         </div><!-- end c-group-timeline__body -->
 
+        <!-- V3 right-side detail panel (replaces floating popover) -->
+        <template lwc:if={popoverVisible}>
+            <div class="c-v3-panel-backdrop" onclick={handleClosePopover}></div>
+            <div class="c-v3-detail-panel">
+
+                <!-- Header: avatar · type label · title · description · close -->
+                <div class="c-v3p-header">
+                    <div class="c-v3p-avatar" style={v3PanelAvatarStyle}>
+                        <lightning-icon icon-name={v3PanelTypeInfo.icon} size="small" alternative-text={v3PanelTypeInfo.label}></lightning-icon>
+                    </div>
+                    <div class="c-v3p-header-body">
+                        <p class="c-v3p-type-label">{v3PanelTypeInfo.label}</p>
+                        <h2 class="c-v3p-title">{v3PanelTitle}</h2>
+                        <p class="c-v3p-desc">{v3PanelDetail.description}</p>
+                        <template lwc:if={v3PanelDetail.isShared}>
+                            <div class="c-v3p-shared-badge">
+                                <lightning-icon icon-name="utility:groups" size="xx-small" alternative-text="Shared"></lightning-icon>
+                                <span>Shared — {v3PanelDetail.sharedWith}</span>
+                            </div>
+                        </template>
+                    </div>
+                    <button class="c-v3p-close" onclick={handleClosePopover} title="Close">
+                        <lightning-icon icon-name="utility:close" size="xx-small" alternative-text="Close"></lightning-icon>
+                    </button>
+                </div>
+
+                <!-- Scrollable body -->
+                <div class="c-v3p-body">
+
+                    <!-- Key metrics bar (type-specific) -->
+                    <template lwc:if={v3IsLife}>
+                        <div class="c-v3p-metrics">
+                            <div class="c-v3p-metric"><span class="c-v3p-metric-lbl">EVENT NAME</span><span class="c-v3p-metric-val">{v3PanelTitle}</span></div>
+                            <div class="c-v3p-metric"><span class="c-v3p-metric-lbl">DATE</span><span class="c-v3p-metric-val">{v3PanelDetail.date}</span></div>
+                            <div class="c-v3p-metric"><span class="c-v3p-metric-lbl">TYPE</span><span class="c-v3p-metric-val">{v3PanelTypeInfo.label}</span></div>
+                        </div>
+                    </template>
+                    <template lwc:elseif={v3IsGoal}>
+                        <div class="c-v3p-metrics">
+                            <div class="c-v3p-metric"><span class="c-v3p-metric-lbl">TARGET DATE</span><span class="c-v3p-metric-val">{v3PanelDetail.targetDate}</span></div>
+                            <div class="c-v3p-metric"><span class="c-v3p-metric-lbl">TARGET AMOUNT</span><span class="c-v3p-metric-val">{v3PanelDetail.targetAmount}</span></div>
+                            <div class="c-v3p-metric"><span class="c-v3p-metric-lbl">STATUS</span><span class={v3StatusClass}>{v3PanelDetail.status}</span></div>
+                        </div>
+                    </template>
+                    <template lwc:elseif={v3IsFinancial}>
+                        <div class="c-v3p-metrics">
+                            <div class="c-v3p-metric"><span class="c-v3p-metric-lbl">OPENING DATE</span><span class="c-v3p-metric-val">{v3PanelDetail.openingDate}</span></div>
+                            <div class="c-v3p-metric"><span class="c-v3p-metric-lbl">TYPE</span><span class="c-v3p-metric-val">{v3PanelDetail.accountType}</span></div>
+                            <div class="c-v3p-metric"><span class="c-v3p-metric-lbl">STATUS</span><span class={v3StatusClass}>{v3PanelDetail.status}</span></div>
+                        </div>
+                    </template>
+                    <template lwc:elseif={v3IsEngagement}>
+                        <div class="c-v3p-metrics">
+                            <div class="c-v3p-metric"><span class="c-v3p-metric-lbl">SUBJECT</span><span class="c-v3p-metric-val">{v3PanelDetail.subject}</span></div>
+                            <div class="c-v3p-metric"><span class="c-v3p-metric-lbl">START</span><span class="c-v3p-metric-val">{v3PanelDetail.startDateTime}</span></div>
+                            <div class="c-v3p-metric"><span class="c-v3p-metric-lbl">LOCATION</span><span class="c-v3p-metric-val">{v3PanelDetail.location}</span></div>
+                        </div>
+                    </template>
+                    <template lwc:else>
+                        <div class="c-v3p-metrics">
+                            <div class="c-v3p-metric"><span class="c-v3p-metric-lbl">DATE</span><span class="c-v3p-metric-val">{v3PanelDetail.date}</span></div>
+                            <div class="c-v3p-metric"><span class="c-v3p-metric-lbl">MEMBERS</span><span class="c-v3p-metric-val">{v3PanelDetail.members}</span></div>
+                            <div class="c-v3p-metric"><span class="c-v3p-metric-lbl">STATUS</span><span class={v3StatusClass}>{v3PanelDetail.status}</span></div>
+                        </div>
+                    </template>
+
+                    <!-- Agentic Insights card -->
+                    <template lwc:if={v3ShowAiCard}>
+                        <div class="c-v3p-ai-card">
+                            <div class="c-v3p-ai-header">
+                                <div class="c-v3p-ai-title-row">
+                                    <span class="c-v3p-ai-sparkle" aria-hidden="true">✦✧</span>
+                                    <span class="c-v3p-ai-title">Agentic Insights</span>
+                                </div>
+                                <button class="c-v3p-ai-dismiss" onclick={handleV3AiDismiss} title="Dismiss">
+                                    <lightning-icon icon-name="utility:close" size="xx-small" alternative-text="Dismiss"></lightning-icon>
+                                </button>
+                            </div>
+                            <template lwc:if={v3HasSentiment}>
+                                <div class="c-v3p-sentiment-grid">
+                                    <template for:each={v3PanelDetail.sentimentInsights} for:item="si">
+                                        <div key={si.name} class="c-v3p-sentiment-row">
+                                            <div class="c-v3p-sentiment-person">
+                                                <p class="c-v3p-sentiment-name">{si.name}</p>
+                                                <p class="c-v3p-sentiment-role">{si.role}</p>
+                                            </div>
+                                            <p class="c-v3p-sentiment-text"><strong>{si.keyword}.</strong> {si.insight}</p>
+                                        </div>
+                                    </template>
+                                </div>
+                            </template>
+                            <template lwc:else>
+                                <p class="c-v3p-ai-text">{v3PanelDetail.aiInsight}</p>
+                            </template>
+                            <template lwc:if={v3AiActionLabel}>
+                                <lightning-button label={v3AiActionLabel} variant="brand" class="c-v3p-ai-cta" onclick={handleV3Cta}></lightning-button>
+                            </template>
+                        </div>
+                    </template>
+
+                    <!-- Detail grid (type-specific lower section) -->
+                    <template lwc:if={v3IsEngagement}>
+                        <div class="c-v3p-detail-grid">
+                            <div class="c-v3p-detail-cell"><span class="c-v3p-detail-lbl">END</span><span class="c-v3p-detail-val">{v3PanelDetail.endDateTime}</span></div>
+                            <div class="c-v3p-detail-cell"><span class="c-v3p-detail-lbl">NAME</span><span class="c-v3p-detail-val">{v3PanelDetail.whoName}</span></div>
+                            <div class="c-v3p-detail-cell"><span class="c-v3p-detail-lbl">RELATED TO</span><span class="c-v3p-detail-val">{v3PanelDetail.relatedTo}</span></div>
+                            <div class="c-v3p-detail-cell"><span class="c-v3p-detail-lbl">SHOW TIME AS</span><span class="c-v3p-detail-val">{v3PanelDetail.showTimeAs}</span></div>
+                        </div>
+                        <div class="c-v3p-action-taken"><span class="c-v3p-detail-lbl">DESCRIPTION</span><p class="c-v3p-detail-val">{v3PanelDetail.engagementNotes}</p></div>
+                    </template>
+                    <template lwc:elseif={v3IsFinancial}>
+                        <div class="c-v3p-detail-grid">
+                            <div class="c-v3p-detail-cell"><span class="c-v3p-detail-lbl">ACCOUNT NUMBER</span><span class="c-v3p-detail-val">{v3PanelDetail.accountNumber}</span></div>
+                            <div class="c-v3p-detail-cell"><span class="c-v3p-detail-lbl">NOTES</span><span class="c-v3p-detail-val">{v3PanelDetail.notes}</span></div>
+                        </div>
+                    </template>
+                    <template lwc:elseif={v3IsGoal}>
+                        <div class="c-v3p-goal-section">
+                            <div class="c-v3p-goal-progress-header">
+                                <span class="c-v3p-goal-actual">{v3PanelDetail.actualAmount}</span>
+                                <span class="c-v3p-goal-of"> of </span>
+                                <span class="c-v3p-goal-target">{v3PanelDetail.targetAmount}</span>
+                                <span class="c-v3p-goal-pct">{v3GoalPct}%</span>
+                                <span class={v3GoalPaceClass}>{v3PanelDetail.pace}</span>
+                            </div>
+                            <div class="c-v3p-goal-bar-track"><div class="c-v3p-goal-bar-fill" style={v3GoalBarStyle}></div></div>
+                        </div>
+                        <template lwc:if={v3HasLinkedAccount}>
+                            <div class="c-v3p-detail-grid">
+                                <div class="c-v3p-detail-cell"><span class="c-v3p-detail-lbl">FUNDING ACCOUNT</span><span class="c-v3p-detail-val">{v3PanelDetail.linkedAccount.name}</span></div>
+                                <div class="c-v3p-detail-cell"><span class="c-v3p-detail-lbl">ACCOUNT NUMBER</span><span class="c-v3p-detail-val">{v3PanelDetail.linkedAccount.number}</span></div>
+                            </div>
+                        </template>
+                    </template>
+                    <template lwc:elseif={v3IsLife}>
+                        <div class="c-v3p-detail-grid">
+                            <div class="c-v3p-detail-cell"><span class="c-v3p-detail-lbl">PRIMARY PERSON</span><span class="c-v3p-detail-val">{v3PanelDetail.primaryPerson}</span></div>
+                            <div class="c-v3p-detail-cell"><span class="c-v3p-detail-lbl">RELATED PERSON</span><span class="c-v3p-detail-val">{v3PanelDetail.relatedPerson}</span></div>
+                            <div class="c-v3p-detail-cell"><span class="c-v3p-detail-lbl">LOCATION</span><span class="c-v3p-detail-val">{v3PanelDetail.eventLocation}</span></div>
+                            <div class="c-v3p-detail-cell"><span class="c-v3p-detail-lbl">OWNER</span><span class="c-v3p-detail-val">{v3PanelDetail.owner}</span></div>
+                        </div>
+                    </template>
+
+                </div><!-- end c-v3p-body -->
+
+                <!-- Footer -->
+                <div class="c-v3p-footer">
+                    <lightning-button-menu label="Actions" icon-name="utility:down" menu-alignment="right" variant="neutral">
+                        <lightning-menu-item value="edit"        label="Edit Event"></lightning-menu-item>
+                        <lightning-menu-item value="add-note"    label="Add Note"></lightning-menu-item>
+                        <lightning-menu-item value="create-task" label="Create Task"></lightning-menu-item>
+                    </lightning-button-menu>
+                </div>
+
+            </div><!-- end c-v3-detail-panel -->
+        </template>
+
+        </div><!-- end c-v3-tl-viewport -->
+
         <!-- Legend -->
         <div class="c-timeline-legend">
             <!-- Yearly view: simplified two-category dot legend -->
@@ -338,10 +500,8 @@
                 </span>
             </template>
             <span class="c-legend-sep" aria-hidden="true">|</span>
-            <!-- Insight signal legend — same in both views -->
-            <span class="c-legend-item c-legend-item_ins-gap">Gap</span>
-            <span class="c-legend-item c-legend-item_ins-alert">Alert</span>
-            <span class="c-legend-item c-legend-item_ins-opportunity">Insights</span>
+            <!-- V3: all insight signals unified as Opportunity (violet) -->
+            <span class="c-legend-item c-legend-item_ins-v3opp">Insights</span>
             <span class="c-legend-sep" aria-hidden="true">|</span>
             <span class="c-legend-item c-legend-item_eng-gap">Engagement Gap</span>
         </div>
@@ -370,18 +530,6 @@
 
     </div>
 
-    <!-- Pill detail popover -->
-    <template lwc:if={popoverVisible}>
-        <ui-event-popover
-            event-data={popoverEventData}
-            panel-style={popoverPanelStyle}
-            arrow-right={popoverArrowRight}
-            no-center={popoverNoCenter}
-            arrow-top-px={popoverArrowTopPx}
-            icon-bg-color={popoverIconBgColor}
-            ai-card-gate={popoverAiCardGate}
-            onclose={handleClosePopover}
-            onctaclick={handlePopoverCta}>
-        </ui-event-popover>
-    </template>
+    <!-- V3: detail handled by right-side panel above; popover suppressed -->
+
 </template>

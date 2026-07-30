@@ -10,6 +10,15 @@
         </lightning-layout-item>
         <lightning-layout-item class="slds-global-header__item">
             <lightning-layout vertical-align="center">
+                <!-- Household Journey version toggle — shown at page level -->
+                <lightning-layout-item class="slds-m-right_medium">
+                    <div class="c-gh-version-toggle" role="group" aria-label="Household Journey version">
+                        <button class={v1BtnClass} data-version="v1" onclick={handleVersionToggle}>V1</button>
+                        <button class={v2BtnClass} data-version="v2" onclick={handleVersionToggle}>V2</button>
+                        <button class={v3BtnClass} data-version="v3" onclick={handleVersionToggle}>V3</button>
+                        <button class={v4BtnClass} data-version="v4" onclick={handleVersionToggle}>V4</button>
+                    </div>
+                </lightning-layout-item>
                 <lightning-layout-item>
                     <lightning-button-icon icon-name="utility:agent_astro" aria-haspopup="true" title="Agentforce"
                         variant="bare" size="large" onclick={handleAgentforceClick} class="lightning-button-icon_custom slds-m-right_small">

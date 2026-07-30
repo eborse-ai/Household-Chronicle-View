@@ -2,11 +2,13 @@ import { LightningElement, api, track } from 'lwc';
 
 const TYPE_INFO = {
     life:        { label: 'LIFE EVENT',        icon: 'utility:event',      avatarClass: 'c-ep-avatar c-ep-avatar_life'        },
-    meeting:     { label: 'MEETING',           icon: 'utility:date_input', avatarClass: 'c-ep-avatar c-ep-avatar_meeting'     },
+    meeting:     { label: 'MEETING',           icon: 'utility:people',     avatarClass: 'c-ep-avatar c-ep-avatar_meeting'     },
+    call:        { label: 'CALL',              icon: 'utility:call',       avatarClass: 'c-ep-avatar c-ep-avatar_call'        },
     transaction: { label: 'TRANSACTION',       icon: 'utility:moneybag',   avatarClass: 'c-ep-avatar c-ep-avatar_transaction' },
     goal:        { label: 'FINANCIAL GOAL',    icon: 'utility:priority',   avatarClass: 'c-ep-avatar c-ep-avatar_goal'        },
     financial:   { label: 'FINANCIAL ACCOUNT', icon: 'utility:company',    avatarClass: 'c-ep-avatar c-ep-avatar_financial'   },
     engagement:  { label: 'ENGAGEMENT',        icon: 'utility:people',    avatarClass: 'c-ep-avatar c-ep-avatar_engagement'  },
+    opportunity: { label: 'OPPORTUNITY',       icon: 'utility:sparkle',    avatarClass: 'c-ep-avatar c-ep-avatar_opportunity' },
 };
 
 export default class EventPopover extends LightningElement {
@@ -38,7 +40,8 @@ export default class EventPopover extends LightningElement {
      * Pixel offset from the panel top where the arrow tip should sit.
      * When null (default) the arrow stays at 50% (centred) via CSS.
      */
-    @api arrowTopPx = null;
+    @api arrowTopPx  = null;
+    @api aiCardGate;   // undefined = default (show if aiInsight exists); false = always hide
 
     @track _aiDismissed = false;
 
@@ -60,6 +63,7 @@ export default class EventPopover extends LightningElement {
     }
 
     get showAiCard() {
+        if (this.aiCardGate === false) return false;
         return !this._aiDismissed
             && (!!this.detail.aiInsight || !!this.detail.sentimentInsights?.length);
     }
@@ -151,7 +155,7 @@ export default class EventPopover extends LightningElement {
 
     handleCtaClick() {
         this.dispatchEvent(new CustomEvent('ctaclick', {
-            detail: { action: this.detail.aiActionLabel },
+            detail: { action: this.detail.aiActionLabel, sourceId: this._eventData?.id },
             bubbles: true,
             composed: true,
         }));

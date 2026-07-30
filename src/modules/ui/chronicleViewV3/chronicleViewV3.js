@@ -22,7 +22,7 @@ const CURRENT_MONTH_IDX = TIMELINE_MONTHS.indexOf(CURRENT_MONTH);
 // eslint-disable-next-line no-unused-vars
 const EVENT_DETAILS_V2 = {}; // Start empty; V2 gets rich details via enrichment
 
-export default class ChronicleViewV2 extends LightningElement {
+export default class ChronicleViewV3 extends LightningElement {
     @api enrichment = null;
     @api replacedPillMap = {};  // { [sourceId]: dynMeetingEvent } passed from accountDetail
 
@@ -36,7 +36,6 @@ export default class ChronicleViewV2 extends LightningElement {
     // ── Popover ────────────────────────────────────────────────────
     @track popoverVisible     = false;
     @track popoverEventData   = null;
-    @track popoverAiCardGate  = false;  // true only for gap/alert/opportunity events
     popoverPanelStyle         = '';
     popoverArrowRight         = false;
     // V2-only: pre-clamped vertical positioning so the panel never clips the viewport
@@ -44,6 +43,91 @@ export default class ChronicleViewV2 extends LightningElement {
     popoverArrowTopPx         = null;   // null → CSS default (50%); number → override
     // Avatar icon background: neutral blue for regular pills; insight colour for action-needed
     @track popoverIconBgColor = '#2272b6';
+
+    // ── V3 right-side detail panel ─────────────────────────────────
+    @track _v3AiDismissed = false;
+
+    static _V3_TYPE_INFO = {
+        life:        { label: 'Life Event',        icon: 'utility:event',      avatarBg: '#0094B7' },
+        meeting:     { label: 'Meeting',           icon: 'utility:date_input', avatarBg: '#706e6b' },
+        call:        { label: 'Call',              icon: 'utility:call',       avatarBg: '#0e7490' },
+        transaction: { label: 'Transaction',       icon: 'utility:moneybag',   avatarBg: '#854d0e' },
+        goal:        { label: 'Financial Goal',    icon: 'utility:flag',       avatarBg: '#c9820a' },
+        financial:   { label: 'Financial Account', icon: 'utility:company',    avatarBg: '#5b9a5e' },
+        engagement:  { label: 'Engagement',        icon: 'utility:people',     avatarBg: '#2272b6' },
+        opportunity: { label: 'Opportunity',       icon: 'utility:sparkle',    avatarBg: '#7c3aed' },
+    };
+    get v3PanelType()    { return this.popoverEventData?.type || 'financial'; }
+    get v3PanelTypeInfo() {
+        return ChronicleViewV3._V3_TYPE_INFO[this.v3PanelType]
+            || { label: 'Event', icon: 'utility:record', avatarBg: '#706e6b' };
+    }
+    get v3PanelAvatarStyle() { return `background:${this.v3PanelTypeInfo.avatarBg};`; }
+    get v3PanelDetail()  { return this.popoverEventData?.detail || {}; }
+    get v3PanelTitle()   { return this.popoverEventData?.label || ''; }
+    /** V3-specific AI card CTA label — overrides event-level aiActionLabel where needed. */
+    get v3AiActionLabel() {
+        const eventId = this.popoverEventData?.id;
+        // op1 (Raise 529 Contrib.) → unified with TLI card CTA in V3
+        if (eventId === 'op1') return 'Update Goal';
+        // op2 (Eldercare Docs) → unified with TLI card CTA in V3
+        if (eventId === 'op2') return 'Create Meeting';
+        // op3 (Insurance Re-rate opportunity) → unified with TLI card CTA in V3
+        if (eventId === 'op3') return 'Create Task';
+        // m_ar23 (Annual Review — Grace's last meeting) → unified with TLI card CTA in V3
+        if (eventId === 'm_ar23') return 'Create Meeting';
+        return this.v3PanelDetail.aiActionLabel || null;
+    }
+    get v3IsLife()       { return this.v3PanelType === 'life'; }
+    get v3IsGoal()       { return this.v3PanelType === 'goal'; }
+    get v3IsFinancial()  { return this.v3PanelType === 'financial'; }
+    get v3IsEngagement() { return this.v3PanelType === 'engagement' || this.v3PanelType === 'meeting' || this.v3PanelType === 'call'; }
+    get v3ShowAiCard()   {
+        return !this._v3AiDismissed
+            && this._v3IsInsightEvent
+            && (!!this.v3PanelDetail.aiInsight || !!this.v3PanelDetail.sentimentInsights?.length);
+    }
+    /** True when the currently-open panel event is a TLI-highlighted opportunity (purple pill) */
+    get _v3IsInsightEvent() {
+        const id = this.popoverEventData?.id;
+        if (!id) return false;
+        return this.tlInsightsHighlights.some(h => h.timelineEventId === id);
+    }
+    get v3HasSentiment() { return !!(this.v3PanelDetail.sentimentInsights?.length); }
+    get v3GoalPct() {
+        const d = this.v3PanelDetail;
+        const actual = parseFloat((d.actualAmount || '').replace(/[$,]/g, '')) || 0;
+        const target = parseFloat((d.targetAmount || '').replace(/[$,]/g, '')) || 1;
+        return Math.min(100, Math.round((actual / target) * 100));
+    }
+    get v3GoalBarStyle() { return `width:${this.v3GoalPct}%`; }
+    get v3GoalPaceClass() {
+        const p = (this.v3PanelDetail.pace || '').toLowerCase();
+        if (p === 'on track') return 'c-v3p-goal-pace c-v3p-goal-pace_ontrack';
+        if (p === 'behind')   return 'c-v3p-goal-pace c-v3p-goal-pace_behind';
+        return 'c-v3p-goal-pace';
+    }
+    get v3TodayMarkerStyle() { return `left:${this.v3PanelDetail.todayPct || 0}%`; }
+    get v3HasLinkedAccount() { return !!this.v3PanelDetail.linkedAccount; }
+    get v3HasCompetingGoals(){ return !!(this.v3PanelDetail.competingGoals?.length); }
+    get v3StatusClass() {
+        const s = (this.v3PanelDetail.status || '').toLowerCase();
+        if (s === 'at risk')        return 'c-v3p-status c-v3p-status_risk';
+        if (s === 'no plan update') return 'c-v3p-status c-v3p-status_warn';
+        if (s === 'scheduled')      return 'c-v3p-status c-v3p-status_info';
+        return 'c-v3p-status';
+    }
+    handleV3AiDismiss() { this._v3AiDismissed = true; }
+    handleV3Cta() {
+        const action   = this.v3AiActionLabel;
+        const sourceId = this.popoverEventData?.id || null;
+        if (!action) return;
+        this.handleClosePopover();   // close the panel before opening the parent modal
+        this.dispatchEvent(new CustomEvent('highlightaction', {
+            detail: { action, sourceId },
+            bubbles: true, composed: true,
+        }));
+    }
 
     // ── New event menu ─────────────────────────────────────────────
     @track _newMenuOpen     = false;
@@ -167,8 +251,8 @@ export default class ChronicleViewV2 extends LightningElement {
         const highlights = [
             {
                 id: 'h1',
-                badgeLabel:      'Alert',
-                badgeClass:      'c-badge c-badge_alert',
+                badgeLabel:      '',
+                badgeClass:      '',
                 category:        CAT_LIFE,
                 title:           "Maya's 529 Funding Gap",
                 description:     "Maya's 529 is 60% funded against projected tuition — first bill due Aug 2027, short ~40%. Window to close the gap is now months, not years.",
@@ -178,8 +262,8 @@ export default class ChronicleViewV2 extends LightningElement {
             },
             {
                 id: 'h2',
-                badgeLabel:      'Gap',
-                badgeClass:      'c-badge c-badge_gap',
+                badgeLabel:      '',
+                badgeClass:      '',
                 category:        CAT_GEN,
                 title:           "Eldercare & Eleanor's Documents",
                 description:     "Eleanor (74) moved in Apr 2026. POA (financial + healthcare), will, and healthcare directive must be in place before any health decline closes the legal window. Scoped David + Grace.",
@@ -189,8 +273,8 @@ export default class ChronicleViewV2 extends LightningElement {
             },
             {
                 id: 'h3',
-                badgeLabel:      'Gap',
-                badgeClass:      'c-badge c-badge_gap',
+                badgeLabel:      '',
+                badgeClass:      '',
                 category:        CAT_LIFE,
                 title:           'Protection Lagged the Household',
                 description:     "David's VP raise in 2025 was never matched by a life-insurance re-rate. Coverage now trails obligations — 2 kids + a dependent parent.",
@@ -200,8 +284,8 @@ export default class ChronicleViewV2 extends LightningElement {
             },
             {
                 id: 'h4',
-                badgeLabel:      'Gap',
-                badgeClass:      'c-badge c-badge_gap',
+                badgeLabel:      '',
+                badgeClass:      '',
                 category:        CAT_REL,
                 title:           'Re-engage Grace',
                 description:     "Grace has been absent since the Oct-2023 annual review (~18 months). As joint client, she must be part of eldercare decisions. Adding her to the eldercare session resolves both signals.",
@@ -469,7 +553,7 @@ export default class ChronicleViewV2 extends LightningElement {
                     ...dynMeetings,
                 ];
 
-                const uniqueTypes = [...new Set(nonOppEvts.map(e => e.type))];
+                const uniqueTypes = [...new Set(milestoneEvts.map(e => e.type))];
                 const _borderMods =
                       (col.isYearStart && !col.isToday                        ? ' c-timeline-row__cell_year-start' : '')
                     + (col.isQuarterStart && !col.isYearStart && !col.isToday ? ' c-timeline-row__cell_q-start'    : '')
@@ -499,9 +583,9 @@ export default class ChronicleViewV2 extends LightningElement {
                     events:           milestoneEvts,
                     eventCount:       milestoneEvts.length,
                     typeDots:         (() => {
-                                          // Neutral-blue dots for regular types (non-opportunity)
+                                          // All milestone types including opportunity → purple dot appears
                                           const dots = uniqueTypes.map(t => ({ type: t, dotClass: TYPE_DOT[t] || 'c-type-dot' }));
-                                          // Add insight-signal dots — include opportunity events so op1/op2/op3 show their alert/gap dot
+                                          // Add insight-signal dots for any event (including opportunity) in this cell
                                           const insightTypes = [...new Set(
                                               milestoneEvts.map(e => insightMap[e.id]).filter(Boolean)
                                           )];
@@ -736,7 +820,7 @@ export default class ChronicleViewV2 extends LightningElement {
         const pillEl = this.template.querySelector(`.c-event-pill[data-event-id="${eventId}"]`);
         if (!pillEl) return;
         this._scrollPillToCenter(pillEl);
-        // Open the detail popover after the smooth-scroll animation settles (~500 ms)
+        // Open the right-side panel after the smooth-scroll animation settles (~500 ms)
         // eslint-disable-next-line @lwc/lwc/no-async-operation
         setTimeout(() => { this._v2OpenPopoverForPill(eventId); }, 500);
     }
@@ -779,7 +863,6 @@ export default class ChronicleViewV2 extends LightningElement {
 
         this.popoverEventData   = found;
         this.popoverIconBgColor = this._pillIconBgColor(found.id);
-        this.popoverAiCardGate  = !!this._insightPillMap[found.id];
         this.popoverVisible     = true;
     }
 
@@ -894,7 +977,6 @@ export default class ChronicleViewV2 extends LightningElement {
         if (!found) return;
         this.popoverEventData   = found;
         this.popoverIconBgColor = this._pillIconBgColor(found.id);
-        this.popoverAiCardGate  = !!this._insightPillMap[found.id];
         this.popoverVisible     = true;
     }
 
@@ -912,7 +994,11 @@ export default class ChronicleViewV2 extends LightningElement {
         return INSIGHT_COLORS[insightType] || '#2272b6';
     }
 
-    handleClosePopover()  { this.popoverVisible = false; this.popoverEventData = null; this.popoverAiCardGate = false; }
+    handleClosePopover()  {
+        this.popoverVisible = false;
+        this.popoverEventData = null;
+        this._v3AiDismissed = false;
+    }
     handlePopoverCta(event) {
         const action   = event?.detail?.action;
         const sourceId = event?.detail?.sourceId || null;

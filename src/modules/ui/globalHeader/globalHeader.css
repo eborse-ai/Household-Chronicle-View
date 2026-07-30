@@ -16,3 +16,31 @@
 .c-gh-sf-logo {
     --slds-c-icon-color-foreground: #4A9FD5;
 }
+
+/* ── Chronicle View version toggle in the global header ──────────────────── */
+.c-gh-version-toggle {
+    display: inline-flex;
+    border: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    border-radius: 0.25rem;
+    overflow: hidden;
+}
+.c-gh-ver-btn {
+    /* intentional static: compact pill size */
+    padding: 0.2rem 0.6rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    background: transparent;
+    border: none;
+    border-right: 1px solid var(--slds-g-color-border-base-1, #dddbda);
+    cursor: pointer;
+    color: var(--slds-g-color-neutral-base-30, #3e3e3c);
+    white-space: nowrap;
+    transition: background 0.1s ease, color 0.1s ease;
+}
+.c-gh-ver-btn:last-child { border-right: none; }
+.c-gh-ver-btn:hover { background: var(--slds-g-color-surface-2, #f3f3f3); }
+.c-gh-ver-btn_active {
+    /* intentional static: Salesforce brand blue active state */
+    background: #0176d3;
+    color: #ffffff;
+}

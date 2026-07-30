@@ -44,16 +44,18 @@ export default class AgentforcePanel extends LightningElement {
 
     get suggestions() {
         if (this._agentType === 'agentforce') {
+            // Generic prompts for the header-triggered Agentforce panel
             return [
-                { id: 's1', label: '"Summarize Reed Household"' },
-                { id: 's2', label: '"What planning gaps exist?"' },
-                { id: 's3', label: '"Draft a follow-up for Sara"' },
+                { id: 's1', label: '"Summarize this record"' },
+                { id: 's2', label: '"What are the next steps?"' },
+                { id: 's3', label: '"Help me draft a message"' },
             ];
         }
+        // Finance-specific prompts for the in-page Financial Advisor Assistant panel
         return [
-            { id: 's1', label: '"Analyse household planning gaps"' },
-            { id: 's2', label: '"Model the 529 savings goal"' },
-            { id: 's3', label: '"Prepare for mid-year review"' },
+            { id: 's1', label: '"Summarize the last 12 months in five lines."' },
+            { id: 's2', label: '"Any goals at risk?"' },
+            { id: 's3', label: '"Anything time-sensitive I should act on?"' },
         ];
     }
 

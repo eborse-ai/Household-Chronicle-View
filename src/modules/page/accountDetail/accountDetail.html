@@ -222,51 +222,32 @@
                         <div class="c-highlights-scroller">
                             <template for:each={alertsInsights} for:item="hl">
                                 <div key={hl.id} class="c-highlight-card">
-                                    <div class="c-highlight-card__header">
+                                    <!-- Title row: title left, badge right -->
+                                    <div class="c-highlight-card__title-row">
+                                        <h3 class="c-highlight-card__title">{hl.title}</h3>
                                         <span class={hl.badgeClass}>{hl.badgeLabel}</span>
-                                        <template lwc:if={hl.actionLabel}>
-                                            <div class="c-highlight-action slds-m-left_auto">
-                                                <button class="c-highlight-action__btn" data-id={hl.id} data-action={hl.actionLabel} onclick={handleHighlightAction}>{hl.actionLabel}</button>
-                                                <button class="c-highlight-action__chevron" title="More actions">
-                                                    <lightning-icon icon-name="utility:down" size="xx-small" alternative-text="More"></lightning-icon>
-                                                </button>
-                                            </div>
-                                        </template>
                                     </div>
-                                    <h3 class="slds-text-heading_x-small slds-m-top_x-small">{hl.title}</h3>
+                                    <!-- Trigger / meta — small grey subtext -->
                                     <template lwc:if={hl.memberMeta}>
-                                        <p class="c-highlight-card__member-meta">{hl.memberMeta}</p>
+                                        <p class="c-highlight-card__trigger">{hl.memberMeta}</p>
                                     </template>
-                                    <p class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small c-highlight-card__desc">{hl.description}</p>
+                                    <p class="c-highlight-card__desc">{hl.description}</p>
+                                    <!-- CTA anchored to bottom-left -->
+                                    <template lwc:if={hl.actionLabel}>
+                                        <div class="c-highlight-card__footer">
+                                            <button class="c-highlight-action__btn" data-id={hl.id} data-action={hl.actionLabel} onclick={handleHighlightAction}>{hl.actionLabel}</button>
+                                        </div>
+                                    </template>
                                 </div>
                             </template>
                         </div>
                     </div>
 
-                    <!-- Tabs: Relationship Map | Chronicle View -->
+                    <!-- Tabs: Household Journey (default) | Relationship Map | Financial Portfolio | Details | Related -->
                     <div class="c-tab-panel">
                     <lightning-tabset>
-                        <lightning-tab label="Relationship Map">
-                            <div class="c-tab-content c-tab-content--map">
-                                <ui-relationship-map
-                                    account-name={accountName}
-                                    members={relMapMembers}
-                                    recommendations={relMapRecommendations}>
-                                </ui-relationship-map>
-                            </div>
-                        </lightning-tab>
-
-                        <lightning-tab label="Chronicle View">
+                        <lightning-tab label="Household Journey">
                             <div class="c-tab-content">
-
-                            <!-- Version toggle -->
-                            <div class="c-cv-version-bar">
-                                <span class="c-cv-version-label">View version:</span>
-                                <div class="c-cv-toggle" role="group">
-                                    <button class={toggleV1Class} data-version="v1" onclick={handleChronicleVersionToggle}>V1 — Working</button>
-                                    <button class={toggleV2Class} data-version="v2" onclick={handleChronicleVersionToggle}>V2 — Experimental</button>
-                                </div>
-                            </div>
 
                             <template lwc:if={isChronicleV1}>
 
@@ -372,7 +353,7 @@
                                 <div class="c-group-timeline__body" onscroll={handleTimelineScroll}>
                                 <div class={timelineTableClass}>
                                     <!-- Header row: Members + year/month columns -->
-                                    <div class="c-timeline-header">
+                                    <div class="c-timeline-header" style={timelineGridStyle}>
                                         <div class="c-timeline-member-col c-timeline-header__cell">{timelineMemberHeaderLabel}</div>
                                         <template for:each={timelineYears} for:item="col">
                                             <div key={col.key} class={col.headerCellClass}>
@@ -392,7 +373,7 @@
 
                                     <!-- Member rows -->
                                     <template for:each={timelineRows} for:item="row">
-                                        <div key={row.memberId} class="c-timeline-row">
+                                        <div key={row.memberId} class={row.rowClass} style={timelineGridStyle}>
                                             <!-- Fixed member cell — spans BOTH sub-tracks via grid-row:1/3 -->
                                             <div class="c-timeline-member-col c-timeline-row__member">
                                                 <div class="c-member-info">
@@ -404,17 +385,32 @@
                                                     </div>
                                                     <p class="c-member-meta">{row.memberRole}</p>
                                                     <p class="c-member-meta">{row.ageLabel}</p>
-                                                    <div class="c-member-strength">
-                                                        <span class={row.strengthClass}></span>
-                                                        <span class="c-strength-label">{row.relationshipStrength}</span>
-                                                    </div>
+                                                    <!-- Strength shows here only when there is no engagement lane -->
+                                                    <template lwc:if={row.hasAnyEngagement}>
+                                                    </template>
+                                                    <template lwc:else>
+                                                        <div class="c-member-strength">
+                                                            <span class={row.strengthClass}></span>
+                                                            <span class="c-strength-label">{row.relationshipStrength}</span>
+                                                        </div>
+                                                    </template>
                                                 </div>
+                                                <!-- Engagement label section — only visible when engagement lane exists -->
+                                                <template lwc:if={row.hasAnyEngagement}>
+                                                    <div class="c-member-engagement-label">
+                                                        <span class="c-member-eng-track-label">Engagement</span>
+                                                        <div class="c-member-strength c-member-strength_eng">
+                                                            <span class={row.strengthClass}></span>
+                                                            <span class="c-strength-label">{row.relationshipStrength}</span>
+                                                        </div>
+                                                    </div>
+                                                </template>
                                             </div>
 
                                             <!-- ── MILESTONE TRACK (top sub-lane: life events, goals, financial) ── -->
                                             <template for:each={row.yearCells} for:item="cell">
                                                 <div key={cell.msKey} class={cell.cellClass} data-member-id={cell.memberId} data-member-name={cell.memberName} onclick={handleTimelineCellClick}>
-                                                    <!-- Yearly collapsed: count badge + type dots -->
+                                                    <!-- Yearly collapsed: count badge + type dots (V1/V2/V3) -->
                                                     <template lwc:if={cell.showCount}>
                                                         <button class="c-year-count-badge" data-year={cell.year} onclick={handleYearExpand}>
                                                             {cell.eventCount}
@@ -422,6 +418,19 @@
                                                         <div class="c-type-dots">
                                                             <template for:each={cell.typeDots} for:item="dot">
                                                                 <span key={dot.type} class={dot.dotClass}></span>
+                                                            </template>
+                                                        </div>
+                                                    </template>
+                                                    <!-- V4 yearly: individual per-type count pills -->
+                                                    <template lwc:if={cell.showTypeCountPills}>
+                                                        <div class="c-v4-type-counts">
+                                                            <template for:each={cell.typeCountPills} for:item="tc">
+                                                                <button key={tc.type} class={tc.pillClass}
+                                                                        data-year={cell.year}
+                                                                        onclick={handleYearExpand}
+                                                                        title="Click to expand year">
+                                                                    {tc.count}
+                                                                </button>
                                                             </template>
                                                         </div>
                                                     </template>
@@ -455,6 +464,21 @@
                                                             </div>
                                                         </template>
                                                     </template>
+                                                    <!-- Opportunity pills: always visible even in yearly mode -->
+                                                    <template lwc:if={cell.showOpportunityPills}>
+                                                        <template for:each={cell.opportunityEvts} for:item="evt">
+                                                            <div key={evt.id} class="c-pill-wrap">
+                                                                <span class={evt.pillClass} data-event-id={evt.id} onclick={handlePillClick} role="button" tabindex="0">
+                                                                    <span class={evt.iconBadgeClass}>
+                                                                        <lightning-icon icon-name={evt.iconName} size="xx-small" class="c-pill-icon"></lightning-icon>
+                                                                    </span>
+                                                                    <span class="c-pill-body">
+                                                                        <span class="c-pill-label">{evt.label}</span>
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                        </template>
+                                                    </template>
                                                     <!-- AI sparkle indicators -->
                                                     <template lwc:if={cell.hasSparkles}>
                                                         <template for:each={cell.sparkles} for:item="spark">
@@ -471,8 +495,24 @@
                                             </template>
 
                                             <!-- ── ENGAGEMENT TRACK (bottom sub-lane: meetings, interactions) ── -->
+                                            <template lwc:if={row.hasAnyEngagement}>
                                             <template for:each={row.yearCells} for:item="cell">
                                                 <div key={cell.engKey} class={cell.engagementCellClass}>
+                                                    <!-- V4 yearly: per-type engagement count pills -->
+                                                    <template lwc:if={cell.showEngTypeCountPills}>
+                                                        <div class="c-v4-type-counts">
+                                                            <template for:each={cell.engTypeCountPills} for:item="tc">
+                                                                <button key={tc.type} class={tc.pillClass}
+                                                                        data-year={cell.year}
+                                                                        onclick={handleYearExpand}
+                                                                        title="Click to expand year">
+                                                                    {tc.count}
+                                                                </button>
+                                                            </template>
+                                                        </div>
+                                                    </template>
+                                                    <!-- V1/default: individual event dots or pills -->
+                                                    <template lwc:else>
                                                     <template for:each={cell.engagementEvents} for:item="evt">
                                                         <div key={evt.id}>
                                                             <!-- Monthly / drill mode: full pill (same style as milestone track) -->
@@ -499,8 +539,10 @@
                                                             </template>
                                                         </div>
                                                     </template>
+                                                    </template><!-- /lwc:else (V1 dots) -->
                                                 </div>
                                             </template>
+                                            </template><!-- /lwc:if hasAnyEngagement -->
 
                                         </div>
                                     </template>
@@ -515,8 +557,11 @@
                                     <span class="c-legend-item c-legend-item_engagement">Meeting / Call</span>
                                     <span class="c-legend-item c-legend-item_goal">Financial Goal</span>
                                     <span class="c-legend-item c-legend-item_financial">Financial Account</span>
+                                                    <span class="c-legend-item c-legend-item_opportunity">Insights</span>
                                     <span class="c-legend-sep" aria-hidden="true">|</span>
-                                    <span class="c-legend-critical"><span class="c-legend-critical__dot"></span> = Critical</span>
+                                    <template lwc:if={isMonthlyMode}>
+                                        <span class="c-legend-critical"><span class="c-legend-critical__dot"></span> = Alert</span>
+                                    </template>
                                     <!-- Shared legend item removed -->
                                 </div>
 
@@ -580,22 +625,18 @@
                                                          onclick={handleInsightCardClick}
                                                          role="button"
                                                          tabindex="0">
-                                                        <div class="c-tli-card__top">
-                                                            <div class="c-tli-card__badges">
-                                                                <span class={h.badgeClass}>{h.badgeLabel}</span>
-                                                                <!-- category pill removed in V1 — section dividers communicate grouping -->
-                                                            </div>
-                                                            <template lwc:if={h.actionLabel}>
+                                                        <p class="c-tli-card__title">{h.title}</p>
+                                                        <p class="c-tli-card__desc">{h.description}</p>
+                                                        <template lwc:if={h.actionLabel}>
+                                                            <div class="c-tli-card__footer">
                                                                 <button class="c-tli-card__cta"
                                                                         data-id={h.id}
                                                                         data-action={h.actionLabel}
                                                                         onclick={handleTliCardCta}>
                                                                     {h.actionLabel}
                                                                 </button>
-                                                            </template>
-                                                        </div>
-                                                        <p class="c-tli-card__title">{h.title}</p>
-                                                        <p class="c-tli-card__desc">{h.description}</p>
+                                                            </div>
+                                                        </template>
                                                     </div>
                                                 </template>
                                             </div>
@@ -605,15 +646,52 @@
                             </template>
 
                             </template>
-                            <template lwc:else>
+                            <template lwc:elseif={isChronicleV2}>
                                 <ui-chronicle-view-v2
                                     enrichment={enrichmentData}
+                                    replaced-pill-map={replacedPillMap}
                                     onhighlightaction={handleV2HighlightAction}>
                                 </ui-chronicle-view-v2>
+                            </template>
+                            <template lwc:elseif={isChronicleV3}>
+                                <ui-chronicle-view-v3
+                                    enrichment={enrichmentData}
+                                    replaced-pill-map={replacedPillMap}
+                                    onhighlightaction={handleV2HighlightAction}>
+                                </ui-chronicle-view-v3>
                             </template>
 
                             </div><!-- /.c-tab-content -->
                         </lightning-tab>
+
+                        <lightning-tab label="Relationship Map">
+                            <div class="c-tab-content c-tab-content--map">
+                                <ui-relationship-map
+                                    account-name={accountName}
+                                    members={relMapMembers}
+                                    recommendations={relMapRecommendations}>
+                                </ui-relationship-map>
+                            </div>
+                        </lightning-tab>
+
+                        <lightning-tab label="Financial Portfolio">
+                            <div class="c-tab-content c-tab-content_placeholder">
+                                <p class="c-tab-placeholder-text">Financial Portfolio panel — coming soon</p>
+                            </div>
+                        </lightning-tab>
+
+                        <lightning-tab label="Details">
+                            <div class="c-tab-content c-tab-content_placeholder">
+                                <p class="c-tab-placeholder-text">Details panel — coming soon</p>
+                            </div>
+                        </lightning-tab>
+
+                        <lightning-tab label="Related">
+                            <div class="c-tab-content c-tab-content_placeholder">
+                                <p class="c-tab-placeholder-text">Related panel — coming soon</p>
+                            </div>
+                        </lightning-tab>
+
                     </lightning-tabset>
                     </div><!-- /.c-tab-panel -->
                 </div>
@@ -656,6 +734,7 @@
             event-data={popoverEventData}
             panel-style={popoverPanelStyle}
             arrow-right={popoverArrowRight}
+            ai-card-gate={popoverAiCardGate}
             onclose={handleClosePopover}
             onctaclick={handlePopoverCta}>
         </ui-event-popover>
@@ -678,26 +757,68 @@
             <div class="c-ne-modal__body">
                 <p class="c-ne-required-note">* = Required Information</p>
 
+                <!-- AI insight banner — shown only when life event is AI-prefilled -->
+                <template lwc:if={lifeHasAiPrefill}>
+                    <div class="c-ne-ai-insight-card">
+                        <div class="c-ne-ai-insight-card__header">
+                            <lightning-icon icon-name="utility:sparkles" size="xx-small" class="c-ne-ai-insight-card__icon"></lightning-icon>
+                            <span class="c-ne-ai-insight-card__title">Agentic Insights</span>
+                        </div>
+                        <p class="c-ne-ai-insight-card__body">Eleanor is 74 and recently moved in. POA, healthcare directive, and will are time-sensitive — any health decline could close the legal window. This cannot wait.</p>
+                    </div>
+                </template>
+
                 <!-- Information section bar -->
                 <div class="c-ne-section-bar">Information</div>
 
                 <!-- Row 1: Event Name | Event Type -->
                 <div class="c-ne-modal__row">
-                    <lightning-input
-                        label="Event Name"
-                        value={modalPrefillEventName}
-                        required
-                        class="c-ne-modal__field">
-                    </lightning-input>
-                    <lightning-combobox
-                        label="Event Type"
-                        value={modalPrefillEventType}
-                        options={milestoneTypeOptions}
-                        placeholder="--None--"
-                        required
-                        onchange={handleModalEventTypeChange}
-                        class="c-ne-modal__field">
-                    </lightning-combobox>
+                    <template lwc:if={lifeHasAiPrefill}>
+                        <div class="c-ne-modal__field c-ne-modal__field_ai">
+                            <div class="c-ne-ai-label-row">
+                                <span class="c-ne-ai-spark" aria-hidden="true">✦</span>
+                                <label class="c-ne-modal__label">Event Name *</label>
+                            </div>
+                            <lightning-input
+                                value={modalPrefillEventName}
+                                required
+                                variant="label-hidden"
+                                class="c-ai-prefilled">
+                            </lightning-input>
+                        </div>
+                        <div class="c-ne-modal__field c-ne-modal__field_ai">
+                            <div class="c-ne-ai-label-row">
+                                <span class="c-ne-ai-spark" aria-hidden="true">✦</span>
+                                <label class="c-ne-modal__label">Event Type *</label>
+                            </div>
+                            <lightning-combobox
+                                value={modalPrefillEventType}
+                                options={milestoneTypeOptions}
+                                placeholder="--None--"
+                                required
+                                variant="label-hidden"
+                                onchange={handleModalEventTypeChange}
+                                class="c-ai-prefilled">
+                            </lightning-combobox>
+                        </div>
+                    </template>
+                    <template lwc:else>
+                        <lightning-input
+                            label="Event Name"
+                            value={modalPrefillEventName}
+                            required
+                            class="c-ne-modal__field">
+                        </lightning-input>
+                        <lightning-combobox
+                            label="Event Type"
+                            value={modalPrefillEventType}
+                            options={milestoneTypeOptions}
+                            placeholder="--None--"
+                            required
+                            onchange={handleModalEventTypeChange}
+                            class="c-ne-modal__field">
+                        </lightning-combobox>
+                    </template>
                 </div>
 
                 <!-- Row 2: Event Date (left) | Event Description (right) -->
@@ -710,27 +831,69 @@
                             <lightning-input label="Time" type="time" required class="c-ne-modal__field"></lightning-input>
                         </div>
                     </div>
-                    <!-- Right: description textarea -->
-                    <lightning-textarea
-                        label="Event Description"
-                        class="c-ne-modal__field">
-                    </lightning-textarea>
+                    <!-- Right: description textarea (AI pre-filled when available) -->
+                    <template lwc:if={lifeHasAiPrefill}>
+                        <div class="c-ne-modal__field c-ne-modal__field_ai">
+                            <div class="c-ne-ai-label-row">
+                                <span class="c-ne-ai-spark" aria-hidden="true">✦</span>
+                                <label class="c-ne-modal__label">Event Description</label>
+                            </div>
+                            <lightning-textarea
+                                value={lifePrefillDescription}
+                                variant="label-hidden"
+                                class="c-ai-prefilled">
+                            </lightning-textarea>
+                        </div>
+                    </template>
+                    <template lwc:else>
+                        <lightning-textarea
+                            label="Event Description"
+                            class="c-ne-modal__field">
+                        </lightning-textarea>
+                    </template>
                 </div>
 
                 <!-- Row 3: Primary Person | Related Person -->
                 <div class="c-ne-modal__row">
-                    <lightning-combobox
-                        label="Primary Person"
-                        value={modalPrefillPrimaryMember}
-                        options={memberOptions}
-                        required
-                        class="c-ne-modal__field">
-                    </lightning-combobox>
-                    <lightning-input
-                        label="Related Person"
-                        placeholder="Search Contacts..."
-                        class="c-ne-modal__field">
-                    </lightning-input>
+                    <template lwc:if={lifeHasAiPrefill}>
+                        <div class="c-ne-modal__field c-ne-modal__field_ai">
+                            <div class="c-ne-ai-label-row">
+                                <span class="c-ne-ai-spark" aria-hidden="true">✦</span>
+                                <label class="c-ne-modal__label">Primary Person *</label>
+                            </div>
+                            <lightning-combobox
+                                value={modalPrefillPrimaryMember}
+                                options={memberOptions}
+                                required
+                                variant="label-hidden"
+                                class="c-ai-prefilled">
+                            </lightning-combobox>
+                        </div>
+                        <!-- Related Person: same wrapper height as AI column so rows align -->
+                        <div class="c-ne-modal__field">
+                            <div class="c-ne-ai-label-row">
+                                <label class="c-ne-modal__label">Related Person</label>
+                            </div>
+                            <lightning-input
+                                placeholder="Search Contacts..."
+                                variant="label-hidden">
+                            </lightning-input>
+                        </div>
+                    </template>
+                    <template lwc:else>
+                        <lightning-combobox
+                            label="Primary Person"
+                            value={modalPrefillPrimaryMember}
+                            options={memberOptions}
+                            required
+                            class="c-ne-modal__field">
+                        </lightning-combobox>
+                        <lightning-input
+                            label="Related Person"
+                            placeholder="Search Contacts..."
+                            class="c-ne-modal__field">
+                        </lightning-input>
+                    </template>
                 </div>
 
                 <!-- Row 4: Tentative | Expired (Expired only shown for Goals) -->
@@ -1271,7 +1434,7 @@
             <!-- Footer -->
             <div class="c-ne-modal__footer">
                 <button class="c-ne-modal__cancel" onclick={handleCloseMilestoneModal}>Cancel</button>
-                <button class="c-ne-modal__save">Save</button>
+                <button class="c-ne-modal__save" onclick={handleSaveMeeting}>Save</button>
             </div>
         </div>
     </template>

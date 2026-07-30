@@ -100,6 +100,13 @@
 .c-ep-avatar_goal        { background: #b45309; }
 /* intentional static: #5aab5e medium green — matches financial account pill icon badge */
 .c-ep-avatar_financial   { background: #5aab5e; }
+.c-ep-avatar_engagement  { background: #4d4d4d; }
+/* intentional static: #7c3aed violet — matches opportunity pill border and legend dot */
+.c-ep-avatar_opportunity { background: #7c3aed; }
+/* intentional static: #0e7490 teal — matches call pill dot colour */
+.c-ep-avatar_call        { background: #0e7490; }
+/* intentional static: #5aab5e medium green — matches financial account pill icon badge */
+.c-ep-avatar_financial   { background: #5aab5e; }
 /* intentional static: #4d4d4d dark indigo — matches engagement pill color on timeline */
 .c-ep-avatar_engagement  { background: #4d4d4d; }
 

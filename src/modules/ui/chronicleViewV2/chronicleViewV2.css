@@ -195,6 +195,12 @@ lightning-card {
     color: #7c3aed;
 }
 
+.c-badge_relationship {
+    /* intentional static: indigo tint for relationship-health insights — no SLDS v2 hook */
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
 .c-highlight-card__member-meta {
     /* Purple member/date line — matches the sparkle popover style */
     color: #7c3aed;
@@ -1834,6 +1840,15 @@ lightning-card {
     border-bottom: var(--slds-g-sizing-border-1, thin) solid var(--slds-g-color-border-base-1, #dddbda);
 }
 
+/* For members with no engagement events, use a single-row grid so there is
+   no phantom second row creating dead vertical space */
+.c-timeline-row_single-lane {
+    grid-template-rows: auto;
+}
+.c-timeline-row_single-lane .c-timeline-row__member {
+    grid-row: 1;
+}
+
 /* Member column spans BOTH sub-lane rows so member info stays vertically centred */
 .c-timeline-row__member {
     grid-row: 1 / 3;
@@ -1857,6 +1872,13 @@ lightning-card {
     border-top: 1px dashed var(--slds-g-color-border-base-1, #e5e7eb);
 }
 
+/* Engagement gap band — rose tint for relationship-drift periods (e.g. Grace's ~18-month gap) */
+/* intentional static: #fff1f2 rose-50 / #fecdd3 rose-200 top-border — no SLDS v2 engagement-gap token */
+.c-engagement-cell_gap {
+    background: #fff1f2;
+    border-top-color: #fecdd3;
+}
+
 /* Engagement dot — coloured touchpoint circle */
 .c-eng-dot {
     width: 0.55rem;
@@ -1878,15 +1900,19 @@ lightning-card {
 /* intentional static: #706e6b — SLDS neutral-60 grey */
 .c-eng-dot_meeting    { background: #706e6b; }
 .c-eng-dot_engagement { background: #706e6b; }
+/* Call touchpoint dot — sky blue to distinguish from meeting (monthly / detail view) */
+/* intentional static: #0ea5e9 sky-500 — no SLDS v2 call-dot token */
+.c-eng-dot_call       { background: #0ea5e9; }
+/* Yearly view: calls shown as same grey as meetings — no colour differentiation */
+.c-timeline-table_yearly .c-eng-dot_call { background: #706e6b; }
 
 /* Milestone track cells keep their existing pill/count behavior */
 .c-milestone-cell { /* inherits all c-timeline-row__cell styles — no override needed */ }
 
-/* Yearly: 10 year cols (2019-2028); scrolls horizontally */
+/* Yearly: columns driven by inline style (timelineGridStyle getter — dynamic count) */
 .c-timeline-table_yearly .c-timeline-header,
 .c-timeline-table_yearly .c-timeline-row {
-    /* No SLDS hook for these grid column widths */
-    grid-template-columns: 11rem repeat(10, 8.5rem);
+    /* grid-template-columns set via inline style — no hardcoded repeat needed */
 }
 
 .c-timeline-table_yearly {
@@ -1894,12 +1920,10 @@ lightning-card {
     min-width: 100%;
 }
 
-/* Monthly: fixed-width columns, scrolls horizontally (Jan 2019–Feb 2027 = 98 months) */
+/* Monthly: columns driven by inline style (timelineGridStyle getter — dynamic count) */
 .c-timeline-table_monthly .c-timeline-header,
 .c-timeline-table_monthly .c-timeline-row {
-    /* 10rem member col + 98 × 8.5rem month cols */
-    /* intentional static: matches yearly column widths; no SLDS grid hook */
-    grid-template-columns: 10rem repeat(98, 8.5rem);
+    /* grid-template-columns set via inline style — no hardcoded repeat needed */
 }
 
 .c-timeline-table_monthly {
@@ -2476,6 +2500,22 @@ lightning-card {
 .c-pill-icon-badge_financial .slds-icon,
 .c-pill-icon-badge_financial lightning-icon svg { fill: #5b5b5b; }
 
+/* Opportunity — violet sparkle icon */
+/* intentional static: #7c3aed violet — no SLDS v2 opportunity-type token */
+.c-pill-icon-badge_opportunity {
+    --slds-c-icon-color-foreground: #7c3aed;
+}
+.c-pill-icon-badge_opportunity .slds-icon,
+.c-pill-icon-badge_opportunity lightning-icon svg { fill: #7c3aed; }
+
+/* Call — sky-blue phone icon */
+/* intentional static: #0ea5e9 sky-500 — no SLDS v2 call-type token */
+.c-pill-icon-badge_call {
+    --slds-c-icon-color-foreground: #0ea5e9;
+}
+.c-pill-icon-badge_call .slds-icon,
+.c-pill-icon-badge_call lightning-icon svg { fill: #0ea5e9; }
+
 /* Body wrapper: stacks label + target year vertically */
 .c-pill-body {
     display: flex;
@@ -2559,6 +2599,13 @@ lightning-card {
 .c-event-pill_goal,
 .c-event-pill_financial { /* inherits neutral blue from .c-event-pill above */ }
 
+/* Opportunity type pill — violet border + lightest violet tint fill */
+/* intentional static: #7c3aed violet border / #f5f3ff violet-50 fill — no SLDS v2 opportunity-type-pill token */
+.c-event-pill_type-opportunity {
+    border-color: #7c3aed;
+    background: #f5f3ff;
+}
+
 /* ── Action-needed pill overrides (insight-driven) ─────────────────── */
 
 /* Gap — amber: life event with no follow-through */
@@ -2607,6 +2654,8 @@ lightning-card {
 .c-legend-dot_milestone { background: #2272b6; }
 /* intentional static: #706e6b — matches c-type-dot_meeting / c-eng-dot_meeting */
 .c-legend-dot_meeting   { background: #706e6b; }
+/* intentional static: #0ea5e9 sky-500 — matches c-eng-dot_call */
+.c-legend-dot_call      { background: #0ea5e9; }
 
 .c-legend-item {
     display: flex;
@@ -2637,6 +2686,29 @@ lightning-card {
 .c-legend-item_ins-alert::before       { background: #f87171; }
 /* intentional static: green-400 — matches c-event-pill_opportunity border */
 .c-legend-item_ins-opportunity::before { background: #4ade80; }
+/* intentional static: indigo-500 — matches c-badge_relationship */
+.c-legend-item_ins-relationship::before {
+    content: '';
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+    background: #6366f1;
+}
+
+/* Engagement gap band legend swatch */
+/* intentional static: rose-200 — matches c-engagement-cell_gap border-top */
+.c-legend-item_eng-gap::before {
+    content: '';
+    width: 1.5rem;
+    height: 0.5rem;
+    border-radius: 0.125rem;
+    display: inline-block;
+    flex-shrink: 0;
+    background: #fecdd3;
+    border: 1px solid #fb7185;
+}
 
 /* Legend icon sizing — constrained to match small dot scale */
 .c-legend-icon {
@@ -3199,6 +3271,18 @@ lightning-card {
 .c-type-dot_goal,
 .c-type-dot_financial {
     background: #2272b6;
+}
+
+/* V2: opportunity type dot → violet to match opportunity pill */
+/* intentional static: #7c3aed — violet, matches c-event-pill_type-opportunity border */
+.c-type-dot_opportunity {
+    background: #7c3aed;
+}
+
+/* V2: call type dot → sky-blue to match phone icon and c-eng-dot_call */
+/* intentional static: #0ea5e9 sky-500 — no SLDS v2 call-dot token */
+.c-type-dot_call {
+    background: #0ea5e9;
 }
 
 /* V2: meeting / engagement dots → grey (distinct from milestone blue in yearly view) */

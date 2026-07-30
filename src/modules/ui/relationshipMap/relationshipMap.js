@@ -662,7 +662,7 @@ export default class RelationshipMap extends LightningElement {
         if (category === 'Related Contacts') {
             return {
                 id: `manual-contacts-${ts}`,
-                name: 'Emma Reed',
+                name: 'Maya Bennett',
                 relationship: 'Daughter',
                 icon: 'standard:contact',
                 sourceType: 'multiple',
@@ -677,8 +677,8 @@ export default class RelationshipMap extends LightningElement {
                 company: 'TurboTax',
                 title: 'Tax Consultant',
                 duplicates: [
-                    { name: 'Emma Reed', company: 'Reed & Associates LLC', title: 'Daughter', email: 'emma.reed@reedassoc.com' },
-                    { name: 'Emma Reed', company: 'Westbrook Primary School', title: 'Student', email: 'emma.r@westbrook.edu' },
+                    { name: 'Maya Bennett', company: 'Bennett & Associates LLC', title: 'Daughter', email: 'maya.bennett@bennettassoc.com' },
+                    { name: 'Maya Bennett', company: 'Westbrook Primary School', title: 'Student', email: 'maya.b@westbrook.edu' },
                 ],
             };
         }
